@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>팝빌 SDK Express Example. </title>
+  </head>
+  
+  <body>
+		<div id="content">
+			<p class="heading1">Response</p>
+			<br/>
+			<fieldset class="fieldset1">
+				<legend><%=path%></legend>
+				<% 
+					result.forEach(function(result, index){
+				%>
+				<fieldset class="fieldset2">
+				<ul>
+					<li> itemKey : <%=result.itemKey%></li>
+					<li> mgtKey : <%=result.mgtKey%></li>
+					<li> tradeDate : <%=result.tradeDate%></li>
+					<li> issueDT : <%=result.issueDT%></li>
+					<li> customerName : <%=result.customerName%></li>
+					<li> itemName : <%=result.itemName%></li>
+					<li> identityNum : <%=result.identityNum%></li>
+					<li> taxationType : <%=result.taxationType%></li>
+					<li> totalAmount : <%=result.totalAmount%></li>
+					<li> tradeUsage : <%=result.tradeUsage%></li>
+					<li> tradeType : <%=result.tradeType%></li>
+					<li> stateCode : <%=result.stateCode%></li>
+					<li> stateDT : <%=result.stateDT%></li>
+					<li> printYN : <%=result.printYN%></li>
+					<li> confirmNum : <%=result.confirmNum%></li>
+					<li> orgTradeDate : <%=result.orgTradeDate%></li>
+					<li> orgConfirmNum : <%=result.orgConfirmNum%></li>
+					<li> ntssendDT : <%=result.ntssendDT%></li>
+					<li> ntsresult : <%=result.ntsresult%></li>
+					<li> ntsresultDT : <%=result.ntsresultDT%></li>
+					<li> ntsresultCode : <%=result.ntsresultCode%></li>
+					<li> ntsresultMessage : <%=result.ntsresultMessage%></li>
+					<li> regDT : <%=result.regDT%></li>
+				</ul>
+				</fieldset>
+				<%
+					});
+				%>
+			</fieldset>
+		 </div>
+	</body>
+</html>

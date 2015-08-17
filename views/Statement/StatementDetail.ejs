@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>팝빌 SDK Express Example. </title>
+  </head>
+
+  <body>
+		<div id="content">
+			<p class="heading1">Response</p>
+			<br/>
+
+			<fieldset class="fieldset1">
+				<legend><%=path%></legend>
+				<fieldset class="fieldset2">
+					<ul>
+						<li>itemCode : <%=result.itemCode%></li>
+						<li>mgtKey : <%=result.mgtKey%></li>
+						<li>invoiceNum : <%=result.invoiceNum%></li>
+						<li>formCode : <%=result.formCode%></li>
+						<li>writeDate : <%=result.writeDate%></li>
+						<li>taxType : <%=result.taxType%></li>
+						<li>purposeType : <%=result.purposeType%></li>
+						<li>serialNum : <%=result.serialNum%></li>
+						<li>taxTotal : <%=result.taxTotal%></li>
+						<li>supplyCostTotal : <%=result.supplyCostTotal%></li>
+						<li>totalAmount : <%=result.totalAmount%></li>
+						<li>remark1 : <%=result.remark1%></li>
+						<li>remark2 : <%=result.remark2%></li>
+						<li>remark3 : <%=result.remark3%></li>
+						<li>senderCorpNum : <%=result.senderCorpNum%></li>
+						<li>senderTaxRegID : <%=result.senderTaxRegID%></li>
+						<li>senderCorpName : <%=result.senderCorpName%></li>
+						<li>senderCEOName : <%=result.senderCEOName%></li>
+						<li>senderAddr : <%=result.senderAddr%></li>
+						<li>senderBizType : <%=result.senderBizType%></li>
+						<li>senderBizClass : <%=result.senderBizClass%></li>
+						<li>senderContactName : <%=result.senderContactName%></li>
+						<li>senderHP : <%=result.senderHP%></li>
+						<li>senderEmail : <%=result.senderEmail%></li>
+						<li>receiverCorpNum : <%=result.receiverCorpNum%></li>
+						<li>receiverTaxRegID : <%=result.receiverTaxRegID%></li>
+						<li>receiverCorpName : <%=result.receiverCorpName%></li>
+						<li>receiverCEOName : <%=result.receiverCEOName%></li>
+						<li>receiverAddr : <%=result.receiverAddr%></li>
+						<li>receiverBizClass : <%=result.receiverBizClass%></li>
+						<li>receiverBizType : <%=result.receiverBizType%></li>
+						<li>receiverContactName : <%=result.receiverContactName%></li>
+						<li>receiverTEL : <%=result.receiverTEL%></li>
+						<li>receiverHP : <%=result.receiverHP%></li>
+						<li>receiverEmail : <%=result.receiverEmail%></li>
+
+						<%
+							result.detailList.forEach(function(detailInfo, index){
+						%>
+						<fieldset class="fieldset3">
+						<legend>detailList [<%=index%>]</legend>
+							<ul>
+								<li>serialNum: <%=detailInfo.serialNum%></li>
+								<li>purchaseDT : <%=detailInfo.purchaseDT%></li>
+								<li>itemName : <%=detailInfo.itemName%></li>
+								<li>spec : <%=detailInfo.spec%></li>
+								<li>qty : <%=detailInfo.qty%></li>
+								<li>unitCost : <%=detailInfo.unitCost%></li>
+								<li>supplyCost : <%=detailInfo.supplyCost%></li>
+								<li>tax : <%=detailInfo.tax%></li>
+								<li>remark : <%=detailInfo.remark%></li>
+							</ul>
+						</fieldset>
+						<%
+							});
+						%>
+
+						<fieldset class="fieldset3">
+							<legend>propertyBag</legend>
+							<ul>
+							<%
+								for(key in result.propertyBag){
+									var value = result.propertyBag[key];
+							%>
+								<li><%=key%> : <%=value%></li>
+							<%
+								}
+							%>
+							</ul>
+						</ul>
+				</fieldset>
+			</fieldset>
+		 </div>
+	</body>
+</html>

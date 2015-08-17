@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>팝빌 SDK Express Example. </title>
+  </head>
+  
+  <body>
+		<div id="content">
+			<p class="heading1">Response</p>
+			<br/>
+
+			<fieldset class="fieldset1">
+				<legend><%=path%></legend>
+				<fieldset class="fieldset2">
+					<ul>
+						<li>writeDate : <%=result.writeDate%></li>
+						<li>chargeDirection : <%=result.chargeDirection%></li>
+						<li>issueType : <%=result.issueType%></li>
+						<li>issueTiming : <%=result.issueTiming%></li>
+						<li>taxType : <%=result.taxType%></li>
+						
+						<li>invoicerCorpNum : <%=result.invoicerCorpNum%></li>
+						<li>invoicerCorpName : <%=result.invoicerCorpName%></li>
+						<li>invoicerMgtKey : <%=result.invoicerMgtKey%></li>
+						<li>invoicerTaxRegID : <%=result.invoicerTaxRegID%></li>
+						<li>invoicerCEOName : <%=result.invoicerCEOName%></li>
+						<li>invoicerAddr : <%=result.invoicerAddr%></li>
+						<li>invoicerBizClass : <%=result.invoicerBizClass%></li>
+						<li>invoicerBizType : <%=result.invoicerBizType%></li>
+						<li>invoicerContactName : <%=result.invoicerContactName%></li>
+						<li>invoicerDeptName : <%=result.invoicerDeptName%></li>
+						<li>invoicerTEL : <%=result.invoicerTEL%></li>
+						<li>invoicerHP : <%=result.invoicerHP%></li>
+						<li>invoicerEmail : <%=result.invoicerEmail%></li>
+						<li>invoicerSMSSendYN : <%=result.invoicerSMSSendYN%></li>
+						
+						<li>invoiceeType : <%=result.invoiceeType%></li>
+						<li>invoiceeCorpNum : <%=result.invoiceeCorpNum%></li>
+						<li>invoiceeMgtKey : <%=result.invoiceeMgtKey%></li>
+						<li>invoiceeTaxRegID : <%=result.invoiceeTaxRegID%></li>
+						<li>invoiceeCorpName : <%=result.invoiceeCorpName%></li>
+						<li>invoiceeCEOName : <%=result.invoiceeCEOName%></li>
+						<li>invoiceeAddr : <%=result.invoiceeAddr%></li>
+						<li>invoiceeBizClass : <%=result.invoiceeBizClass%></li>
+						<li>invoiceeBizType : <%=result.invoiceeBizType%></li>
+						<li>invoiceeContactName1 : <%=result.invoiceeContactName1%></li>
+						<li>invoiceeDeptName1 : <%=result.invoiceeDeptName1%></li>
+						<li>invoiceeTEL1 : <%=result.invoiceeTEL1%></li>
+						<li>invoiceeHP1 : <%=result.invoiceeHP1%></li>
+						<li>invoiceeEmail1 : <%=result.invoiceeEmail1%></li>
+						<li>invoiceeContactName2 : <%=result.invoiceeContactName2%></li>
+						<li>invoiceeDeptName2 : <%=result.invoiceeDeptName2%></li>
+						<li>invoiceeTEL2 : <%=result.invoiceeTEL2%></li>
+						<li>invoiceeHP2 : <%=result.invoiceeHP2%></li>
+						<li>invoiceeEmail2 : <%=result.invoiceeEmail2%></li>
+						<li>invoiceeSMSSendYN : <%=result.invoiceeSMSSendYN%></li>
+						
+						<li>trusteeCorpNum : <%=result.trusteeCorpNum%></li>
+						<li>trusteeCorpName : <%=result.trusteeCorpName%></li>
+						<li>trusteeMgtKey : <%=result.trusteeMgtKey%></li>
+						<li>trusteeTaxRegID : <%=result.trusteeTaxRegID%></li>
+						<li>trusteeCEOName : <%=result.trusteeCEOName%></li>
+						<li>trusteeAddr : <%=result.trusteeAddr%></li>
+						<li>trusteeBizClass : <%=result.trusteeBizClass%></li>
+						<li>trusteeBizType : <%=result.trusteeBizType%></li>
+						<li>trusteeContactName : <%=result.trusteeContactName%></li>
+						<li>trusteeDeptName : <%=result.trusteeDeptName%></li>
+						<li>trusteeTEL : <%=result.trusteeTEL%></li>
+						<li>trusteeHP : <%=result.trusteeHP%></li>
+						<li>trusteeEmail : <%=result.trusteeEmail%></li>
+						<li>trusteeSMSSendYN : <%=result.trusteeSMSSendYN%></li>
+						
+						<li>supplyCostTotal : <%=result.supplyCostTotal%></li>
+						<li>taxTotal : <%=result.taxTotal%></li>
+						<li>totalAmount : <%=result.totalAmount%></li>
+						
+						<li>modifyCode : <%=result.modifyCode%></li>
+						<li>orgNTSConfirmNum : <%=result.orgNTSConfirmNum%></li>
+						<li>purposeType : <%=result.purposeType%></li>
+						
+						<li>serialNum : <%=result.serialNum%></li>
+						<li>cash : <%=result.cash%></li>
+						<li>chkBill : <%=result.chkBill%></li>
+						<li>credit : <%=result.credit%></li>
+						<li>note : <%=result.note%></li>
+						
+						<li>remark1 : <%=result.remark1%></li>
+						<li>remark2 : <%=result.remark2%></li>
+						<li>remark3 : <%=result.remark3%></li>
+						
+						<li>kwon : <%=result.kwon%></li>
+						<li>ho : <%=result.ho%></li>
+						
+						<li>businessLicenseYN : <%=result.businessLicenseYN%></li>
+						<li>bankBookYN : <%=result.bankBookYN%></li>
+						<li>NTSConfirmNum : <%=result.NTSConfirmNum%></li>
+						<li>originalTaxinvoiceKey : <%=result.originalTaxinvoiceKey%></li>
+						<% 
+							result.detailList.forEach(function(detailInfo, index){
+						%>
+						<fieldset class="fieldset3">
+						<legend>detailList [<%=index%>]</legend>
+							<ul>
+								<li>serialNum: <%=detailInfo.serialNum%></li>
+								<li>purchaseDT : <%=detailInfo.purchaseDT%></li>
+								<li>itemName : <%=detailInfo.itemName%></li>
+								<li>spec : <%=detailInfo.spec%></li>
+								<li>qty : <%=detailInfo.qty%></li>
+								<li>unitCost : <%=detailInfo.unitCost%></li>
+								<li>supplyCost : <%=detailInfo.supplyCost%></li>
+								<li>tax : <%=detailInfo.tax%></li>
+								<li>remark : <%=detailInfo.remark%></li>
+							</ul>
+						</fieldset>
+						<%
+							});
+							result.addContactList.forEach(function(contactInfo, index){
+						%>
+						<fieldset class="fieldset3">
+						<legend>addContactList [<%=index%>]</legend>
+							<ul>
+								<li>serialNum: <%=contactInfo.serialNum%></li>
+								<li>contactName: <%=contactInfo.contactName%></li>
+								<li>email: <%=contactInfo.email%></li>
+							</ul>
+						</fieldset>
+						<%
+							});
+						%>
+						</ul>
+				</fieldset>
+			</fieldset>
+		 </div>
+	</body>
+</html>
