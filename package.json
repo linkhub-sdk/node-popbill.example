@@ -4,7 +4,7 @@
   "description": "Popbill API SDK Example for node. see www.popbill.com",
   "author":{
     "name" : "Jeong Yohan",
-    "email" : "yhjeong@linkhub.co.kr",
+    "email" : "yhjeong@linkhub.co.kr"
   },
   "engines": {
     "node": ">= 0.10.0"
@@ -19,7 +19,7 @@
     "Statement",
     "SMS",
     "FAX",
-    "SDK Example",
+    "SDK Example"
   ],
   "dependencies": {
     "body-parser": "~1.13.2",
