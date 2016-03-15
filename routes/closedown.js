@@ -18,6 +18,118 @@ router.get('/', function(req, res, next){
   res.render('Closedown/index', {});
 });
 
+// 아이디 중복 확인
+router.get('/checkID', function (req, res, next){
+  var testID = 'testkorea';  // 조회할 아이디
+
+  closedownService.checkID(testID,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 담당자 목록 조회
+router.get('/listContact', function (req, res, next){
+  var testCorpNum = '1234567890';  // 조회할 아이디
+
+  closedownService.listContact(testCorpNum,
+    function(result){
+      res.render('Base/listContact', { path: req.path, result : result});
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 담당자 정보 수정
+router.get('/updateContact', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';
+
+  var contactInfo =  {
+    personName : '담당자명0315',
+    tel : '070-7510-4324',
+    hp : '010-1234-4324',
+    email : 'code@linkhub.co.kr',
+    fax : '070-1234-4324',
+    searchAllAllowYN : true,
+    mgrYN : true
+  };
+
+  closedownService.updateContact(testCorpNum, testUserID, contactInfo,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+
+// 담당자 추가
+router.get('/registContact', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';
+
+  var contactInfo =  {
+    id : 'testkorea0315',
+    pwd : 'testpassword',
+    personName : '담당자명0309',
+    tel : '070-7510-3710',
+    hp : '010-1234-1234',
+    email : 'code@linkhub.co.kr',
+    fax : '070-1234-1234',
+    searchAllAllowYN : true,
+    mgrYN : false
+  };
+
+  closedownService.registContact(testCorpNum, testUserID, contactInfo,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 회사정보 조회
+router.get('/getCorpInfo', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+
+  closedownService.getCorpInfo(testCorpNum,
+    function(result){
+      res.render('Base/getCorpInfo', { path: req.path, result : result});
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 회사정보 수정
+router.get('/updateCorpInfo', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';    // 팝빌회원 아이디
+
+  var corpInfo = {
+    ceoname : "대표자성명0315",
+    corpName : "업체명_0315",
+    addr : "서구 천변좌로_0315",
+    bizType : "업태_0315",
+    bizClass : "종목_0315"
+  };
+
+  closedownService.updateCorpInfo(testCorpNum, testUserID, corpInfo,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
 // 연동회원 가입여부 확인
 router.get('/checkIsMember', function(req, res, next){
 

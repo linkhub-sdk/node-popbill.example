@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="/stylesheets/style.css" media="screen" />
+
+		<title>팝빌 SDK Nodejs - Express Example.</title>
+	</head>
+	<body>
+		<div id="content">
+			<p class="heading1">Response</p>
+			<br/>
+			<fieldset class="fieldset1">
+				<legend><%=path%></legend>
+				<ul>
+				  <li>code (응답코드) : <%=result.code%></li>
+				  <li>message (응답메시지) : <%=result.message%></li>
+				  <li>total (총 검색건수) : <%=result.total%></li>
+				  <li>perPage (페이지당 검색개수) : <%=result.perPage%></li>
+				  <li>pageNum (페이지 번호) : <%=result.pageNum%></li>
+				  <li>pageCount (페이지 개수) : <%=result.pageCount%></li>
+				</ul>
+				<%
+					result.list.forEach(function(searchInfo, index){
+				%>
+				<fieldset class="fieldset2">
+				<legend>조회결과 [ <%=index+1%> / <%=result.list.length%> ] </legend>
+				<ul>
+					<li> state : <%=searchInfo.state%></li>
+					<li> subject : <%=searchInfo.subject%></li>
+					<li> messageType : <%=searchInfo.type%></li>
+					<li> content : <%=searchInfo.content%></li>
+					<li> sendNum : <%=searchInfo.sendNum%></li>
+					<li> receiveNum : <%=searchInfo.receiveNum%></li>
+					<li> receiveName : <%=searchInfo.receiveName%></li>
+					<li> reserveDT : <%=searchInfo.reserveDT%></li>
+					<li> sendDT : <%=searchInfo.sendDT%></li>
+					<li> resultDT : <%=searchInfo.resultDT%></li>
+					<li> sendResult : <%=searchInfo.sendResult%></li>
+					<li> tranNet : <%=searchInfo.tranNet%></li>
+				</ul>
+				</fieldset>
+				<%
+					});
+				%>
+			</fieldset>
+		 </div>
+	</body>
+</html>

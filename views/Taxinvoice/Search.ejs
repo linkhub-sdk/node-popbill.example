@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>팝빌 SDK Express Example. </title>
+  </head>
+
+  <body>
+		<div id="content">
+			<p class="heading1">Response</p>
+			<br/>
+			<fieldset class="fieldset1">
+				<ul>
+				  <li>code (응답코드) : <%=result.code%></li>
+				  <li>message (응답메시지) : <%=result.message%></li>
+				  <li>total (총 검색건수) : <%=result.total%></li>
+				  <li>perPage (페이지당 검색개수) : <%=result.perPage%></li>
+				  <li>pageNum (페이지 번호) : <%=result.pageNum%></li>
+				  <li>pageCount (페이지 개수) : <%=result.pageCount%></li>
+				</ul>
+				<legend><%=path%></legend>
+				<%
+					result.list.forEach(function(searchInfo, index){
+				%>
+
+				<fieldset class="fieldset2">
+				<legend>조회결과 [ <%=index+1%> / <%=result.list.length%> ] </legend>
+				<ul>
+					<li>itemKey: <%=searchInfo.itemKey%></li>
+					<li>taxType: <%=searchInfo.taxType%></li>
+					<li>writeDate: <%=searchInfo.writeDate%></li>
+					<li>regDT: <%=searchInfo.regDT%></li>
+					<li>invoicerCorpName: <%=searchInfo.invoicerCorpName%></li>
+					<li>invoicerCorpNum: <%=searchInfo.invoicerCorpNum%></li>
+					<li>invoicerMgtKey: <%=searchInfo.invoicerMgtKey%></li>
+					<li>invoiceeCorpName: <%=searchInfo.invoiceeCorpName%></li>
+					<li>invoiceeCorpNum: <%=searchInfo.invoiceeCorpNum%></li>
+					<li>invoiceeMgtKey: <%=searchInfo.invoiceeMgtKey%></li>
+					<li>supplyCostTotal: <%=searchInfo.supplyCostTotal%></li>
+					<li>taxTotal: <%=searchInfo.taxTotal%></li>
+					<li>purposeType: <%=searchInfo.purposeType%></li>
+					<li>modifyCode: <%=searchInfo.modifyCode%></li>
+					<li>lateIssueYN: <%=searchInfo.lateIssueYN%></li>
+					<li>issueType: <%=searchInfo.issueType%></li>
+					<li>issueDT: <%=searchInfo.issueDT%></li>
+					<li>preIssueDT: <%=searchInfo.preIssueDT%></li>
+					<li>stateCode: <%=searchInfo.stateCode%></li>
+					<li>stateDT: <%=searchInfo.stateDT%></li>
+					<li>stateMemo: <%=searchInfo.stateMemo%></li>
+					<li>openYN: <%=searchInfo.openYN%></li>
+					<li>openDT: <%=searchInfo.openDT%></li>
+					<li>ntsresult: <%=searchInfo.ntsresult%></li>
+					<li>ntsconfirmNum: <%=searchInfo.ntsconfirmNum%></li>
+					<li>ntssendDT: <%=searchInfo.ntssendDT%></li>
+					<li>ntsresultDT: <%=searchInfo.ntsresultDT%></li>
+					<li>ntssendErrCode: <%=searchInfo.ntssendErrCode%></li>
+				</ul>
+				</fieldset>
+				<%
+					});
+				%>
+			</fieldset>
+		 </div>
+	</body>
+</html>

@@ -19,6 +19,118 @@ router.get('/', function(req, res, next) {
   res.render('Statement/index', {});
 });
 
+// 아이디 중복 확인
+router.get('/checkID', function (req, res, next){
+  var testID = 'testkorea';  // 조회할 아이디
+
+  statementService.checkID(testID,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 담당자 목록 조회
+router.get('/listContact', function (req, res, next){
+  var testCorpNum = '1234567890';  // 조회할 아이디
+
+  statementService.listContact(testCorpNum,
+    function(result){
+      res.render('Base/listContact', { path: req.path, result : result});
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 담당자 정보 수정
+router.get('/updateContact', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';
+
+  var contactInfo =  {
+    personName : '담당자명0315',
+    tel : '070-7510-4324',
+    hp : '010-1234-4324',
+    email : 'code@linkhub.co.kr',
+    fax : '070-1234-4324',
+    searchAllAllowYN : true,
+    mgrYN : true
+  };
+
+  statementService.updateContact(testCorpNum, testUserID, contactInfo,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+
+// 담당자 추가
+router.get('/registContact', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';
+
+  var contactInfo =  {
+    id : 'testkorea0315',
+    pwd : 'testpassword',
+    personName : '담당자명0309',
+    tel : '070-7510-3710',
+    hp : '010-1234-1234',
+    email : 'code@linkhub.co.kr',
+    fax : '070-1234-1234',
+    searchAllAllowYN : true,
+    mgrYN : false
+  };
+
+  statementService.registContact(testCorpNum, testUserID, contactInfo,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 회사정보 조회
+router.get('/getCorpInfo', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+
+  statementService.getCorpInfo(testCorpNum,
+    function(result){
+      res.render('Base/getCorpInfo', { path: req.path, result : result});
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 회사정보 수정
+router.get('/updateCorpInfo', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';    // 팝빌회원 아이디
+
+  var corpInfo = {
+    ceoname : "대표자성명0315",
+    corpName : "업체명_0315",
+    addr : "서구 천변좌로_0315",
+    bizType : "업태_0315",
+    bizClass : "종목_0315"
+  };
+
+  statementService.updateCorpInfo(testCorpNum, testUserID, corpInfo,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
 // 연동회원 가입여부 확인
 router.get('/checkIsMember', function(req, res, next) {
 
@@ -117,6 +229,89 @@ router.get('/checkMgtKeyInUse', function(req,res,next){
       }
     }, function(Error){
       res.render('response', {path : req.path, code :Error.code, message :Error.message});
+  });
+});
+
+// 전자명세서 즉시발행
+router.get('/registIssue', function(req,res,next){
+
+  var testCorpNum = '1234567890';    // 팝빌회원 사업자번호, '-' 제외 10자리
+  var ItemCode = 121;                // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서) 124(발주서), 125(입금표), 126(영수증)
+  var MgtKey = '20160315-05';        // 문서관리번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
+
+  var statement = {
+    writeDate : '20160315',          // [필수] 기재상 작성일자
+    purposeType : '영수',             // [필수] 영수, 청구 중 기재
+    taxType : '과세',                 // [필수] 과세, 영세, 면세 중 기재
+    formCode : '',                   // 맞춤양식코드, 미기재시 기본양식으로 작성
+    itemCode : ItemCode,             // [필수] 명세서 코드
+    mgtKey : MgtKey,                 // [필수] 문서관리번호
+    senderCorpNum : testCorpNum,     // 공급자 사업자번호
+    senderCorpName : '공급자 상호',
+    senderAddr : '공급자 주소',
+    senderCEOName : '공급자 대표자 성명',
+    senderTaxRegID : '',              // 종사업장 식별번호, 필요시기재, 형식은 숫자 4자리
+    senderBizClass : '업종',
+    senderBizType : '업태',
+    senderContactName : '담당자명',
+    senderEmail : 'test@test.com',
+    senderTEL : '070-7510-3710',
+    senderHP : '000-111-222',
+
+    receiverCorpNum : '8888888888',   // 공급받는자 사업자번호
+    receiverCorpName : '공급받는자상호',
+    receiverCEOName : '공급받는자 대표자 성명',
+    receiverAddr : '공급받는자 주소',
+    recieverTaxRegID : '',            // 공급받는자 종사업장 식별번호, 필요시 기재
+    receiverBizClass : '업종',
+    receiverBizType : '업태',
+    receiverContactName : '공급받는자 담당자 성명',
+    receiverEmail : 'test@test.com',
+    receiverTEL : '070-1111-2222',
+    receiverHP : '000111222',
+
+    supplyCostTotal : '20000',        // [필수] 공급가액 합계
+    taxTotal : '2000',                // [필수] 세액 합계
+    totalAmount : '22000',            // [필수] 합계금액 (공급가액 합계+ 세액 합계)
+    serialNum : '1',                  // 기재상 일련번호 항목
+    remark1 : '비고1',
+    remark2 : '비고2',
+    remark3 : '비고3',
+    businessLicenseYN : false,        // 사업자등록증 첨부 여부
+    bankBookYN : false,               // 통장사본 첨부 여부
+
+    // 품목배열
+    detailList : [
+      {
+        serialNum : 1,                // 품목 일련번호 1부터 순차기재
+        itemName : '품명',
+        purchaseDT : '20150803',      // 구매일자
+        qty : '1',                    // 수량
+        unitCost : '20000',           // 단가
+        spec : '규격',                 // 규격
+        supplyCost :'20000',          // 공급가액
+        tax : '2000',                  // 세액
+        remark : '비고'
+      },
+      {
+        serialNum : 2,
+        itemName : '품명2'
+      }
+    ],
+
+    // 추가속성, 자세한사항은 전자명세서 API 연동매뉴얼 [5.부록>5.2 기본양식 추가속성 테이블] 참조.
+    propertyBag : {
+      Balance : '2000',     // 전잔액
+      Deposit : '500',      // 입금액
+      CBalance : '2500'     // 현잔액
+    }
+  };
+
+  statementService.registIssue(testCorpNum, statement,
+    function(result){
+      res.render('response', { path : req.path, code: result.code, message : result.message });
+    },function(Error){
+      res.render('response', {path : req.path,  code: Error.code, message : Error.message });
   });
 });
 
@@ -495,6 +690,85 @@ router.get('/sendFAX', function(req,res,next){
   statementService.sendFAX(testCorpNum, itemCode, mgtKey, senderNum, receiverNum,
     function(result){
       res.render('response', { path : req.path, code: result.code, message : result.message });
+    },function(Error){
+      res.render('response', {path : req.path,  code: Error.code, message : Error.message });
+  });
+});
+
+// 전자명세서 팩스전송
+router.get('/FAXSend', function(req,res,next){
+
+  var testCorpNum = '1234567890';       // 팝빌회원 사업자번호
+  var sendNum = '07071501730';          // 발신번호
+  var receiveNum = '000111222';         // 수신팩스번호
+
+  var statement = {
+    writeDate : '20150315',             // 작성일자, 형식(yyyyMMdd)
+    purposeType : '영수',                // 영수, 청구 중 기재
+    taxType : '과세',                    // 과세, 영세, 면세 중 기재
+    formCode : '',                      // 맞춤양식코드, 미기재시 기본양식으로 처리
+    itemCode : 121,                     // 문서종류코드, 121-거래명세서, 122-청구서, 123-견적서, 124-발주서, 125-입금표, 126-영수증
+    mgtKey : '20160315-01',             // 문서관리번호, 최대 24자, 숫자, 영문, -, _, 조합으로 사업자별로 중복되지 않도록 구성
+    senderCorpNum : '1234567890',       // 발신자 사업자번호
+    senderCorpName : '공급자 상호',        // 발신자 상호
+    senderAddr : '공급자 주소',            // 발신자 수소
+    senderCEOName : '공급자 대표자 성명',    // 발신자 대표자 성명
+    senderTaxRegID : '',                 // 발신자 종사업장 식별번호
+    senderBizClass : '종목',
+    snederbizType : '업태',
+    senderContactName : '담당자명',
+    senderEmail : 'test@test.com',
+    senderTEL : '070-7510-3710',
+    senderHP : '000-111-222',
+    receiverCorpNum : '8888888888',
+    receiverCorpName : '공급받는자상호',
+    receiverCEOName : '공급받는자 대표자 성명',
+    receiverAddr : '공급받는자 주소',
+    recieverTaxRegID : '',
+    receiverBizClass : '업종',
+    recieverBizType : '업태',
+    receiverContactName : '공급받는자 담당자 성명',
+    receiverEmail : 'test@test.com',
+    receiverTEL : '',
+    receiverHP : '',
+    supplyCostTotal : '20000',            // 공급가액 합계
+    taxTotal : '2000',                    // 세액 합계
+    totalAmount : '22000',                // 합계금액 (공급가액 합계 + 세액 합계)
+    serialNum : '1',                      // 기재 상, 일련번호 항목
+    remark1 : '',                         // 기재 상, 비고1 항목
+    remark2 : '',                         // 기재 상, 비고2 항목
+    remark3 : '',                         // 기재 상, 비고3 항목
+    businessLicenseYN : false,
+    bankBookYN : false,
+
+    detailList : [
+      {
+        serialNum : 1,                    // 품목 일련번호, 1부터 순차기재
+        itemName : '품명',
+        purchaseDT : '20160309',          // 거래일자
+        qty : '1',                        // 수량
+        spec : '규격',                     // 규격
+        unitCost : '20000',                // 단가
+        supplyCost :'20000',              // 공급가액
+        tax : '2000'                      // 세액
+      },
+      {
+        serialNum : 2,
+        itemName : '품명2'
+      }
+    ],
+
+    // 추가속성 전자세금계산서 5.2. 기본양식 추가속성 테이블 참조
+    propertyBag : {
+      Balance : '2000',
+      Deposit : '500',
+      CBalance : '2500'
+    }
+  };
+
+  statementService.FAXSend(testCorpNum, statement, sendNum, receiveNum,
+    function(receiptNum){
+      res.render('result', { path : req.path, result : receiptNum });
     },function(Error){
       res.render('response', {path : req.path,  code: Error.code, message : Error.message });
   });

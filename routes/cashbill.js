@@ -19,6 +19,118 @@ router.get('/', function(req, res, next) {
   res.render('Cashbill/index', {});
 });
 
+// 아이디 중복 확인
+router.get('/checkID', function (req, res, next){
+  var testID = 'testkorea';  // 조회할 아이디
+
+  cashbillService.checkID(testID,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 담당자 목록 조회
+router.get('/listContact', function (req, res, next){
+  var testCorpNum = '1234567890';  // 조회할 아이디
+
+  cashbillService.listContact(testCorpNum,
+    function(result){
+      res.render('Base/listContact', { path: req.path, result : result});
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 담당자 정보 수정
+router.get('/updateContact', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';
+
+  var contactInfo =  {
+    personName : '담당자명0315',
+    tel : '070-7510-4324',
+    hp : '010-1234-4324',
+    email : 'code@linkhub.co.kr',
+    fax : '070-1234-4324',
+    searchAllAllowYN : true,
+    mgrYN : true
+  };
+
+  cashbillService.updateContact(testCorpNum, testUserID, contactInfo,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+
+// 담당자 추가
+router.get('/registContact', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';
+
+  var contactInfo =  {
+    id : 'testkorea0315',
+    pwd : 'testpassword',
+    personName : '담당자명0309',
+    tel : '070-7510-3710',
+    hp : '010-1234-1234',
+    email : 'code@linkhub.co.kr',
+    fax : '070-1234-1234',
+    searchAllAllowYN : true,
+    mgrYN : false
+  };
+
+  cashbillService.registContact(testCorpNum, testUserID, contactInfo,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 회사정보 조회
+router.get('/getCorpInfo', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+
+  cashbillService.getCorpInfo(testCorpNum,
+    function(result){
+      res.render('Base/getCorpInfo', { path: req.path, result : result});
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 회사정보 수정
+router.get('/updateCorpInfo', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';    // 팝빌회원 아이디
+
+  var corpInfo = {
+    ceoname : "대표자성명0315",
+    corpName : "업체명_0315",
+    addr : "서구 천변좌로_0315",
+    bizType : "업태_0315",
+    bizClass : "종목_0315"
+  };
+
+  cashbillService.updateCorpInfo(testCorpNum, testUserID, corpInfo,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
 // 연동회원 가입여부 확인
 router.get('/checkIsMember', function(req, res, next) {
 
@@ -117,11 +229,11 @@ router.get('/checkMgtKeyInUse', function(req,res,next){
   });
 });
 
-// 임시저장
-router.get('/register', function(req,res,next){
+// 즉시발행
+router.get('/registIssue', function(req,res,next){
 
   var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
-  var MgtKey = '20150813-10';         // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
+  var MgtKey = '20160315-05';         // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
 
   // 현금영수증 항목
   var cashbill = {
@@ -129,22 +241,65 @@ router.get('/register', function(req,res,next){
     tradeType : '승인거래',             // [필수] 거래유형, (승인거래, 취소거래) 중 기재
     tradeUsage : '소득공제용',           // [필수] (소득공제용, 지출증빙용) 중 기재
     taxationType : '과세',             // [필수] (과세, 비과세) 중 기재
-    identityNum : '01011112222',      // [필수] 거래처 식별번호
+    identityNum : '0100001234',      // [필수] 거래처 식별번호
     // orgConfirmNum : '',            // 취소거래시 필수, 원본현금영수증의 국세청 승인번호 기재
 
     franchiseCorpNum : '1234567890',  // [필수] 발행자 사업자번호
     franchiseCorpName : '발행자 상호',
     franchiseCEOName : '발행자 대표자 성명',
     franchiseAddr : '발행자 주소',
-    franchiseTEL : '000111222',
+    franchiseTEL : '01012341234',
 
     customerName : '고객명',
     itemName : '상품명',
     orderNumber : '주문번호',
     email : 'test@test.com',
-    hp : '000111222',
+    hp : '010111222',
     fax : '000111222',
     smssendYN : false,             // 발행시 알림문자 전송여부
+
+    supplyCost : '15000',          // [필수] 공급가액, ',' 콤마 불가, 숫자만가능
+    tax : '5000',                  // [필수] 세액, ',' 콤마 불가, 숫자만가능
+    serviceFee : '0',              // [필수] 봉사료, ',' 콤마 불가, 숫자만가능
+    totalAmount : '20000',         // [거래금액], ',' 콤마 불가, 숫자만가능
+  };
+
+  cashbillService.registIssue(testCorpNum,cashbill,
+    function(result){
+      res.render('response', {path : req.path,  code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+  });
+});
+
+// 임시저장
+router.get('/register', function(req,res,next){
+
+  var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
+  var MgtKey = '20160315-03';         // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
+
+  // 현금영수증 항목
+  var cashbill = {
+    mgtKey : MgtKey,                  // [필수] 문서관리번호
+    tradeType : '승인거래',             // [필수] 거래유형, (승인거래, 취소거래) 중 기재
+    tradeUsage : '소득공제용',           // [필수] (소득공제용, 지출증빙용) 중 기재
+    taxationType : '과세',             // [필수] (과세, 비과세) 중 기재
+    identityNum : '0100001234',      // [필수] 거래처 식별번호
+    // orgConfirmNum : '',            // 취소거래시 필수, 원본현금영수증의 국세청 승인번호 기재
+
+    franchiseCorpNum : '1234567890',  // [필수] 발행자 사업자번호
+    franchiseCorpName : '발행자 상호',
+    franchiseCEOName : '발행자 대표자 성명',
+    franchiseAddr : '발행자 주소',
+    franchiseTEL : '01012341234',
+
+    customerName : '고객명',
+    itemName : '상품명',
+    orderNumber : '주문번호',
+    email : 'frenchofkiss@gmail.com',
+    hp : '01043245117',
+    fax : '000111222',
+    smssendYN : true,             // 발행시 알림문자 전송여부
 
     supplyCost : '15000',          // [필수] 공급가액, ',' 콤마 불가, 숫자만가능
     tax : '5000',                  // [필수] 세액, ',' 콤마 불가, 숫자만가능
@@ -184,10 +339,10 @@ router.get('/update', function(req,res,next){
     customerName : '고객명',
     itemName : '상품명',
     orderNumber : '주문번호',
-    email : 'test@test.com',
-    hp : '000111222',
+    email : 'frenchofkiss@gmail.com',
+    hp : '01043245117',
     fax : '000111222',
-    smssendYN : false,             // 발행시 알림문자 전송여부
+    smssendYN : true,             // 발행시 알림문자 전송여부
 
     supplyCost : '15000',          // [필수] 공급가액, ',' 콤마 불가, 숫자만가능
     tax : '5000',                  // [필수] 세액, ',' 콤마 불가, 숫자만가능
@@ -281,7 +436,7 @@ router.get('/getLogs', function(req,res,next){
 router.get('/issue', function(req,res,next){
 
   var testCorpNum = '1234567890';    // 팝빌회원 사업자번호, '-' 제외 10자리
-  var mgtKey = '20150813-10';        // 문서관리번호
+  var mgtKey = '20160315-03';        // 문서관리번호
   var memo = '발행메모';
 
   cashbillService.issue(testCorpNum, mgtKey, memo,

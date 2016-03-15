@@ -19,6 +19,118 @@ router.get('/', function(req, res, next) {
 	res.render('Taxinvoice/index', {});
 });
 
+// 아이디 중복 확인
+router.get('/checkID', function (req, res, next){
+  var testID = 'testkorea';  // 조회할 아이디
+
+  taxinvoiceService.checkID(testID,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 담당자 목록 조회
+router.get('/listContact', function (req, res, next){
+  var testCorpNum = '1234567890';  // 조회할 아이디
+
+  taxinvoiceService.listContact(testCorpNum,
+    function(result){
+      res.render('Base/listContact', { path: req.path, result : result});
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 담당자 정보 수정
+router.get('/updateContact', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';
+
+  var contactInfo =  {
+    personName : '담당자명0315',
+    tel : '070-7510-4324',
+    hp : '010-1234-4324',
+    email : 'code@linkhub.co.kr',
+    fax : '070-1234-4324',
+    searchAllAllowYN : true,
+    mgrYN : true
+  };
+
+  taxinvoiceService.updateContact(testCorpNum, testUserID, contactInfo,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+
+// 담당자 추가
+router.get('/registContact', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';
+
+  var contactInfo =  {
+    id : 'testkorea0315',
+    pwd : 'testpassword',
+    personName : '담당자명0309',
+    tel : '070-7510-3710',
+    hp : '010-1234-1234',
+    email : 'code@linkhub.co.kr',
+    fax : '070-1234-1234',
+    searchAllAllowYN : true,
+    mgrYN : false
+  };
+
+  taxinvoiceService.registContact(testCorpNum, testUserID, contactInfo,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 회사정보 조회
+router.get('/getCorpInfo', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+
+  taxinvoiceService.getCorpInfo(testCorpNum,
+    function(result){
+      res.render('Base/getCorpInfo', { path: req.path, result : result});
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
+// 회사정보 수정
+router.get('/updateCorpInfo', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';    // 팝빌회원 아이디
+
+  var corpInfo = {
+    ceoname : "대표자성명0315",
+    corpName : "업체명_0315",
+    addr : "서구 천변좌로_0315",
+    bizType : "업태_0315",
+    bizClass : "종목_0315"
+  };
+
+  taxinvoiceService.updateCorpInfo(testCorpNum, testUserID, corpInfo,
+    function(result){
+      res.render('response', { path: req.path, code: result.code, message : result.message });
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
 // 연동회원 가입여부 확인
 router.get('/checkIsMember', function(req, res, next) {
 
@@ -28,7 +140,7 @@ router.get('/checkIsMember', function(req, res, next) {
   	function(result){
     	res.render('response', { path: req.path, code: result.code, message : result.message });
   	}, function(Error){
-      res.render('response', {code : Error.code, message : Error.message});
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
     }
 	);
 });
@@ -74,19 +186,6 @@ router.get('/getBalance', function(req,res,next){
     });
 });
 
-// 파트너 잔여포인트 조회
-router.get('/getPartnerBalance', function(req,res,next){
-
-  var testCorpNum = '1234567890';          // 팝빌회원 사업자번호, '-' 제외 10자리
-
-  taxinvoiceService.getPartnerBalance(testCorpNum,
-    function(remainPoint){
-      res.render('result', {path : req.path, result : remainPoint});
-    }, function(Error){
-      res.render('response', {path : req.path, code: Error.code, message :Error.message});
-    });
-});
-
 // 팝빌 SSO URL 요청
 router.get('/getPopbillURL', function(req,res,next){
 
@@ -115,6 +214,115 @@ router.get('/checkMgtKeyInUse', function(req,res,next){
       } else{
         res.render('result', {path : req.path, result : '미사용중'});
       }
+    }, function(Error){
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+    });
+});
+
+// 세금계산서 즉시발행
+router.get('/registIssue', function(req,res,next){
+
+  var testCorpNum = '1234567890';          // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';            // 팝빌회원 아이디
+  var mgtKey = '20160315-01';              // 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+
+  // 세금계산서 항목
+  var Taxinvoice = {
+    writeDate : '20160315',             // [필수] 작성일자, 형태 yyyyMMdd
+    chargeDirection : '정과금',           // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
+    issueType : '정발행',                 // [필수] 발행형태, (정발행, 역발행, 위수탁) 중 기재
+    purposeType : '영수',                // [필수] (영수, 청구) 중 기재
+    issueTiming : '직접발행',             // [필수] 발행시점, (직접발행, 승인시자동발행) 중 기재
+    taxType : '과세',                    // [필수] 과세형태, (과세, 영세, 면세) 중 기재
+
+    invoicerCorpNum : '1234567890',     // [필수] 공급자 사업자번호, '-' 제외 10자리
+    invoicerMgtKey : mgtKey,            // [정발행시 필수] 문서관리번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로
+    invoicerTaxRegID : '1234',          // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
+    invoicerCorpName : '공급자 상호',      // [필수]
+    invoicerCEOName : '대표자 성명',       // [필수]
+    invoicerAddr : '공급자 주소',
+    invoicerBizClass : '공급자 업종',
+    invoicerBizType : '공급자 업태',
+    invoicerContactName : '공급자 담당자명',
+    invoicerTEL : '070-7510-3710',
+    invoicerHP : '010-000-111',
+    invoicerEmail : 'test@test.com',
+    invoicerSMSSendYN : false,          // 정발행시 알림문자 전송여부
+
+    invoiceeType : '사업자',              // [필수] 공급받는자 구분, (사업자, 개인, 외국인) 기재
+    invoiceeCorpNum : '8888888888',     // [필수] 공급받는자 사업자번호, '-'제외 10자리
+    invoiceeMgtKey : '',                // 공급받는자 문서관리번호
+    invoiceeTaxRegID : '',              // 공급받는자 종사업장 식별번호, 필요시 기재, 4자리 숫자
+    invoiceeCorpName : '공급받는자 상호',   // [필수]
+    invoiceeCEOName : '공급받는자 대표자 성명',   // [필수]
+    invoiceeAddr : '공급받는자 주소',
+    invoiceeBizClass : '공급받는자 업종',
+    invoiceeBizType : '공급받는자 업태',
+    invoiceeContactName1 : '공급받는자 담당자명',
+    invoiceeTEL1 : '010-111-222',
+    invoiceeHP1 : '070-111-222',
+    invoiceeEmail1 : 'test2@test.com',
+    invoiceeSMSSendYN : false,          // 역발행시 알림문자 전송여부
+
+    taxTotal : '1000',                  // [필수] 세액합계
+    supplyCostTotal : '10000',          // [필수] 공급가액 합계
+    totalAmount : '11000',              // [필수] 합계금액(세액합계 + 공급가액 합계)
+
+    //modifyCode : 1,                   // [수정세금계산서 발행시 필수] 수정사유코드, 수정세금계산서 작성방법에 대한 자세한 방법은 아래의 링크 참조
+                                        // 수정세금계산서 작성방법 안내 : http://blog.linkhub.co.kr/650/
+
+    //originalTaxinvoiceKey : '',       // [수정세금계산서 발행시 필수] 원본세금계산서의 ItemKey값 기재,
+
+    serialNum : '123',                  // 기재 상 '일련번호'' 항목
+    cash : '',                          // 기재 상 '현금'' 항목
+    chkBill : '',                       // 기재 상 '수표' 항목
+    note : '',                          // 기재 상 '어음' 항목
+    credit : '',                        // 기재 상 '외상' 항목
+    remark1 : '비고',
+    remark2 : '비고2',
+    remark3 : '비고3',
+    kwon : '',                          // 기재 상 '권' 항목
+    ho : '',                            // 기재 상 '호' 항목
+    businessLicenseYN : false,          // 사업자등록증 첨부여부
+    bankBookYN : false,                 // 통장사본 첨부여부
+
+    // 상세항목(품목) 정보 배열, 99개까지 기재 가능
+    detailList : [
+      {
+          serialNum : 1,                // 일련번호, 1부터 순차기재
+          purchaseDT : '20150721',      // 거래일자, 형식 : yyyyMMdd
+          itemName : '품명',
+          spec : '규격',
+          qty : '1',                    // 수량, 소수점 2자리까지 기재 가능
+          unitCost : '10000',           // 단가, 소수점 2자리까지 기재 가능
+          supplyCost : '10000',         // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+          tax : '1000',                 // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+          remark : '비고'
+      },
+      {
+          serialNum : 2,
+          itemName : '품명2'
+      }
+    ],
+
+    // 추가담당자 정보 배열
+    addContactList : [
+      {
+        serialNum : 1,                    // 일련번호, 1부터 순차기재
+        contactName : '담당자 성명',         // 담당자 성명
+        email : 'test2@test.com'          // 담당자 메일
+      },
+      {
+        serialNum : 2,
+        contactName : '담당자 성명 2',
+        email : 'test3@test.com'
+      }
+    ]
+  };
+
+  taxinvoiceService.registIssue(testCorpNum, Taxinvoice,
+    function(result){
+      res.render('response', {path : req.path, code: result.code, message : result.message});
     }, function(Error){
       res.render('response', {path : req.path, code : Error.code, message : Error.message});
     });
@@ -361,8 +569,8 @@ router.get('/getInfos', function(req,res,next){
 
   var testCorpNum = '1234567890';                   // 팝빌회원 사업자번호, '-' 제외 10자리
   var keyType = popbill.MgtKeyType.SELL;            // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
-  var mgtKeyList = ['20150813-01', '20150813-02']; // 문서관리번호 배열
-  var testUserID = 'testkorea';                    // 팝빌회원 아이디
+  var mgtKeyList = ['20150813-01', '20150813-02'];  // 문서관리번호 배열
+  var testUserID = 'testkorea';                     // 팝빌회원 아이디
 
   taxinvoiceService.getInfos(testCorpNum, keyType, mgtKeyList, testUserID,
     function(result){
@@ -376,13 +584,39 @@ router.get('/getInfos', function(req,res,next){
 router.get('/getDetailInfo',function(req,res,next){
 
   var testCorpNum = '1234567890';          // 팝빌회원 사업자번호, '-' 제외 10자리
-  var keyType = popbill.MgtKeyType.SELL; // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
-  var mgtKey = '20150813-01'; // 문서관리번호
+  var keyType = popbill.MgtKeyType.SELL;   // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+  var mgtKey = '20150813-01';              // 문서관리번호
   var testUserID = 'testkorea';            // 팝빌회원 아이디
 
   taxinvoiceService.getDetailInfo(testCorpNum, keyType, mgtKey, testUserID,
     function(result){
       res.render('Taxinvoice/TaxinvoiceDetail', {path : req.path, result : result});
+    }, function(Error){
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+    });
+});
+
+// 세금계산서 목록 조회
+router.get('/search', function(req,res,next){
+
+  var testCorpNum = '1234567890';         // 팝빌회원 사업자번호, '-' 제외 10자리
+  var keyType = popbill.MgtKeyType.SELL;  // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+  var DType = 'R';                        // 검색일자유형, R-등록일시, W-작성일시, I-발행일시
+  var SDate = '20160101';                 // 시작일자, 형태(yyyyMMdd)
+  var EDate = '20160315';                 // 종료일자, 형태(yyyyMMdd)
+
+  var State = ['100','200','3**'];        // 전송상태값 배열, 문서상태 값 3자리 배열
+  var Type = ['N', 'M'];                  // 문서유형, N-일반세금계산서, M-수정세금계산서
+  var TaxType = ['T','N','Z'];            // 과세유형, T-과세, N-면세, Z-영세
+  var LateOnly = null;                    // 지연발행 여부, null-전체조회, true-지연발행분, false-정상발행분
+
+  var Order = 'A';                        // 정렬방향, D-내림차순, A-오름차순
+  var Page = 1;                           // 페이지 번호
+  var PerPage = 10;                       // 페이지당 검색개수, 최대 1000건
+
+  taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State, Type, TaxType, LateOnly, Order, Page, PerPage,
+    function(result){
+      res.render('Taxinvoice/Search', {path : req.path, result : result});
     }, function(Error){
       res.render('response', {path : req.path, code : Error.code, message : Error.message});
     });
