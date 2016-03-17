@@ -152,7 +152,6 @@ router.get('/joinMember', function(req,res,next){
     CEOName : '대표자성명',
     CorpName : '테스트상호',
     Addr : '주소',
-    ZipCode : '우편번호',
     BizType : '업태',
     BizClass : '업종',
     ContactName : '담당자 성명',

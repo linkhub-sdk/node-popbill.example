@@ -24,7 +24,7 @@
 				%>
 
 				<fieldset class="fieldset2">
-				<legend>조회결과 [ <%=index+1%> / <%=result.list.length%> ] </legend>
+				<legend>조회결과 [ <%=( (result.pageNum-1) * result.perPage) + (index+1)%> / <%=result.total%> ] </legend>
 				<ul>
 					<li>itemKey: <%=searchInfo.itemKey%></li>
 					<li>taxType: <%=searchInfo.taxType%></li>
@@ -33,9 +33,11 @@
 					<li>invoicerCorpName: <%=searchInfo.invoicerCorpName%></li>
 					<li>invoicerCorpNum: <%=searchInfo.invoicerCorpNum%></li>
 					<li>invoicerMgtKey: <%=searchInfo.invoicerMgtKey%></li>
+					<li>invoicerPrintYN: <%=searchInfo.invoicerPrintYN%></li>
 					<li>invoiceeCorpName: <%=searchInfo.invoiceeCorpName%></li>
 					<li>invoiceeCorpNum: <%=searchInfo.invoiceeCorpNum%></li>
 					<li>invoiceeMgtKey: <%=searchInfo.invoiceeMgtKey%></li>
+					<li>invoiceePrintYN: <%=searchInfo.invoiceePrintYN%></li>
 					<li>supplyCostTotal: <%=searchInfo.supplyCostTotal%></li>
 					<li>taxTotal: <%=searchInfo.taxTotal%></li>
 					<li>purposeType: <%=searchInfo.purposeType%></li>

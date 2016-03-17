@@ -153,7 +153,6 @@ router.get('/joinMember', function(req,res,next) {
     CEOName : '대표자성명',
     CorpName : '테스트상호',
     Addr : '주소',
-    ZipCode : '우편번호',
     BizType : '업태',
     BizClass : '업종',
     ContactName : '담당자 성명',
@@ -450,7 +449,7 @@ router.get('/search', function(req,res,next){
   var SenderYN = false;                    // 개인조회여부, true-개인조회
   var Order = 'D';                         // 정렬방향, D-내림차순, A-오름차순
   var Page = 1;                            // 페이지번호
-  var PerPage = 100;                        // 페이지 목록개수, 최대 1000건
+  var PerPage = 30;                        // 페이지 목록개수, 최대 1000건
 
   messageService.search(testCorpNum, SDate, EDate, State, Item, ReserveYN, SenderYN, Order, Page, PerPage,
     function(result){
@@ -513,6 +512,19 @@ router.get('/getUnitCost', function(req,res,next){
   messageService.getUnitCost(testCorpNum, messageType,
     function(unitCost){
       res.render('result', { path : req.path, result : unitCost });
+    },function(Error){
+      res.render('response', {path : req.path,  code: Error.code, message : Error.message });
+  });
+});
+
+// 080 수신거부 목록 조회
+router.get('/getAutoDenyList', function(req,res,next){
+
+  var testCorpNum = '1234567890';   // 팝빌회원 사업자번호, '-' 제외 10자리
+
+  messageService.getAutoDenyList(testCorpNum,
+    function(response){
+      res.render('Message/AutoDenyList', { path : req.path, result : response });
     },function(Error){
       res.render('response', {path : req.path,  code: Error.code, message : Error.message });
   });

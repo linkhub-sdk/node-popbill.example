@@ -24,7 +24,7 @@
 					result.list.forEach(function(searchInfo, index){
 				%>
 				<fieldset class="fieldset2">
-				<legend>조회결과 [ <%=index+1%> / <%=result.list.length%> ] </legend>
+				<legend>조회결과 [ <%=( (result.pageNum-1) * result.perPage) + (index+1)%> / <%=result.total%> ] </legend>
 				<ul>
 					<li> state : <%=searchInfo.state%></li>
 					<li> subject : <%=searchInfo.subject%></li>
@@ -34,6 +34,7 @@
 					<li> receiveNum : <%=searchInfo.receiveNum%></li>
 					<li> receiveName : <%=searchInfo.receiveName%></li>
 					<li> reserveDT : <%=searchInfo.reserveDT%></li>
+					<li> receiptDT : <%=searchInfo.receiptDT%></li>
 					<li> sendDT : <%=searchInfo.sendDT%></li>
 					<li> resultDT : <%=searchInfo.resultDT%></li>
 					<li> sendResult : <%=searchInfo.sendResult%></li>

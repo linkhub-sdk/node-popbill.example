@@ -155,7 +155,6 @@ router.get('/joinMember', function(req,res,next) {
   	CEOName : '대표자성명',
   	CorpName : '테스트상호',
   	Addr : '주소',
-  	ZipCode : '우편번호',
   	BizType : '업태',
   	BizClass : '업종',
   	ContactName : '담당자 성명',
@@ -224,11 +223,11 @@ router.get('/registIssue', function(req,res,next){
 
   var testCorpNum = '1234567890';          // 팝빌회원 사업자번호, '-' 제외 10자리
   var testUserID = 'testkorea';            // 팝빌회원 아이디
-  var mgtKey = '20160315-01';              // 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+  var mgtKey = '20160317-01';              // 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
 
   // 세금계산서 항목
   var Taxinvoice = {
-    writeDate : '20160315',             // [필수] 작성일자, 형태 yyyyMMdd
+    writeDate : '20160317',             // [필수] 작성일자, 형태 yyyyMMdd
     chargeDirection : '정과금',           // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
     issueType : '정발행',                 // [필수] 발행형태, (정발행, 역발행, 위수탁) 중 기재
     purposeType : '영수',                // [필수] (영수, 청구) 중 기재
@@ -611,8 +610,8 @@ router.get('/search', function(req,res,next){
   var LateOnly = null;                    // 지연발행 여부, null-전체조회, true-지연발행분, false-정상발행분
 
   var Order = 'A';                        // 정렬방향, D-내림차순, A-오름차순
-  var Page = 1;                           // 페이지 번호
-  var PerPage = 10;                       // 페이지당 검색개수, 최대 1000건
+  var Page = 17;                           // 페이지 번호
+  var PerPage = 15;                       // 페이지당 검색개수, 최대 1000건
 
   taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State, Type, TaxType, LateOnly, Order, Page, PerPage,
     function(result){
@@ -1063,6 +1062,40 @@ router.get('/getEmailPublicKeys', function(req,res,next){
       res.render('Taxinvoice/EmailPublicKeys', {path : req.path, result : result});
     }, function(Error){
       res.render('response', {path : req.path, code :Error.code, message :Error.message});
+    });
+});
+
+// 전자명세서 첨부
+router.get('/attachStatement', function(req,res,next){
+
+  var testCorpNum = '1234567890';           // 팝빌회원 사업자번호, '-' 제외 10자리
+  var keyType = popbill.MgtKeyType.SELL;    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+  var mgtKey = '20160317-01';               // 문서관리번호
+  var subItemCode = 121;                    // 첨부할 전자명세서 종류코드, 121-거래명세서, 122-청구서, 123-발주서, 124-견적서, 125-입금표, 126-영수증
+  var subMgtKey = '20160317-01'             // 첨부할 전자명세서 관리번호
+
+  taxinvoiceService.attachStatement(testCorpNum, keyType, mgtKey, subItemCode, subMgtKey,
+    function(result){
+      res.render('response', {path : req.path, code : result.code, message : result.message});
+    }, function(Error){
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+    });
+});
+
+// 전자명세서 첨부해제
+router.get('/detachStatement', function(req,res,next){
+
+  var testCorpNum = '1234567890';           // 팝빌회원 사업자번호, '-' 제외 10자리
+  var keyType = popbill.MgtKeyType.SELL;    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+  var mgtKey = '20160317-01';               // 문서관리번호
+  var subItemCode = 121;                    // 첨부해제할 전자명세서 종류코드, 121-거래명세서, 122-청구서, 123-발주서, 124-견적서, 125-입금표, 126-영수증
+  var subMgtKey = '20160317-01'             // 첨부해제할 전자명세서 관리번호
+
+  taxinvoiceService.detachStatement(testCorpNum, keyType, mgtKey, subItemCode, subMgtKey,
+    function(result){
+      res.render('response', {path : req.path, code : result.code, message : result.message});
+    }, function(Error){
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
     });
 });
 

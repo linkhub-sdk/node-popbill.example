@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>팝빌 SDK Express Example. </title>
+  </head>
+
+  <body>
+		<div id="content">
+			<p class="heading1">Response</p>
+			<br/>
+			<fieldset class="fieldset1">
+				<ul>
+				  <li>code (응답코드) : <%=result.code%></li>
+				  <li>message (응답메시지) : <%=result.message%></li>
+				  <li>total (총 검색건수) : <%=result.total%></li>
+				  <li>perPage (페이지당 검색개수) : <%=result.perPage%></li>
+				  <li>pageNum (페이지 번호) : <%=result.pageNum%></li>
+				  <li>pageCount (페이지 개수) : <%=result.pageCount%></li>
+				</ul>
+				<legend><%=path%></legend>
+				<%
+					result.list.forEach(function(searchInfo, index){
+				%>
+
+				<fieldset class="fieldset2">
+				<legend>조회결과 [ <%=( (result.pageNum-1) * result.perPage) + (index+1)%> / <%=result.total%> ] </legend>
+				<ul>
+					<li>itemKey : <%=searchInfo.itemKey%></li>
+					<li>itemCode : <%=searchInfo.itemCode%></li>
+					<li>invoiceNum : <%=searchInfo.invoiceNum%></li>
+					<li>mgtKey : <%=searchInfo.mgtKey%></li>
+					<li>stateCode : <%=searchInfo.stateCode%></li>
+					<li>taxType : <%=searchInfo.taxType%></li>
+					<li>purposeType : <%=searchInfo.purposeType%></li>
+					<li>writeDate : <%=searchInfo.writeDate%></li>
+					<li>senderCorpName : <%=searchInfo.senderCorpName%></li>
+					<li>senderCorpNum : <%=searchInfo.senderCorpNum%></li>
+					<li>senderPrintYN : <%=searchInfo.senderPrintYN%></li>
+					<li>receiverCorpName : <%=searchInfo.receiverCorpName%></li>
+					<li>receiverCorpNum : <%=searchInfo.receiverCorpNum%></li>
+					<li>receiverPrintYN : <%=searchInfo.receiverPrintYN%></li>
+					<li>supplyCostTotal : <%=searchInfo.supplyCostTotal%></li>
+					<li>taxTotal : <%=searchInfo.taxTotal%></li>
+					<li>issueDT : <%=searchInfo.issueDT%></li>
+					<li>stateDT : <%=searchInfo.stateDT%></li>
+					<li>openYN : <%=searchInfo.openYN%></li>
+					<li>stateMemo : <%=searchInfo.stateMemo%></li>
+					<li>regDT : <%=searchInfo.regDT%></li>
+				</ul>
+				</fieldset>
+				<%
+					});
+				%>
+			</fieldset>
+		 </div>
+	</body>
+</html>

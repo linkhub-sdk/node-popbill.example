@@ -154,7 +154,6 @@ router.get('/joinMember', function(req,res,next) {
     CEOName : '대표자성명',
     CorpName : '테스트상호',
     Addr : '주소',
-    ZipCode : '우편번호',
     BizType : '업태',
     BizClass : '업종',
     ContactName : '담당자 성명',
@@ -237,10 +236,10 @@ router.get('/registIssue', function(req,res,next){
 
   var testCorpNum = '1234567890';    // 팝빌회원 사업자번호, '-' 제외 10자리
   var ItemCode = 121;                // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서) 124(발주서), 125(입금표), 126(영수증)
-  var MgtKey = '20160315-05';        // 문서관리번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
+  var MgtKey = '20160317-02';        // 문서관리번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
 
   var statement = {
-    writeDate : '20160315',          // [필수] 기재상 작성일자
+    writeDate : '20160317',          // [필수] 기재상 작성일자
     purposeType : '영수',             // [필수] 영수, 청구 중 기재
     taxType : '과세',                 // [필수] 과세, 영세, 면세 중 기재
     formCode : '',                   // 맞춤양식코드, 미기재시 기본양식으로 작성
@@ -878,6 +877,67 @@ router.get('/getUnitCost', function(req,res,next){
   statementService.getUnitCost(testCorpNum, itemCode,
     function(unitCost){
       res.render('result', { path : req.path, result : unitCost });
+    },function(Error){
+      res.render('response', {path : req.path,  code: Error.code, message : Error.message });
+  });
+});
+
+// 전자명세서 목록 조회
+router.get('/search', function(req,res,next){
+
+  var testCorpNum = '1234567890';         // 팝빌회원 사업자번호, '-' 제외 10자리
+  var DType = 'R';                        // 검색일자 유형, R-등록일자, W-작성일자, I-발행일자
+  var SDate = '20160101';                 // 시작일자, 작성형식(yyyyMMdd)
+  var EDate = '20160317';                 // 종료일자, 작성형식(yyyyMMdd)
+
+  var State = ['100','200','3**'];        // 전송상태값 배열, 전송상태(stateCode)값 배열
+
+  // 전자명세서 종류코드 배열, 121-거래명세서, 122-청구서, 123-견적서, 124-발주서, 125-입금표, 126-영수증
+  var ItemCode = [121, 122, 123, 124, 125, 126];
+
+  var Order = 'A';                        // 정렬방향, D-내림차순, A-오름차순
+  var Page = 1;                           // 페이지 번호
+  var PerPage = 10;                       // 페이지당 검색개수, 최대 1000건
+
+  statementService.search(testCorpNum, DType, SDate, EDate, State, ItemCode, Order, Page, PerPage,
+    function(result){
+      res.render('Statement/Search', {path : req.path, result : result});
+    }, function(Error){
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+    });
+});
+
+// 다른 전자명세서 첨부
+router.get('/attachStatement', function(req,res,next){
+
+  var testCorpNum = '1234567890';   // 팝빌회원 사업자번호
+  var itemCode = 121;               // 명세서 종류코드 - 121(거래명세서), 122(청구서), 123(견적서) 124(발주서), 125(입금표), 126(영수증)
+  var mgtKey = '20160317-01';       // 문서관리번호
+
+  var subItemCode = 121;            // 첨부할 명세서 종류코드
+  var subMgtKey = '20160317-02';    // 첨부할 명세서 문서관리번호
+
+  statementService.attachStatement(testCorpNum, itemCode, mgtKey, subItemCode, subMgtKey,
+    function(result){
+      res.render('response', { path : req.path, code: result.code, message : result.message });
+    },function(Error){
+      res.render('response', {path : req.path,  code: Error.code, message : Error.message });
+  });
+});
+
+// 다른 전자명세서 첨부해제
+router.get('/detachStatement', function(req,res,next){
+
+  var testCorpNum = '1234567890';   // 팝빌회원 사업자번호
+  var itemCode = 121;               // 명세서 종류코드 - 121(거래명세서), 122(청구서), 123(견적서) 124(발주서), 125(입금표), 126(영수증)
+  var mgtKey = '20160317-01';       // 문서관리번호
+
+  var subItemCode = 121;            // 첨부할 명세서 종류코드
+  var subMgtKey = '20160317-02';    // 첨부할 명세서 문서관리번호
+
+  statementService.detachStatement(testCorpNum, itemCode, mgtKey, subItemCode, subMgtKey,
+    function(result){
+      res.render('response', { path : req.path, code: result.code, message : result.message });
     },function(Error){
       res.render('response', {path : req.path,  code: Error.code, message : Error.message });
   });

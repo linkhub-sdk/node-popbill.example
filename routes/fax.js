@@ -153,7 +153,6 @@ router.get('/joinMember', function(req,res,next) {
     CEOName : '대표자성명',
     CorpName : '테스트상호',
     Addr : '주소',
-    ZipCode : '우편번호',
     BizType : '업태',
     BizClass : '업종',
     ContactName : '담당자 성명',
@@ -312,6 +311,30 @@ router.get('/getUnitCost', function(req,res,next){
     },function(Error){
       res.render('response', {path : req.path,  code: Error.code, message : Error.message });
   });
+});
+
+
+// 팩스 전송내역 조회
+router.get('/search', function(req,res,next){
+
+  var testCorpNum = '1234567890';         // 팝빌회원 사업자번호, '-' 제외 10자리
+  var SDate = '20160101';                 // 시작일자, 작성형식(yyyyMMdd)
+  var EDate = '20160317';                 // 종료일자, 작성형식(yyyyMMdd)
+
+  var State = [1, 2, 3, 4];               // 전송상태값 배열, 1-대기, 2-성공, 3-실패, 4-취소
+  var ReserveYN = false;                  // 예약여부, true-예약전송건 조회, false-전체조회
+  var SenderOnly = false;                 // 개인조회여부, true-개인조회, false-회사조회
+
+  var Order = 'D';                        // 정렬방향, D-내림차순, A-오름차순
+  var Page = 1;                           // 페이지 번호
+  var PerPage = 10;                       // 페이지당 검색개수, 최대 1000건
+
+  faxService.search(testCorpNum, SDate, EDate, State, ReserveYN, SenderOnly, Order, Page, PerPage,
+    function(result){
+      res.render('Fax/Search', {path : req.path, result : result});
+    }, function(Error){
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+    });
 });
 
 
