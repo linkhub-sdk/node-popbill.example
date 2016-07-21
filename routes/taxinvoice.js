@@ -109,6 +109,20 @@ router.get('/getCorpInfo', function (req, res, next){
   );
 });
 
+// 과금정보 확인
+router.get('/getChargeInfo', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';   // 팝빌회원 아이디
+
+  taxinvoiceService.getChargeInfo(testCorpNum, testUserID,
+    function(result){
+      res.render('Base/getChargeInfo', { path: req.path, result : result});
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
 // 회사정보 수정
 router.get('/updateCorpInfo', function (req, res, next){
   var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -599,21 +613,26 @@ router.get('/getDetailInfo',function(req,res,next){
 router.get('/search', function(req,res,next){
 
   var testCorpNum = '1234567890';         // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';
   var keyType = popbill.MgtKeyType.SELL;  // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
-  var DType = 'R';                        // 검색일자유형, R-등록일시, W-작성일시, I-발행일시
-  var SDate = '20160101';                 // 시작일자, 형태(yyyyMMdd)
-  var EDate = '20160315';                 // 종료일자, 형태(yyyyMMdd)
+  var DType = 'W';                        // 검색일자유형, R-등록일시, W-작성일시, I-발행일시
+  var SDate = '20160601';                 // 시작일자, 형태(yyyyMMdd)
+  var EDate = '20160831';                 // 종료일자, 형태(yyyyMMdd)
 
-  var State = ['100','200','3**'];        // 전송상태값 배열, 문서상태 값 3자리 배열
+  var State = ['3**','6**'];              // 전송상태값 배열, 문서상태 값 3자리 배열
   var Type = ['N', 'M'];                  // 문서유형, N-일반세금계산서, M-수정세금계산서
-  var TaxType = ['T','N','Z'];            // 과세유형, T-과세, N-면세, Z-영세
+  var TaxType = ['T', 'N', 'Z'];          // 과세유형, T-과세, N-면세, Z-영세
   var LateOnly = null;                    // 지연발행 여부, null-전체조회, true-지연발행분, false-정상발행분
 
-  var Order = 'A';                        // 정렬방향, D-내림차순, A-오름차순
-  var Page = 17;                           // 페이지 번호
-  var PerPage = 15;                       // 페이지당 검색개수, 최대 1000건
+  var Order = 'D';                        // 정렬방향, D-내림차순, A-오름차순
+  var Page = 1;                           // 페이지 번호
+  var PerPage = 10;                       // 페이지당 검색개수, 최대 1000건
 
-  taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State, Type, TaxType, LateOnly, Order, Page, PerPage,
+  var TaxRegIDType = 'S';                 // 종사업장 사업자 유형, S-공급자, B-공급받는자, T-수탁자
+  var TaxRegIDYN = '';                    // 종사업장 유무, 공백-전체조회, 0-종사업장번호 없음, 1-종사업장번호 있음.
+  var TaxRegID  = '';                     // 종사업장번호, 콤마(',')로 구분하여 구성 ex) '0001,1234'
+
+  taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State, Type, TaxType, LateOnly, Order, Page, PerPage, TaxRegIDType, TaxRegIDYN, TaxRegID, testUserID,
     function(result){
       res.render('Taxinvoice/Search', {path : req.path, result : result});
     }, function(Error){
@@ -1100,10 +1119,3 @@ router.get('/detachStatement', function(req,res,next){
 });
 
 module.exports = router;
-
-
-
-
-
-
-

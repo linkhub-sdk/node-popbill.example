@@ -19,6 +19,20 @@ router.get('/', function(req, res, next) {
   res.render('Cashbill/index', {});
 });
 
+// 과금정보 확인
+router.get('/getChargeInfo', function (req, res, next){
+  var testCorpNum = '1234567890';   // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';     // 팝빌회원 아이디
+
+  cashbillService.getChargeInfo(testCorpNum, testUserID,
+    function(result){
+      res.render('Base/getChargeInfo', { path: req.path, result : result});
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
 // 아이디 중복 확인
 router.get('/checkID', function (req, res, next){
   var testID = 'testkorea';  // 조회할 아이디
@@ -638,19 +652,3 @@ router.get('/search', function(req,res,next){
 });
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

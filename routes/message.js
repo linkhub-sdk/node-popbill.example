@@ -32,6 +32,21 @@ router.get('/checkID', function (req, res, next){
   );
 });
 
+// 과금정보 확인
+router.get('/getChargeInfo', function (req, res, next){
+  var testCorpNum = '1234567890';               // 팝빌회원 사업자번호, '-' 제외 10자리
+  var messageType = popbill.MessageType.SMS;    // 문자전송유형, SMS(단문), LMS(장문), MMS(포토)
+  var testUserID = 'testkorea';                 // 팝빌회원 아이디
+
+  messageService.getChargeInfo(testCorpNum, messageType, testUserID,
+    function(result){
+      res.render('Base/getChargeInfo', { path: req.path, result : result});
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
 // 담당자 목록 조회
 router.get('/listContact', function (req, res, next){
   var testCorpNum = '1234567890';  // 조회할 아이디
@@ -531,7 +546,3 @@ router.get('/getAutoDenyList', function(req,res,next){
 });
 
 module.exports = router;
-
-
-
-

@@ -45,6 +45,21 @@ router.get('/listContact', function (req, res, next){
   );
 });
 
+// 과금정보 확인
+router.get('/getChargeInfo', function (req, res, next){
+  var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var itemCode = 121;              // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서) 124(발주서), 125(입금표), 126(영수증)
+  var testUserID = 'testkorea';    // 팝빌회원 아이디
+
+  statementService.getChargeInfo(testCorpNum, itemCode, testUserID,
+    function(result){
+      res.render('Base/getChargeInfo', { path: req.path, result : result});
+    }, function(Error){
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    }
+  );
+});
+
 // 담당자 정보 수정
 router.get('/updateContact', function (req, res, next){
   var testCorpNum = '1234567890';  // 팝빌회원 사업자번호, '-' 제외 10자리
