@@ -12,6 +12,7 @@ var cashbill = require('./routes/cashbill');
 var message = require('./routes/message');
 var fax = require('./routes/fax');
 var htTaxinvoice = require('./routes/htTaxinvoice');
+var htCashbill = require('./routes/htCashbill');
 var closedown = require('./routes/closedown');
 
 var app = express();
@@ -37,6 +38,7 @@ app.use('/CashbillService', cashbill);
 app.use('/MessageService', message);
 app.use('/FaxService', fax);
 app.use('/HTTaxinvoiceService', htTaxinvoice);
+app.use('/HTCashbillService', htCashbill);
 app.use('/ClosedownService', closedown);
 
 // catch 404 and forward to error handler
