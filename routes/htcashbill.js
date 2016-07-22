@@ -217,8 +217,8 @@ router.get('/getPopbillURL', function(req,res,next){
 // 수집 요청
 router.get('/requestJob', function(req,res,next){
 
-  var testCorpNum = '4108600477';     // 팝빌회원 사업자번호, '-' 제외 10자리
-  var testUserID = 'innoposttest';    // 팝빌회원 아이디
+  var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';    // 팝빌회원 아이디
   var type = popbill.MgtKeyType.SELL; // 세금계산서 유형, SELL-매출, BUY-매입, TRUSTEE-수탁
   var SDate = '20160601';             // 시작일자, 표시형식(yyyyMMdd)
   var EDate = '20160831';             // 종료일자, 표시형식(yyyyMMdd)
@@ -234,9 +234,9 @@ router.get('/requestJob', function(req,res,next){
 // 수집 상태 확인
 router.get('/getJobState', function(req,res,next){
 
-  var testCorpNum = '4108600477';     // 팝빌회원 사업자번호, '-' 제외 10자리
-  var jobID = '016072210000000001';   // 작업아이디
-  var testUserID = 'innoposttest';    // 팝빌회원 아이디
+  var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
+  var jobID = '016072214000000004';   // 작업아이디
+  var testUserID = 'testkorea';    // 팝빌회원 아이디
 
   htCashbillService.getJobState(testCorpNum, jobID, testUserID,
     function(response){
@@ -249,8 +249,8 @@ router.get('/getJobState', function(req,res,next){
 // 수집 상태 목록 확인
 router.get('/listActiveJob', function(req,res,next){
 
-  var testCorpNum = '4108600477';     // 팝빌회원 사업자번호, '-' 제외 10자리
-  var testUserID = 'innoposttest';    // 팝빌회원 아이디
+  var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';    // 팝빌회원 아이디
 
   htCashbillService.listActiveJob(testCorpNum, testUserID,
     function(response){
@@ -263,9 +263,9 @@ router.get('/listActiveJob', function(req,res,next){
 // 수집 결과 조회
 router.get('/search', function(req,res,next){
 
-  var testCorpNum = '4108600477';     // 팝빌회원 사업자번호, '-' 제외 10자리
-  var testUserID = 'innoposttest';    // 팝빌회원 아이디
-  var jobID = '016072210000000002';   // 작업아이디
+  var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';    // 팝빌회원 아이디
+  var jobID = '016072214000000004';   // 작업아이디
 
   var tradeType = ['N', 'C'];   // 문서형태, N-일반 현금영수증, C-취소 현금영수증
   var tradeUsage = ['P', 'C'];  // 거래용도, P-소득공제용, C-지출증빙용
@@ -285,9 +285,9 @@ router.get('/search', function(req,res,next){
 // 수집 결과 요약정보 조회
 router.get('/summary', function(req,res,next){
 
-  var testCorpNum = '4108600477';     // 팝빌회원 사업자번호, '-' 제외 10자리
-  var testUserID = 'innoposttest';    // 팝빌회원 아이디
-  var jobID = '016072210000000002';   // 작업아이디
+  var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';    // 팝빌회원 아이디
+  var jobID = '016072214000000004';   // 작업아이디
 
   var tradeType = ['N', 'C'];   // 문서형태, N-일반 현금영수증, C-취소 현금영수증
   var tradeUsage = ['P', 'C'];  // 거래용도, P-소득공제용, C-지출증빙용
@@ -303,8 +303,8 @@ router.get('/summary', function(req,res,next){
 // 정액제 서비스 신청 URL
 router.get('/getFlatRatePopUpURL', function(req,res,next){
 
-  var testCorpNum = '4108600477';    // 팝빌회원 사업자번호, '-' 제외 10자리
-  var testUserID = 'innoposttest';   // 팝빌회원 아이디
+  var testCorpNum = '1234567890';    // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';   // 팝빌회원 아이디
 
   htCashbillService.getFlatRatePopUpURL(testCorpNum, testUserID,
     function(url){
@@ -318,8 +318,8 @@ router.get('/getFlatRatePopUpURL', function(req,res,next){
 // 정액제 서비스 상태 확인
 router.get('/getFlatRateState', function(req,res,next){
 
-  var testCorpNum = '4108600477';    // 팝빌회원 사업자번호, '-' 제외 10자리
-  var testUserID = 'innoposttest';   // 팝빌회원 아이디
+  var testCorpNum = '1234567890';    // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';   // 팝빌회원 아이디
 
   htCashbillService.getFlatRateState(testCorpNum, testUserID,
     function(response){
@@ -332,8 +332,8 @@ router.get('/getFlatRateState', function(req,res,next){
 // 홈택스연계 공인인증서 등록 URL
 router.get('/getCertificatePopUpURL', function(req,res,next){
 
-  var testCorpNum = '4108600477';    // 팝빌회원 사업자번호, '-' 제외 10자리
-  var testUserID = 'innoposttest';   // 팝빌회원 아이디
+  var testCorpNum = '1234567890';    // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';   // 팝빌회원 아이디
 
   htCashbillService.getCertificatePopUpURL(testCorpNum, testUserID,
     function(url){
@@ -346,8 +346,8 @@ router.get('/getCertificatePopUpURL', function(req,res,next){
 // 등록된 공인인증서 만료일자 확인
 router.get('/getCertificateExpireDate', function(req,res,next){
 
-  var testCorpNum = '4108600477';   // 팝빌회원 사업자번호, '-' 제외 10자리
-  var testUserID = 'innoposttest';  // 팝빌회원 아이디
+  var testCorpNum = '1234567890';   // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testUserID = 'testkorea';  // 팝빌회원 아이디
 
   htCashbillService.getCertificateExpireDate(testCorpNum,
     function(expireDate){
