@@ -11,14 +11,12 @@
 			<br/>
 			<fieldset class="fieldset1">
 				<legend><%=path%></legend>
-
         <%
-          if ( (result.length) > 1 ){
-
+          if ( (result.length) > 0 ){
             result.forEach(function(info, index){
         %>
           <fieldset class="fieldset2">
-            <legend> 수집상태(jobState) [<%=index+1%> / <%=result.length%>] </legend>
+            <legend> 수집상태(jobState) [<%=index+1%>/<%=result.length%>] </legend>
     				<ul>
     					<li>jobID (작업아이디) : <%=info.jobID%></li>
               <li>jobState (수집상태) : <%=info.jobState%></li>
