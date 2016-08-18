@@ -901,20 +901,21 @@ router.get('/getUnitCost', function(req,res,next){
 router.get('/search', function(req,res,next){
 
   var testCorpNum = '1234567890';         // 팝빌회원 사업자번호, '-' 제외 10자리
-  var DType = 'R';                        // 검색일자 유형, R-등록일자, W-작성일자, I-발행일자
-  var SDate = '20160101';                 // 시작일자, 작성형식(yyyyMMdd)
-  var EDate = '20160317';                 // 종료일자, 작성형식(yyyyMMdd)
+  var DType = 'W';                        // 검색일자 유형, R-등록일자, W-작성일자, I-발행일자
+  var SDate = '20160701';                 // 시작일자, 작성형식(yyyyMMdd)
+  var EDate = '20160831';                 // 종료일자, 작성형식(yyyyMMdd)
 
-  var State = ['100','200','3**'];        // 전송상태값 배열, 전송상태(stateCode)값 배열
+  var State = ['200','3**'];        // 전송상태값 배열, 전송상태(stateCode)값 배열
 
   // 전자명세서 종류코드 배열, 121-거래명세서, 122-청구서, 123-견적서, 124-발주서, 125-입금표, 126-영수증
   var ItemCode = [121, 122, 123, 124, 125, 126];
 
-  var Order = 'A';                        // 정렬방향, D-내림차순, A-오름차순
+  var QString = '';                       // 거래처 정보, 거래처 상호 또는 사업자등록번호 기재, 미기재시 전체조회
+  var Order = 'D';                        // 정렬방향, D-내림차순, A-오름차순
   var Page = 1;                           // 페이지 번호
   var PerPage = 10;                       // 페이지당 검색개수, 최대 1000건
 
-  statementService.search(testCorpNum, DType, SDate, EDate, State, ItemCode, Order, Page, PerPage,
+  statementService.search(testCorpNum, DType, SDate, EDate, State, ItemCode, QString, Order, Page, PerPage,
     function(result){
       res.render('Statement/Search', {path : req.path, result : result});
     }, function(Error){

@@ -630,20 +630,21 @@ router.get('/getUnitCost', function(req,res,next){
 router.get('/search', function(req,res,next){
 
   var testCorpNum = '1234567890';         // 팝빌회원 사업자번호, '-' 제외 10자리
-  var DType = 'R';                        // 검색일자 유형, R-등록일자, W-작성일자, I-발행일자
-  var SDate = '20160101';                 // 시작일자, 작성형식(yyyyMMdd)
-  var EDate = '20160317';                 // 종료일자, 작성형식(yyyyMMdd)
+  var DType = 'T';                        // 검색일자 유형, R-등록일자, W-작성일자, I-발행일자
+  var SDate = '20160701';                 // 시작일자, 작성형식(yyyyMMdd)
+  var EDate = '20160831';                 // 종료일자, 작성형식(yyyyMMdd)
 
-  var State = ['100','200','3**'];        // 전송상태값 배열, 2,3번째 자리에 와일드카드(*) 사용가능
+  var State = ['100','200','3**', '4**'];        // 전송상태값 배열, 2,3번째 자리에 와일드카드(*) 사용가능
   var TradeType = ['N', 'C'];             // 현금영수증 종류 배열, N-일반현금영수증, C-취소현금영수증
   var TradeUsage = ['P', 'C'];            // 현금영수증 용도 배열, P-소득공제용, C-지출증빙용
   var TaxationType = ['T', 'N'];          // 과세유형 배열, T-과세, N-비과세
 
+  var QString = '';                       // 현금영수증 식별번호, 미기재시 전체조회
   var Order = 'D';                        // 정렬방향, D-내림차순, A-오름차순
   var Page = 1;                           // 페이지 번호
   var PerPage = 10;                       // 페이지당 검색개수, 최대 1000건
 
-  cashbillService.search(testCorpNum, DType, SDate, EDate, State, TradeType, TradeUsage, TaxationType, Order, Page, PerPage,
+  cashbillService.search(testCorpNum, DType, SDate, EDate, State, TradeType, TradeUsage, TaxationType, QString, Order, Page, PerPage,
     function(result){
       res.render('Cashbill/Search', {path : req.path, result : result});
     }, function(Error){

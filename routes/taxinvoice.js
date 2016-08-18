@@ -616,7 +616,7 @@ router.get('/search', function(req,res,next){
   var testUserID = 'testkorea';
   var keyType = popbill.MgtKeyType.SELL;  // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
   var DType = 'W';                        // 검색일자유형, R-등록일시, W-작성일시, I-발행일시
-  var SDate = '20160601';                 // 시작일자, 형태(yyyyMMdd)
+  var SDate = '20160701';                 // 시작일자, 형태(yyyyMMdd)
   var EDate = '20160831';                 // 종료일자, 형태(yyyyMMdd)
 
   var State = ['3**','6**'];              // 전송상태값 배열, 문서상태 값 3자리 배열
@@ -632,7 +632,9 @@ router.get('/search', function(req,res,next){
   var TaxRegIDYN = '';                    // 종사업장 유무, 공백-전체조회, 0-종사업장번호 없음, 1-종사업장번호 있음.
   var TaxRegID  = '';                     // 종사업장번호, 콤마(',')로 구분하여 구성 ex) '0001,1234'
 
-  taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State, Type, TaxType, LateOnly, Order, Page, PerPage, TaxRegIDType, TaxRegIDYN, TaxRegID, testUserID,
+  var QString = '투탑';                   // 거래처 정보, 거래처 상호 또는 사업자등록번호 기재, 미기재시 전체조회
+
+  taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State, Type, TaxType, LateOnly, Order, Page, PerPage, TaxRegIDType, TaxRegIDYN, TaxRegID, QString, testUserID,
     function(result){
       res.render('Taxinvoice/Search', {path : req.path, result : result});
     }, function(Error){
