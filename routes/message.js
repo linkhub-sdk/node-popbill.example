@@ -230,15 +230,14 @@ router.get('/getPopbillURL', function(req,res,next){
 router.get('/sendSMS', function(req,res,next){
 
   var testCorpNum = '1234567890';           // 팝빌회원 사업자번호, '-' 제외 10자리
-  var sendNum = '07075103710';              // 발신번호
-  var senderName = '발신자명';                // 발신자명
+  var sendNum = '07075103710';              // 발신
   var receiveNum = '000111222';             // 수신번호
   var receiveName = '수신자명';               // 수신자명
   var contents = 'SMS 단건전송 메시지 테스트';   // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
   var reserveDT = '';                      // 예약전송일시(yyyyMMddHHmmss), 미기재시 즉시전송
   var adsYN = false;                        // 광고문자 전송여부
 
-  messageService.sendSMS(testCorpNum, sendNum, senderName, receiveNum, receiveName, contents, reserveDT, adsYN,
+  messageService.sendSMS(testCorpNum, sendNum, receiveNum, receiveName, contents, reserveDT, adsYN,
     function(receiptNum){
       res.render('result', {path : req.path, result : receiptNum});
     }, function(Error){
@@ -251,7 +250,6 @@ router.get('/sendSMS_multi', function(req,res,next){
 
   var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
   var sendNum = '07075103710';        // 발신번호(동보전송용)
-  var senderName = '발신자명';            // 발신자명(동보전송용)
   var contents = '동보전송 메시지';       // 메시지 내용(동보전송용), 90Byte 초과시 길이가 조정되어 전송
   var reserveDT = '';                 // 예약전송일시(yyyyMMddHHmmss), 미기재시 즉시전송
   var adsYN = false;                   // 광고문자 전송여부
@@ -276,7 +274,7 @@ router.get('/sendSMS_multi', function(req,res,next){
     }
   ]
 
-  messageService.sendSMS_multi(testCorpNum, sendNum, senderName, contents, Messages, reserveDT, adsYN,
+  messageService.sendSMS_multi(testCorpNum, sendNum, contents, Messages, reserveDT, adsYN,
     function(receiptNum){
       res.render('result', {path : req.path, result : receiptNum});
     }, function(Error){
@@ -289,7 +287,6 @@ router.get('/sendLMS', function(req,res,next){
 
   var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
   var sendNum = '07075103710';        // 발신번호
-  var senderName = '발신자명';          // 발신자명
   var receiveNum = '000111222';       // 수신번호
   var receiveName = '수신자명';         // 수신자명
   var subject = '장문 메시지 제목';       // 메시지 제목
@@ -297,7 +294,7 @@ router.get('/sendLMS', function(req,res,next){
   var reserveDT = '';                 // 예약전송일시(yyyyMMddHHmmss), 미기재시 즉시전송
   var adsYN = false;                  // 광고문자 전송여부
 
-  messageService.sendLMS(testCorpNum, sendNum, senderName, receiveNum, receiveName, subject, contents, reserveDT, adsYN,
+  messageService.sendLMS(testCorpNum, sendNum, receiveNum, receiveName, subject, contents, reserveDT, adsYN,
     function(receiptNum){
       res.render('result', {path : req.path, result : receiptNum});
     }, function(Error){
@@ -310,7 +307,6 @@ router.get('/sendLMS_multi', function(req,res,next){
 
   var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
   var sendNum = '07075103710';        // 발신번호(동보전송용)
-  var senderName = '발신자명';          // 발신자명(동보전송용)
   var subject = '장문 메시지 제목';       // 메시지 제목(동보전송용)
   var contents = 'LMS 대량전송 테스트';   // 메시지 내용(동보전송용), 2000byte 초과시 길이가 조정되어 전송
   var reserveDT = '';                 // 예약전송일시(yyyyMMddHHmmss), 미기재시 즉시전송
@@ -336,7 +332,7 @@ router.get('/sendLMS_multi', function(req,res,next){
     }
   ]
 
-  messageService.sendLMS_multi(testCorpNum, sendNum, senderName, subject, contents, Messages, reserveDT, adsYN,
+  messageService.sendLMS_multi(testCorpNum, sendNum, subject, contents, Messages, reserveDT, adsYN,
     function(receiptNum){
       res.render('result', {path : req.path, result : receiptNum});
     }, function(Error){
@@ -349,7 +345,6 @@ router.get('/sendXMS', function(req,res,next){
 
   var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
   var sendNum = '07075103710';        // 발신번호
-  var senderName = '발신자명';          // 발신자명
   var receiveNum = '000333444';       // 수신번호
   var receiveName = '수신자명';         // 수신자명
   var subject = '자동인식 문자전송 제목';   // 메시지 제목
@@ -357,7 +352,7 @@ router.get('/sendXMS', function(req,res,next){
   var reserveDT = '';                 // 예약전송일시(yyyyMMddHHmmss), 미기재시 즉시전송
   var adsYN = false;                  // 광고문자 전송여부
 
-  messageService.sendXMS(testCorpNum, sendNum, senderName, receiveNum, receiveName, subject, contents, reserveDT, adsYN,
+  messageService.sendXMS(testCorpNum, sendNum, receiveNum, receiveName, subject, contents, reserveDT, adsYN,
     function(receiptNum){
       res.render('result', {path : req.path, result : receiptNum});
     }, function(Error){
@@ -370,7 +365,6 @@ router.get('/sendXMS_multi', function(req,res,next){
 
   var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
   var sendNum = '07075103710';        // 발신번호(동보전송용)
-  var sendName = '발신자명';            // 발신자명(동보전송용)
   var subject = '자동인식 문자전송 제목';   // 메시지 제목(동보전송용)
   var contents = 'XMS 자동인식 단건전송 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로';
   var reserveDT = '';                 // 예약전송일시(yyyyMMddHHmmss), 미기재시 즉시전송
@@ -396,7 +390,7 @@ router.get('/sendXMS_multi', function(req,res,next){
     }
   ]
 
-  messageService.sendXMS_multi(testCorpNum, sendNum, sendName, subject, contents, Messages, reserveDT, adsYN,
+  messageService.sendXMS_multi(testCorpNum, sendNum, subject, contents, Messages, reserveDT, adsYN,
     function(receiptNum){
       res.render('result', {path : req.path, result : receiptNum});
     }, function(Error){
@@ -409,7 +403,6 @@ router.get('/sendMMS', function(req,res,next){
 
   var testCorpNum = '1234567890';     // 팝빌회원 사업자번호, '-' 제외 10자리
   var sendNum = '07075103710';        // 발신번호
-  var sendName = '발신자명';            // 발신자명
   var receiveNum = '000111222';       // 수신번호
   var receiveName = '수신자명';         // 수신자명
   var subject = 'MMS 메시지 제목';       // 메시지 제목
@@ -419,7 +412,7 @@ router.get('/sendMMS', function(req,res,next){
 
   var filePaths = ['../테스트.jpg']     // MMS 파일경로
 
-  messageService.sendMMS(testCorpNum, sendNum, sendName, receiveNum, receiveName, subject, contents, filePaths, reserveDT, adsYN,
+  messageService.sendMMS(testCorpNum, sendNum, receiveNum, receiveName, subject, contents, filePaths, reserveDT, adsYN,
     function(receiptNum){
       res.render('result', {path : req.path, result : receiptNum});
     }, function(Error){
@@ -432,7 +425,6 @@ router.get('/sendMMS_multi', function(req,res,next){
 
   var testCorpNum = '1234567890';      // 팝빌회원 사업자번호, '-' 제외 10자리
   var senderNum = '07075103710';       // 발신번호(동보전송용)
-  var senderName = '발신자명';           // 발신자명(동보전송용)
   var subject = '장문 메시지 제목';        // 메시지 제목(동보전송용)
   var contents = 'MMS 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로';  // 메시지 내용(동보전송용), 2000Byte 초과시 길이가 조정되어 전송
   var reserveDT = '';                  // 예약전송일시(yyyyMMddHHmmss), 미기재시 즉시전송
@@ -459,7 +451,7 @@ router.get('/sendMMS_multi', function(req,res,next){
     }
   ]
 
-  messageService.sendMMS_multi(testCorpNum, senderNum, senderName, subject, contents, Messages, filePaths, reserveDT, adsYN,
+  messageService.sendMMS_multi(testCorpNum, senderNum, subject, contents, Messages, filePaths, reserveDT, adsYN,
     function(receiptNum){
       res.render('result', {path : req.path, result : receiptNum});
     }, function(Error){

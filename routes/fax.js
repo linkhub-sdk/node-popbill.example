@@ -230,13 +230,12 @@ router.get('/sendFAX', function(req,res,next){
 
   var testCorpNum = '1234567890';    // 팝빌회원 사업자번호, '-' 제외 10자리
   var senderNum = '07075103710';     // 발신번호
-  var senderName = '발신자명';         // 발신자명
   var receiveNum = '0001111222';    // 수신팩스번호
   var receiveName = '수신자명';       // 수신자명
   var filePaths = ['../테스트.jpg', '../테스트.jpg'];    // 파일경로 배열
-  var reserveDT = '20150812200000';   // 예약전송일시(yyyyMMddHHmmss), 미기재시 즉시전송
+  var reserveDT = '';   // 예약전송일시(yyyyMMddHHmmss), 미기재시 즉시전송
 
-  faxService.sendFax(testCorpNum, senderNum, senderName, receiveNum, receiveName, filePaths, reserveDT,
+  faxService.sendFax(testCorpNum, senderNum, receiveNum, receiveName, filePaths, reserveDT,
     function(receiptNum){
       res.render('result', {path : req.path, result : receiptNum});
     }, function(Error){
@@ -249,7 +248,6 @@ router.get('/sendFAX_multi', function(req,res,next){
 
   var testCorpNum = '1234567890';    // 팝빌회원 사업자번호, '-' 제외 10자리
   var senderNum = '07075103710';     // 발신번호
-  var senderName = '발신자명';         // 발신자명
   var filePaths = ['../테스트.jpg', '../테스트.jpg']  // 파일경로 배열
   var reserveDT = '';   // 예약전송일시(yyyyMMddHHmmss), 미기재시 즉시전송
 
@@ -265,7 +263,7 @@ router.get('/sendFAX_multi', function(req,res,next){
     }
   ]
 
-  faxService.sendFax(testCorpNum, senderNum, senderName, Receivers, filePaths, reserveDT,
+  faxService.sendFax(testCorpNum, senderNum, Receivers, filePaths, reserveDT,
     function(receiptNum){
       res.render('result', {path : req.path, result : receiptNum});
     }, function(Error){
