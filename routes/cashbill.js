@@ -2,10 +2,14 @@ var express = require('express');
 var router = express.Router();
 var popbill = require('popbill');
 
+
 popbill.config({
-  LinkID :'TESTER', //링크아이디
-  SecretKey : 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=', //비밀키
-  IsTest : true,   //연동환경 설정값, true(테스트용), false(상업용)
+  //링크아이디
+  LinkID :'TESTER',
+  //비밀키
+  SecretKey : 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=',
+  //연동환경 설정값, 개발용(true), 상업용(false)
+  IsTest : true,
   defaultErrorHandler :  function(Error) {
     console.log('Error Occur : [' + Error.code + '] ' + Error.message);
   }
