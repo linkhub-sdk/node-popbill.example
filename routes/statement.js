@@ -96,7 +96,7 @@ router.get('/joinMember', function(req,res,next) {
     BizType : '업태',
 
     // 종목
-    BizClass : '업종',
+    BizClass : '종목',
 
     // 담당자 성명
     ContactName : '담당자 성명',
@@ -151,7 +151,7 @@ router.get('/getChargeInfo', function (req, res, next) {
 * - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API)
 *   를 통해 확인하시기 바랍니다.
 */
-router.get('/getBalance', function(req,res,next){
+router.get('/getBalance', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
@@ -197,7 +197,7 @@ router.get('/getPopbillURL', function(req,res,next) {
   var testUserID = 'testkorea';
 
   // LOGIN(팝빌 로그인), CHRG(포인트충전), SEAL(인감 및 첨부문서 등록)
-  var TOGO = 'CHRG';
+  var TOGO = 'LOGIN';
 
   statementService.getPopbillURL(testCorpNum, testUserID, TOGO,
     function(url) {
@@ -240,7 +240,7 @@ router.get('/updateContact', function (req, res, next) {
   var contactInfo =  {
 
     // 담당자명
-    personName : '담당자명0315',
+    personName : '담당자명',
 
     // 연락처
     tel : '070-4304-2991',
@@ -328,15 +328,14 @@ router.get('/getCorpInfo', function (req, res, next) {
       res.render('Base/getCorpInfo', { path: req.path, result : result});
     }, function(Error) {
       res.render('response', { path: req.path, code : Error.code, message : Error.message});
-    }
-  );
+    });
 });
 
 
 /**
 * 연동회원의 회사정보를 수정합니다
 */
-router.get('/updateCorpInfo', function (req, res, next){
+router.get('/updateCorpInfo', function (req, res, next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
@@ -385,7 +384,7 @@ router.get('/checkMgtKeyInUse', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20150813-01';
+  var mgtKey = '20161116-01';
 
   statementService.checkMgtKeyInUse(testCorpNum, itemCode, mgtKey,
     function(result) {
@@ -412,7 +411,7 @@ router.get('/registIssue', function(req,res,next) {
   var ItemCode = 121;
 
   // 문서관리번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
-  var MgtKey = '20161115-02';
+  var MgtKey = '20161116-01';
 
 
   // 전자명세서 정보
@@ -602,7 +601,7 @@ router.get('/register', function(req,res,next) {
   var ItemCode = 121;
 
   // 문서관리번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 구성
-  var MgtKey = '20161115-07';
+  var MgtKey = '20161116-02';
 
   // 전자명세서 정보
   var statement = {
@@ -792,14 +791,14 @@ router.get('/update', function(req,res,next) {
   var ItemCode = 121;
 
   // 문서관리번호
-  var MgtKey = '20161115-04';
+  var MgtKey = '20161116-02';
 
 
   // 전자명세서 정보
   var statement = {
 
     // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-    writeDate : '20161115',
+    writeDate : '20161116',
 
     // [필수] 영수, 청구 중 기재
     purposeType : '영수',
@@ -971,6 +970,34 @@ router.get('/update', function(req,res,next) {
 
 
 /**
+* 1건의 전자명세서를 삭제합니다.
+* - 전자명세서를 삭제하면 사용된 문서관리번호(mgtKey)를 재사용할 수 있습니다.
+* - 삭제가능한 문서 상태 : [임시저장], [발행취소]
+*/
+router.get('/delete', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서) 124(발주서), 125(입금표), 126(영수증)
+  var itemCode = 121;
+
+  // 문서관리번호
+  var mgtKey = '20161116-02';
+
+  // 팝빌회원 아이디
+  var testUserID = 'testkorea';
+
+  statementService.delete(testCorpNum, itemCode, mgtKey, testUserID,
+    function(result) {
+      res.render('response', { path : req.path, code: result.code, message : result.message });
+    },function(Error) {
+      res.render('response', {path : req.path,  code: Error.code, message : Error.message });
+  });
+});
+
+
+/**
 * 1건의 전자명세서 상태/요약 정보를 확인합니다.
 * - 응답항목에 대한 자세한 정보는 "[전자명세서 API 연동매뉴얼] > 3.3.1.
 *   GetInfo (상태 확인)"을 참조하시기 바랍니다.
@@ -984,7 +1011,7 @@ router.get('/getInfo', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1012,7 +1039,7 @@ router.get('/getInfos', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호 배열, 최대 1000건
-  var mgtKeyList = ['20161115-07', '20150813-01', '20150813-02', '20150813-03', '20161115-01'];
+  var mgtKeyList = ['20161116-02', '20150813-01', '20150813-02', '20150813-03', '20161115-01'];
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1040,7 +1067,7 @@ router.get('/getDetailInfo', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-01';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1054,32 +1081,7 @@ router.get('/getDetailInfo', function(req,res,next) {
 });
 
 
-/**
-* 1건의 전자명세서를 삭제합니다.
-* - 전자명세서를 삭제하면 사용된 문서관리번호(mgtKey)를 재사용할 수 있습니다.
-* - 삭제가능한 문서 상태 : [임시저장], [발행취소]
-*/
-router.get('/delete', function(req,res,next) {
 
-  // 팝빌회원 사업자번호, '-' 제외 10자리
-  var testCorpNum = '1234567890';
-
-  // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서) 124(발주서), 125(입금표), 126(영수증)
-  var itemCode = 121;
-
-  // 문서관리번호
-  var mgtKey = '20161115-04';
-
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.delete(testCorpNum, itemCode, mgtKey, testUserID,
-    function(result) {
-      res.render('response', { path : req.path, code: result.code, message : result.message });
-    },function(Error) {
-      res.render('response', {path : req.path,  code: Error.code, message : Error.message });
-  });
-});
 
 
 /**
@@ -1097,7 +1099,7 @@ router.get('/getLogs', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1125,7 +1127,7 @@ router.get('/attachFile', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 파일경로
   var filePaths = ['../테스트.jpg'];
@@ -1159,7 +1161,7 @@ router.get('/getFiles', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   statementService.getFiles(testCorpNum, itemCode, mgtKey,
     function(result) {
@@ -1183,10 +1185,10 @@ router.get('/deleteFile', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 파일아이디 getFiles API의 attachedFile 변수값
-  var fileID = '8BE66DF7-8A55-400D-8383-6FB905EF6517.PBF';
+  var fileID = '7BC2BBAA-8F1C-4255-AF6A-4BF62F1E2D59.PBF';
 
   statementService.deleteFile(testCorpNum, itemCode, mgtKey,fileID,
     function(result) {
@@ -1209,7 +1211,7 @@ router.get('/issue', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 메모
   var memo = '발행메모';
@@ -1238,7 +1240,7 @@ router.get('/cancelIssue', function(req,res,next){
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 메모
   var memo = '발행취소 메모';
@@ -1267,7 +1269,7 @@ router.get('/sendEmail', function(req,res,next){
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 수신메일주소
   var receiver = 'test@test.com';
@@ -1296,7 +1298,7 @@ router.get('/sendSMS', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 발신번호
   var senderNum = '07043042991';
@@ -1331,7 +1333,7 @@ router.get('/sendFAX', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 발신번호
   var senderNum = '07043042991';
@@ -1369,7 +1371,7 @@ router.get('/FAXSend', function(req,res,next){
   var ItemCode = 121;
 
   // 문서관리번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
-  var MgtKey = '20161115-08';
+  var MgtKey = '20161116-03';
 
   // 전자명세서 정보
   var statement = {
@@ -1583,7 +1585,7 @@ router.get('/getPopUpURL', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1610,7 +1612,7 @@ router.get('/getPrintURL', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1628,7 +1630,7 @@ router.get('/getPrintURL', function(req,res,next) {
 * 다수건의 전자명세서 인쇄팝업 URL을 반환합니다. (최대 100건)
 * - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.
 */
-router.get('/getMassPrintURL', function(req,res,next){
+router.get('/getMassPrintURL', function(req,res,next) {
 
   // 팝빌회원 사업자번호
   var testCorpNum = '1234567890';
@@ -1637,7 +1639,7 @@ router.get('/getMassPrintURL', function(req,res,next){
   var itemCode = 121;
 
   // 문서관리번호 배열, 최대 100건
-  var mgtKeyList = ['20161115-07', '20150813-15', '20150810-07', '20150810-08']
+  var mgtKeyList = ['20161116-02', '20150813-15', '20150810-07', '20150810-08']
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1664,7 +1666,7 @@ router.get('/getEPrintURL', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1691,7 +1693,7 @@ router.get('/getMailURL', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1784,7 +1786,7 @@ router.get('/attachStatement', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 첨부할 명세서 종류코드
   var subItemCode = 121;
@@ -1804,7 +1806,7 @@ router.get('/attachStatement', function(req,res,next) {
 /**
 * 전자명세서에 첨부된 다른 전자명세서를 첨부해제합니다.
 */
-router.get('/detachStatement', function(req,res,next){
+router.get('/detachStatement', function(req,res,next) {
 
   // 팝빌회원 사업자번호
   var testCorpNum = '1234567890';
@@ -1813,7 +1815,7 @@ router.get('/detachStatement', function(req,res,next){
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161115-07';
+  var mgtKey = '20161116-02';
 
   // 첨부해제할 명세서 종류코드
   var subItemCode = 121;
