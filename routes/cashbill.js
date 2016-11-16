@@ -37,7 +37,6 @@ router.get('/', function(req, res, next) {
 
 /**
 * 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
-* - LinkID는 인증정보로 설정되어 있는 링크아이디 값입니다.
 */
 router.get('/checkIsMember', function(req, res, next) {
 
@@ -45,9 +44,9 @@ router.get('/checkIsMember', function(req, res, next) {
   var testCorpNum = '1234567890';
 
   cashbillService.checkIsMember(testCorpNum,
-    function(result){
+    function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
-    }, function(Error){
+    }, function(Error) {
       res.render('response', {code : Error.code, message : Error.message});
   });
 });
@@ -56,16 +55,17 @@ router.get('/checkIsMember', function(req, res, next) {
 /**
 * 팝빌 회원아이디 중복여부를 확인합니다.
 */
-router.get('/checkID', function (req, res, next){
-  var testID = 'testkorea';  // 조회할 아이디
+router.get('/checkID', function (req, res, next) {
+
+  // 조회할 아이디
+  var testID = 'testkorea';
 
   cashbillService.checkID(testID,
-    function(result){
+    function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
-    }, function(Error){
+    }, function(Error) {
       res.render('response', { path: req.path, code : Error.code, message : Error.message});
-    }
-  );
+    });
 });
 
 
@@ -121,6 +121,7 @@ router.get('/joinMember', function(req,res,next) {
       res.render('response', {path : req.path,  code: Error.code, message : Error.message });
   });
 });
+
 
 /**
 * 현금영수증 API 서비스 과금정보를 확인합니다.
@@ -223,7 +224,7 @@ router.get('/listContact', function (req, res, next) {
 /**
 * 연동회원의 담당자 정보를 수정합니다.
 */
-router.get('/updateContact', function (req, res, next){
+router.get('/updateContact', function (req, res, next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
@@ -378,7 +379,7 @@ router.get('/checkMgtKeyInUse', function(req,res,next) {
   // 문서관리번호
   var mgtKey = '20150813-01';
 
-  cashbillService.checkMgtKeyInUse(testCorpNum,mgtKey,
+  cashbillService.checkMgtKeyInUse(testCorpNum, mgtKey,
     function(result) {
       if(result) {
         res.render('result', {path : req.path, result : '사용중'});
@@ -405,7 +406,7 @@ router.get('/registIssue', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-  var MgtKey = '20161115-01';
+  var MgtKey = '20161116-01';
 
   // 현금영수증 항목
   var cashbill = {
@@ -481,7 +482,7 @@ router.get('/registIssue', function(req,res,next) {
     smssendYN : false,
   };
 
-  cashbillService.registIssue(testCorpNum,cashbill,
+  cashbillService.registIssue(testCorpNum, cashbill,
     function(result) {
       res.render('response', {path : req.path,  code: result.code, message : result.message });
     }, function(Error) {
@@ -504,7 +505,7 @@ router.get('/register', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-  var MgtKey = '20161115-02';
+  var MgtKey = '20161116-02';
 
   // 현금영수증 항목
   var cashbill = {
@@ -595,13 +596,13 @@ router.get('/register', function(req,res,next) {
 * - 국세청에 신고된 현금영수증은 수정할 수 없으며, 취소 현금영수증을 발행하여 취소처리 할 수 있습니다.
 * - 취소현금영수증 작성방법 안내 - http://blog.linkhub.co.kr/702
 */
-router.get('/update', function(req,res,next){
+router.get('/update', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
   // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-  var MgtKey = '20161115-01';
+  var MgtKey = '20161116-02';
 
   // 현금영수증 항목
   var cashbill = {
@@ -687,6 +688,59 @@ router.get('/update', function(req,res,next){
 
 
 /**
+* 검색조건을 사용하여 현금영수증 목록을 조회합니다.
+* - 응답항목에 대한 자세한 사항은 "[현금영수증 API 연동매뉴얼] >
+*   4.2. 현금영수증 상태정보 구성" 을 참조하시기 바랍니다.
+*/
+router.get('/search', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  // 검색일자 유형, R-등록일자, T-거래일자, I-발행일자
+  var DType = 'I';
+
+  // 시작일자, 작성형식(yyyyMMdd)
+  var SDate = '20161001';
+
+  // 종료일자, 작성형식(yyyyMMdd)
+  var EDate = '20161131';
+
+  // 문서상태코드 배열, 2,3번째 자리에 와일드카드(*) 사용가능
+  var State = ['1**', '3**', '4**'];
+
+  // 현금영수증 종류 배열, N-일반현금영수증, C-취소현금영수증
+  var TradeType = ['N', 'C'];
+
+  // 현금영수증 용도 배열, P-소득공제용, C-지출증빙용
+  var TradeUsage = ['P', 'C'];
+
+  // 과세유형 배열, T-과세, N-비과세
+  var TaxationType = ['T', 'N'];
+
+  // 현금영수증 식별번호, 미기재시 전체조회
+  var QString = '';
+
+  // 정렬방향, D-내림차순, A-오름차순
+  var Order = 'D';
+
+  // 페이지 번호
+  var Page = 1;
+
+  // 페이지당 검색개수, 최대 1000건
+  var PerPage = 50;
+
+  cashbillService.search(testCorpNum, DType, SDate, EDate, State, TradeType,
+                      TradeUsage, TaxationType, QString, Order, Page, PerPage,
+    function(result) {
+      res.render('Cashbill/Search', {path : req.path, result : result});
+    }, function(Error) {
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+    });
+});
+
+
+/**
 * 1건의 현금영수증 상태/요약 정보를 확인합니다.
 * - 응답항목에 대한 자세한 정보는 "[현금영수증 API 연동매뉴얼] > 4.2.
 *   현금영수증 상태정보 구성"을 참조하시기 바랍니다.
@@ -697,7 +751,7 @@ router.get('/getInfo', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-01';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -721,7 +775,7 @@ router.get('/getInfos', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호 배열, 최대 1000건
-  var mgtKeyList = ['20150813-02', '20150813-03', '20161115-01']
+  var mgtKeyList = ['20161116-01', '20161116-02', '20150813-02', '20150813-03', '20161115-01']
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -740,21 +794,21 @@ router.get('/getInfos', function(req,res,next) {
 * - 응답항목에 대한 자세한 사항은 "[현금영수증 API 연동매뉴얼] > 4.1.
 *   현금영수증 구성" 을 참조하시기 바랍니다.
 */
-router.get('/getDetailInfo', function(req,res,next){
+router.get('/getDetailInfo', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-01';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
 
   cashbillService.getDetailInfo(testCorpNum, mgtKey, testUserID,
-    function(result){
+    function(result) {
       res.render('Cashbill/CashbillDetail',{path : req.path, result : result});
-    }, function(Error){
+    }, function(Error) {
       res.render('response', {path : req.path, code : Error.code, message : Error.message});
   });
 });
@@ -765,18 +819,18 @@ router.get('/getDetailInfo', function(req,res,next){
 * - 현금영수증을 삭제하면 사용된 문서관리번호(mgtKey)를 재사용할 수 있습니다.
 * - 삭제가능한 문서 상태 : [임시저장], [발행취소]
 */
-router.get('/delete', function(req,res,next){
+router.get('/delete', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-02';
 
   cashbillService.delete(testCorpNum, mgtKey,
-    function(result){
+    function(result) {
       res.render('response', {path : req.path,  code: result.code, message : result.message });
-    }, function(Error){
+    }, function(Error) {
       res.render('response', {path : req.path, code : Error.code, message : Error.message});
   });
 });
@@ -794,7 +848,7 @@ router.get('/getLogs', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-02';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -821,7 +875,7 @@ router.get('/issue', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-02';
 
   // 메모
   var memo = '발행메모';
@@ -840,21 +894,21 @@ router.get('/issue', function(req,res,next) {
 * - 발행취소는 국세청 전송전에만 가능합니다.
 * - 발행취소된 형금영수증은 국세청에 전송되지 않습니다.
 */
-router.get('/cancelIssue', function(req,res,next){
+router.get('/cancelIssue', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-02';
 
   // 메모
   var memo = '발행취소 메모';
 
   cashbillService.cancelIssue(testCorpNum, mgtKey, memo,
-    function(result){
+    function(result) {
       res.render('response', {path : req.path,  code: result.code, message : result.message });
-    }, function(Error){
+    }, function(Error) {
       res.render('response', {path : req.path, code : Error.code, message : Error.message});
   });
 });
@@ -863,21 +917,21 @@ router.get('/cancelIssue', function(req,res,next){
 /**
 * 현금영수증 발행 안내메일을 재전송합니다.
 */
-router.get('/sendEmail', function(req,res,next){
+router.get('/sendEmail', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-02';
 
   // 수신메일주소
   var receiver = 'test@test.com';
 
   cashbillService.sendEmail(testCorpNum, mgtKey, receiver,
-    function(result){
+    function(result) {
       res.render('response', {path : req.path,  code: result.code, message : result.message });
-    }, function(Error){
+    }, function(Error) {
       res.render('response', {path : req.path, code : Error.code, message : Error.message});
   });
 });
@@ -895,7 +949,7 @@ router.get('/sendSMS', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-02';
 
   // 발신번호
   var senderNum = '07043042991';
@@ -927,7 +981,7 @@ router.get('/sendFAX', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-02';
 
   // 발신번호
   var senderNum = '07043042991';
@@ -978,7 +1032,7 @@ router.get('/getPopUpURL', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-02';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -996,13 +1050,13 @@ router.get('/getPopUpURL', function(req,res,next) {
 * 1건의 현금영수증 인쇄팝업 URL을 반환합니다.
 * - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.
 */
-router.get('/getPrintURL', function(req,res,next){
+router.get('/getPrintURL', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-02';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1026,7 +1080,7 @@ router.get('/getMassPrintURL', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호 배열, 최대 100건
-  var mgtKeyList = ['20161115-01', '20150813-10', '20150813-02'];
+  var mgtKeyList = ['20161116-02', '20150813-10', '20150813-02'];
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1050,7 +1104,7 @@ router.get('/getEPrintURL', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-02';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1074,7 +1128,7 @@ router.get('/getMailURL', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161115-01';
+  var mgtKey = '20161116-02';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -1099,62 +1153,10 @@ router.get('/getUnitCost', function(req,res,next) {
   cashbillService.getUnitCost(testCorpNum,
     function(unitCost) {
       res.render('result', { path : req.path, result : unitCost });
-    },function(Error) {
+    }, function(Error) {
       res.render('response', {path : req.path,  code: Error.code, message : Error.message });
   });
 });
 
-
-/**
-* 검색조건을 사용하여 현금영수증 목록을 조회합니다.
-* - 응답항목에 대한 자세한 사항은 "[현금영수증 API 연동매뉴얼] >
-*   4.2. 현금영수증 상태정보 구성" 을 참조하시기 바랍니다.
-*/
-router.get('/search', function(req,res,next) {
-
-  // 팝빌회원 사업자번호, '-' 제외 10자리
-  var testCorpNum = '1234567890';
-
-  // 검색일자 유형, R-등록일자, W-작성일자, I-발행일자
-  var DType = 'T';
-
-  // 시작일자, 작성형식(yyyyMMdd)
-  var SDate = '20161001';
-
-  // 종료일자, 작성형식(yyyyMMdd)
-  var EDate = '20161131';
-
-  // 전송상태값 배열, 2,3번째 자리에 와일드카드(*) 사용가능
-  var State = ['100','200','3**', '4**'];
-
-  // 현금영수증 종류 배열, N-일반현금영수증, C-취소현금영수증
-  var TradeType = ['N', 'C'];
-
-  // 현금영수증 용도 배열, P-소득공제용, C-지출증빙용
-  var TradeUsage = ['P', 'C'];
-
-  // 과세유형 배열, T-과세, N-비과세
-  var TaxationType = ['T', 'N'];
-
-  // 현금영수증 식별번호, 미기재시 전체조회
-  var QString = '';
-
-  // 정렬방향, D-내림차순, A-오름차순
-  var Order = 'D';
-
-  // 페이지 번호
-  var Page = 1;
-
-  // 페이지당 검색개수, 최대 1000건
-  var PerPage = 10;
-
-  cashbillService.search(testCorpNum, DType, SDate, EDate, State, TradeType,
-                      TradeUsage, TaxationType, QString, Order, Page, PerPage,
-    function(result) {
-      res.render('Cashbill/Search', {path : req.path, result : result});
-    }, function(Error) {
-      res.render('response', {path : req.path, code : Error.code, message : Error.message});
-    });
-});
 
 module.exports = router;
