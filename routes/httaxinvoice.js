@@ -321,7 +321,8 @@ router.get('/getBalance', function(req,res,next) {
 
 
 /**
-* 팝빌 로그인 또는 포인트충전 팝업 URL을 반환합니다.
+* 팝빌 관련 팝업 URL을 반환합니다.
+* - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
 */
 router.get('/getPopbillURL', function(req,res,next) {
 
@@ -331,7 +332,7 @@ router.get('/getPopbillURL', function(req,res,next) {
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
 
-  // LOGIN(팝빌 로그인), CHRG(포인트충전), CERT(공인인증서 등록)
+  // LOGIN(팝빌 로그인), CHRG(포인트충전)
   var TOGO = 'CERT';
 
   htTaxinvoiceService.getPopbillURL(testCorpNum, testUserID, TOGO,
