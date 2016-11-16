@@ -4,7 +4,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <title>팝빌 SDK Express Example. </title>
   </head>
-  
+
   <body>
 		<div id="content">
 			<p class="heading1">Response</p>
@@ -19,7 +19,7 @@
 						<li>issueType : <%=result.issueType%></li>
 						<li>issueTiming : <%=result.issueTiming%></li>
 						<li>taxType : <%=result.taxType%></li>
-						
+
 						<li>invoicerCorpNum : <%=result.invoicerCorpNum%></li>
 						<li>invoicerCorpName : <%=result.invoicerCorpName%></li>
 						<li>invoicerMgtKey : <%=result.invoicerMgtKey%></li>
@@ -34,7 +34,7 @@
 						<li>invoicerHP : <%=result.invoicerHP%></li>
 						<li>invoicerEmail : <%=result.invoicerEmail%></li>
 						<li>invoicerSMSSendYN : <%=result.invoicerSMSSendYN%></li>
-						
+
 						<li>invoiceeType : <%=result.invoiceeType%></li>
 						<li>invoiceeCorpNum : <%=result.invoiceeCorpNum%></li>
 						<li>invoiceeMgtKey : <%=result.invoiceeMgtKey%></li>
@@ -55,7 +55,7 @@
 						<li>invoiceeHP2 : <%=result.invoiceeHP2%></li>
 						<li>invoiceeEmail2 : <%=result.invoiceeEmail2%></li>
 						<li>invoiceeSMSSendYN : <%=result.invoiceeSMSSendYN%></li>
-						
+
 						<li>trusteeCorpNum : <%=result.trusteeCorpNum%></li>
 						<li>trusteeCorpName : <%=result.trusteeCorpName%></li>
 						<li>trusteeMgtKey : <%=result.trusteeMgtKey%></li>
@@ -70,37 +70,37 @@
 						<li>trusteeHP : <%=result.trusteeHP%></li>
 						<li>trusteeEmail : <%=result.trusteeEmail%></li>
 						<li>trusteeSMSSendYN : <%=result.trusteeSMSSendYN%></li>
-						
+
 						<li>supplyCostTotal : <%=result.supplyCostTotal%></li>
 						<li>taxTotal : <%=result.taxTotal%></li>
 						<li>totalAmount : <%=result.totalAmount%></li>
-						
+
 						<li>modifyCode : <%=result.modifyCode%></li>
 						<li>orgNTSConfirmNum : <%=result.orgNTSConfirmNum%></li>
 						<li>purposeType : <%=result.purposeType%></li>
-						
+
 						<li>serialNum : <%=result.serialNum%></li>
 						<li>cash : <%=result.cash%></li>
 						<li>chkBill : <%=result.chkBill%></li>
 						<li>credit : <%=result.credit%></li>
 						<li>note : <%=result.note%></li>
-						
+
 						<li>remark1 : <%=result.remark1%></li>
 						<li>remark2 : <%=result.remark2%></li>
 						<li>remark3 : <%=result.remark3%></li>
-						
+
 						<li>kwon : <%=result.kwon%></li>
 						<li>ho : <%=result.ho%></li>
-						
+
 						<li>businessLicenseYN : <%=result.businessLicenseYN%></li>
 						<li>bankBookYN : <%=result.bankBookYN%></li>
 						<li>NTSConfirmNum : <%=result.NTSConfirmNum%></li>
 						<li>originalTaxinvoiceKey : <%=result.originalTaxinvoiceKey%></li>
-						<% 
+						<%
 							result.detailList.forEach(function(detailInfo, index){
 						%>
 						<fieldset class="fieldset3">
-						<legend>detailList [<%=index%>]</legend>
+						<legend>detailList [<%=index+1%>]</legend>
 							<ul>
 								<li>serialNum: <%=detailInfo.serialNum%></li>
 								<li>purchaseDT : <%=detailInfo.purchaseDT%></li>
@@ -118,7 +118,7 @@
 							result.addContactList.forEach(function(contactInfo, index){
 						%>
 						<fieldset class="fieldset3">
-						<legend>addContactList [<%=index%>]</legend>
+						<legend>addContactList [<%=index+1%>]</legend>
 							<ul>
 								<li>serialNum: <%=contactInfo.serialNum%></li>
 								<li>contactName: <%=contactInfo.contactName%></li>
