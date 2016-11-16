@@ -342,19 +342,19 @@ router.get('/updateCorpInfo', function (req, res, next) {
   var corpInfo = {
 
     // 대표자명
-    ceoname : "대표자성명0315",
+    ceoname : "대표자성명",
 
     // 상호
-    corpName : "업체명_0315",
+    corpName : "업체명",
 
     // 주소
-    addr : "서구 천변좌로_0315",
+    addr : "광산구 임방울대로",
 
     // 업태
-    bizType : "업태_0315",
+    bizType : "업태",
 
     // 종목
-    bizClass : "종목_0315"
+    bizClass : "종목"
   };
 
   cashbillService.updateCorpInfo(testCorpNum, testUserID, corpInfo,
