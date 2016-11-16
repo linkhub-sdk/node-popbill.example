@@ -29,7 +29,10 @@ router.get('/', function(req, res, next) {
 	res.render('HTTaxinvoice/index', {});
 });
 
-// 아이디 중복 확인
+
+/**
+* 팝빌 회원아이디 중복여부를 확인합니다.
+*/
 router.get('/checkID', function (req, res, next) {
 
   // 조회할 아이디
@@ -43,7 +46,10 @@ router.get('/checkID', function (req, res, next) {
     });
 });
 
-// 담당자 목록 조회
+
+/**
+* 연동회원의 담당자 목록을 확인합니다.
+*/
 router.get('/listContact', function (req, res, next) {
 
   // 조회할 아이디
@@ -57,7 +63,10 @@ router.get('/listContact', function (req, res, next) {
     });
 });
 
-// 담당자 정보 수정
+
+/**
+* 연동회원의 담당자 정보를 수정합니다.
+*/
 router.get('/updateContact', function (req, res, next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -97,7 +106,9 @@ router.get('/updateContact', function (req, res, next) {
 });
 
 
-// 담당자 추가
+/**
+* 연동회원의 담당자를 신규로 등록합니다.
+*/
 router.get('/registContact', function (req, res, next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -143,7 +154,9 @@ router.get('/registContact', function (req, res, next) {
 });
 
 
-// 회사정보 조회
+/**
+* 연동회원의 회사정보를 확인합니다.
+*/
 router.get('/getCorpInfo', function (req, res, next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -158,7 +171,9 @@ router.get('/getCorpInfo', function (req, res, next) {
 });
 
 
-// 과금정보 확인
+/**
+* 연동회원의 홈택스 전자세금계산서 연계 API 서비스 과금정보를 확인합니다.
+*/
 router.get('/getChargeInfo', function (req, res, next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -176,7 +191,9 @@ router.get('/getChargeInfo', function (req, res, next) {
 });
 
 
-// 회사정보 수정
+/**
+* 연동회원의 회사정보를 수정합니다
+*/
 router.get('/updateCorpInfo', function (req, res, next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -213,7 +230,9 @@ router.get('/updateCorpInfo', function (req, res, next) {
 });
 
 
-// 연동회원 가입여부 확인
+/**
+* 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
+*/
 router.get('/checkIsMember', function(req, res, next) {
 
   // 조회할 사업자번호, '-' 제외 10자리
@@ -227,7 +246,10 @@ router.get('/checkIsMember', function(req, res, next) {
     });
 });
 
-// 회원가입 요청
+
+/**
+* 팝빌 연동회원 가입을 요청합니다.
+*/
 router.get('/joinMember', function(req,res,next) {
 
   // 회원정보
@@ -279,7 +301,11 @@ router.get('/joinMember', function(req,res,next) {
 });
 
 
-// 연동회원 잔여포인트 조회
+/**
+* 연동회원의 잔여포인트를 확인합니다.
+* - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API)
+*   를 통해 확인하시기 바랍니다.
+*/
 router.get('/getBalance', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -293,7 +319,10 @@ router.get('/getBalance', function(req,res,next) {
     });
 });
 
-// 팝빌 SSO URL 요청
+
+/**
+* 팝빌 로그인 또는 포인트충전 팝업 URL을 반환합니다.
+*/
 router.get('/getPopbillURL', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -313,7 +342,13 @@ router.get('/getPopbillURL', function(req,res,next) {
     });
 });
 
-// 수집 요청
+
+/**
+* 전자(세금)계산서 매출/매입 내역 수집을 요청합니다
+* - 매출/매입 연계 프로세스는 "[홈택스 전자(세금)계산서 연계 API 연동매뉴얼]
+*   > 1.2. 프로세스 흐름도" 를 참고하시기 바랍니다.
+* - 수집 요청후 반환받은 작업아이디(JobID)의 유효시간은 1시간 입니다.
+*/
 router.get('/requestJob', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -343,7 +378,11 @@ router.get('/requestJob', function(req,res,next) {
 });
 
 
-// 수집 상태 확인
+/**
+* 수집 요청 상태를 확인합니다.
+* - 응답항목 관한 정보는 "[홈택스 전자(세금)계산서 연계 API 연동매뉴얼
+*   > 3.2.2. GetJobState(수집 상태 확인)" 을 참고하시기 바랍니다 .
+*/
 router.get('/getJobState', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -364,7 +403,12 @@ router.get('/getJobState', function(req,res,next) {
 });
 
 
-// 수집 상태 목록 확인
+/**
+* 수집 요청건들에 대한 상태 목록을 확인합니다.
+* - 수집 요청 작업아이디(JobID)의 유효시간은 1시간 입니다.
+* - 응답항목에 관한 정보는 "[홈택스 전자(세금)계산서 연계 API 연동매뉴얼]
+*   > 3.2.3. ListActiveJob (수집 상태 목록 확인)" 을 참고하시기 바랍니다.
+*/
 router.get('/listActiveJob', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -382,7 +426,11 @@ router.get('/listActiveJob', function(req,res,next) {
 });
 
 
-// 수집 결과 조회
+/**
+* 검색조건을 사용하여 수집결과를 조회합니다.
+* - 응답항목에 관한 정보는 "[홈택스 전자(세금)계산서 연계 API 연동매뉴얼]
+*   > 3.3.1. Search (수집 결과 조회)" 을 참고하시기 바랍니다.
+*/
 router.get('/search', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -433,7 +481,11 @@ router.get('/search', function(req,res,next) {
 });
 
 
-// 수집 결과 요약정보 조회
+/**
+* 검색조건을 사용하여 수집 결과 요약정보를 조회합니다.
+* - 응답항목에 관한 정보는 "[홈택스 전자(세금)계산서 연계 API 연동매뉴얼]
+*   > 3.3.2. Summary (수집 결과 요약정보 조회)" 을 참고하시기 바랍니다.
+*/
 router.get('/summary', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -475,7 +527,11 @@ router.get('/summary', function(req,res,next) {
 });
 
 
-// 상세정보 조회
+/**
+* 수집된 전자(세금)계산서 1건의 상세정보를 확인합니다.
+* - 응답항목에 관한 정보는 "[홈택스 전자(세금)계산서 연계 API 연동매뉴얼]
+*   > 4.1.2. GetTaxinvoice 응답전문 구성" 을 참고하시기 바랍니다.
+*/
 router.get('/getTaxinvoice', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -496,7 +552,11 @@ router.get('/getTaxinvoice', function(req,res,next) {
 });
 
 
-// 상세정보 조회 (XML)
+/**
+* XML형식의 전자(세금)계산서 상세정보를 1건을 확인합니다.
+* - 응답항목에 관한 정보는 "[홈택스 전자(세금)계산서 연계 API 연동매뉴얼]
+*   > 3.3.4. GetXML (상세정보 확인 - XML)" 을 참고하시기 바랍니다.
+*/
 router.get('/getXML', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -517,7 +577,10 @@ router.get('/getXML', function(req,res,next) {
 });
 
 
-// 정액제 서비스 신청 URL
+/**
+* 정액제 신청 팝업 URL을 반환합니다.
+* - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+*/
 router.get('/getFlatRatePopUpURL', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -535,7 +598,9 @@ router.get('/getFlatRatePopUpURL', function(req,res,next) {
 });
 
 
-// 정액제 서비스 상태 확인
+/**
+* 연동회원의 정액제 서비스 이용상태를 확인합니다.
+*/
 router.get('/getFlatRateState', function(req,res,next){
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -553,7 +618,10 @@ router.get('/getFlatRateState', function(req,res,next){
 });
 
 
-// 홈택스연계 공인인증서 등록 URL
+/**
+* 홈택스연계 공인인증서 등록 URL을 반환합니다.
+* - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+*/
 router.get('/getCertificatePopUpURL', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -571,7 +639,9 @@ router.get('/getCertificatePopUpURL', function(req,res,next) {
 });
 
 
-// 등록된 공인인증서 만료일자 확인
+/**
+* 등록된 홈택스 공인인증서의 만료일자를 확인합니다.
+*/
 router.get('/getCertificateExpireDate', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
