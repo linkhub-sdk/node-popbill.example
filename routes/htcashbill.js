@@ -8,13 +8,13 @@ var popbill = require('popbill');
 */
 popbill.config({
 
-  //링크아이디
+  // 링크아이디
   LinkID :'TESTER',
 
-  //비밀키
+  // 비밀키
   SecretKey : 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=',
 
-  //연동환경 설정값, 개발용(true), 상업용(false)
+  // 연동환경 설정값, 개발용(true), 상업용(false)
   IsTest : true,
 
   defaultErrorHandler :  function(Error) {
