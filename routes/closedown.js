@@ -169,7 +169,7 @@ router.get('/registContact', function (req, res, next) {
     function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
     }, function(Error){
-      res.render('response', { path: re q.path, code : Error.code, message : Error.message});
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
     });
 });
 
