@@ -23,8 +23,11 @@ popbill.config({
 });
 
 
-// 문자 API 클래스 생성
+/**
+* 문자 API 서비스 클래스 생성
+*/
 var messageService = popbill.MessageService();
+
 
 // Message API List Index
 router.get('/', function(req, res, next) {
@@ -90,7 +93,7 @@ router.get('/listContact', function (req, res, next) {
 
 
 /**
-* 담당자의 정볼르 수정합니다
+* 담당자의 정보를 수정합니다
 */
 router.get('/updateContact', function (req, res, next) {
 
@@ -211,19 +214,19 @@ router.get('/updateCorpInfo', function (req, res, next){
   var corpInfo = {
 
     // 대표자명
-    ceoname : "대표자성명0315",
+    ceoname : "대표자성명",
 
     // 상호
-    corpName : "업체명_0315",
+    corpName : "업체명",
 
     // 주소
-    addr : "서구 천변좌로_0315",
+    addr : "서울시 강남구",
 
     // 업태
-    bizType : "업태_0315",
+    bizType : "업태",
 
     // 종목
-    bizClass : "종목_0315"
+    bizClass : "종목"
   };
 
   messageService.updateCorpInfo(testCorpNum, testUserID, corpInfo,
@@ -348,7 +351,7 @@ router.get('/getPartnerBalance', function(req,res,next) {
 * 팝빌 관련 팝업 URL을 반환합니다.
 * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
 */
-router.get('/getPopbillURL', function(req,res,next){
+router.get('/getPopbillURL', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
@@ -357,12 +360,12 @@ router.get('/getPopbillURL', function(req,res,next){
   var testUserID = 'testkorea';
 
   // LOGIN(팝빌 로그인), CHRG(포인트충전)
-  var TOGO = 'CHRG';
+  var TOGO = 'LOGIN';
 
   messageService.getPopbillURL(testCorpNum, testUserID, TOGO,
-    function(url){
+    function(url) {
       res.render('result', {path : req.path, result : url});
-    }, function(Error){
+    }, function(Error) {
       res.render('response', {path : req.path, code :Error.code, message :Error.message});
   });
 });
@@ -577,7 +580,7 @@ router.get('/sendXMS_multi', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 발신번호(동보전송용)
-  var sendNum = '07075103710';
+  var sendNum = '07043042991';
 
   // 메시지 제목(동보전송용)
   var subject = '자동인식 문자전송 제목';
@@ -714,9 +717,9 @@ router.get('/sendMMS_multi', function(req,res,next) {
 
 
 /**
-* 검색조건을 사용하여 문자전송정보 목록을 조회합니다.
+* 검색조건을 사용하여 문자전송 목록을 조회합니다.
 */
-router.get('/search', function(req,res,next){
+router.get('/search', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
@@ -730,10 +733,10 @@ router.get('/search', function(req,res,next){
   // 전송상태값 배열, 1-대기, 2-성공, 3-실패, 4-취소
   var State = [1, 2, 3, 4];
 
-  // 검색대상 배열
+  // 문자전송유형 배열, SMS-단문, LMS-장문, MMS-포토
   var Item = ['SMS', 'LMS', 'MMS'];
 
-  // 예약여부, true-예약전송만 조회
+  // 예약여부, true-예약전송 조회, false-전체조회
   var ReserveYN = false;
 
   // 개인조회여부, true-개인조회, false-회사조회
@@ -766,7 +769,7 @@ router.get('/getMessages', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문자전송 접수번호
-  var receiptNum = '016080916000000011';
+  var receiptNum = '016111710000000008';
 
   messageService.getMessages(testCorpNum, receiptNum,
     function(result) {
