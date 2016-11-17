@@ -226,7 +226,7 @@ router.get('/listContact', function (req, res, next) {
 /**
 * 연동회원의 담당자 정보를 수정합니다.
 */
-router.get('/updateContact', function (req, res, next){
+router.get('/updateContact', function (req, res, next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
@@ -258,9 +258,9 @@ router.get('/updateContact', function (req, res, next){
   };
 
   faxService.updateContact(testCorpNum, testUserID, contactInfo,
-    function(result){
+    function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
-    }, function(Error){
+    }, function(Error) {
       res.render('response', { path: req.path, code : Error.code, message : Error.message});
     });
 });
@@ -334,7 +334,7 @@ router.get('/getCorpInfo', function (req, res, next) {
 /**
 * 연동회원의 회사정보를 수정합니다
 */
-router.get('/updateCorpInfo', function (req, res, next){
+router.get('/updateCorpInfo', function (req, res, next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
@@ -346,25 +346,25 @@ router.get('/updateCorpInfo', function (req, res, next){
   var corpInfo = {
 
     // 대표자명
-    ceoname : "대표자성명0315",
+    ceoname : "대표자성명",
 
     // 상호
-    corpName : "업체명_0315",
+    corpName : "업체명",
 
     // 주소
-    addr : "서구 천변좌로_0315",
+    addr : "서울시 강남구",
 
     // 업태
-    bizType : "업태_0315",
+    bizType : "업태",
 
     // 종목
-    bizClass : "종목_0315"
+    bizClass : "종목"
   };
 
   faxService.updateCorpInfo(testCorpNum, testUserID, corpInfo,
-    function(result){
+    function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
-    }, function(Error){
+    }, function(Error) {
       res.render('response', { path: req.path, code : Error.code, message : Error.message});
     });
 });
@@ -389,7 +389,7 @@ router.get('/sendFAX', function(req,res,next) {
   var filePaths = ['../테스트.jpg', '../테스트.jpg'];
 
   // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
-  var reserveDT = '20161116200000';
+  var reserveDT = '';
 
   faxService.sendFax(testCorpNum, senderNum, receiveNum, receiveName, filePaths, reserveDT,
     function(receiptNum) {
@@ -398,6 +398,7 @@ router.get('/sendFAX', function(req,res,next) {
       res.render('response', {path : req.path, code :Error.code, message :Error.message});
   });
 });
+
 
 // 팩스 대량 전송
 router.get('/sendFAX_multi', function(req,res,next) {
@@ -414,7 +415,7 @@ router.get('/sendFAX_multi', function(req,res,next) {
   // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
   var reserveDT = '';
 
-  //수신자정보 배열, 최대 1000건
+  // 수신자정보 배열, 최대 1000건
   var Receivers = [
     {
       receiveName : '수신자명1',      // 수신자명
@@ -434,6 +435,7 @@ router.get('/sendFAX_multi', function(req,res,next) {
   });
 });
 
+
 /**
 * 팩스 전송결과 확인
 */
@@ -443,9 +445,9 @@ router.get('/getFaxResult', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 팩스전송 접수번호
-  var receiptNum = '016111609344500001';
+  var receiptNum = '016111710222400001';
 
-  faxService.getFaxResult(testCorpNum,receiptNum,
+  faxService.getFaxResult(testCorpNum, receiptNum,
     function(result) {
       res.render('Fax/FaxResult',{path : req.path, result : result});
     }, function(Error) {
@@ -466,7 +468,7 @@ router.get('/cancelReserve', function(req, res, next) {
   // 팩스전송 접수번호
   var receiptNum = '016111609371100001';
 
-  faxService.cancelReserve(testCorpNum,receiptNum,
+  faxService.cancelReserve(testCorpNum, receiptNum,
     function(result) {
       res.render('response', { path : req.path, code: result.code, message : result.message });
     },function(Error) {
@@ -490,7 +492,7 @@ router.get('/getURL', function(req,res,next) {
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
 
-  faxService.getURL(testCorpNum,TOGO,testUserID,
+  faxService.getURL(testCorpNum, TOGO, testUserID,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
@@ -524,10 +526,10 @@ router.get('/search', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 시작일자, 작성형식(yyyyMMdd)
+  // 시작일자, 날짜형식(yyyyMMdd)
   var SDate = '20161001';
 
-  // 종료일자, 작성형식(yyyyMMdd)
+  // 종료일자, 날짜형식(yyyyMMdd)
   var EDate = '20161131';
 
   // 전송상태값 배열, 1-대기, 2-성공, 3-실패, 4-취소
