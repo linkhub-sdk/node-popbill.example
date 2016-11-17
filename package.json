@@ -4,7 +4,7 @@
   "description": "Popbill API SDK Example for node. see www.popbill.com. updated 2016-03-17",
   "author":{
     "name" : "Jeong Yohan",
-    "email" : "code@linkhub.co.kr"
+    "email" : "dev@linkhub.co.kr"
   },
   "engines": {
     "node": ">= 0.10.0"

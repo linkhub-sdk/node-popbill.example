@@ -94,7 +94,7 @@ router.get('/updateContact', function (req, res, next) {
     // 팩스번호
     fax : '070-1234-4324',
 
-    // 전체조회여부, 전체조회(true), 회사조회(false)
+    // 전체조회여부, 회사조회(true), 개인조회(false)
     searchAllAllowYN : true
   };
 
@@ -142,7 +142,7 @@ router.get('/registContact', function (req, res, next) {
     // 팩스번호
     fax : '070-4304-2991',
 
-    // 전체조회여부, 전체조회(true), 회사조회(false)
+    // 전체조회여부, 회사조회(true), 개인조회(false)
     searchAllAllowYN : true
   };
 

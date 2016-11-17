@@ -97,7 +97,7 @@ router.get('/joinMember', function(req,res,next) {
   	BizType : '업태',
 
     // 종목
-  	BizClass : '업종',
+  	BizClass : '종목',
 
     // 담당자 성명
   	ContactName : '담당자 성명',
@@ -194,7 +194,7 @@ router.get('/getPopbillURL', function(req,res,next) {
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
 
-  // LOGIN(팝빌 로그인), CHRG(포인트충전),
+  // LOGIN(팝빌 로그인), CHRG(포인트충전)
   var TOGO = 'LOGIN';
 
   faxService.getPopbillURL(testCorpNum, testUserID, TOGO,
@@ -222,6 +222,7 @@ router.get('/listContact', function (req, res, next) {
     });
 });
 
+
 /**
 * 연동회원의 담당자 정보를 수정합니다.
 */
@@ -238,7 +239,7 @@ router.get('/updateContact', function (req, res, next){
   var contactInfo =  {
 
     // 담당자명
-    personName : '담당자명0315',
+    personName : '담당자명',
 
     // 연락처
     tel : '070-4304-2991',
@@ -252,7 +253,7 @@ router.get('/updateContact', function (req, res, next){
     // 팩스번호
     fax : '070-1234-4324',
 
-    // 전체조회여부, 전체조회(true), 회사조회(false)
+    // 전체조회여부, 회사조회(true), 개인조회(false)
     searchAllAllowYN : true
   };
 
@@ -300,7 +301,7 @@ router.get('/registContact', function (req, res, next){
     // 팩스번호
     fax : '070-4304-2991',
 
-    // 전체조회여부, 전체조회(true), 회사조회(false)
+    // 회사조회여부, 회사조회(true), 개인조회(false)
     searchAllAllowYN : true
   };
 
