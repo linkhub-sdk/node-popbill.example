@@ -2,18 +2,19 @@ var express = require('express');
 var router = express.Router();
 var popbill = require('popbill');
 
+
 /**
 * 팝빌 서비스 연동환경 초기화
 */
 popbill.config({
 
-  //링크아이디
+  // 링크아이디
   LinkID :'TESTER',
 
-  //비밀키
+  // 비밀키
   SecretKey : 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=',
 
-  //연동환경 설정값, 개발용(true), 상업용(false)
+  // 연동환경 설정값, 개발용(true), 상업용(false)
   IsTest : true,
 
   defaultErrorHandler :  function(Error) {
@@ -21,7 +22,10 @@ popbill.config({
   }
 });
 
-// 홈택스 전자세금계산서 API 연계 모듈 초기화
+
+/**
+* 홈택스 전자세금계산서 API 연계 모듈 초기화
+*/
 var htTaxinvoiceService = popbill.HTTaxinvoiceService();
 
 // API List Index
@@ -93,7 +97,7 @@ router.get('/updateContact', function (req, res, next) {
     // 팩스번호
     fax : '070-1234-4324',
 
-    // 전체조회여부, 전체조회(true), 회사조회(false)
+    // 전체조회여부, 회사조회(true), 개인조회(false)
     searchAllAllowYN : true
   };
 
@@ -274,7 +278,7 @@ router.get('/joinMember', function(req,res,next) {
   	BizType : '업태',
 
     // 종목
-  	BizClass : '업종',
+  	BizClass : '종목',
 
     // 담당자 성명
   	ContactName : '담당자 성명',
@@ -333,7 +337,7 @@ router.get('/getPopbillURL', function(req,res,next) {
   var testUserID = 'testkorea';
 
   // LOGIN(팝빌 로그인), CHRG(포인트충전)
-  var TOGO = 'CERT';
+  var TOGO = 'CHRG';
 
   htTaxinvoiceService.getPopbillURL(testCorpNum, testUserID, TOGO,
     function(url) {
@@ -390,7 +394,7 @@ router.get('/getJobState', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 작업아이디
-  var jobID = '016072214000000003';
+  var jobID = '016111711000000001';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -441,7 +445,7 @@ router.get('/search', function(req,res,next) {
   var testUserID = 'testkorea';
 
   // 작업아이디
-  var jobID = '016072211000000001';
+  var jobID = '016111711000000001';
 
   // 문서형태, N-일반 세금계산서, M-수정세금계산서
   var type = ['N', 'M'];
@@ -496,7 +500,7 @@ router.get('/summary', function(req,res,next) {
   var testUserID = 'testkorea';
 
   // 작업아이디
-  var jobID = '016072211000000001';
+  var jobID = '016111711000000001';
 
 
   // 문서형태, N-일반 세금계산서, M-수정세금계산서
@@ -542,7 +546,7 @@ router.get('/getTaxinvoice', function(req,res,next) {
   var testUserID = 'testkorea';
 
   // 전자세금계산서 국세청 승인번호
-  var ntsconfirmNum = '201607214100002900000356';
+  var ntsconfirmNum = '201611154100020300001350';
 
   htTaxinvoiceService.getTaxinvoice(testCorpNum, ntsconfirmNum, testUserID,
     function(response) {
@@ -567,7 +571,7 @@ router.get('/getXML', function(req,res,next) {
   var testUserID = 'testkorea';
 
   // 전자세금계산서 국세청 승인번호
-  var ntsconfirmNum = '201607214100002900000356';
+  var ntsconfirmNum = '201611154100020300001350';
 
   htTaxinvoiceService.getXML(testCorpNum, ntsconfirmNum, testUserID,
     function(response) {
@@ -602,7 +606,7 @@ router.get('/getFlatRatePopUpURL', function(req,res,next) {
 /**
 * 연동회원의 정액제 서비스 이용상태를 확인합니다.
 */
-router.get('/getFlatRateState', function(req,res,next){
+router.get('/getFlatRateState', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
@@ -620,7 +624,7 @@ router.get('/getFlatRateState', function(req,res,next){
 
 
 /**
-* 홈택스연계 공인인증서 등록 URL을 반환합니다.
+* 홈택스연계 공인인증서 등록 팝업 URL을 반환합니다.
 * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
 */
 router.get('/getCertificatePopUpURL', function(req,res,next) {

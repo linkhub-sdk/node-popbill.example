@@ -334,7 +334,7 @@ router.get('/getPopbillURL', function(req,res,next) {
   var testUserID = 'testkorea';
 
   // LOGIN(팝빌 로그인), CHRG(포인트충전)
-  var TOGO = 'CERT';
+  var TOGO = 'CHRG';
 
   htCashbillService.getPopbillURL(testCorpNum, testUserID, TOGO,
     function(url) {
