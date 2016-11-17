@@ -391,7 +391,7 @@ router.get('/getJobState', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 작업아이디
-  var jobID = '016072214000000004';
+  var jobID = '016111711000000002';
 
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
@@ -440,7 +440,7 @@ router.get('/search', function(req,res,next) {
   var testUserID = 'testkorea';
 
   // 작업아이디
-  var jobID = '016072214000000004';
+  var jobID = '016111711000000007';
 
 
   // 문서형태 배열, N-일반 현금영수증, C-취소 현금영수증
@@ -482,7 +482,7 @@ router.get('/summary', function(req,res,next) {
   var testUserID = 'testkorea';
 
   // 작업아이디
-  var jobID = '016072214000000004';
+  var jobID = '016111711000000007';
 
 
   // 문서형태 배열, N-일반 현금영수증, C-취소 현금영수증
