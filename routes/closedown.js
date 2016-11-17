@@ -22,7 +22,9 @@ popbill.config({
   }
 });
 
-// 휴폐업조회 API 모듈초기화
+/*
+* 휴폐업조회 API 모듈초기화
+*/
 var closedownService = popbill.ClosedownService();
 
 router.get('/', function(req, res, next){
@@ -274,7 +276,7 @@ router.get('/joinMember', function(req,res,next) {
   	BizType : '업태',
 
     // 종목
-  	BizClass : '업종',
+  	BizClass : '종목',
 
     // 담당자 성명
   	ContactName : '담당자 성명',
@@ -351,7 +353,7 @@ router.get('/getPopbillURL', function(req,res,next) {
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
 
-  // LOGIN(팝빌 로그인), CHRG(포인트충전), CERT(공인인증서 등록)
+  // LOGIN(팝빌 로그인), CHRG(포인트충전)
   var TOGO = 'LOGIN';
 
   closedownService.getPopbillURL(testCorpNum, testUserID, TOGO,
@@ -415,7 +417,7 @@ router.get('/checkCorpNums', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 조회 사업자번호 배열, 최대 1000건
-  var checkCorpNumList = ['1234567890', '4108600477', '1249528799'];
+  var checkCorpNumList = ['1234567890', '6798700433', '1249528799'];
 
   closedownService.checkCorpNums(testCorpNum, checkCorpNumList,
     function(CorpState) {
