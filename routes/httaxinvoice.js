@@ -368,10 +368,10 @@ router.get('/requestJob', function(req,res,next) {
   // 검색일자유형, W-작성일자, R-등록일자, I-발행일자
   var DType = 'W';
 
-  // 시작일자, 표시형식(yyyyMMdd)
+  // 시작일자, 날짜형식(yyyyMMdd)
   var SDate = '20161011';
 
-  // 종료일자, 표시형식(yyyyMMdd)
+  // 종료일자, 날짜형식(yyyyMMdd)
   var EDate = '20161131';
 
   htTaxinvoiceService.requestJob(testCorpNum, type, DType, SDate, EDate, testUserID,
@@ -409,7 +409,7 @@ router.get('/getJobState', function(req,res,next) {
 
 
 /**
-* 수집 요청건들에 대한 상태 목록을 확인합니다.
+* 수집 요청에 대한 상태 목록을 확인합니다.
 * - 수집 요청 작업아이디(JobID)의 유효시간은 1시간 입니다.
 * - 응답항목에 관한 정보는 "[홈택스 전자(세금)계산서 연계 API 연동매뉴얼]
 *   > 3.2.3. ListActiveJob (수집 상태 목록 확인)" 을 참고하시기 바랍니다.
@@ -447,20 +447,20 @@ router.get('/search', function(req,res,next) {
   // 작업아이디
   var jobID = '016111711000000001';
 
-  // 문서형태, N-일반 세금계산서, M-수정세금계산서
+  // 문서형태 배열, N-일반 세금계산서, M-수정세금계산서
   var type = ['N', 'M'];
 
-  // 과세형태, T-과세, N-면세, Z-영세
+  // 과세형태 배열, T-과세, N-면세, Z-영세
   var taxType = ['T', 'N', 'Z'];
 
-  // 영수/청구, R-영수, C-청구, N-없음
+  // 영수/청구 배열, R-영수, C-청구, N-없음
   var purposeType = ['R', 'C', 'N'];
 
 
   // 종사업장 사업자유형, S-공급자, B-공급받는자, T-수탁자
   var taxRegIDType = 'S';
 
-  // 종사업장번호 유무
+  // 종사업장번호 유무, 공백-전체조회, 0-종사업장번호 없음, 1-종사업장번호 있음
   var taxRegIDYN = '';
 
   // 종사업장번호, 콤마(',')로 구분하여 구성, ex) '1234,0007';
@@ -503,20 +503,20 @@ router.get('/summary', function(req,res,next) {
   var jobID = '016111711000000001';
 
 
-  // 문서형태, N-일반 세금계산서, M-수정세금계산서
+  // 문서형태 배열, N-일반 세금계산서, M-수정세금계산서
   var type = ['N', 'M'];
 
-  // 과세형태, T-과세, N-면세, Z-영세
+  // 과세형태 배열, T-과세, N-면세, Z-영세
   var taxType = ['T', 'N', 'Z'];
 
-  // 영수/청구, R-영수, C-청구, N-없음
+  // 영수/청구 배열, R-영수, C-청구, N-없음
   var purposeType = ['R', 'C', 'N'];
 
 
   // 종사업장 사업자유형, S-공급자, B-공급받는자, T-수탁자
   var taxRegIDType = 'S';
 
-  // 종사업장번호 유무
+  ㅑ
   var taxRegIDYN = '';
 
   // 종사업장번호, 콤마(',')로 구분하여 구성, ex) '1234,0007';
@@ -604,7 +604,7 @@ router.get('/getFlatRatePopUpURL', function(req,res,next) {
 
 
 /**
-* 연동회원의 정액제 서비스 이용상태를 확인합니다.
+* 연동회원의 정액제 서비스 상태를 확인합니다.
 */
 router.get('/getFlatRateState', function(req,res,next) {
 
@@ -645,7 +645,7 @@ router.get('/getCertificatePopUpURL', function(req,res,next) {
 
 
 /**
-* 등록된 홈택스 공인인증서의 만료일자를 확인합니다.
+* 등록된 홈택스 공인인증서 만료일자를 확인합니다.
 */
 router.get('/getCertificateExpireDate', function(req,res,next) {
 

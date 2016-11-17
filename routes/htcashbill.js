@@ -22,7 +22,10 @@ popbill.config({
   }
 });
 
-// 홈택스 현금영수증 API 연계 모듈 초기화
+
+/**
+* 홈택스 현금영수증 API 연계 모듈 초기화
+*/
 var htCashbillService = popbill.HTCashbillService();
 
 // API List Index
@@ -275,7 +278,7 @@ router.get('/joinMember', function(req,res,next) {
   	BizType : '업태',
 
     // 종목
-  	BizClass : '업종',
+  	BizClass : '종목',
 
     // 담당자 성명
   	ContactName : '담당자 성명',
@@ -362,10 +365,10 @@ router.get('/requestJob', function(req,res,next) {
   // 세금계산서 유형, SELL-매출, BUY-매입, TRUSTEE-수탁
   var type = popbill.MgtKeyType.SELL;
 
-  // 시작일자, 표시형식(yyyyMMdd)
+  // 시작일자, 날짜형식(yyyyMMdd)
   var SDate = '20161001';
 
-  // 종료일자, 표시형식(yyyyMMdd)
+  // 종료일자, 날짜형식(yyyyMMdd)
   var EDate = '20161131';
 
   htCashbillService.requestJob(testCorpNum, type, SDate, EDate, testUserID,
@@ -406,7 +409,7 @@ router.get('/getJobState', function(req,res,next) {
 * 수집 요청건들에 대한 상태 목록을 확인합니다.
 * - 수집 요청 작업아이디(JobID)의 유효시간은 1시간 입니다.
 * - 응답항목에 관한 정보는 "[홈택스 현금영수증 연계 API 연동매뉴얼]
-*   > 3.2.3. ListActiveJob (수집 상태 목록 확인)" 을 참고하시기 바랍니다.
+*   > 3.2.3. ListActiveJob (수집상태 목록 확인)" 을 참고하시기 바랍니다.
 */
 router.get('/listActiveJob', function(req,res,next) {
 
@@ -426,7 +429,7 @@ router.get('/listActiveJob', function(req,res,next) {
 
 
 /**
-* 현금영수증 매출/매입 조회결과를 조회합니다.
+* 현금영수증 매출/매입 수집결과를 조회합니다.
 */
 router.get('/search', function(req,res,next) {
 
@@ -440,10 +443,10 @@ router.get('/search', function(req,res,next) {
   var jobID = '016072214000000004';
 
 
-  // 문서형태, N-일반 현금영수증, C-취소 현금영수증
+  // 문서형태 배열, N-일반 현금영수증, C-취소 현금영수증
   var tradeType = ['N', 'C'];
 
-  // 거래용도, P-소득공제용, C-지출증빙용
+  // 거래용도 배열, P-소득공제용, C-지출증빙용
   var tradeUsage = ['P', 'C'];
 
 
@@ -482,10 +485,10 @@ router.get('/summary', function(req,res,next) {
   var jobID = '016072214000000004';
 
 
-  // 문서형태, N-일반 현금영수증, C-취소 현금영수증
+  // 문서형태 배열, N-일반 현금영수증, C-취소 현금영수증
   var tradeType = ['N', 'C'];
 
-  // 거래용도, P-소득공제용, C-지출증빙용
+  // 거래용도 배열, P-소득공제용, C-지출증빙용
   var tradeUsage = ['P', 'C'];
 
   htCashbillService.summary(testCorpNum, jobID, tradeType, tradeUsage, testUserID,
