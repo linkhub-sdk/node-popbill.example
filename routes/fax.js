@@ -437,6 +437,86 @@ router.get('/sendFAX_multi', function(req,res,next) {
 
 
 /**
+* 팩스를 재전송합니다.
+* - 전송일로부터 180일이 경과되지 않은 전송건만 재전송할 수 있습니다.
+*/
+router.get('/resendFAX', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  // 팩스 접수번호
+  var receiptNum = '017021715405400001';
+
+  // 발신번호, 공백처리시 기존전송정보로 재전송
+  var senderNum = '07043042991';
+
+  // 발신자명, 공백처리시 기존전송정보로 재전송
+  var senderName = '발신자명';
+
+  // 수신팩스번호/수신자명 모두
+  // 수신번호
+  var receiveNum = '';
+
+  // 수신자명
+  var receiveName = '';
+
+  // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
+  var reserveDT = '';
+
+  faxService.resendFax(testCorpNum, receiptNum, senderNum, senderName, receiveNum, receiveName, reserveDT,
+    function(receiptNum) {
+      res.render('result', {path : req.path, result : receiptNum});
+    }, function(Error) {
+      res.render('response', {path : req.path, code :Error.code, message :Error.message});
+  });
+});
+
+
+
+/**
+* 팩스를 재전송합니다.
+* - 전송일로부터 180일이 경과되지 않은 전송건만 재전송할 수 있습니다.
+*/
+router.get('/resendFAX_multi', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  // 팩스 접수번호
+  var receiptNum = '017021715405400001';
+
+  // 발신번호, 공백처리시 기존전송정보로 재전송
+  var senderNum = '07043042991';
+
+  // 발신자명, 공백처리시 기존전송정보로 재전송
+  var senderName = '발신자명';
+
+
+  // 수신자정보 배열, 최대 1000건
+  var Receivers = [
+    {
+      receiveName : '수신자명1',      // 수신자명
+      receiveNum : '111222333',     // 수신팩스번호
+    },
+    {
+      receiveName : '수신자명2',
+      receiveNum : '000111222',
+    }
+  ]
+
+  // 수신자정보를 기존전송정보와 동일하게 재전송하는 경우 아래코드 적용
+  //var Receivers = null;
+
+  faxService.sendFax(testCorpNum, receiptNum, senderNum, senderName, Receivers, reserveDT,
+    function(receiptNum) {
+      res.render('result', {path : req.path, result : receiptNum});
+    }, function(Error) {
+      res.render('response', {path : req.path, code :Error.code, message :Error.message});
+  });
+});
+
+/**
 * 팩스 전송결과 확인
 */
 router.get('/getFaxResult', function(req,res,next) {

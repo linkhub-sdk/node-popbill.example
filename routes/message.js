@@ -725,10 +725,10 @@ router.get('/search', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 검색시작일자, 날짜형식(yyyyMMdd)
-  var SDate = '20161001';
+  var SDate = '20170101';
 
   // 검색종료일자, 날짜형식(yyyyMMdd)
-  var EDate = '20161131';
+  var EDate = '20170301';
 
   // 전송상태값 배열, 1-대기, 2-성공, 3-실패, 4-취소
   var State = [1, 2, 3, 4];
