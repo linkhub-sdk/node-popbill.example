@@ -132,10 +132,7 @@ router.get('/getChargeInfo', function (req, res, next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  taxinvoiceService.getChargeInfo(testCorpNum, testUserID,
+  taxinvoiceService.getChargeInfo(testCorpNum,
     function(result) {
       res.render('Base/getChargeInfo', { path: req.path, result : result});
     }, function(Error) {
@@ -171,13 +168,10 @@ router.get('/getPopbillURL', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // LOGIN(팝빌 로그인), CHRG(포인트충전), CERT(공인인증서 등록), SEAL(인감 및 첨부문서 등록)
   var TOGO = 'CHRG';
 
-  taxinvoiceService.getPopbillURL(testCorpNum, testUserID, TOGO,
+  taxinvoiceService.getPopbillURL(testCorpNum, TOGO,
     function(url) {
       res.render('result', { path : req.path, result : url });
     }, function(Error) {
@@ -253,14 +247,11 @@ router.get('/registContact', function (req, res, next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 담당자 정보
   var contactInfo =  {
 
     // 아이디
-    id : 'testkorea011101',
+    id : 'testkorea03033',
 
     // 비밀번호
     pwd : 'thisispassword',
@@ -275,7 +266,7 @@ router.get('/registContact', function (req, res, next) {
     hp : '010-1234-1234',
 
     // 메일주소
-    email : 'dev@linkhub.co.kr',
+    email : 'test@test.co.kr',
 
     // 팩스번호
     fax : '070-4304-2991',
@@ -284,7 +275,7 @@ router.get('/registContact', function (req, res, next) {
     searchAllAllowYN : true
   };
 
-  taxinvoiceService.registContact(testCorpNum, testUserID, contactInfo,
+  taxinvoiceService.registContact(testCorpNum, contactInfo,
     function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
     }, function(Error) {
@@ -318,9 +309,6 @@ router.get('/updateCorpInfo', function (req, res, next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 회사정보
   var corpInfo = {
 
@@ -340,7 +328,7 @@ router.get('/updateCorpInfo', function (req, res, next) {
     bizClass : "종목_nodejs"
   };
 
-  taxinvoiceService.updateCorpInfo(testCorpNum, testUserID, corpInfo,
+  taxinvoiceService.updateCorpInfo(testCorpNum, corpInfo,
     function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
     }, function(Error) {
@@ -386,9 +374,6 @@ router.get('/registIssue', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
-
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
 
   // 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
   var mgtKey = '20161116-01';
@@ -654,20 +639,14 @@ router.get('/register', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
-  var mgtKey = '20161116-05';
-
-  // 거래명세서 동시작성여부
-  var writeSpecification = false;
+  var mgtKey = '20170303-02';
 
   // 세금계산서 항목
   var Taxinvoice = {
 
     // [필수] 작성일자, 날짜형식 yyyyMMdd
-    writeDate : '20161116',
+    writeDate : '20170303',
 
     // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
     chargeDirection : '정과금',
@@ -900,7 +879,7 @@ router.get('/register', function(req,res,next) {
     ]
   };
 
-  taxinvoiceService.register(testCorpNum, Taxinvoice, testUserID, writeSpecification,
+  taxinvoiceService.register(testCorpNum, Taxinvoice,
     function(result) {
       res.render('response', {path : req.path, code: result.code, message : result.message});
     }, function(Error) {
@@ -918,11 +897,8 @@ router.get('/update', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 세금계산서 문서관리번호
-  var mgtKey = '20161116-03';
+  var mgtKey = '20170303-02';
 
   // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
   var keyType = popbill.MgtKeyType.SELL;
@@ -931,7 +907,7 @@ router.get('/update', function(req,res,next) {
   var Taxinvoice = {
 
     // [필수] 작성일자, 날짜형식 yyyyMMdd
-    writeDate : '20161116',
+    writeDate : '20170303',
 
     // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
     chargeDirection : '정과금',
@@ -1164,7 +1140,7 @@ router.get('/update', function(req,res,next) {
     ]
   };
 
-  taxinvoiceService.update(testCorpNum, keyType, mgtKey, Taxinvoice, testUserID,
+  taxinvoiceService.update(testCorpNum, keyType, mgtKey, Taxinvoice,
     function(result) {
       res.render('response', {path : req.path, code: result.code, message : result.message});
     }, function(Error) {
@@ -1187,12 +1163,9 @@ router.get('/getInfo', function(req,res,next) {
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
-  var mgtKey = '20161116-01';
+  var mgtKey = '20170303-02';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  taxinvoiceService.getInfo(testCorpNum, keyType, mgtKey, testUserID,
+  taxinvoiceService.getInfo(testCorpNum, keyType, mgtKey,
     function(result) {
       res.render('Taxinvoice/TaxinvoiceInfo',{path : req.path, result : result});
     }, function(Error) {
@@ -1217,10 +1190,7 @@ router.get('/getInfos', function(req,res,next) {
   // 문서관리번호 배열, 최대 1000건
   var mgtKeyList = ['20161116-01', '20161116-02'];
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  taxinvoiceService.getInfos(testCorpNum, keyType, mgtKeyList, testUserID,
+  taxinvoiceService.getInfos(testCorpNum, keyType, mgtKeyList,
     function(result) {
       res.render('Taxinvoice/TaxinvoiceInfos',{path : req.path, result : result});
     }, function(Error) {
@@ -1242,12 +1212,9 @@ router.get('/getDetailInfo',function(req,res,next) {
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
-  var mgtKey = '20161116-01';
+  var mgtKey = '20170303-02';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  taxinvoiceService.getDetailInfo(testCorpNum, keyType, mgtKey, testUserID,
+  taxinvoiceService.getDetailInfo(testCorpNum, keyType, mgtKey,
     function(result) {
       res.render('Taxinvoice/TaxinvoiceDetail', {path : req.path, result : result});
     }, function(Error) {
@@ -1265,9 +1232,6 @@ router.get('/search', function(req,res,next) {
 
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
-
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
 
   // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
   var keyType = popbill.MgtKeyType.SELL;
@@ -1316,7 +1280,7 @@ router.get('/search', function(req,res,next) {
 
   taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State,
                 Type, TaxType, LateOnly, Order, Page, PerPage, TaxRegIDType,
-                TaxRegIDYN, TaxRegID, QString, testUserID,
+                TaxRegIDYN, TaxRegID, QString,
     function(result) {
       res.render('Taxinvoice/Search', {path : req.path, result : result});
     }, function(Error) {
@@ -1338,12 +1302,9 @@ router.get('/delete', function(req,res,next) {
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170303-02';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  taxinvoiceService.delete(testCorpNum, keyType, mgtKey, testUserID,
+  taxinvoiceService.delete(testCorpNum, keyType, mgtKey,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1366,12 +1327,9 @@ router.get('/getLogs', function(req,res,next) {
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
-  var mgtKey = '20161116-01';
+  var mgtKey = '20170303-02';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  taxinvoiceService.getLogs(testCorpNum, keyType, mgtKey, testUserID,
+  taxinvoiceService.getLogs(testCorpNum, keyType, mgtKey,
     function(result) {
       res.render('Taxinvoice/TaxinvoiceLogs', {path : req.path, result : result});
     }, function(Error) {
@@ -1394,18 +1352,15 @@ router.get('/attachFile', function(req,res,next) {
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
-  var mgtKey = '20161116-05';
-
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
+  var mgtKey = '20170303-02';
 
   // 파일경로
-  var FilePaths = ['../테스트.jpg'];
+  var FilePaths = ['./test.jpg'];
 
   // 파일명
   var fileName = FilePaths[0].replace(/^.*[\\\/]/, '');
 
-  taxinvoiceService.attachFile(testCorpNum, keyType, mgtKey, fileName, FilePaths, testUserID,
+  taxinvoiceService.attachFile(testCorpNum, keyType, mgtKey, fileName, FilePaths,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1428,7 +1383,7 @@ router.get('/getFiles', function(req,res,next) {
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
-  var mgtKey = '20161116-05';
+  var mgtKey = '20170303-02';
 
   taxinvoiceService.getFiles(testCorpNum, keyType, mgtKey,
     function(result) {
@@ -1453,15 +1408,12 @@ router.get('/deleteFile', function(req,res,next) {
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
-  var mgtKey = '20161116-05';
-
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
+  var mgtKey = '20170303-02';
 
   // 삭제할 파일아이디, getFiles API의 attachedFile 변수값으로 확인
-  var fileID = '125A473F-E1D9-4BB6-A418-64719EDFBA64.PBF';
+  var fileID = '06B1E04E-29EC-451B-8AF7-BA717072DAAB.PBF';
 
-  taxinvoiceService.deleteFile(testCorpNum, keyType, mgtKey, fileID, testUserID,
+  taxinvoiceService.deleteFile(testCorpNum, keyType, mgtKey, fileID,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1487,16 +1439,13 @@ router.get('/send', function(req,res,next) {
   // 문서관리번호
   var mgtKey = '20161116-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 메모
   var memo = '발행예정 메모';
 
   // 안내메일 제목, 미기재시 기본양식으로 전송
   var emailSubject = '';
 
-  taxinvoiceService.send(testCorpNum, keyType, mgtKey, memo, emailSubject, testUserID,
+  taxinvoiceService.send(testCorpNum, keyType, mgtKey, memo, emailSubject,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1520,13 +1469,10 @@ router.get('/cancelSend', function(req,res,next) {
   // 문서관리번호
   var mgtKey = '20161116-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 메모
   var memo = '발행예정 취소 메모';
 
-  taxinvoiceService.cancelSend(testCorpNum, keyType, mgtKey, memo, testUserID,
+  taxinvoiceService.cancelSend(testCorpNum, keyType, mgtKey, memo,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1549,13 +1495,10 @@ router.get('/accept', function(req,res,next) {
   // 문서관리번호
   var mgtKey = '20161116-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 메모
   var memo = '발행예정 승인 메모';
 
-  taxinvoiceService.accept(testCorpNum, keyType, mgtKey, memo, testUserID,
+  taxinvoiceService.accept(testCorpNum, keyType, mgtKey, memo,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1579,13 +1522,10 @@ router.get('/deny', function(req,res,next) {
   // 문서관리번호
   var mgtKey = '20161116-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 메모
   var memo = '발행예정 거부 메모';
 
-  taxinvoiceService.deny(testCorpNum, keyType, mgtKey, memo, testUserID,
+  taxinvoiceService.deny(testCorpNum, keyType, mgtKey, memo,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1610,7 +1550,7 @@ router.get('/issue', function(req,res,next) {
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
-  var mgtKey = '20161116-01';
+  var mgtKey = '20170303-02';
 
   // 메모
   var memo = '발행 메모';
@@ -1622,10 +1562,7 @@ router.get('/issue', function(req,res,next) {
   // - 지연발행 세금계산서를 발행하는 경우, 가산세가 부과될 수 있습니다.
   var forceIssue = false;
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  taxinvoiceService.issue(testCorpNum, keyType, mgtKey, memo, emailSubject, forceIssue, testUserID,
+  taxinvoiceService.issue(testCorpNum, keyType, mgtKey, memo, emailSubject, forceIssue,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1650,15 +1587,12 @@ router.get('/cancelIssue', function(req,res,next) {
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
-  var mgtKey = '20161116-01';
-
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
+  var mgtKey = '20170303-02';
 
   // 메모
   var memo = '발행취소 메모';
 
-  taxinvoiceService.cancelIssue(testCorpNum, keyType, mgtKey, memo, testUserID,
+  taxinvoiceService.cancelIssue(testCorpNum, keyType, mgtKey, memo,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1686,13 +1620,10 @@ router.get('/request', function(req,res,next) {
   // 문서관리번호
   var mgtKey = '20161116-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 메모
   var memo = '역발행요청 메모';
 
-  taxinvoiceService.request(testCorpNum, keyType, mgtKey, memo, testUserID,
+  taxinvoiceService.request(testCorpNum, keyType, mgtKey, memo,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1715,15 +1646,12 @@ router.get('/cancelRequest', function(req,res,next) {
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
-  var mgtKey = '20161116-01';
-
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
+  var mgtKey = '20170303-02';
 
   // 메모
   var memo = '역발행요청 취소 메모';
 
-  taxinvoiceService.cancelRequest(testCorpNum, keyType, mgtKey, memo, testUserID,
+  taxinvoiceService.cancelRequest(testCorpNum, keyType, mgtKey, memo,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1748,13 +1676,10 @@ router.get('/refuse', function(req,res,next) {
   // 문서관리번호
   var mgtKey = '20161116-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 메모
   var memo = '역발행요청 거부 메모';
 
-  taxinvoiceService.refuse(testCorpNum, keyType, mgtKey, memo, testUserID,
+  taxinvoiceService.refuse(testCorpNum, keyType, mgtKey, memo,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1782,10 +1707,7 @@ router.get('/sendToNTS', function(req,res,next) {
   // 문서관리번호
   var mgtKey = '20161116-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  taxinvoiceService.sendToNTS(testCorpNum, keyType, mgtKey, testUserID,
+  taxinvoiceService.sendToNTS(testCorpNum, keyType, mgtKey,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1811,10 +1733,7 @@ router.get('/sendEmail', function(req,res,next) {
   // 수신 메일주소
   var receiver = 'test@test.com';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  taxinvoiceService.sendEmail(testCorpNum, keyType, mgtKey, receiver, testUserID,
+  taxinvoiceService.sendEmail(testCorpNum, keyType, mgtKey, receiver,
     function(result){
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error){
@@ -1849,10 +1768,7 @@ router.get('/sendSMS', function(req,res,next) {
   // 메세지 내용, 90byte 초과시 길이가 조정되어 전송됨
   var contents = '팝빌 전자세금계산서 문자전송';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  taxinvoiceService.sendSMS(testCorpNum, keyType, mgtKey, senderNum, receiverNum, contents, testUserID,
+  taxinvoiceService.sendSMS(testCorpNum, keyType, mgtKey, senderNum, receiverNum, contents,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
@@ -1884,10 +1800,7 @@ router.get('/sendFAX', function(req,res,next) {
   // 수신팩스번호
   var receiverNum = '000111222';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  taxinvoiceService.sendFAX(testCorpNum, keyType, mgtKey, senderNum, receiverNum, testUserID,
+  taxinvoiceService.sendFAX(testCorpNum, keyType, mgtKey, senderNum, receiverNum,
     function(result){
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error){
@@ -1964,13 +1877,10 @@ router.get('/getURL', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // TBOX : 임시문서함 , SBOX : 매출문서함 , PBOX : 매입문서함 , WRITE : 매출작성
   var TOGO = 'TBOX';
 
-  taxinvoiceService.getURL(testCorpNum, TOGO, testUserID,
+  taxinvoiceService.getURL(testCorpNum, TOGO,
     function(url) {
       res.render('result', {path : req.path, result : url});
     }, function(Error) {
@@ -1988,16 +1898,13 @@ router.get('/getPopUpURL', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
   var mgtKey = '20161116-01';
 
-  taxinvoiceService.getPopUpURL(testCorpNum, keyType, mgtKey, testUserID,
+  taxinvoiceService.getPopUpURL(testCorpNum, keyType, mgtKey,
     function(url){
       res.render('result', {path : req.path, result : url});
     }, function(Error){
@@ -2015,16 +1922,13 @@ router.get('/getPrintURL', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
   var mgtKey = '20161116-01';
 
-  taxinvoiceService.getPrintURL(testCorpNum, keyType, mgtKey, testUserID,
+  taxinvoiceService.getPrintURL(testCorpNum, keyType, mgtKey,
     function(url) {
       res.render('result', {path : req.path, result : url});
     }, function(Error) {
@@ -2042,16 +1946,13 @@ router.get('/getMassPrintURL', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호열 배열, 최대 100건
-  var mgtKeyList = ['20161116-01', '20150813-02', '20161115-07'];
+  var mgtKeyList = ['20170303-01', '20150813-02', '20161115-07'];
 
-  taxinvoiceService.getMassPrintURL(testCorpNum, keyType, mgtKeyList, testUserID,
+  taxinvoiceService.getMassPrintURL(testCorpNum, keyType, mgtKeyList,
     function(url) {
       res.render('result', {path : req.path, result : url});
     }, function(Error) {
@@ -2069,16 +1970,13 @@ router.get('/getEPrintURL', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
   var mgtKey = '20161115-07';
 
-  taxinvoiceService.getEPrintURL(testCorpNum, keyType, mgtKey, testUserID,
+  taxinvoiceService.getEPrintURL(testCorpNum, keyType, mgtKey,
     function(url) {
       res.render('result', {path : req.path, result : url});
     }, function(Error) {
@@ -2096,16 +1994,13 @@ router.get('/getMailURL', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
   var mgtKey = '20161115-07';
 
-  taxinvoiceService.getMailURL(testCorpNum, keyType, mgtKey, testUserID,
+  taxinvoiceService.getMailURL(testCorpNum, keyType, mgtKey,
     function(url) {
       res.render('result', {path : req.path, result : url});
     }, function(Error) {
@@ -2158,10 +2053,7 @@ router.get('/getEmailPublicKeys', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  taxinvoiceService.getEmailPublicKeys(testCorpNum, testUserID,
+  taxinvoiceService.getEmailPublicKeys(testCorpNum,
     function(result) {
       res.render('Taxinvoice/EmailPublicKeys', {path : req.path, result : result});
     }, function(Error) {
