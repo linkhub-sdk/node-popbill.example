@@ -63,10 +63,7 @@ router.get('/getChargeInfo', function (req, res, next) {
   // 문자전송유형, SMS(단문), LMS(장문), MMS(포토)
   var messageType = popbill.MessageType.SMS;
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  messageService.getChargeInfo(testCorpNum, messageType, testUserID,
+  messageService.getChargeInfo(testCorpNum, messageType,
     function(result) {
       res.render('Base/getChargeInfo', { path: req.path, result : result});
     }, function(Error) {
@@ -142,9 +139,6 @@ router.get('/registContact', function (req, res, next){
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 담당자 정보
   var contactInfo =  {
 
@@ -173,7 +167,7 @@ router.get('/registContact', function (req, res, next){
     searchAllAllowYN : true
   };
 
-  messageService.registContact(testCorpNum, testUserID, contactInfo,
+  messageService.registContact(testCorpNum, contactInfo,
     function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
     }, function(Error) {
@@ -207,9 +201,6 @@ router.get('/updateCorpInfo', function (req, res, next){
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 회사정보
   var corpInfo = {
 
@@ -229,7 +220,7 @@ router.get('/updateCorpInfo', function (req, res, next){
     bizClass : "종목"
   };
 
-  messageService.updateCorpInfo(testCorpNum, testUserID, corpInfo,
+  messageService.updateCorpInfo(testCorpNum, corpInfo,
     function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
     }, function(Error) {
@@ -356,13 +347,10 @@ router.get('/getPopbillURL', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // LOGIN(팝빌 로그인), CHRG(포인트충전)
   var TOGO = 'LOGIN';
 
-  messageService.getPopbillURL(testCorpNum, testUserID, TOGO,
+  messageService.getPopbillURL(testCorpNum, TOGO,
     function(url) {
       res.render('result', {path : req.path, result : url});
     }, function(Error) {
@@ -813,10 +801,7 @@ router.get('/getURL', function(req,res,next) {
   // BOX(전송내역조회)
   var TOGO = 'BOX';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  messageService.getURL(testCorpNum, TOGO, testUserID,
+  messageService.getURL(testCorpNum, TOGO,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
