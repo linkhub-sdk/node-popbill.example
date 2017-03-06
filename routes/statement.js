@@ -134,10 +134,7 @@ router.get('/getChargeInfo', function (req, res, next) {
   // 명세서 종류코드 - 121(거래명세서), 122(청구서), 123(견적서) 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.getChargeInfo(testCorpNum, itemCode, testUserID,
+  statementService.getChargeInfo(testCorpNum, itemCode,
     function(result) {
       res.render('Base/getChargeInfo', { path: req.path, result : result});
     }, function(Error) {
@@ -193,13 +190,10 @@ router.get('/getPopbillURL', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // LOGIN(팝빌 로그인), CHRG(포인트충전), SEAL(인감 및 첨부문서 등록)
-  var TOGO = 'LOGIN';
+  var TOGO = 'CHRG';
 
-  statementService.getPopbillURL(testCorpNum, testUserID, TOGO,
+  statementService.getPopbillURL(testCorpNum, TOGO,
     function(url) {
       res.render('result', {path : req.path, result : url});
     }, function(Error) {
@@ -275,17 +269,14 @@ router.get('/registContact', function (req, res, next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 담당자 정보
   var contactInfo =  {
 
     // 아이디
-    id : 'testkorea031213125',
+    id : 'testkorea2017030601',
 
     // 비밀번호
-    pwd : 'testpassword',
+    pwd : 'thisispasswd',
 
     // 담당자명
     personName : '담당자명0309',
@@ -297,7 +288,7 @@ router.get('/registContact', function (req, res, next) {
     hp : '010-1234-1234',
 
     // 메일주소
-    email : 'dev@linkhub.co.kr',
+    email : 'test@test.co.kr',
 
     // 팩스번호
     fax : '070-4304-2991',
@@ -306,7 +297,7 @@ router.get('/registContact', function (req, res, next) {
     searchAllAllowYN : true
   };
 
-  statementService.registContact(testCorpNum, testUserID, contactInfo,
+  statementService.registContact(testCorpNum, contactInfo,
     function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
     }, function(Error) {
@@ -340,9 +331,6 @@ router.get('/updateCorpInfo', function (req, res, next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 회사정보
   var corpInfo = {
 
@@ -362,7 +350,7 @@ router.get('/updateCorpInfo', function (req, res, next) {
     bizClass : "종목"
   };
 
-  statementService.updateCorpInfo(testCorpNum, testUserID, corpInfo,
+  statementService.updateCorpInfo(testCorpNum, corpInfo,
     function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
     }, function(Error) {
@@ -601,13 +589,13 @@ router.get('/register', function(req,res,next) {
   var ItemCode = 121;
 
   // 문서관리번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 구성
-  var MgtKey = '20161116-02';
+  var MgtKey = '20170306-02';
 
   // 전자명세서 정보
   var statement = {
 
     // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-    writeDate : '20161115',
+    writeDate : '20170306',
 
     // [필수] 영수, 청구 중 기재
     purposeType : '영수',
@@ -983,12 +971,9 @@ router.get('/delete', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.delete(testCorpNum, itemCode, mgtKey, testUserID,
+  statementService.delete(testCorpNum, itemCode, mgtKey,
     function(result) {
       res.render('response', { path : req.path, code: result.code, message : result.message });
     },function(Error) {
@@ -1011,12 +996,9 @@ router.get('/getInfo', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.getInfo(testCorpNum, itemCode, mgtKey, testUserID,
+  statementService.getInfo(testCorpNum, itemCode, mgtKey,
     function(result) {
       res.render('Statement/StatementInfo',{path : req.path, result : result});
     }, function(Error) {
@@ -1039,12 +1021,9 @@ router.get('/getInfos', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호 배열, 최대 1000건
-  var mgtKeyList = ['20161116-02', '20150813-01', '20150813-02', '20150813-03', '20161115-01'];
+  var mgtKeyList = ['20170306-01', '20150813-01', '20150813-02', '20150813-03', '20161115-01'];
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.getInfos(testCorpNum, itemCode, mgtKeyList, testUserID,
+  statementService.getInfos(testCorpNum, itemCode, mgtKeyList,
     function(result) {
       res.render('Statement/StatementInfos',{path : req.path, result : result});
     }, function(Error) {
@@ -1067,21 +1046,15 @@ router.get('/getDetailInfo', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161116-01';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.getDetailInfo(testCorpNum, itemCode, mgtKey, testUserID,
+  statementService.getDetailInfo(testCorpNum, itemCode, mgtKey,
     function(result) {
       res.render('Statement/StatementDetail',{path : req.path, result : result});
     }, function(Error) {
       res.render('response', {path : req.path, code : Error.code, message : Error.message});
   });
 });
-
-
-
 
 
 /**
@@ -1099,12 +1072,9 @@ router.get('/getLogs', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.getLogs(testCorpNum, itemCode, mgtKey, testUserID,
+  statementService.getLogs(testCorpNum, itemCode, mgtKey,
     function(result) {
       res.render('Statement/StatementLogs', {path : req.path, result : result});
     }, function(Error) {
@@ -1127,18 +1097,15 @@ router.get('/attachFile', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-02';
 
   // 파일경로
-  var filePaths = ['../테스트.jpg'];
+  var filePaths = ['./test.jpg'];
 
   // 파일명
   var fileName = filePaths[0].replace(/^.*[\\\/]/, '');
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.attachFile(testCorpNum, itemCode, mgtKey, fileName, filePaths, testUserID,
+  statementService.attachFile(testCorpNum, itemCode, mgtKey, fileName, filePaths,
     function(result) {
       res.render('response', { path : req.path, code: result.code, message : result.message });
     },function(Error) {
@@ -1161,7 +1128,7 @@ router.get('/getFiles', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
   statementService.getFiles(testCorpNum, itemCode, mgtKey,
     function(result) {
@@ -1185,10 +1152,10 @@ router.get('/deleteFile', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
   // 파일아이디 getFiles API의 attachedFile 변수값
-  var fileID = '7BC2BBAA-8F1C-4255-AF6A-4BF62F1E2D59.PBF';
+  var fileID = '5991857A-1CBC-4BB7-B32F-4126FFC1E64C.PBF';
 
   statementService.deleteFile(testCorpNum, itemCode, mgtKey,fileID,
     function(result) {
@@ -1211,15 +1178,12 @@ router.get('/issue', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
   // 메모
   var memo = '발행메모';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.issue(testCorpNum, itemCode, mgtKey, memo, testUserID,
+  statementService.issue(testCorpNum, itemCode, mgtKey, memo,
     function(result) {
       res.render('response', { path : req.path, code: result.code, message : result.message });
     },function(Error) {
@@ -1240,15 +1204,12 @@ router.get('/cancelIssue', function(req,res,next){
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
   // 메모
   var memo = '발행취소 메모';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.cancel(testCorpNum,itemCode, mgtKey, memo, testUserID,
+  statementService.cancel(testCorpNum,itemCode, mgtKey, memo,
     function(result) {
       res.render('response', { path : req.path, code: result.code, message : result.message });
     },function(Error) {
@@ -1269,7 +1230,7 @@ router.get('/sendEmail', function(req,res,next){
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
   // 수신메일주소
   var receiver = 'test@test.com';
@@ -1560,10 +1521,7 @@ router.get('/getURL', function(req,res,next) {
   // SBOX(매출문서함), TBOX(임시문서함)
   var TOGO = 'SBOX';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.getURL(testCorpNum, TOGO, testUserID,
+  statementService.getURL(testCorpNum, TOGO,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
@@ -1585,12 +1543,9 @@ router.get('/getPopUpURL', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.getPopUpURL(testCorpNum, itemCode, mgtKey, testUserID,
+  statementService.getPopUpURL(testCorpNum, itemCode, mgtKey,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
@@ -1612,12 +1567,9 @@ router.get('/getPrintURL', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.getPrintURL(testCorpNum, itemCode, mgtKey, testUserID,
+  statementService.getPrintURL(testCorpNum, itemCode, mgtKey,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
@@ -1639,12 +1591,9 @@ router.get('/getMassPrintURL', function(req,res,next) {
   var itemCode = 121;
 
   // 문서관리번호 배열, 최대 100건
-  var mgtKeyList = ['20161116-02', '20150813-15', '20150810-07', '20150810-08']
+  var mgtKeyList = ['20170306-01', '20150813-15', '20150810-07', '20150810-08']
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.getMassPrintURL(testCorpNum, itemCode, mgtKeyList, testUserID,
+  statementService.getMassPrintURL(testCorpNum, itemCode, mgtKeyList,
     function(url){
       res.render('result', { path : req.path, result : url });
     },function(Error){
@@ -1668,10 +1617,7 @@ router.get('/getEPrintURL', function(req,res,next) {
   // 문서관리번호
   var mgtKey = '20161116-02';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.getEPrintURL(testCorpNum, itemCode, mgtKey, testUserID,
+  statementService.getEPrintURL(testCorpNum, itemCode, mgtKey,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
@@ -1695,10 +1641,7 @@ router.get('/getMailURL', function(req,res,next) {
   // 문서관리번호
   var mgtKey = '20161116-02';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  statementService.getMailURL(testCorpNum, itemCode, mgtKey, testUserID,
+  statementService.getMailURL(testCorpNum, itemCode, mgtKey,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
