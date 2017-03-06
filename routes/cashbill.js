@@ -131,10 +131,7 @@ router.get('/getChargeInfo', function (req, res, next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  cashbillService.getChargeInfo(testCorpNum, testUserID,
+  cashbillService.getChargeInfo(testCorpNum,
     function(result) {
       res.render('Base/getChargeInfo', { path: req.path, result : result});
     }, function(Error) {
@@ -189,13 +186,10 @@ router.get('/getPopbillURL', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // LOGIN(팝빌 로그인), CHRG(포인트충전)
   var TOGO = 'CHRG';
 
-  cashbillService.getPopbillURL(testCorpNum, testUserID, TOGO,
+  cashbillService.getPopbillURL(testCorpNum, TOGO,
     function(url) {
       res.render('result', {path : req.path, result : url});
     }, function(Error) {
@@ -271,17 +265,14 @@ router.get('/registContact', function (req, res, next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 담당자 정보
   var contactInfo =  {
 
     // 아이디
-    id : 'testkorea031213125',
+    id : 'testkorea2017030602',
 
     // 비밀번호
-    pwd : 'testpassword',
+    pwd : 'thisispasswd',
 
     // 담당자명
     personName : '담당자명0309',
@@ -302,7 +293,7 @@ router.get('/registContact', function (req, res, next) {
     searchAllAllowYN : true
   };
 
-  cashbillService.registContact(testCorpNum, testUserID, contactInfo,
+  cashbillService.registContact(testCorpNum, contactInfo,
     function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
     }, function(Error) {
@@ -336,9 +327,6 @@ router.get('/updateCorpInfo', function (req, res, next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
   // 회사정보
   var corpInfo = {
 
@@ -358,7 +346,7 @@ router.get('/updateCorpInfo', function (req, res, next) {
     bizClass : "종목"
   };
 
-  cashbillService.updateCorpInfo(testCorpNum, testUserID, corpInfo,
+  cashbillService.updateCorpInfo(testCorpNum, corpInfo,
     function(result) {
       res.render('response', { path: req.path, code: result.code, message : result.message });
     }, function(Error) {
@@ -406,7 +394,7 @@ router.get('/registIssue', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-  var MgtKey = '20161116-01';
+  var MgtKey = '20170306-01';
 
   // 현금영수증 항목
   var cashbill = {
@@ -751,12 +739,9 @@ router.get('/getInfo', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161116-01';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  cashbillService.getInfo(testCorpNum, mgtKey, testUserID,
+  cashbillService.getInfo(testCorpNum, mgtKey,
     function(result) {
       res.render('Cashbill/CashbillInfo',{path : req.path, result : result});
     }, function(Error) {
@@ -777,10 +762,7 @@ router.get('/getInfos', function(req,res,next) {
   // 문서관리번호 배열, 최대 1000건
   var mgtKeyList = ['20161116-01', '20161116-02', '20150813-02', '20150813-03', '20161115-01']
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  cashbillService.getInfos(testCorpNum, mgtKeyList, testUserID,
+  cashbillService.getInfos(testCorpNum, mgtKeyList,
     function(result) {
       res.render('Cashbill/CashbillInfos',{path : req.path, result : result});
     }, function(Error) {
@@ -800,12 +782,9 @@ router.get('/getDetailInfo', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161116-01';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  cashbillService.getDetailInfo(testCorpNum, mgtKey, testUserID,
+  cashbillService.getDetailInfo(testCorpNum, mgtKey,
     function(result) {
       res.render('Cashbill/CashbillDetail',{path : req.path, result : result});
     }, function(Error) {
@@ -848,12 +827,9 @@ router.get('/getLogs', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  cashbillService.getLogs(testCorpNum, mgtKey, testUserID,
+  cashbillService.getLogs(testCorpNum, mgtKey,
     function(result) {
       res.render('Cashbill/CashbillLogs', {path : req.path, result : result});
     }, function(Error) {
@@ -1010,10 +986,7 @@ router.get('/getURL', function(req,res,next) {
   // PBOX(발행문서함), TBOX(임시문서함), WRITE(현금영수증 작성)
   var TOGO = 'PBOX';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  cashbillService.getURL(testCorpNum, TOGO, testUserID,
+  cashbillService.getURL(testCorpNum, TOGO,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
@@ -1032,12 +1005,9 @@ router.get('/getPopUpURL', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  cashbillService.getPopUpURL(testCorpNum, mgtKey, testUserID,
+  cashbillService.getPopUpURL(testCorpNum, mgtKey,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
@@ -1056,12 +1026,9 @@ router.get('/getPrintURL', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  cashbillService.getPrintURL(testCorpNum, mgtKey, testUserID,
+  cashbillService.getPrintURL(testCorpNum, mgtKey,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
@@ -1082,10 +1049,7 @@ router.get('/getMassPrintURL', function(req,res,next) {
   // 문서관리번호 배열, 최대 100건
   var mgtKeyList = ['20161116-02', '20150813-10', '20150813-02'];
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  cashbillService.getMassPrintURL(testCorpNum, mgtKeyList, testUserID,
+  cashbillService.getMassPrintURL(testCorpNum, mgtKeyList,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
@@ -1104,12 +1068,9 @@ router.get('/getEPrintURL', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  cashbillService.getEPrintURL(testCorpNum, mgtKey, testUserID,
+  cashbillService.getEPrintURL(testCorpNum, mgtKey,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
@@ -1128,12 +1089,9 @@ router.get('/getMailURL', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20161116-02';
+  var mgtKey = '20170306-01';
 
-  // 팝빌회원 아이디
-  var testUserID = 'testkorea';
-
-  cashbillService.getMailURL(testCorpNum, mgtKey, testUserID,
+  cashbillService.getMailURL(testCorpNum, mgtKey,
     function(url) {
       res.render('result', { path : req.path, result : url });
     },function(Error) {
