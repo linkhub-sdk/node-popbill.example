@@ -1,10 +1,10 @@
 {
   "name": "popbill.sdk.example.node",
   "version": "1.0.1",
-  "description": "Popbill API SDK Example for node. see www.popbill.com. updated 2016-03-17",
+  "description": "Popbill API SDK Example for node. see www.popbill.com. updated 2017-03-28",
   "author":{
     "name" : "Jeong Yohan",
-    "email" : "dev@linkhub.co.kr"
+    "email" : "code@linkhub.co.kr"
   },
   "engines": {
     "node": ">= 0.10.0"
@@ -30,6 +30,6 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "morgan": "~1.6.1",
-    "popbill" : "1.2.0"
+    "popbill" : "1.2.1"
   }
 }

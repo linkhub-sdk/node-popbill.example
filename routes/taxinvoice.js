@@ -1233,6 +1233,9 @@ router.get('/search', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
+  // 팝빌회원 아이디
+  var testUserID = 'testkorea';
+
   // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
   var keyType = popbill.MgtKeyType.SELL;
 
@@ -1264,7 +1267,7 @@ router.get('/search', function(req,res,next) {
   var Page = 1;
 
   // 페이지당 검색개수, 최대 1000건
-  var PerPage = 10;
+  var PerPage = 5;
 
   // 종사업장 사업자 유형, S-공급자, B-공급받는자, T-수탁자
   var TaxRegIDType = 'S';
@@ -1278,9 +1281,12 @@ router.get('/search', function(req,res,next) {
   // 거래처 정보, 거래처 상호 또는 사업자등록번호 기재, 미기재시 전체조회
   var QString = '';
 
+  // 연동문서 여부, 공백-전체조회, 0-일반문서 조회, 1-연동문서 조회
+  var InterOPYN = '';
+
   taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State,
                 Type, TaxType, LateOnly, Order, Page, PerPage, TaxRegIDType,
-                TaxRegIDYN, TaxRegID, QString,
+                TaxRegIDYN, TaxRegID, QString, InterOPYN, testUserID,
     function(result) {
       res.render('Taxinvoice/Search', {path : req.path, result : result});
     }, function(Error) {
