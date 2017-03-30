@@ -1163,7 +1163,7 @@ router.get('/getInfo', function(req,res,next) {
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
-  var mgtKey = '20170303-02';
+  var mgtKey = '20170323-01';
 
   taxinvoiceService.getInfo(testCorpNum, keyType, mgtKey,
     function(result) {
@@ -1281,7 +1281,7 @@ router.get('/search', function(req,res,next) {
   // 거래처 정보, 거래처 상호 또는 사업자등록번호 기재, 미기재시 전체조회
   var QString = '';
 
-  // 연동문서 여부, 공백-전체조회, 0-일반문서 조회, 1-연동문서 조회
+  // 연동문서 조회여부, 공백-전체조회, 0-일반문서 조회, 1-연동문서 조회
   var InterOPYN = '';
 
   taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State,
