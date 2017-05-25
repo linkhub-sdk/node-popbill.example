@@ -94,8 +94,12 @@ router.get('/updateContact', function (req, res, next) {
   // 팝빌회원 아이디
   var testUserID = 'testkorea';
 
+
   // 담당자 정보 항목
   var contactInfo =  {
+
+    // 담당자 아이디
+    id : testUserID,
 
     // 담당자명
     personName : '담당자명0315',
