@@ -849,4 +849,21 @@ router.get('/getAutoDenyList', function(req,res,next) {
   });
 });
 
+/**
+* 문자 발신번호 목록을 확인합니다.
+*/
+router.get('/getSenderNumberList', function (req, res, next) {
+
+  // 조회할 아이디
+  var testCorpNum = '1234567890';
+
+  messageService.getSenderNumberList(testCorpNum,
+    function(result) {
+      res.render('Message/SenderNumberList', { path: req.path, result : result});
+    }, function(Error) {
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    });
+});
+
+
 module.exports = router;

@@ -549,7 +549,7 @@ router.get('/cancelReserve', function(req, res, next) {
 
 
 /**
-* 팩스 전송내역 목록 팝업 URL을 반환합니다.
+* 팩스 관련 팝업 URL을 반환합니다.
 * - 보안정책으로 인해 반환된 URL은 30초의 유효시간을 갖습니다.
 */
 router.get('/getURL', function(req,res,next) {
@@ -557,8 +557,8 @@ router.get('/getURL', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 팩스 전송내역 조회 팝업 URL
-  var TOGO = 'BOX';
+  // BOX - 팩스 전송내역 조회 팝업 / SENDER- 팩스 발신번호 관리 팝업
+  var TOGO = 'SENDER';
 
   faxService.getURL(testCorpNum, TOGO,
     function(url) {
@@ -626,5 +626,22 @@ router.get('/search', function(req,res,next) {
       res.render('response', {path : req.path, code : Error.code, message : Error.message});
     });
 });
+
+/**
+* 팩스 발신번호 목록을 확인합니다.
+*/
+router.get('/getSenderNumberList', function (req, res, next) {
+
+  // 조회할 아이디
+  var testCorpNum = '1234567890';
+
+  faxService.getSenderNumberList(testCorpNum,
+    function(result) {
+      res.render('Fax/SenderNumberList', { path: req.path, result : result});
+    }, function(Error) {
+      res.render('response', { path: req.path, code : Error.code, message : Error.message});
+    });
+});
+
 
 module.exports = router;
