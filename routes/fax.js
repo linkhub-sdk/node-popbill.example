@@ -370,19 +370,25 @@ router.get('/sendFAX', function(req,res,next) {
   // 발신번호
   var senderNum = '07043042991';
 
+  // 발신자명
+  var senderName = '발신자명';
+
+  // 광고팩스 전송여부
+  var adsYN = false;
+
   // 수신팩스번호
-  var receiveNum = '0001111222';
+  var receiveNum = '070111222';
 
   // 수신자명
   var receiveName = '수신자명';
 
   // 파일경로 배열
-  var filePaths = ['../테스트.jpg', '../테스트.jpg'];
+  var filePaths = ['test.jpg'];
 
   // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
   var reserveDT = '';
 
-  faxService.sendFax(testCorpNum, senderNum, receiveNum, receiveName, filePaths, reserveDT,
+  faxService.sendFax(testCorpNum, senderNum, receiveNum, receiveName, filePaths, reserveDT, senderName, adsYN,
     function(receiptNum) {
       res.render('result', {path : req.path, result : receiptNum});
     }, function(Error) {
@@ -401,7 +407,7 @@ router.get('/sendFAX_multi', function(req,res,next) {
   var senderNum = '07043042991';
 
   // 파일경로 배열
-  var filePaths = ['../테스트.jpg', '../테스트.jpg']
+  var filePaths = ['test.jpg', 'test.jpg']
 
   // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
   var reserveDT = '';
@@ -410,11 +416,11 @@ router.get('/sendFAX_multi', function(req,res,next) {
   var Receivers = [
     {
       receiveName : '수신자명1',      // 수신자명
-      receiveNum : '111222333',     // 수신팩스번호
+      receiveNum : '070111222',     // 수신팩스번호
     },
     {
       receiveName : '수신자명2',
-      receiveNum : '000111222',
+      receiveNum : '070111222',
     }
   ]
 
