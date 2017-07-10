@@ -231,7 +231,7 @@ router.get('/updateContact', function (req, res, next) {
 
     // 담당자 아이디
     id : testUserID,
-    
+
     // 담당자명
     personName : '담당자명0315',
 
@@ -411,6 +411,11 @@ router.get('/registIssue', function(req,res,next) {
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
     // orgConfirmNum : '',
+
+    // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
+    // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
+    // orgTradeDate : '',
+
 
     // [필수] 과세형태 (과세, 비과세) 중 기재
     taxationType : '과세',
