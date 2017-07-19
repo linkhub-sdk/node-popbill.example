@@ -385,10 +385,13 @@ router.get('/sendFAX', function(req,res,next) {
   // 파일경로 배열
   var filePaths = ['test.jpg'];
 
+  // 팩스제목
+  var title = '팩스 단건전송 제목';
+
   // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
   var reserveDT = '';
 
-  faxService.sendFax(testCorpNum, senderNum, receiveNum, receiveName, filePaths, reserveDT, senderName, adsYN,
+  faxService.sendFax(testCorpNum, senderNum, receiveNum, receiveName, filePaths, reserveDT, senderName, adsYN, title,
     function(receiptNum) {
       res.render('result', {path : req.path, result : receiptNum});
     }, function(Error) {
@@ -422,7 +425,7 @@ router.get('/sendFAX_multi', function(req,res,next) {
       receiveName : '수신자명2',
       receiveNum : '070111222',
     }
-  ]
+  ];
 
   faxService.sendFax(testCorpNum, senderNum, Receivers, filePaths, reserveDT,
     function(receiptNum) {
@@ -522,7 +525,7 @@ router.get('/getFaxResult', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 팩스전송 접수번호
-  var receiptNum = '016111710222400001';
+  var receiptNum = '017071909120400004';
 
   faxService.getFaxResult(testCorpNum, receiptNum,
     function(result) {
@@ -601,10 +604,10 @@ router.get('/search', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 시작일자, 날짜형식(yyyyMMdd)
-  var SDate = '20161001';
+  var SDate = '20170701';
 
   // 종료일자, 날짜형식(yyyyMMdd)
-  var EDate = '20161131';
+  var EDate = '20170801';
 
   // 전송상태값 배열, 1-대기, 2-성공, 3-실패, 4-취소
   var State = [1, 2, 3, 4];

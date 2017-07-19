@@ -1,2 +1,2 @@
 # node-popbill.example
-팝빌 node.js SDK Example v1.0.2
+팝빌 node.js SDK Example v1.1.0

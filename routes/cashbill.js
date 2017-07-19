@@ -397,7 +397,7 @@ router.get('/registIssue', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-  var MgtKey = '20170306-01';
+  var MgtKey = '20170719-12';
 
   // 현금영수증 항목
   var cashbill = {
@@ -410,11 +410,11 @@ router.get('/registIssue', function(req,res,next) {
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
-    // orgConfirmNum : '',
+    orgConfirmNum : '',
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    // orgTradeDate : '',
+    orgTradeDate : '',
 
 
     // [필수] 과세형태 (과세, 비과세) 중 기재
@@ -426,7 +426,7 @@ router.get('/registIssue', function(req,res,next) {
     // [필수] 거래처 식별번호, 거래유형에 따라 작성
     // 소득공제용 - 주민등록/휴대폰/카드번호 기재가능
     // 지출증빙용 - 사업자번호/주민등록/휴대폰/카드번호 기재가능
-    identityNum : '01011112222',
+    identityNum : '0101112222',
 
     // [필수] 발행자 사업자번호
     franchiseCorpNum : '1234567890',
@@ -444,16 +444,16 @@ router.get('/registIssue', function(req,res,next) {
     franchiseTEL : '01012341234',
 
     // [필수] 공급가액
-    supplyCost : '15000',
+    supplyCost : '10000',
 
     // [필수] 세액
-    tax : '5000',
+    tax : '1000',
 
     // [필수] 봉사료
     serviceFee : '0',
 
     // [필수] 거래금액 (공급가액 + 세액 + 봉사료)
-    totalAmount : '20000',
+    totalAmount : '11000',
 
     // 고객명
     customerName : '고객명',
@@ -694,13 +694,13 @@ router.get('/search', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 검색일자 유형, R-등록일자, T-거래일자, I-발행일자
-  var DType = 'I';
+  var DType = 'R';
 
   // 시작일자, 작성형식(yyyyMMdd)
-  var SDate = '20161001';
+  var SDate = '20170101';
 
   // 종료일자, 작성형식(yyyyMMdd)
-  var EDate = '20161131';
+  var EDate = '20170801';
 
   // 문서상태코드 배열, 2,3번째 자리에 와일드카드(*) 사용가능
   var State = ['1**', '3**', '4**'];
@@ -747,7 +747,7 @@ router.get('/getInfo', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20170306-01';
+  var mgtKey = '20170711-09';
 
   cashbillService.getInfo(testCorpNum, mgtKey,
     function(result) {
@@ -790,7 +790,7 @@ router.get('/getDetailInfo', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호
-  var mgtKey = '20170306-01';
+  var mgtKey = '20170719-12';
 
   cashbillService.getDetailInfo(testCorpNum, mgtKey,
     function(result) {

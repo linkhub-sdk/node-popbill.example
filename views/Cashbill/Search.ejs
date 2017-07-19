@@ -27,6 +27,7 @@
 				<legend>조회결과 [ <%=( (result.pageNum-1) * result.perPage) + (index+1)%> / <%=result.total%> ] </legend>
 				<ul>
           <li> itemKey (아이템키) : <%=cashbillInfo.itemKey%></li>
+          <li> confirmNum (국세청 승인번호) : <%=cashbillInfo.confirmNum%></li>
           <li> mgtKey (문서관리번호) : <%=cashbillInfo.mgtKey%></li>
           <li> tradeDate (거래일자) : <%=cashbillInfo.tradeDate%></li>
           <li> issueDT (발행일시) : <%=cashbillInfo.issueDT%></li>
@@ -42,7 +43,6 @@
           <li> itemName (상품명) : <%=cashbillInfo.itemName%></li>
           <li> customerName (고객명) : <%=cashbillInfo.customerName%></li>
 
-          <li> confirmNum (국세청 승인번호) : <%=cashbillInfo.confirmNum%></li>
           <li> ntssendDT (국세청 전송일시) : <%=cashbillInfo.ntssendDT%></li>
           <li> ntsresultDT (국세청 처리결과 수신일시) : <%=cashbillInfo.ntsresultDT%></li>
           <li> ntsresultCode (국세청 처리결과 상태코드) : <%=cashbillInfo.ntsresultCode%></li>
