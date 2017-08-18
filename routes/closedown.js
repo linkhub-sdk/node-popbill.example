@@ -409,7 +409,7 @@ router.get('/checkCorpNums', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 조회 사업자번호 배열, 최대 1000건
-  var checkCorpNumList = ['1234567890', '6798700433', '1249528799'];
+  var checkCorpNumList = ['1234567890', '6798700433', '401-03-94930'];
 
   closedownService.checkCorpNums(testCorpNum, checkCorpNumList,
     function(CorpState) {
