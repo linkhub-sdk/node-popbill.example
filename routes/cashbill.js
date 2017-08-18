@@ -585,6 +585,71 @@ router.get('/register', function(req,res,next) {
   });
 });
 
+/**
+* 1건의 취소현금영수증을 즉시발행합니다.
+* - 발행일 기준 오후 5시 이전에 발행된 현금영수증은 다음날 오후 2시에 국세청
+*   전송결과를 확인할 수 있습니다.
+* - 현금영수증 국세청 전송 정책에 대한 정보는 "[현금영수증 API 연동매뉴얼]
+*   > 1.4. 국세청 전송정책"을 참조하시기 바랍니다.
+* - 취소현금영수증 작성방법 안내 - http://blog.linkhub.co.kr/702
+*/
+router.get('/revokeRegistIssue', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
+  var mgtKey = '20170818-10';
+
+  // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
+  // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
+  orgConfirmNum = '820116333';
+
+  // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
+  // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
+  orgTradeDate = '20170711';
+
+  cashbillService.revokeRegistIssue(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate,
+    function(result) {
+      res.render('response', {path : req.path,  code: result.code, message : result.message });
+    }, function(Error) {
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+  });
+});
+
+
+/**
+* 1건의 취소현금영수증을 임시저장합니다.
+* - 발행일 기준 오후 5시 이전에 발행된 현금영수증은 다음날 오후 2시에 국세청
+*   전송결과를 확인할 수 있습니다.
+* - 현금영수증 국세청 전송 정책에 대한 정보는 "[현금영수증 API 연동매뉴얼]
+*   > 1.4. 국세청 전송정책"을 참조하시기 바랍니다.
+* - 취소현금영수증 작성방법 안내 - http://blog.linkhub.co.kr/702
+*/
+router.get('/revokeRegister', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
+  var mgtKey = '20170818-11';
+
+  // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
+  // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
+  orgConfirmNum = '820116333';
+
+  // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
+  // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
+  orgTradeDate = '20170711';
+
+  cashbillService.revokeRegister(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate,
+    function(result) {
+      res.render('response', {path : req.path,  code: result.code, message : result.message });
+    }, function(Error) {
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+  });
+});
+
 
 /**
 * 1건의 현금영수증을 수정합니다.
