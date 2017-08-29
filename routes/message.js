@@ -340,6 +340,26 @@ router.get('/getPartnerBalance', function(req,res,next) {
   });
 });
 
+/**
+* 파트너 포인트 충전 팝업 URL을 반환합니다.
+* - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+*/
+router.get('/getPartnerURL', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  // CHRG(포인트충전)
+  var TOGO = 'CHRG';
+
+  messageService.getPartnerURL(testCorpNum, TOGO,
+    function(url) {
+      res.render('result', {path : req.path, result : url});
+    }, function(Error) {
+      res.render('response', {path : req.path, code :Error.code, message :Error.message});
+  });
+});
+
 
 /**
 * 팝빌 관련 팝업 URL을 반환합니다.
