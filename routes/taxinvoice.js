@@ -1267,10 +1267,10 @@ router.get('/search', function(req,res,next) {
   var DType = 'W';
 
   // 시작일자, 날짜형식yyyyMMdd)
-  var SDate = '20161001';
+  var SDate = '20171101';
 
   // 종료일자, 날짜형식yyyyMMdd)
-  var EDate = '20161131';
+  var EDate = '20171231';
 
   // 전송상태값 배열, 문서상태코드 3자리 배열, 와일드카드(*) 사용가능
   var State = ['3**','6**'];
@@ -1280,6 +1280,9 @@ router.get('/search', function(req,res,next) {
 
   // 과세유형, T-과세, N-면세, Z-영세
   var TaxType = ['T', 'N', 'Z'];
+
+  // 발행형태, N-정발행, R-역발행, T-위수탁
+  var IssueType = ['N', 'R', 'T'];
 
   // 지연발행 여부, null-전체조회, true-지연발행분, false-정상발행분
   var LateOnly = null;
@@ -1310,7 +1313,7 @@ router.get('/search', function(req,res,next) {
 
   taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State,
                 Type, TaxType, LateOnly, Order, Page, PerPage, TaxRegIDType,
-                TaxRegIDYN, TaxRegID, QString, InterOPYN, testUserID,
+                TaxRegIDYN, TaxRegID, QString, InterOPYN, testUserID, IssueType,
     function(result) {
       res.render('Taxinvoice/Search', {path : req.path, result : result});
     }, function(Error) {
