@@ -12,8 +12,8 @@ var cashbill = require('./routes/cashbill');
 var message = require('./routes/message');
 var kakao = require('./routes/kakao');
 var fax = require('./routes/fax');
-var htTaxinvoice = require('./routes/htTaxinvoice');
-var htCashbill = require('./routes/htCashbill');
+var htTaxinvoice = require('./routes/httaxinvoice');
+var htCashbill = require('./routes/htcashbill');
 var closedown = require('./routes/closedown');
 
 var app = express();
