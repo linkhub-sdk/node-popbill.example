@@ -5,21 +5,21 @@ var popbill = require('popbill');
 /**
  * 팝빌 서비스 연동환경 초기화
  */
-// popbill.config({
-//
-//     // 링크아이디
-//     LinkID: 'TESTER',
-//
-//     // 비밀키
-//     SecretKey: 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=',
-//
-//     // 연동환경 설정값, 개발용(true), 상업용(false)
-//     IsTest: true,
-//
-//     defaultErrorHandler: function (Error) {
-//         console.log('Error Occur : [' + Error.code + '] ' + Error.message);
-//     }
-// });
+popbill.config({
+
+    // 링크아이디
+    LinkID: 'TESTER',
+
+    // 비밀키
+    SecretKey: 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=',
+
+    // 연동환경 설정값, 개발용(true), 상업용(false)
+    IsTest: true,
+
+    defaultErrorHandler: function (Error) {
+        console.log('Error Occur : [' + Error.code + '] ' + Error.message);
+    }
+});
 
 /**
  * 카카오톡 API 서비스 클래스 생성
@@ -175,7 +175,7 @@ router.get('/sendATS_one', function (req, res, next) {
     // 알림톡 내용 (최대 1000자)
     var content = '테스트 템플릿 입니다.';
 
-    // 대체문자 내용 (최대 2000byes)
+    // 대체문자 내용 (최대 2000byte)
     var altContent = '알림톡 대체 문자';
 
     // 대체문자 유형 [공백-미전송, C-알림톡내용, A-대체문자내용]
@@ -219,7 +219,7 @@ router.get('/sendATS_same', function (req, res, next) {
     // 알림톡 내용 (최대 1000자)
     var content = '테스트 템플릿 입니다.';
 
-    // 대체문자 내용 (최대 2000byes)
+    // 대체문자 내용 (최대 2000byte)
     var altContent = '알림톡 동보 대체 문자';
 
     // 대체문자 유형 [공백-미전송, C-알림톡내용, A-대체문자내용]
@@ -316,7 +316,7 @@ router.get('/sendFTS_one', function (req, res, next) {
     // 친구톡 내용 (최대 1000자)
     var content = '친구톡 내용.';
 
-    // 대체문자 내용 (최대 2000byes)
+    // 대체문자 내용 (최대 2000byte)
     var altContent = '친구톡 대체 문자';
 
     // 대체문자 유형 [공백-미전송, C-친구톡내용, A-대체문자내용]
@@ -372,7 +372,7 @@ router.get('/sendFTS_same', function (req, res, next) {
     // 친구톡 내용 (최대 1000자)
     var content = '친구톡 내용.';
 
-    // 대체문자 내용 (최대 2000byes)
+    // 대체문자 내용 (최대 2000byte)
     var altContent = '친구톡 대체 문자';
 
     // 대체문자 유형 [공백-미전송, C-친구톡내용, A-대체문자내용]
@@ -494,7 +494,7 @@ router.get('/sendFMS_one', function (req, res, next) {
     // 친구톡 내용 (최대 400자)
     var content = '친구톡 내용.';
 
-    // 대체문자 내용 (최대 2000byes)
+    // 대체문자 내용 (최대 2000byte)
     var altContent = '친구톡 대체 문자';
 
     // 대체문자 유형 [공백-미전송, C-친구톡내용, A-대체문자내용]
@@ -557,7 +557,7 @@ router.get('/sendFMS_same', function (req, res, next) {
     // 친구톡 내용 (최대 400자)
     var content = '친구톡 내용.';
 
-    // 대체문자 내용 (최대 2000byes)
+    // 대체문자 내용 (최대 2000byte)
     var altContent = '친구톡 대체 문자';
 
     // 대체문자 유형 [공백-미전송, C-친구톡내용, A-대체문자내용]
@@ -645,7 +645,7 @@ router.get('/sendFMS_multi', function (req, res, next) {
             rcv: '010111222',           //수신번호
             rcvnm: 'popbill',           //수신자명
             msg: '친구톡 이미지 입니다_0',   //친구톡 내용 (최대 400자)
-            altmsg: '친구톡 대체 문자_0'    //대체문자 내용 (최대 2000byes)
+            altmsg: '친구톡 대체 문자_0'    //대체문자 내용 (최대 2000byte)
         },
         {
             rcv: '010111222',
@@ -745,8 +745,8 @@ router.get('/search', function (req, res, next) {
     // 예약여부 ( 공백-전체조회 / 1-예약전송조회 / 0-즉시전송조회)
     var reserveYN = '';
 
-    // 개인조회여부 ( 1-개인조회 / 0-전체조회)
-    var senderYN = 0;
+    // 개인조회여부 ( ture-개인조회 / false-전체조회)
+    var senderYN = true;
 
     // 페이지 번호, 기본값 1
     var page = 1;
@@ -757,7 +757,7 @@ router.get('/search', function (req, res, next) {
     // 정렬방향 ( D-내림차순 / A-오름차순 ) 기본값 D
     var order = 'D';
 
-    // 팝빌 회웡아이디
+    // 팝빌 회원아이디
     var UserID = 'testkorea';
 
     kakaoService.search(testCorpNum, sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order, UserID,

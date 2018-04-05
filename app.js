@@ -18,6 +18,8 @@ var closedown = require('./routes/closedown');
 
 var app = express();
 
+console.log(process.versions);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

@@ -12,7 +12,7 @@
         <legend><%= path %></legend>
         <% result.forEach(function(template, index){ %>
         <fieldset class="fieldset2">
-            <legend> 템플릿목록 [<%= index + 1 %> / <%= result.length %> ]</legend>
+            <legend> 템플릿목록 [ <%= index + 1 %> / <%= result.length %> ]</legend>
             <ul>
                 <li> templateCode (템플릿 코드) : <%= template.templateCode %></li>
                 <li> templateName (템플릿 제목) : <%= template.templateName %></li>
@@ -22,7 +22,7 @@
                 <% if (template.btns) { %>
                 <% template.btns.forEach(function (btn, index) { %>
                 <fieldset class="fieldset3">
-                    <legend>버튼목록 [<%= index + 1 %> / <%= template.btns.length %> ]</legend>
+                    <legend>버튼목록 [ <%= index + 1 %> / <%= template.btns.length %> ]</legend>
                     <ul>
                         <li> 버튼명 (n) : <%= btn.n %> </li>
                         <li> 버튼유형 (t) <%= btn.t %> </li>

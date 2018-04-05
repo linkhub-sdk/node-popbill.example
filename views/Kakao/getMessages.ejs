@@ -28,13 +28,27 @@
                 <li> 대체문자 건수 (altCnt) : <%= result.altCnt %></li>
                 <li> 취소건수 (cancelCnt) : <%= result.cancelCnt %></li>
 
+                <% if (result.btns) {%>
+                <% result.btns.forEach(function (btn, index) { %>
+                <fieldset class="fieldset3">
+                    <legend> 버튼 목록 [ <%= index + 1 %> / <%= result.btns.length %> ]</legend>
+                    <ul>
+                        <li> 버튼명 (n) : <%= btn.n %></li>
+                        <li> 버튼유형 (t) : <%= btn.t %></li>
+                        <li> [앱링크] Android [웹링크] Mobile (u1) : <%= btn.u1 %></li>
+                        <li> [앱링크] IOS [웹링크] PC (u2) : <%= btn.u2 %></li>
+                    </ul>
+                </fieldset>
+                <% });} %>
+
+
                 <% if (result.msgs) {%>
                 <% result.msgs.forEach(function (msg, index) { %>
                 <fieldset class="fieldset3">
                     <legend> 전송결과 정보 배열 [ <%= index + 1 %> / <%= result.msgs.length %> ]</legend>
                     <ul>
                         <li> 전송상태 코드 (state) : <%= msg.state %></li>
-                        <li> 전송일시 (sndDT) : <%= msg.sndDT %></li>
+                        <li> 전송일시 (sendDT) : <%= msg.sendDT %></li>
                         <li> 수신번호 (receiveNum) : <%= msg.receiveNum %></li>
                         <li> 수신자명 (receiveName) : <%= msg.receiveName %></li>
                         <li> 알림톡/친구톡 내용 (content) : <%= msg.content %></li>
@@ -45,19 +59,6 @@
                         <li> 대체문자 전송일시 (altSendDT) : <%= msg.altSendDT %></li>
                         <li> 대체문자 전송결과 코드 (altResult) : <%= msg.altResult %></li>
                         <li> 대체문자 전송결과 수신일시 (altResultDT) : <%= msg.altResultDT %></li>
-                    </ul>
-                </fieldset>
-                <% });} %>
-
-                <% if (result.btns) {%>
-                <% result.btns.forEach(function (btn, index) { %>
-                <fieldset class="fieldset3">
-                    <legend> 버튼 목록 [ <%= index + 1 %> / <%= result.btns.length %> ]</legend>
-                    <ul>
-                        <li> 버튼명 (n) : <%= btn.n %></li>
-                        <li> 버튼유형 (t) : <%= btn.t %></li>
-                        <li> [앱링크] Android [웹링크] Mobile (u1) : <%= btn.u1 %></li>
-                        <li> [앱링크] IOS [웹링크] PC (u2) : <%= btn.u2 %></li>
                     </ul>
                 </fieldset>
                 <% });} %>
