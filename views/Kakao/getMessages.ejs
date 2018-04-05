@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <title>팝빌 SDK Express Example. </title>
+</head>
+<body>
+<div id="content">
+    <p class="heading1">Response</p>
+    <br/>
+    <fieldset class="fieldset1">
+        <legend><%= path %></legend>
+        <fieldset class="fieldset2">
+            <legend> 알림톡/친구톡 전송내용</legend>
+            <ul>
+                <li> 카카오톡 유형(contentType) : <%= result.contentType %></li>
+                <li> 템플릿 코드 (templateCode) : <%= result.templateCode %></li>
+                <li> 플러스친구 아이디 (plusFriendID) : <%= result.plusFriendID %></li>
+                <li> 발신번호 (sendNum) : <%= result.sendNum %></li>
+                <li> [동보] 대체문자 내용 (altContent) : <%= result.altContent %></li>
+                <li> 대체문자 유형 : <%= result.altSendType %></li>
+                <li> 예약일시 (reserveDT) : <%= result.reserveDT %></li>
+                <li> 광고전송 여부 (adsYN) : <%= result.adsYN %></li>
+                <li> 친구톡 이미지 URL (imageURL) : <%= result.imageURL %></li>
+                <li> 전송건수 (sendCnt) : <%= result.sendCnt %></li>
+                <li> 성공건수 (successCnt) : <%= result.successCnt %></li>
+                <li> 실패건수 (failCnt) : <%= result.failCnt %></li>
+                <li> 대체문자 건수 (altCnt) : <%= result.altCnt %></li>
+                <li> 취소건수 (cancelCnt) : <%= result.cancelCnt %></li>
+
+                <% if (result.msgs) {%>
+                <% result.msgs.forEach(function (msg, index) { %>
+                <fieldset class="fieldset3">
+                    <legend> 전송결과 정보 배열 [ <%= index + 1 %> / <%= result.msgs.length %> ]</legend>
+                    <ul>
+                        <li> 전송상태 코드 (state) : <%= msg.state %></li>
+                        <li> 전송일시 (sndDT) : <%= msg.sndDT %></li>
+                        <li> 수신번호 (receiveNum) : <%= msg.receiveNum %></li>
+                        <li> 수신자명 (receiveName) : <%= msg.receiveName %></li>
+                        <li> 알림톡/친구톡 내용 (content) : <%= msg.content %></li>
+                        <li> 알림톡/친구톡 전송결과 코드 (result) : <%= msg.result %></li>
+                        <li> 알림톡/친구톡 전송결과 수신일시 (resultDT) : <%= msg.resultDT %></li>
+                        <li> 대체문자 내용 (altContent) : <%= msg.altContent %></li>
+                        <li> 대체문자 전송유형 (altContentType) : <%= msg.altContentType %></li>
+                        <li> 대체문자 전송일시 (altSendDT) : <%= msg.altSendDT %></li>
+                        <li> 대체문자 전송결과 코드 (altResult) : <%= msg.altResult %></li>
+                        <li> 대체문자 전송결과 수신일시 (altResultDT) : <%= msg.altResultDT %></li>
+                    </ul>
+                </fieldset>
+                <% });} %>
+
+                <% if (result.btns) {%>
+                <% result.btns.forEach(function (btn, index) { %>
+                <fieldset class="fieldset3">
+                    <legend> 버튼 목록 [ <%= index + 1 %> / <%= result.btns.length %> ]</legend>
+                    <ul>
+                        <li> 버튼명 (n) : <%= btn.n %></li>
+                        <li> 버튼유형 (t) : <%= btn.t %></li>
+                        <li> [앱링크] Android [웹링크] Mobile (u1) : <%= btn.u1 %></li>
+                        <li> [앱링크] IOS [웹링크] PC (u2) : <%= btn.u2 %></li>
+                    </ul>
+                </fieldset>
+                <% });} %>
+
+            </ul>
+        </fieldset>
+    </fieldset>
+</div>
+</body>
+</html>
