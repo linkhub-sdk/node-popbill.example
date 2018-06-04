@@ -402,7 +402,7 @@ router.get('/sendFAX', function(req,res,next) {
   // 수신자명
   var receiveName = '수신자명';
 
-  // 파일경로 배열
+  // 파일경로 배열, 전송개수 촤대 20개
   var filePaths = ['test.jpg'];
 
   // 팩스제목
@@ -429,7 +429,7 @@ router.get('/sendFAX_multi', function(req,res,next) {
   // 발신번호
   var senderNum = '07043042991';
 
-  // 파일경로 배열
+  // 파일경로 배열, 전송개수 촤대 20개
   var filePaths = ['test.jpg', 'test.jpg']
 
   // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
