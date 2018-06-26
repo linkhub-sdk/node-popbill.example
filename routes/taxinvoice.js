@@ -664,13 +664,13 @@ router.get('/register', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
-  var mgtKey = '20170303-02';
+  var mgtKey = '20180626164530';
 
   // 세금계산서 항목
   var Taxinvoice = {
 
     // [필수] 작성일자, 날짜형식 yyyyMMdd
-    writeDate : '20170303',
+    writeDate : '20180509',
 
     // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
     chargeDirection : '정과금',
@@ -1576,14 +1576,17 @@ router.get('/issue', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
+  // 팝빌회원 아이디
+  var testUserID = 'testkorea';
+
   // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
   var keyType = popbill.MgtKeyType.SELL;
 
   // 문서관리번호
-  var mgtKey = '20170303-02';
+  var mgtKey = '20180626164530';
 
   // 메모
-  var memo = '발행 메모';
+  var memo = '발행 테스트';
 
   // 발행 안내메일 제목, 미기재시 기본제목으로 전송
   var emailSubject = '';
@@ -1592,7 +1595,7 @@ router.get('/issue', function(req,res,next) {
   // - 지연발행 세금계산서를 발행하는 경우, 가산세가 부과될 수 있습니다.
   var forceIssue = false;
 
-  taxinvoiceService.issue(testCorpNum, keyType, mgtKey, memo, emailSubject, forceIssue,
+  taxinvoiceService.issue(testCorpNum, keyType, mgtKey, memo, emailSubject, forceIssue, testUserID,
     function(result) {
       res.render('response', {path : req.path, code : result.code, message : result.message});
     }, function(Error) {
