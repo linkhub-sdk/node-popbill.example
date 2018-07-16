@@ -658,5 +658,93 @@ router.get('/getCertificateExpireDate', function(req,res,next) {
     });
 });
 
+/**
+* 홈택스 공인인증서 로그인을 테스트한다.
+*/
+router.get('/checkCertValidation', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  htTaxinvoiceService.checkCertValidation(testCorpNum,
+    function(result) {
+      res.render('response', { path : req.path, code: result.code, message : result.message });
+    }, function(Error) {
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+    });
+});
+
+/**
+* 홈택스 전자세금계산서 부서사용자 계정정보를 등록합니다.
+*/
+router.get('/registDeptUser', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  // 홈택스에서 생성한 전자세금계산서 부서사용자 아이디
+  var deptUserID = 'userid';
+
+  // 홈택스에서 생성한 전자세금계산서 부서사용자 비밀번호
+  var deptUserPWD = 'passwd';
+
+
+  htTaxinvoiceService.registDeptUser(testCorpNum, deptUserID, deptUserPWD,
+    function(result) {
+      res.render('response', { path : req.path, code: result.code, message : result.message });
+    }, function(Error) {
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+    });
+});
+
+/**
+* 팝빌에 등록된 부서사용자 아이디를 확인한다.
+*/
+router.get('/checkDeptUser', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  htTaxinvoiceService.checkDeptUser(testCorpNum,
+    function(result) {
+      res.render('response', { path : req.path, code: result.code, message : result.message });
+    }, function(Error) {
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+    });
+});
+
+/**
+* 팝빌에 등록된 부서사용자 계정정보를 이용하여 홈택스 로그인을 테스트한다.
+*/
+router.get('/checkLoginDeptUser', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  htTaxinvoiceService.checkLoginDeptUser(testCorpNum,
+    function(result) {
+      res.render('response', { path : req.path, code: result.code, message : result.message });
+    }, function(Error) {
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+    });
+});
+
+
+/**
+* 팝빌에 등록된 부서사용자 계정정보를 삭제한다.
+*/
+router.get('/deleteDeptUser', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  htTaxinvoiceService.deleteDeptUser(testCorpNum,
+    function(result) {
+      res.render('response', { path : req.path, code: result.code, message : result.message });
+    }, function(Error) {
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+    });
+});
+
 
 module.exports = router;

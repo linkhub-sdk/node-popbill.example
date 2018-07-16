@@ -2094,4 +2094,21 @@ router.get('/getEmailPublicKeys', function(req,res,next) {
     });
 });
 
+
+/**
+* 팝빌에 등록된 공인인증서의 유효성을 확인한다.
+*/
+router.get('/checkCertValidation', function(req,res,next) {
+
+  // 팝빌회원 사업자번호, '-' 제외 10자리
+  var testCorpNum = '1234567890';
+
+  taxinvoiceService.checkCertValidation(testCorpNum,
+    function(result){
+      res.render('response', {path : req.path, code : result.code, message : result.message});
+    }, function(Error){
+      res.render('response', {path : req.path, code : Error.code, message : Error.message});
+    });
+});
+
 module.exports = router;
