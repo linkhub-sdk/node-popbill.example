@@ -388,14 +388,14 @@ router.get('/requestJob', function(req,res,next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 세금계산서 유형, SELL-매출, BUY-매입, TRUSTEE-수탁
+  // 현금영수증 유형, SELL-매출, BUY-매입
   var type = popbill.MgtKeyType.SELL;
 
   // 시작일자, 날짜형식(yyyyMMdd)
-  var SDate = '20161001';
+  var SDate = '20180701';
 
   // 종료일자, 날짜형식(yyyyMMdd)
-  var EDate = '20161131';
+  var EDate = '20180822';
 
   htCashbillService.requestJob(testCorpNum, type, SDate, EDate,
     function(jobID) {
@@ -417,7 +417,7 @@ router.get('/getJobState', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 작업아이디
-  var jobID = '017030611000000002';
+  var jobID = '018082212000000007';
 
   htCashbillService.getJobState(testCorpNum, jobID,
     function(response) {
@@ -457,7 +457,7 @@ router.get('/search', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 작업아이디
-  var jobID = '017030611000000002';
+  var jobID = '018082212000000007';
 
   // 문서형태 배열, N-일반 현금영수증, C-취소 현금영수증
   var tradeType = ['N', 'C'];
@@ -495,7 +495,7 @@ router.get('/summary', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 작업아이디
-  var jobID = '017030611000000002';
+  var jobID = '018082212000000007';
 
 
   // 문서형태 배열, N-일반 현금영수증, C-취소 현금영수증
