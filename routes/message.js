@@ -778,6 +778,7 @@ router.get('/sendMMS_multi', function (req, res, next) {
 
 /**
  * 검색조건을 사용하여 문자전송 목록을 조회합니다.
+ * - 최대 검색기간 : 6개월 이내
  */
 router.get('/search', function (req, res, next) {
 
@@ -788,7 +789,7 @@ router.get('/search', function (req, res, next) {
     var SDate = '20180901';
 
     // 검색종료일자, 날짜형식(yyyyMMdd)
-    var EDate = '20180931';
+    var EDate = '20180928';
 
     // 전송상태값 배열, 1-대기, 2-성공, 3-실패, 4-취소
     var State = [1, 2, 3, 4];
@@ -811,7 +812,12 @@ router.get('/search', function (req, res, next) {
     // 페이지 목록개수, 최대 1000건
     var PerPage = 30;
 
-    messageService.search(testCorpNum, SDate, EDate, State, Item, ReserveYN, SenderYN, Order, Page, PerPage,
+    // 조회 검색어.
+    // 문자 전송시 입력한 발신자명 또는 수신자명 기재.
+    // 조회 검색어를 포함한 발신자명 또는 수신자명을 검색합니다.
+    var Qstring = "";
+
+    messageService.search(testCorpNum, SDate, EDate, State, Item, ReserveYN, SenderYN, Order, Page, PerPage, Qstring,
         function (result) {
             res.render('Message/Search', {path: req.path, result: result});
         }, function (Error) {
