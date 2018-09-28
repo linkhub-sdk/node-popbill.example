@@ -464,7 +464,7 @@ router.get('/sendFAX_multi', function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "";
+    var requestNum = "20180928140835";
 
     faxService.sendFax(testCorpNum, senderNum, Receivers, "", filePaths, reserveDT, senderName, adsYN, title, requestNum,
         function (receiptNum) {
@@ -693,7 +693,7 @@ router.get('/getFaxResultRN', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 팩스전송 요청번호
-    var requestNum = '20180903150553';
+    var requestNum = '20180928140835';
 
     faxService.getFaxResultRN(testCorpNum, requestNum,
         function (result) {
