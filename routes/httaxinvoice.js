@@ -746,5 +746,25 @@ router.get('/deleteDeptUser', function(req,res,next) {
     });
 });
 
+/**
+ *  세금계산서 1건의 팝업 보기 URL을 반환합니다.
+ * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ */
+
+router.get('/getPopUpURL', function(req,res,next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 국세청승인번호
+    var NTSConfirmNum = '201809194100020300000cd5';
+
+    htTaxinvoiceService.getPopUpURL(testCorpNum, NTSConfirmNum,
+        function(url) {
+            res.render('result', {path : req.path, result : url});
+        }, function(Error) {
+            res.render('response', {path : req.path, code : Error.code, message : Error.message});
+        });
+});
 
 module.exports = router;
