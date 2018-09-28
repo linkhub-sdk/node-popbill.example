@@ -1327,5 +1327,45 @@ router.get('/getUnitCost', function(req,res,next) {
   });
 });
 
+/**
+ * 현금영수증 관련 메일전송 항목에 대한 전송여부를 목록으로 반환합니
+ */
+router.get('/listEmailConfig', function(req,res,next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    cashbillService.listEmailConfig(testCorpNum,
+        function(result){
+            res.render('Cashbill/ListEmailConfig', { path: req.path, result : result});
+        }, function(Error){
+            res.render('response', {path : req.path, code : Error.code, message : Error.message});
+        });
+});
+
+/**
+ * 현금영수증 관련 메일전송 항목에 대한 전송여부를 수정합니다
+ * 메일전송유형
+ * CSH_ISSUE : 고객에게 현금영수증이 발행 되었음을 알려주는 메일 입니다.
+ * CSH_CANCEL : 고객에게 현금영수증이 발행취소 되었음을 알려주는 메일 입니다.
+ */
+router.get('/updateEmailConfig', function(req,res,next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 메일 전송 유형
+    var emailType = 'CSH_ISSUE';
+
+    // 전송 여부 (true = 전송, false = 미전송)
+    var sendYN = true;
+
+    cashbillService.updateEmailConfig(testCorpNum, emailType, sendYN,
+        function(result){
+            res.render('response', {path : req.path, code : result.code, message : result.message});
+        }, function(Error){
+            res.render('response', {path : req.path, code : Error.code, message : Error.message});
+        });
+});
 
 module.exports = router;

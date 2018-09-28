@@ -1797,5 +1797,49 @@ router.get('/detachStatement', function(req,res,next) {
   });
 });
 
+/**
+ * 전자명세서 관련 메일전송 항목에 대한 전송여부를 목록으로 반환합니
+ */
+router.get('/listEmailConfig', function(req,res,next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    statementService.listEmailConfig(testCorpNum,
+        function(result){
+            res.render('Statement/ListEmailConfig', { path: req.path, result : result});
+        }, function(Error){
+            res.render('response', {path : req.path, code : Error.code, message : Error.message});
+        });
+});
+
+/**
+ * 전자명세서 관련 메일전송 항목에 대한 전송여부를 수정합니다
+ * 메일전송유형
+ * SMT_ISSUE : 공급받는자에게 전자명세서가 발행 되었음을 알려주는 메일입니다.
+ * SMT_ACCEPT : 공급자에게 전자명세서가 승인 되었음을 알려주는 메일입니다.
+ * SMT_DENY : 공급자에게 전자명세서가 거부 되었음을 알려주는 메일입니다.
+ * SMT_CANCEL : 공급받는자에게 전자명세서가 취소 되었음을 알려주는 메일입니다.
+ * SMT_CANCEL_ISSUE : 공급받는자에게 전자명세서가 발행취소 되었음을 알려주는 메일입니다.
+ */
+router.get('/updateEmailConfig', function(req,res,next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 메일 전송 유형
+    var emailType = 'SMT_ISSUE';
+
+    // 전송 여부 (true = 전송, false = 미전송)
+    var sendYN = true;
+
+    statementService.updateEmailConfig(testCorpNum, emailType, sendYN,
+        function(result){
+            res.render('response', {path : req.path, code : result.code, message : result.message});
+        }, function(Error){
+            res.render('response', {path : req.path, code : Error.code, message : Error.message});
+        });
+});
+
 
 module.exports = router;
