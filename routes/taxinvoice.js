@@ -419,14 +419,14 @@ router.get('/registIssue', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
-  var mgtKey = '20161116-01';
+  var mgtKey = '20180921-01';
 
 
   // 세금계산서 항목
   var Taxinvoice = {
 
     // [필수] 작성일자, 날짜형식 yyyyMMdd
-    writeDate : '20161116',
+    writeDate : '20180918',
 
     // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
     chargeDirection : '정과금',
@@ -2129,5 +2129,35 @@ router.get('/checkCertValidation', function(req,res,next) {
       res.render('response', {path : req.path, code : Error.code, message : Error.message});
     });
 });
+
+
+
+/**
+ * 팝빌사이트에서 작성된 세금계산서에 파트너 문서관리번호를 할당합니다.
+ */
+router.get('/assignMgtKey', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    var keyType = popbill.MgtKeyType.SELL;
+
+    // 세금계산서 아이템키, 문서 목록조회(Search) API의 반환항목중 ItemKey 참조
+    var itemKey = '018082215403700001';
+
+    // 할당할 문서관리번호, 숫자, 영문 '-', '_' 조합으로 1~24자리까지
+    // 사업자번호별 중복없는 고유번호 할당
+    var mgtKey = '20180928-001';
+
+    taxinvoiceService.assignMgtKey(testCorpNum, keyType, itemKey, mgtKey,
+        function(result){
+            res.render('response', {path : req.path, code : result.code, message : result.message});
+        }, function(Error){
+            res.render('response', {path : req.path, code : Error.code, message : Error.message});
+        });
+});
+
+
 
 module.exports = router;
