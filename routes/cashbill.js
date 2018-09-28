@@ -428,7 +428,7 @@ router.get('/registIssue', function (req, res, next) {
         // [필수] 문서관리번호
         mgtKey: MgtKey,
 
-        // [필수] 거래유형, (승인거래, 취소거래) 중 기재
+        // [필수] 문서형태, (승인거래, 취소거래) 중 기재
         tradeType: '승인거래',
 
         // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
@@ -453,19 +453,19 @@ router.get('/registIssue', function (req, res, next) {
         // 지출증빙용 - 사업자번호/주민등록/휴대폰/카드번호 기재가능
         identityNum: '0101112222',
 
-        // [필수] 발행자 사업자번호
+        // [필수] 가맹점 사업자번호
         franchiseCorpNum: '1234567890',
 
-        // 발행자 상호
-        franchiseCorpName: '발행자 상호',
+        // 가맹점 상호
+        franchiseCorpName: '가맹점 상호',
 
-        // 발행자 대표자성명
-        franchiseCEOName: '발행자 대표자 성명',
+        // 가맹점 대표자성명
+        franchiseCEOName: '가맹점 대표자 성명',
 
-        // 발행자 주소
-        franchiseAddr: '발행자 주소',
+        // 가맹점 주소
+        franchiseAddr: '가맹점 주소',
 
-        // 발행자 연락처
+        // 가맹점 연락처
         franchiseTEL: '01012341234',
 
         // [필수] 공급가액
@@ -534,7 +534,7 @@ router.get('/register', function (req, res, next) {
         // [필수] 문서관리번호
         mgtKey: MgtKey,
 
-        // [필수] 거래유형, (승인거래, 취소거래) 중 기재
+        // [필수] 문서형태, (승인거래, 취소거래) 중 기재
         tradeType: '승인거래',
 
         // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
@@ -555,19 +555,19 @@ router.get('/register', function (req, res, next) {
         // 지출증빙용 - 사업자번호/주민등록/휴대폰/카드번호 기재가능
         identityNum: '01011112222',
 
-        // [필수] 발행자 사업자번호
+        // [필수] 가맹점 사업자번호
         franchiseCorpNum: '1234567890',
 
-        // 발행자 상호
-        franchiseCorpName: '발행자 상호',
+        // 가맹점 상호
+        franchiseCorpName: '가맹점 상호',
 
-        // 발행자 대표자성명
-        franchiseCEOName: '발행자 대표자 성명',
+        // 가맹점 대표자성명
+        franchiseCEOName: '가맹점 대표자 성명',
 
-        // 발행자 주소
-        franchiseAddr: '발행자 주소',
+        // 가맹점 주소
+        franchiseAddr: '가맹점 주소',
 
-        // 발행자 연락처
+        // 가맹점 연락처
         franchiseTEL: '01012341234',
 
         // [필수] 공급가액
@@ -817,7 +817,7 @@ router.get('/update', function (req, res, next) {
         // [필수] 문서관리번호
         mgtKey: MgtKey,
 
-        // [필수] 거래유형, (승인거래, 취소거래) 중 기재
+        // [필수] 문서형태, (승인거래, 취소거래) 중 기재
         tradeType: '승인거래',
 
         // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
@@ -838,19 +838,19 @@ router.get('/update', function (req, res, next) {
         // 지출증빙용 - 사업자번호/주민등록/휴대폰/카드번호 기재가능
         identityNum: '01011112222',
 
-        // [필수] 발행자 사업자번호
+        // [필수] 가맹점 사업자번호
         franchiseCorpNum: '1234567890',
 
-        // 발행자 상호
-        franchiseCorpName: '발행자 상호_수정',
+        // 가맹점 상호
+        franchiseCorpName: '가맹점 상호_수정',
 
-        // 발행자 대표자성명
-        franchiseCEOName: '발행자 대표자 성명',
+        // 가맹점 대표자성명
+        franchiseCEOName: '가맹점 대표자 성명',
 
-        // 발행자 주소
-        franchiseAddr: '발행자 주소',
+        // 가맹점 주소
+        franchiseAddr: '가맹점 주소',
 
-        // 발행자 연락처
+        // 가맹점 연락처
         franchiseTEL: '01012341234',
 
         // [필수] 공급가액
@@ -919,7 +919,7 @@ router.get('/search', function (req, res, next) {
     // 문서상태코드 배열, 2,3번째 자리에 와일드카드(*) 사용가능
     var State = ['1**', '3**', '4**'];
 
-    // 현금영수증 종류 배열, N-일반현금영수증, C-취소현금영수증
+    // 현금영수증 문서형태 배열, N-일반현금영수증, C-취소현금영수증
     var TradeType = ['N', 'C'];
 
     // 현금영수증 거래구분 배열, P-소득공제용, C-지출증빙용
