@@ -457,14 +457,13 @@ router.get('/search', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 작업아이디
-  var jobID = '018082212000000007';
+  var jobID = '018092814000000002';
 
   // 문서형태 배열, N-일반 현금영수증, C-취소 현금영수증
   var tradeType = ['N', 'C'];
 
   // 거래용도 배열, P-소득공제용, C-지출증빙용
   var tradeUsage = ['P', 'C'];
-
 
   // 페이지번호
   var page = 1;
