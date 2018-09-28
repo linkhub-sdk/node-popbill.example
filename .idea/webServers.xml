@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2d3c5de6-3fc0-4830-801f-a38643c024ea" name="192.168.0.226" url="http://192.168.0.226">
+        <fileTransfer host="192.168.0.226" port="22" rootFolder="/root/node/node-popbill.example" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="c193a626-a5a2-47bc-8463-51fb69725c09" name="192.168.0.216" url="http://192.168.0.216">
+        <fileTransfer host="192.168.0.216" port="22" rootFolder="/root/node/node-popbill.example" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
