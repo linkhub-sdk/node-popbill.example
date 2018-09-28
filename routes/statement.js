@@ -1798,7 +1798,7 @@ router.get('/detachStatement', function(req,res,next) {
 });
 
 /**
- * 전자명세서 관련 메일전송 항목에 대한 전송여부를 목록으로 반환합니
+ * 전자명세서 관련 메일전송 항목에 대한 전송여부를 목록으로 반환합니다.
  */
 router.get('/listEmailConfig', function(req,res,next) {
 
@@ -1814,7 +1814,7 @@ router.get('/listEmailConfig', function(req,res,next) {
 });
 
 /**
- * 전자명세서 관련 메일전송 항목에 대한 전송여부를 수정합니다
+ * 전자명세서 관련 메일전송 항목에 대한 전송여부를 수정합니다.
  * 메일전송유형
  * SMT_ISSUE : 공급받는자에게 전자명세서가 발행 되었음을 알려주는 메일입니다.
  * SMT_ACCEPT : 공급자에게 전자명세서가 승인 되었음을 알려주는 메일입니다.

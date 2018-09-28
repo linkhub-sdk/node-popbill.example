@@ -1342,7 +1342,7 @@ router.get('/getUnitCost', function (req, res, next) {
 });
 
 /**
- * 현금영수증 관련 메일전송 항목에 대한 전송여부를 목록으로 반환합니
+ * 현금영수증 관련 메일전송 항목에 대한 전송여부를 목록으로 반환합니다.
  */
 router.get('/listEmailConfig', function (req, res, next) {
 
@@ -1358,7 +1358,7 @@ router.get('/listEmailConfig', function (req, res, next) {
 });
 
 /**
- * 현금영수증 관련 메일전송 항목에 대한 전송여부를 수정합니다
+ * 현금영수증 관련 메일전송 항목에 대한 전송여부를 수정합니다.
  * 메일전송유형
  * CSH_ISSUE : 고객에게 현금영수증이 발행 되었음을 알려주는 메일 입니다.
  * CSH_CANCEL : 고객에게 현금영수증이 발행취소 되었음을 알려주는 메일 입니다.
