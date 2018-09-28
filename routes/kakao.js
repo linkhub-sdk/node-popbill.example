@@ -167,10 +167,10 @@ router.get('/sendATS_one', function (req, res, next) {
 
     // 알림톡 템플릿코드
     // 승인된 알림톡 템플릿 코드는 ListATStemplate API, GetURL(TEMPLATE) API, 혹은 팝빌사이트에서 확인이 가능합니다.
-    var templateCode = '018020000002';
+    var templateCode = '018080000079';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
-    var snd = '070-4304-2993';
+    var snd = '070-4304-2992';
 
     // 알림톡 내용 (최대 1000자)
     var content = '테스트 템플릿 입니다.';
@@ -193,7 +193,12 @@ router.get('/sendATS_one', function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.sendATS_one(testCorpNum, templateCode, snd, content, altContent, altSendType, sndDT, receiver, receiverName, UserID,
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
+
+    kakaoService.sendATS_one(testCorpNum, templateCode, snd, content, altContent, altSendType, sndDT, receiver, receiverName, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {path: req.path, receiptNum: receiptNum});
         }, function (Error) {
@@ -211,10 +216,10 @@ router.get('/sendATS_same', function (req, res, next) {
 
     // 알림톡 템플릿코드
     // 승인된 알림톡 템플릿 코드는 ListATStemplate API, GetURL(TEMPLATE) API, 혹은 팝빌사이트에서 확인이 가능합니다.
-    var templateCode = '018020000002';
+    var templateCode = '018080000079';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
-    var snd = '070-4304-2993';
+    var snd = '070-4304-2992';
 
     // 알림톡 내용 (최대 1000자)
     var content = '테스트 템플릿 입니다.';
@@ -243,7 +248,12 @@ router.get('/sendATS_same', function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.sendATS_same(testCorpNum, templateCode, snd, content, altContent, altSendType, sndDT, msgs, UserID,
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
+
+    kakaoService.sendATS_same(testCorpNum, templateCode, snd, content, altContent, altSendType, sndDT, msgs, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {path: req.path, receiptNum: receiptNum});
         }, function (Error) {
@@ -261,10 +271,10 @@ router.get('/sendATS_multi', function (req, res, next) {
 
     // 알림톡 템플릿코드
     // 승인된 알림톡 템플릿 코드는 ListATStemplate API, GetURL(TEMPLATE) API, 혹은 팝빌사이트에서 확인이 가능합니다.
-    var templateCode = '018020000002';
+    var templateCode = '018080000079';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
-    var snd = '070-4304-2993';
+    var snd = '070-4304-2992';
 
     // 대체문자 유형 [공백-미전송, C-알림톡내용, A-대체문자내용]
     var altSendType = 'A';
@@ -291,7 +301,12 @@ router.get('/sendATS_multi', function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.sendATS_multi(testCorpNum, templateCode, snd, altSendType, sndDT, msgs, UserID,
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
+
+    kakaoService.sendATS_multi(testCorpNum, templateCode, snd, altSendType, sndDT, msgs, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {path: req.path, receiptNum: receiptNum});
         }, function (Error) {
@@ -311,7 +326,7 @@ router.get('/sendFTS_one', function (req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
-    var snd = '070-4304-2993';
+    var snd = '070-4304-2992';
 
     // 친구톡 내용 (최대 1000자)
     var content = '친구톡 내용.';
@@ -347,7 +362,12 @@ router.get('/sendFTS_one', function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.sendFTS_one(testCorpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, receiver, receiverName, adsYN, btns, UserID,
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
+
+    kakaoService.sendFTS_one(testCorpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, receiver, receiverName, adsYN, btns, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {path: req.path, receiptNum: receiptNum});
         }, function (Error) {
@@ -367,7 +387,7 @@ router.get('/sendFTS_same', function (req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
-    var snd = '070-4304-2993';
+    var snd = '070-4304-2992';
 
     // 친구톡 내용 (최대 1000자)
     var content = '친구톡 내용.';
@@ -409,7 +429,12 @@ router.get('/sendFTS_same', function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.sendFTS_same(testCorpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, adsYN, msgs, btns, UserID,
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
+
+    kakaoService.sendFTS_same(testCorpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, adsYN, msgs, btns, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {path: req.path, receiptNum: receiptNum});
         }, function (Error) {
@@ -429,7 +454,7 @@ router.get('/sendFTS_multi', function (req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
-    var snd = '070-4304-2993';
+    var snd = '070-4304-2992';
 
     // 대체문자 유형 [공백-미전송, C-친구톡내용, A-대체문자내용]
     var altSendType = 'A';
@@ -469,7 +494,12 @@ router.get('/sendFTS_multi', function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.sendFTS_multi(testCorpNum, plusFriendID, snd, altSendType, sndDT, adsYN, msgs, btns, UserID,
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
+
+    kakaoService.sendFTS_multi(testCorpNum, plusFriendID, snd, altSendType, sndDT, adsYN, msgs, btns, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {path: req.path, receiptNum: receiptNum});
         }, function (Error) {
@@ -489,7 +519,7 @@ router.get('/sendFMS_one', function (req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
-    var snd = '070-4304-2993';
+    var snd = '070-4304-2992';
 
     // 친구톡 내용 (최대 400자)
     var content = '친구톡 내용.';
@@ -532,7 +562,12 @@ router.get('/sendFMS_one', function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.sendFMS_one(testCorpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, receiver, receiverName, adsYN, imageURL, filePath, btns, UserID,
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
+
+    kakaoService.sendFMS_one(testCorpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, receiver, receiverName, adsYN, imageURL, filePath, btns, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {path: req.path, receiptNum: receiptNum});
         }, function (Error) {
@@ -552,7 +587,7 @@ router.get('/sendFMS_same', function (req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
-    var snd = '070-4304-2993';
+    var snd = '070-4304-2992';
 
     // 친구톡 내용 (최대 400자)
     var content = '친구톡 내용.';
@@ -601,7 +636,12 @@ router.get('/sendFMS_same', function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.sendFMS_same(testCorpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, adsYN, imageURL, filePath, msgs, btns, UserID,
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
+
+    kakaoService.sendFMS_same(testCorpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, adsYN, imageURL, filePath, msgs, btns, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {path: req.path, receiptNum: receiptNum});
         }, function (Error) {
@@ -621,7 +661,7 @@ router.get('/sendFMS_multi', function (req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
-    var snd = '070-4304-2993';
+    var snd = '070-4304-2992';
 
     // 대체문자 유형 [공백-미전송, C-친구톡내용, A-대체문자내용]
     var altSendType = 'A';
@@ -668,7 +708,12 @@ router.get('/sendFMS_multi', function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.sendFMS_multi(testCorpNum, plusFriendID, snd, altSendType, sndDT, adsYN, imageURL, filePath, msgs, btns, UserID,
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
+
+    kakaoService.sendFMS_multi(testCorpNum, plusFriendID, snd, altSendType, sndDT, adsYN, imageURL, filePath, msgs, btns, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {path: req.path, receiptNum: receiptNum});
         }, function (Error) {
@@ -700,6 +745,29 @@ router.get('/cancelReserve', function (req, res, next) {
 });
 
 /**
+ * 전송요청번호(requestNum)를 할당한 알림톡/친구톡 예약전송건을 취소합니다.
+ * - 예약전송 취소는 예약시간 10분전까지만 가능합니다.
+ */
+router.get('/cancelReserveRN', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 예약 알림톡/친구톡 전송 요청번호
+    var requestNum = '20180928111311';
+
+    // 팝빌회원 아이디
+    var UserID = 'testkorea';
+
+    kakaoService.cancelReserveRN(testCorpNum, requestNum, UserID,
+        function (response) {
+            res.render('response', {path: req.path, code: response.code, message: response.message});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/**
  * 알림톡/친구톡 전송내역 및 전송상태를 확인 합니다.
  */
 router.get('/getMessages', function (req, res, next) {
@@ -722,8 +790,32 @@ router.get('/getMessages', function (req, res, next) {
 });
 
 /**
+ * 전송요청번호(requestNum)를 할당한 알림톡/친구톡 전송내역 및 전송상태를 확인한다.
+ */
+router.get('/getMessagesRN', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 카카오톡 요청번호
+    var requestNum = '20180903144355';
+
+    // 팝빌회원 아이디
+    var UserID = 'testkorea';
+
+    kakaoService.getMessagesRN(testCorpNum, requestNum, UserID,
+        function (response) {
+            res.render('Kakao/getMessages', {path: req.path, result: response});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+
+/**
  * 알림톡/친구톡 전송내역 목록을 조회를 합니다.
  * - 버튼정보를 확인 하는 경우 GetMessages API를 사용
+ * - 최대 검색기간 : 6개월 이내
  */
 router.get('/search', function (req, res, next) {
 
@@ -731,10 +823,10 @@ router.get('/search', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 시작일자, 표시형식 (yyyyMMdd)
-    var sDate = '20180101';
+    var sDate = '20180901';
 
     // 종료일자, 표시형식 (yyyyMMdd)
-    var eDate = '20180405';
+    var eDate = '20180930';
 
     // [배열] 전송상태 ( 0-대기 / 1-전송중 / 2-성공 / 3-대체 / 4-실패 / 5-취소)
     var state = [0, 1, 2, 3, 4, 5];
@@ -757,10 +849,15 @@ router.get('/search', function (req, res, next) {
     // 정렬방향 ( D-내림차순 / A-오름차순 ) 기본값 D
     var order = 'D';
 
+    // 조회 검색어.
+    // 카카오톡 전송시 입력한 수신자명 기재.
+    // 조회 검색어를 포함한 수신자명을 검색합니다.
+    var QString = '';
+
     // 팝빌 회원아이디
     var UserID = 'testkorea';
 
-    kakaoService.search(testCorpNum, sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order, UserID,
+    kakaoService.search(testCorpNum, sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order, QString, UserID,
         function (response) {
             res.render('Kakao/search', {path: req.path, result: response});
         }, function (Error) {
