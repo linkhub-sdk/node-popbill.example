@@ -392,10 +392,10 @@ router.get('/requestJob', function(req,res,next) {
   var type = popbill.MgtKeyType.SELL;
 
   // 시작일자, 날짜형식(yyyyMMdd)
-  var SDate = '20180701';
+  var SDate = '20180101';
 
   // 종료일자, 날짜형식(yyyyMMdd)
-  var EDate = '20180822';
+  var EDate = '20180930';
 
   htCashbillService.requestJob(testCorpNum, type, SDate, EDate,
     function(jobID) {
@@ -457,7 +457,7 @@ router.get('/search', function(req,res,next) {
   var testCorpNum = '1234567890';
 
   // 작업아이디
-  var jobID = '018092814000000002';
+  var jobID = '018092920000000002';
 
   // 문서형태 배열, N-일반 현금영수증, C-취소 현금영수증
   var tradeType = ['N', 'C'];
