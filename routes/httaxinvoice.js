@@ -659,7 +659,7 @@ router.get('/getCertificateExpireDate', function(req,res,next) {
 });
 
 /**
-* 홈택스 공인인증서 로그인을 테스트한다.
+* 홈택스 공인인증서 로그인을 테스트합니다.
 */
 router.get('/checkCertValidation', function(req,res,next) {
 
@@ -698,7 +698,7 @@ router.get('/registDeptUser', function(req,res,next) {
 });
 
 /**
-* 팝빌에 등록된 부서사용자 아이디를 확인한다.
+* 팝빌에 등록된 부서사용자 아이디를 확인합니다.
 */
 router.get('/checkDeptUser', function(req,res,next) {
 
@@ -714,7 +714,7 @@ router.get('/checkDeptUser', function(req,res,next) {
 });
 
 /**
-* 팝빌에 등록된 부서사용자 계정정보를 이용하여 홈택스 로그인을 테스트한다.
+* 팝빌에 등록된 부서사용자 계정정보를 이용하여 홈택스 로그인을 테스트합니다.
 */
 router.get('/checkLoginDeptUser', function(req,res,next) {
 
@@ -731,7 +731,7 @@ router.get('/checkLoginDeptUser', function(req,res,next) {
 
 
 /**
-* 팝빌에 등록된 부서사용자 계정정보를 삭제한다.
+* 팝빌에 등록된 부서사용자 계정정보를 삭제합니다.
 */
 router.get('/deleteDeptUser', function(req,res,next) {
 
