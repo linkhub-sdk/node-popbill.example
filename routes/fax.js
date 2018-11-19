@@ -887,5 +887,28 @@ router.get('/getSenderNumberList', function (req, res, next) {
         });
 });
 
+/**
+ * 팩스 미리보기 URL을 반환합니다.
+ * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ */
+router.get('/getPreviewURL', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 팩스 접수번호
+    var receiptNum = '018091015373100001';
+
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    faxService.getPreviewURL(testCorpNum, receiptNum, testUserID,
+        function (url) {
+            res.render('result', {path: req.path, result: url});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
 
 module.exports = router;
