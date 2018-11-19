@@ -952,19 +952,41 @@ router.get('/cancelReserveRN', function (req, res, next) {
         });
 });
 
+
 /**
- * 문자메시지 전송내역 팝업 URL을 반환합니다.
- * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ * 문자 전송내역 팝업 URL을 반환합니다.
+ * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
  */
-router.get('/getURL', function (req, res, next) {
+router.get('/getSentListURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // BOX(전송내역조회)
-    var TOGO = 'BOX';
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
 
-    messageService.getURL(testCorpNum, TOGO,
+    messageService.getSentListURL(testCorpNum, testUserID,
+        function (url) {
+            res.render('result', {path: req.path, result: url});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+
+/**
+ * 발신번호 관리 팝업 URL을 반환합니다.
+ * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ */
+router.get('/getSenderNumberMgtURL', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    messageService.getSenderNumberMgtURL(testCorpNum, testUserID,
         function (url) {
             res.render('result', {path: req.path, result: url});
         }, function (Error) {

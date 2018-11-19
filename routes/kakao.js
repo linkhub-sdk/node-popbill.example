@@ -35,18 +35,15 @@ router.get('/', function (req, res, next) {
  * 플러스친구 계정관리 팝업 URL을 반환합니다.
  * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
  */
-router.get('/getURL_PLUSFRIEND', function (req, res, next) {
+router.get('/getPlusFriendMgtURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌 회원아이디
-    var UserID = 'testkorea';
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
 
-    // 플러스친구계정관리(PLUSFRINED) / 발신번호관리(SENDER) / 알림톡템플릿관리(TEMPLATE) / 카카오톡전송내역(BOX)
-    var TOGO = 'PLUSFRIEND';
-
-    kakaoService.getURL(testCorpNum, TOGO, UserID,
+    kakaoService.getPlusFriendMgtURL(testCorpNum, testUserID,
         function (url) {
             res.render('result', {path: req.path, result: url});
         }, function (Error) {
@@ -77,18 +74,15 @@ router.get('/listPlusFriendID', function (req, res, next) {
  * 발신번호 관리 팝업 URL을 반환합니다.
  * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
  */
-router.get('/getURL_SENDER', function (req, res, next) {
+router.get('/getSenderNumberMgtURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌 회원아이디
-    var UserID = 'testkorea';
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
 
-    // 플러스친구계정관리(PLUSFRINED) / 발신번호관리(SENDER) / 알림톡템플릿관리(TEMPLATE) / 카카오톡전송내역(BOX)
-    var TOGO = 'SENDER';
-
-    kakaoService.getURL(testCorpNum, TOGO, UserID,
+    kakaoService.getSenderNumberMgtURL(testCorpNum, testUserID,
         function (url) {
             res.render('result', {path: req.path, result: url});
         }, function (Error) {
@@ -119,18 +113,15 @@ router.get('/getSenderNumberList', function (req, res, next) {
  * 알림톡 템플릿 관리 팝업 URL을 반환합니다.
  * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
  */
-router.get('/getURL_TEMPLATE', function (req, res, next) {
+router.get('/getATSTemplateMgtURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌 회원아이디
-    var UserID = 'testkorea';
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
 
-    // 플러스친구계정관리(PLUSFRINED) / 발신번호관리(SENDER) / 알림톡템플릿관리(TEMPLATE) / 카카오톡전송내역(BOX)
-    var TOGO = 'TEMPLATE';
-
-    kakaoService.getURL(testCorpNum, TOGO, UserID,
+    kakaoService.getATSTemplateMgtURL(testCorpNum, testUserID,
         function (url) {
             res.render('result', {path: req.path, result: url});
         }, function (Error) {
@@ -166,7 +157,7 @@ router.get('/sendATS_one', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 알림톡 템플릿코드
-    // 승인된 알림톡 템플릿 코드는 ListATStemplate API, GetURL(TEMPLATE) API, 혹은 팝빌사이트에서 확인이 가능합니다.
+    // 승인된 알림톡 템플릿 코드는 ListATStemplate API, GetATSTemplateMgtURL API, 혹은 팝빌사이트에서 확인이 가능합니다.
     var templateCode = '018080000079';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
@@ -215,7 +206,7 @@ router.get('/sendATS_same', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 알림톡 템플릿코드
-    // 승인된 알림톡 템플릿 코드는 ListATStemplate API, GetURL(TEMPLATE) API, 혹은 팝빌사이트에서 확인이 가능합니다.
+    // 승인된 알림톡 템플릿 코드는 ListATStemplate API, GetATSTemplateMgtURL API, 혹은 팝빌사이트에서 확인이 가능합니다.
     var templateCode = '018080000079';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
@@ -270,7 +261,7 @@ router.get('/sendATS_multi', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 알림톡 템플릿코드
-    // 승인된 알림톡 템플릿 코드는 ListATStemplate API, GetURL(TEMPLATE) API, 혹은 팝빌사이트에서 확인이 가능합니다.
+    // 승인된 알림톡 템플릿 코드는 ListATStemplate API, GetATSTemplateMgtURL, 혹은 팝빌사이트에서 확인이 가능합니다.
     var templateCode = '018080000079';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
@@ -869,18 +860,15 @@ router.get('/search', function (req, res, next) {
  * 카카오톡 전송내역 팝업 URL을 반환합니다.
  * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
  */
-router.get('/getURL_BOX', function (req, res, next) {
+router.get('/getSentListURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌 회원아이디
-    var UserID = 'testkorea';
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
 
-    // 플러스친구계정관리(PLUSFRINED) 발신번호관리(SENDER) 알림톡템플릿관리(TEMPLATE) 전송내역(BOX)
-    var TOGO = 'BOX';
-
-    kakaoService.getURL(testCorpNum, TOGO, UserID,
+    kakaoService.getSentListURL(testCorpNum, testUserID,
         function (url) {
             res.render('result', {path: req.path, result: url});
         }, function (Error) {
