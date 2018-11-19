@@ -866,11 +866,10 @@ router.get('/getMessagesRN', function (req, res, next) {
 });
 
 
-
 /**
-* 문자 전송내역 요약정보를 확인합니다.
-*/
-router.get('/getStates', function(req,res,next) {
+ * 문자 전송내역 요약정보를 확인합니다.
+ */
+router.get('/getStates', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -882,10 +881,10 @@ router.get('/getStates', function(req,res,next) {
     var reciptNumList = ['018041717000000018', '018041717000000019'];
 
     messageService.getStates(testCorpNum, reciptNumList, testUserID,
-        function(result) {
-            res.render('Message/GetStates',{path : req.path, result : result});
-        }, function(Error) {
-            res.render('response', {path : req.path, code : Error.code, message : Error.message});
+        function (result) {
+            res.render('Message/GetStates', {path: req.path, result: result});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
         });
 });
 
