@@ -498,7 +498,7 @@ router.get('/sendFAX_multi', function (req, res, next) {
 
 /**
  * 팩스를 재전송합니다.
- * - 전송일로부터 60일이 경과되지 않은 전송건만 재전송할 수 있습니다.
+ * - 접수일로부터 60일이 경과되지 않은 전송건만 재전송할 수 있습니다.
  */
 router.get('/resendFAX', function (req, res, next) {
 
@@ -542,7 +542,7 @@ router.get('/resendFAX', function (req, res, next) {
 
 /**
  * 전송요청번호(requestNum)을 할당한 팩스를 재전송합니다.
- * - 전송일로부터 60일이 경과되지 않은 전송건만 재전송할 수 있습니다.
+ * - 접수일로부터 60일이 경과되지 않은 전송건만 재전송할 수 있습니다.
  */
 router.get('/resendFAXRN', function (req, res, next) {
 
@@ -586,7 +586,7 @@ router.get('/resendFAXRN', function (req, res, next) {
 
 /**
  * 팩스를 재전송합니다.
- * - 전송일로부터 60일이 경과되지 않은 전송건만 재전송할 수 있습니다.
+ * - 접수일로부터 60일이 경과되지 않은 전송건만 재전송할 수 있습니다.
  */
 router.get('/resendFAX_multi', function (req, res, next) {
 
@@ -639,7 +639,7 @@ router.get('/resendFAX_multi', function (req, res, next) {
 
 /**
  * 전송요청번호(requestNum)을 할당한 팩스를 재전송합니다.
- * - 전송일로부터 60일이 경과되지 않은 전송건만 재전송할 수 있습니다.
+ * - 접수일로부터 60일이 경과되지 않은 전송건만 재전송할 수 있습니다.
  */
 router.get('/resendFAXRN_multi', function (req, res, next) {
 
