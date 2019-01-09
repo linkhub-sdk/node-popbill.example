@@ -881,7 +881,7 @@ router.get('/getPopUpURL', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서 인쇄팝업 URL을 반환합니다. (공급자/공급받는자용)
+ * 1건의 전자명세서 인쇄팝업 URL을 반환합니다. (발신자/수신자)
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
  */
 router.get('/getPrintURL', function (req, res, next) {
@@ -904,7 +904,7 @@ router.get('/getPrintURL', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서 인쇄팝업 URL을 반환합니다. (공급받는자용)
+ * 1건의 전자명세서 인쇄팝업 URL을 반환합니다. (수신자)
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
  */
 router.get('/getEPrintURL', function (req, res, next) {

@@ -16,19 +16,19 @@
                 result.forEach(function(emailConfig, index){
                 %>
                     <% if(emailConfig.emailType == "SMT_ISSUE") { %>
-                        <li><%= emailConfig.emailType %> (공급받는자에게 전자명세서가 발행 되었음을 알려주는 메일 전송 여부) : <%= emailConfig.sendYN %></li>
+                        <li><%= emailConfig.emailType %> (수신자에게 전자명세서가 발행 되었음을 알려주는 메일 전송 여부) : <%= emailConfig.sendYN %></li>
                     <% } %>
                     <% if(emailConfig.emailType == "SMT_ACCEPT") { %>
-                        <li><%= emailConfig.emailType %> (공급자에게 전자명세서가 승인 되었음을 알려주는 메일 전송 여부) : <%= emailConfig.sendYN %></li>
+                        <li><%= emailConfig.emailType %> (발신자에게 전자명세서가 승인 되었음을 알려주는 메일 전송 여부) : <%= emailConfig.sendYN %></li>
                     <% } %>
                     <% if(emailConfig.emailType == "SMT_DENY") { %>
-                        <li><%= emailConfig.emailType %> (공급자에게 전자명세서가 거부 되었음을 알려주는 메일 전송 여부) : <%= emailConfig.sendYN %></li>
+                        <li><%= emailConfig.emailType %> (발신자에게 전자명세서가 거부 되었음을 알려주는 메일 전송 여부) : <%= emailConfig.sendYN %></li>
                     <% } %>
                     <% if(emailConfig.emailType == "SMT_CANCEL") { %>
-                        <li><%= emailConfig.emailType %> (공급받는자에게 전자명세서가 취소 되었음을 알려주는 메일 전송 여부) : <%= emailConfig.sendYN %></li>
+                        <li><%= emailConfig.emailType %> (수신자에게 전자명세서가 취소 되었음을 알려주는 메일 전송 여부) : <%= emailConfig.sendYN %></li>
                     <% } %>
                     <% if(emailConfig.emailType == "SMT_CANCEL_ISSUE") { %>
-                        <li><%= emailConfig.emailType %> (공급받는자에게 전자명세서가 발행취소 되었음을 알려주는 메일 전송 여부) : <%= emailConfig.sendYN %></li>
+                        <li><%= emailConfig.emailType %> (수신자에게 전자명세서가 발행취소 되었음을 알려주는 메일 전송 여부) : <%= emailConfig.sendYN %></li>
                     <% } %>
                 <%
                 });
