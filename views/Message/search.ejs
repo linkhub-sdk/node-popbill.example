@@ -3,7 +3,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" media="screen"/>
-
     <title>팝빌 SDK Nodejs - Express Example.</title>
 </head>
 <body>
@@ -23,28 +22,28 @@
         <%
         result.list.forEach(function(searchInfo, index){
         %>
-        <fieldset class="fieldset2">
-            <legend>조회결과 [ <%= ( (result.pageNum - 1) * result.perPage) + (index + 1) %> / <%= result.total %>]
-            </legend>
-            <ul>
-                <li> state (전송상태 코드) : <%= searchInfo.state %></li>
-                <li> result (전송결과 코드) : <%= searchInfo.result %></li>
-                <li> subject (메시지 제목) : <%= searchInfo.subject %></li>
-                <li> content (메시지 내용) : <%= searchInfo.content %></li>
-                <li> messageType (메시지 유형) : <%= searchInfo.type %></li>
-                <li> sendNum (발신번호) : <%= searchInfo.sendNum %></li>
-                <li> senderName (발신자명) : <%= searchInfo.senderName %></li>
-                <li> receiveNum (수신번호) : <%= searchInfo.receiveNum %></li>
-                <li> receiveName (수신자명) : <%= searchInfo.receiveName %></li>
-                <li> receiptDT (접수일시) : <%= searchInfo.receiptDT %></li>
-                <li> reserveDT (예약일시) : <%= searchInfo.reserveDT %></li>
-                <li> sendDT (전송일시) : <%= searchInfo.sendDT %></li>
-                <li> resultDT (전송결과 수신일시) : <%= searchInfo.resultDT %></li>
-                <li> tranNet (전송 이동통신사명) : <%= searchInfo.tranNet %></li>
-                <li> receiptNum (접수번호) : <%= searchInfo.receiptNum %></li>
-                <li> requestNum (요청번호) : <%= searchInfo.requestNum %></li>
-            </ul>
-        </fieldset>
+            <fieldset class="fieldset2">
+                <legend>조회결과 [ <%= ((result.pageNum - 1) * result.perPage) + (index + 1) %> / <%= result.total %>]
+                </legend>
+                <ul>
+                    <li> state (전송상태 코드) : <%= searchInfo.state %></li>
+                    <li> result (전송결과 코드) : <%= searchInfo.result %></li>
+                    <li> subject (메시지 제목) : <%= searchInfo.subject %></li>
+                    <li> content (메시지 내용) : <%= searchInfo.content %></li>
+                    <li> messageType (메시지 유형) : <%= searchInfo.type %></li>
+                    <li> sendNum (발신번호) : <%= searchInfo.sendNum %></li>
+                    <li> senderName (발신자명) : <%= searchInfo.senderName %></li>
+                    <li> receiveNum (수신번호) : <%= searchInfo.receiveNum %></li>
+                    <li> receiveName (수신자명) : <%= searchInfo.receiveName %></li>
+                    <li> receiptDT (접수일시) : <%= searchInfo.receiptDT %></li>
+                    <li> reserveDT (예약일시) : <%= searchInfo.reserveDT %></li>
+                    <li> sendDT (전송일시) : <%= searchInfo.sendDT %></li>
+                    <li> resultDT (전송결과 수신일시) : <%= searchInfo.resultDT %></li>
+                    <li> tranNet (전송 이동통신사명) : <%= searchInfo.tranNet %></li>
+                    <li> receiptNum (접수번호) : <%= searchInfo.receiptNum %></li>
+                    <li> requestNum (요청번호) : <%= searchInfo.requestNum %></li>
+                </ul>
+            </fieldset>
         <%
         });
         %>
