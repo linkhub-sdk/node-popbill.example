@@ -13,58 +13,56 @@
         <fieldset class="fieldset2">
             <legend> 알림톡/친구톡 전송내용</legend>
             <ul>
-                <li> 카카오톡 유형(contentType) : <%= result.contentType %></li>
-                <li> 템플릿 코드 (templateCode) : <%= result.templateCode %></li>
-                <li> 플러스친구 아이디 (plusFriendID) : <%= result.plusFriendID %></li>
-                <li> 발신번호 (sendNum) : <%= result.sendNum %></li>
-                <li> [동보] 대체문자 내용 (altContent) : <%= result.altContent %></li>
-                <li> 대체문자 유형 : <%= result.altSendType %></li>
-                <li> 예약일시 (reserveDT) : <%= result.reserveDT %></li>
-                <li> 광고전송 여부 (adsYN) : <%= result.adsYN %></li>
-                <li> 친구톡 이미지 URL (imageURL) : <%= result.imageURL %></li>
-                <li> 전송건수 (sendCnt) : <%= result.sendCnt %></li>
-                <li> 성공건수 (successCnt) : <%= result.successCnt %></li>
-                <li> 실패건수 (failCnt) : <%= result.failCnt %></li>
-                <li> 대체문자 건수 (altCnt) : <%= result.altCnt %></li>
-                <li> 취소건수 (cancelCnt) : <%= result.cancelCnt %></li>
+                <li>contentType (카카오톡 유형) : <%= result.contentType %></li>
+                <li>templateCode (템플릿 코드) : <%= result.templateCode %></li>
+                <li>plusFriendID (플러스친구 아이디) : <%= result.plusFriendID %></li>
+                <li>sendNum (발신번호) : <%= result.sendNum %></li>
+                <li>altContent ([동보] 대체문자 내용) : <%= result.altContent %></li>
+                <li>altSendType (대체문자 유형 : <%= result.altSendType %></li>
+                <li>reserveDT (예약일시) : <%= result.reserveDT %></li>
+                <li>adsYN (광고전송 여부) : <%= result.adsYN %></li>
+                <li>imageURL (친구톡 이미지 URL) : <%= result.imageURL %></li>
+                <li>sendCnt (전송건수) : <%= result.sendCnt %></li>
+                <li>successCnt (성공건수) : <%= result.successCnt %></li>
+                <li>failCnt (실패건수) : <%= result.failCnt %></li>
+                <li>altCnt (대체문자 건수) : <%= result.altCnt %></li>
+                <li>cancelCnt (취소건수) : <%= result.cancelCnt %></li>
 
-                <% if (result.btns) {%>
-                <% result.btns.forEach(function (btn, index) { %>
-                <fieldset class="fieldset3">
-                    <legend> 버튼 목록 [ <%= index + 1 %> / <%= result.btns.length %> ]</legend>
-                    <ul>
-                        <li> 버튼명 (n) : <%= btn.n %></li>
-                        <li> 버튼유형 (t) : <%= btn.t %></li>
-                        <li> [앱링크] Android [웹링크] Mobile (u1) : <%= btn.u1 %></li>
-                        <li> [앱링크] IOS [웹링크] PC (u2) : <%= btn.u2 %></li>
-                    </ul>
-                </fieldset>
+                <% if (result.btns) { %>
+                    <% result.btns.forEach(function (btn, index) { %>
+                        <fieldset class="fieldset3">
+                            <legend> btns ([배열]버튼 목록) [ <%= index + 1 %> / <%= result.btns.length %> ]</legend>
+                            <ul>
+                                <li>n (버튼명) : <%= btn.n %></li>
+                                <li>t (버튼유형) : <%= btn.t %></li>
+                                <li>u1 ([앱링크] Android [웹링크] Mobile) : <%= btn.u1 %></li>
+                                <li>u2 ([앱링크] IOS [웹링크] PC) : <%= btn.u2 %></li>
+                            </ul>
+                        </fieldset>
                 <% });} %>
 
-
-                <% if (result.msgs) {%>
-                <% result.msgs.forEach(function (msg, index) { %>
-                <fieldset class="fieldset3">
-                    <legend> 전송결과 정보 배열 [ <%= index + 1 %> / <%= result.msgs.length %> ]</legend>
-                    <ul>
-                        <li> 전송상태 코드 (state) : <%= msg.state %></li>
-                        <li> 전송일시 (sendDT) : <%= msg.sendDT %></li>
-                        <li> 수신번호 (receiveNum) : <%= msg.receiveNum %></li>
-                        <li> 수신자명 (receiveName) : <%= msg.receiveName %></li>
-                        <li> 알림톡/친구톡 내용 (content) : <%= msg.content %></li>
-                        <li> 알림톡/친구톡 전송결과 코드 (result) : <%= msg.result %></li>
-                        <li> 알림톡/친구톡 전송결과 수신일시 (resultDT) : <%= msg.resultDT %></li>
-                        <li> 대체문자 내용 (altContent) : <%= msg.altContent %></li>
-                        <li> 대체문자 전송유형 (altContentType) : <%= msg.altContentType %></li>
-                        <li> 대체문자 전송일시 (altSendDT) : <%= msg.altSendDT %></li>
-                        <li> 대체문자 전송결과 코드 (altResult) : <%= msg.altResult %></li>
-                        <li> 대체문자 전송결과 수신일시 (altResultDT) : <%= msg.altResultDT %></li>
-                        <li> 접수번호 (receiptNum) : <%= msg.receiptNum %></li>
-                        <li> 요청번호 (requestNum) : <%= msg.requestNum %></li>
-                    </ul>
-                </fieldset>
+                <% if (result.msgs) { %>
+                    <% result.msgs.forEach(function (msg, index) { %>
+                        <fieldset class="fieldset3">
+                            <legend> msgs (전송결과 정보 배열) [ <%= index + 1 %> / <%= result.msgs.length %> ]</legend>
+                            <ul>
+                                <li>state (전송상태 코드) : <%= msg.state %></li>
+                                <li>sendDT (전송일시) : <%= msg.sendDT %></li>
+                                <li>receiveNum (수신번호) : <%= msg.receiveNum %></li>
+                                <li>receiveName (수신자명) : <%= msg.receiveName %></li>
+                                <li>content (알림톡/친구톡 내용) : <%= msg.content %></li>
+                                <li>result (알림톡/친구톡 전송결과 코드) : <%= msg.result %></li>
+                                <li>resultDT (알림톡/친구톡 전송결과 수신일시) : <%= msg.resultDT %></li>
+                                <li>altContent (대체문자 내용) : <%= msg.altContent %></li>
+                                <li>altContentType (대체문자 전송유형) : <%= msg.altContentType %></li>
+                                <li>altSendDT (대체문자 전송일시) : <%= msg.altSendDT %></li>
+                                <li>altResult (대체문자 전송결과 코드) : <%= msg.altResult %></li>
+                                <li>altResultDT (대체문자 전송결과 수신일시) : <%= msg.altResultDT %></li>
+                                <li>receiptNum (접수번호) : <%= msg.receiptNum %></li>
+                                <li>requestNum (요청번호) : <%= msg.requestNum %></li>
+                            </ul>
+                        </fieldset>
                 <% });} %>
-
             </ul>
         </fieldset>
     </fieldset>

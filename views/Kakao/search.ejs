@@ -13,30 +13,30 @@
         <fieldset class="fieldset2">
             <legend> 카카오톡 전송내역 목록 조회</legend>
             <ul>
-                <li> 상태코드 (code) : <%= result.code %></li>
-                <li> 응답 메시지 (message) : <%= result.message %></li>
-                <li> 총 검색결과 건수 (total) : <%= result.total %></li>
-                <li> 페이지당 검색개수 (perPage) : <%= result.perPage %></li>
-                <li> 페이지 번호 (pageNum) : <%= result.pageNum %></li>
-                <li> 페이지 개수 (pageCount) : <%= result.pageCount %></li>
+                <li>code (상태코드) : <%= result.code %></li>
+                <li>message (응답 메시지) : <%= result.message %></li>
+                <li>total (총 검색결과 건수) : <%= result.total %></li>
+                <li>perPage (페이지당 검색개수) : <%= result.perPage %></li>
+                <li>pageNum (페이지 번호) : <%= result.pageNum %></li>
+                <li>pageCount (페이지 개수) : <%= result.pageCount %></li>
                 <% result.list.forEach(function (list, index) { %>
                 <fieldset class="fieldset3">
                     <legend> 카카오톡 전송내역 조회 결과 [ <%= index + 1 %> / <%= result.list.length %>]</legend>
                     <ul>
-                        <li> 전송상태 코드 (state) : <%= list.state %></li>
-                        <li> 전송일시 (sendDT) : <%= list.sendDT %></li>
-                        <li> 전송결과 코드 (result) : <%= list.result %></li>
-                        <li> 전송결과 수신일시 (resultDT) : <%= list.resultDT %> </li>
-                        <li> 카카오톡 유형(contentType) : <%= list.contentType %></li>
-                        <li> 수신번호 (receiveNum) : <%= list.receiveNum %></li>
-                        <li> 수신자명 (receiveName) : <%= list.receiveName %></li>
-                        <li> 얼림톡/친구톡 내용 (content) : <%= list.content %></li>
-                        <li> 대체문자 전송타입 (altContentType) : <%= list.altContentType %></li>
-                        <li> 대체문자 전송일시 (altSendDT) : <%= list.altSendDT %></li>
-                        <li> 대체문자 전송결과 코드 (altResult) : <%= list.altResult %></li>
-                        <li> 대체문자 전송결과 수신일시 (altResultDT) : <%= list.altResultDT %></li>
-                        <li> 접수번호 (receiptNum) : <%= list.receiptNum %></li>
-                        <li> 요청번호 (requestNum) : <%= list.requestNum %></li>
+                        <li>state (전송상태 코드) : <%= list.state %></li>
+                        <li>sendDT (전송일시) : <%= list.sendDT %></li>
+                        <li>result (전송결과 코드) : <%= list.result %></li>
+                        <li>resultDT (전송결과 수신일시) : <%= list.resultDT %> </li>
+                        <li>contentType (카카오톡 유형) : <%= list.contentType %></li>
+                        <li>receiveNum (수신번호) : <%= list.receiveNum %></li>
+                        <li>receiveName (수신자명) : <%= list.receiveName %></li>
+                        <li>content (알림톡/친구톡 내용) : <%= list.content %></li>
+                        <li>altContentType (대체문자 전송타입) : <%= list.altContentType %></li>
+                        <li>altSendDT (대체문자 전송일시) : <%= list.altSendDT %></li>
+                        <li>altResult (대체문자 전송결과 코드) : <%= list.altResult %></li>
+                        <li>altResultDT (대체문자 전송결과 수신일시) : <%= list.altResultDT %></li>
+                        <li>receiptNum (접수번호) : <%= list.receiptNum %></li>
+                        <li>requestNum (요청번호) : <%= list.requestNum %></li>
                     </ul>
                 </fieldset>
                 <% }); %>

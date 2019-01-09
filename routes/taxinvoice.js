@@ -1338,7 +1338,7 @@ router.get('/refuse', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
-    var keyType = popbill.MgtKeyType.BUY;
+    var keyType = popbill.MgtKeyType.SELL;
 
     // 문서관리번호
     var mgtKey = '20190109-001';

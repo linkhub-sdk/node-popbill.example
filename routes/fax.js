@@ -146,7 +146,7 @@ router.get('/sendFAX_multi', function (req, res, next) {
     ];
 
     // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
-    var reserveDT = '20180930113601';
+    var reserveDT = '';
 
     // 광고팩스 전송여부
     var adsYN = false;
@@ -388,7 +388,7 @@ router.get('/cancelReserveRN', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팩스전송 요번호
+    // 팩스전송 요청번호
     var requestNum = '20190109-001';
 
     faxService.cancelReserveRN(testCorpNum, requestNum,

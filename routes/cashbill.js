@@ -386,7 +386,7 @@ router.get('/issue', function (req, res, next) {
 /*
  * [발행완료] 상태의 현금영수증을 [발행취소]합니다.
  * - 발행취소는 국세청 전송전에만 가능합니다.
- * - 발행취소된 형금영수증은 국세청에 전송되지 않습니다.
+ * - 발행취소된 현금영수증은 국세청에 전송되지 않습니다.
  */
 router.get('/cancelIssue', function (req, res, next) {
 
