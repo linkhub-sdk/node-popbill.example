@@ -260,7 +260,7 @@ router.get('/register', function (req, res, next) {
     var ItemCode = 121;
 
     // 문서관리번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20190109-001';
+    var MgtKey = '20190109-002';
 
     // 전자명세서 정보
     var statement = {

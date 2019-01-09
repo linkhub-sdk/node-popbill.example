@@ -157,7 +157,7 @@ router.get('/sendFAX_multi', function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20180928140835";
+    var requestNum = "";
 
     faxService.sendFax(testCorpNum, senderNum, Receivers, "", filePaths, reserveDT, senderName, adsYN, title, requestNum,
         function (receiptNum) {
@@ -178,7 +178,7 @@ router.get('/resendFAX', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 팩스 접수번호
-    var receiptNum = '018092811371200001';
+    var receiptNum = '019010912104300001';
 
     // 발신번호, 공백처리시 기존전송정보로 재전송
     var senderNum = '07043042991';
@@ -223,7 +223,7 @@ router.get('/resendFAXRN', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 원본 팩스 전송시 할당한 전송요청번호(requestNum)
-    var orgRequestNum = '20180928114243';
+    var orgRequestNum = '20190109-002';
 
     // 발신번호, 공백처리시 기존전송정보로 재전송
     var senderNum = '';
@@ -267,7 +267,7 @@ router.get('/resendFAX_multi', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 팩스 접수번호
-    var receiptNum = '018092811371200001';
+    var receiptNum = '019010912104300001';
 
     // 발신번호, 공백처리시 기존전송정보로 재전송
     var senderNum = '';
@@ -320,7 +320,7 @@ router.get('/resendFAXRN_multi', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 원본 팩스 전송시 할당한 전송요청번호(requestNum)
-    var orgRequestNum = '20180928114328';
+    var orgRequestNum = '20190109-002';
 
     // 발신번호, 공백처리시 기존전송정보로 재전송
     var senderNum = '';
@@ -389,7 +389,7 @@ router.get('/cancelReserveRN', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 팩스전송 요번호
-    var requestNum = '20180928113241';
+    var requestNum = '20190109-001';
 
     faxService.cancelReserveRN(testCorpNum, requestNum,
         function (result) {
@@ -409,7 +409,7 @@ router.get('/getFaxResult', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 팩스전송 접수번호
-    var receiptNum = '018092811205600001';
+    var receiptNum = '019010912104300001';
 
     faxService.getFaxResult(testCorpNum, receiptNum,
         function (result) {
@@ -429,7 +429,7 @@ router.get('/getFaxResultRN', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 팩스전송 요청번호
-    var requestNum = '20180928140835';
+    var requestNum = '20190109-001';
 
     faxService.getFaxResultRN(testCorpNum, requestNum,
         function (result) {

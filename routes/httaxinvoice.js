@@ -51,7 +51,7 @@ router.get('/requestJob', function (req, res, next) {
     var DType = 'W';
 
     // 시작일자, 날짜형식(yyyyMMdd)
-    var SDate = '201801201';
+    var SDate = '20181201';
 
     // 종료일자, 날짜형식(yyyyMMdd)
     var EDate = '20190109';
@@ -75,7 +75,7 @@ router.get('/getJobState', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 작업아이디
-    var jobID = '017030611000000001';
+    var jobID = '019010912000000057';
 
     htTaxinvoiceService.getJobState(testCorpNum, jobID,
         function (response) {
@@ -115,7 +115,7 @@ router.get('/search', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 작업아이디
-    var jobID = '017030611000000001';
+    var jobID = '019010912000000057';
 
     // 문서형태 배열, N-일반 세금계산서, M-수정세금계산서
     var type = ['N', 'M'];
@@ -166,7 +166,7 @@ router.get('/summary', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 작업아이디
-    var jobID = '017030611000000001';
+    var jobID = '019010912000000057';
 
     // 문서형태 배열, N-일반 세금계산서, M-수정세금계산서
     var type = ['N', 'M'];
@@ -205,7 +205,7 @@ router.get('/getTaxinvoice', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 전자세금계산서 국세청 승인번호
-    var ntsconfirmNum = '201611154100020300001350';
+    var ntsconfirmNum = '201901074100020300000ecd';
 
     htTaxinvoiceService.getTaxinvoice(testCorpNum, ntsconfirmNum,
         function (response) {
@@ -226,7 +226,7 @@ router.get('/getXML', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 전자세금계산서 국세청 승인번호
-    var ntsconfirmNum = '201611154100020300001350';
+    var ntsconfirmNum = '201901074100020300000ecd';
 
     htTaxinvoiceService.getXML(testCorpNum, ntsconfirmNum,
         function (response) {
@@ -246,7 +246,7 @@ router.get('/getPopUpURL', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 국세청승인번호
-    var NTSConfirmNum = '201809194100020300000cd5';
+    var NTSConfirmNum = '201901074100020300000ecd';
 
     htTaxinvoiceService.getPopUpURL(testCorpNum, NTSConfirmNum,
         function (url) {

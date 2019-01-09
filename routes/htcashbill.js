@@ -70,7 +70,7 @@ router.get('/getJobState', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 작업아이디
-    var jobID = '018082212000000007';
+    var jobID = '019010912000000058';
 
     htCashbillService.getJobState(testCorpNum, jobID,
         function (response) {
@@ -110,7 +110,7 @@ router.get('/search', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 작업아이디
-    var jobID = '018092920000000002';
+    var jobID = '019010912000000058';
 
     // 문서형태 배열, N-일반 현금영수증, C-취소 현금영수증
     var tradeType = ['N', 'C'];
@@ -146,7 +146,7 @@ router.get('/summary', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 작업아이디
-    var jobID = '018082212000000007';
+    var jobID = '019010912000000058';
 
 
     // 문서형태 배열, N-일반 현금영수증, C-취소 현금영수증

@@ -734,7 +734,7 @@ router.get('/cancelReserve', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 예약 알림톡/친구톡 전송 접수번호
-    var receiptNum = '018040509201400001';
+    var receiptNum = '019010912071500001';
 
     // 팝빌회원 아이디
     var UserID = 'testkorea';
@@ -757,7 +757,7 @@ router.get('/cancelReserveRN', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 예약 알림톡/친구톡 전송 요청번호
-    var requestNum = '20180928111311';
+    var requestNum = '20190109-001';
 
     // 팝빌회원 아이디
     var UserID = 'testkorea';
@@ -779,7 +779,7 @@ router.get('/getMessages', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 카카오톡 접수번호
-    var receiptNum = '018040513330800001';
+    var receiptNum = '019010912074600001';
 
     // 팝빌회원 아이디
     var UserID = 'testkorea';
@@ -801,7 +801,7 @@ router.get('/getMessagesRN', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 카카오톡 요청번호
-    var requestNum = '20180903144355';
+    var requestNum = '20190109-100';
 
     // 팝빌회원 아이디
     var UserID = 'testkorea';
@@ -825,7 +825,7 @@ router.get('/search', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 시작일자, 표시형식 (yyyyMMdd)
-    var sDate = '20191291';
+    var sDate = '20181201';
 
     // 종료일자, 표시형식 (yyyyMMdd)
     var eDate = '20190109';

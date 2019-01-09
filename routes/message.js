@@ -495,7 +495,7 @@ router.get('/cancelReserve', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문자전송 접수번호
-    var receiptNum = '015081117000000018';
+    var receiptNum = '019010911000000010';
 
     messageService.cancelReserve(testCorpNum, receiptNum,
         function (result) {
@@ -515,7 +515,7 @@ router.get('/cancelReserveRN', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문자전송 요청번호
-    var requestNum = '20180928104830';
+    var requestNum = '20190109-001';
 
     messageService.cancelReserveRN(testCorpNum, requestNum,
         function (result) {
@@ -535,7 +535,7 @@ router.get('/getMessages', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문자전송 접수번호
-    var receiptNum = '016111710000000008';
+    var receiptNum = '019010911000000009';
 
     messageService.getMessages(testCorpNum, receiptNum,
         function (result) {
@@ -555,7 +555,7 @@ router.get('/getMessagesRN', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문자전송 요청번호
-    var requestNum = '20180903141403';
+    var requestNum = '20190109-001';
 
     messageService.getMessagesRN(testCorpNum, requestNum,
         function (result) {
@@ -597,10 +597,10 @@ router.get('/search', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 검색시작일자, 날짜형식(yyyyMMdd)
-    var SDate = '20180901';
+    var SDate = '20181201';
 
     // 검색종료일자, 날짜형식(yyyyMMdd)
-    var EDate = '20180928';
+    var EDate = '20190109';
 
     // 전송상태값 배열, 1-대기, 2-성공, 3-실패, 4-취소
     var State = [1, 2, 3, 4];

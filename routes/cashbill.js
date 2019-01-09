@@ -43,7 +43,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서관리번호
-    var mgtKey = '20150813-01';
+    var mgtKey = '20190109-001';
 
     cashbillService.checkMgtKeyInUse(testCorpNum, mgtKey,
         function (result) {
@@ -440,15 +440,15 @@ router.get('/revokeRegistIssue', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190109-101';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
-    orgConfirmNum = '820116333';
+    orgConfirmNum = '081648147';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    orgTradeDate = '20190105';
+    orgTradeDate = '20190104';
 
     cashbillService.revokeRegistIssue(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate,
         function (result) {
@@ -472,15 +472,15 @@ router.get('/revokeRegistIssue_part', function (req, res, next) {
     var testUserID = 'testkorea';
 
     // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190109-102';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
-    var orgConfirmNum = '820116333';
+    var orgConfirmNum = '081648147';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    var orgTradeDate = '20190105';
+    var orgTradeDate = '20190104';
 
     // 안내문자 전송여부
     var smssendYN = false;
@@ -527,15 +527,15 @@ router.get('/revokeRegister', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var mgtKey = '20190109-11';
+    var mgtKey = '20190109-103';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
-    orgConfirmNum = '820116333';
+    orgConfirmNum = '081648147';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    orgTradeDate = '20190105';
+    orgTradeDate = '20190104';
 
     cashbillService.revokeRegister(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate,
         function (result) {
@@ -561,15 +561,15 @@ router.get('/revokeRegister_part', function (req, res, next) {
     var testUserID = 'testkorea';
 
     // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190109-004';
 
     // 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
-    var orgConfirmNum = '820116333';
+    var orgConfirmNum = '081648147';
 
     // 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    var orgTradeDate = '20190105';
+    var orgTradeDate = '20190104';
 
     // 안내문자 전송여부
     var smssendYN = false;
@@ -611,7 +611,7 @@ router.get('/getInfo', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서관리번호
-    var mgtKey = '20190109-01';
+    var mgtKey = '20190109-001';
 
     cashbillService.getInfo(testCorpNum, mgtKey,
         function (result) {
