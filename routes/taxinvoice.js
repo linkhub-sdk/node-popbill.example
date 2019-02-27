@@ -73,13 +73,13 @@ router.get('/registIssue', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190227-032';
 
     // 세금계산서 항목
     var Taxinvoice = {
 
         // [필수] 작성일자, 날짜형식 yyyyMMdd
-        writeDate: '20190109',
+        writeDate: '20190227',
 
         // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
         chargeDirection: '정과금',
@@ -314,7 +314,7 @@ router.get('/registIssue', function (req, res, next) {
 
     taxinvoiceService.registIssue(testCorpNum, Taxinvoice,
         function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
+            res.render('response', {path: req.path, code: result.code, message: result.message, ntsConfirmNum: result.ntsConfirmNum});
         }, function (Error) {
             res.render('response', {path: req.path, code: Error.code, message: Error.message});
         });
@@ -333,13 +333,13 @@ router.get('/register', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190227-033';
 
     // 세금계산서 항목
     var Taxinvoice = {
 
         // [필수] 작성일자, 날짜형식 yyyyMMdd
-        writeDate: '20190109',
+        writeDate: '20190227',
 
         // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
         chargeDirection: '정과금',
@@ -856,7 +856,7 @@ router.get('/issue', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서관리번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190227-033';
 
     // 메모
     var memo = '발행 테스트';
@@ -870,7 +870,7 @@ router.get('/issue', function (req, res, next) {
 
     taxinvoiceService.issue(testCorpNum, keyType, mgtKey, memo, emailSubject, forceIssue, testUserID,
         function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
+            res.render('response', {path: req.path, code: result.code, message: result.message, ntsConfirmNum: result.ntsConfirmNum });
         }, function (Error) {
             res.render('response', {path: req.path, code: Error.code, message: Error.message});
         });
@@ -891,119 +891,12 @@ router.get('/cancelIssue', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서관리번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190227-031';
 
     // 메모
     var memo = '발행취소 메모';
 
     taxinvoiceService.cancelIssue(testCorpNum, keyType, mgtKey, memo,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
-        });
-});
-
-/*
- * [임시저장] 상태의 세금계산서를 [공급자]가 [발행예정]합니다.
- * - 발행예정이란 공급자와 공급받는자 사이에 세금계산서 확인 후 발행하는 방법입니다.
- * - "[전자세금계산서 API 연동매뉴얼] > 1.2.1. 정발행 > 다. 임시저장 발행예정" 의 프로세스를 참조하시기 바랍니다.
- */
-router.get('/send', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
-    var keyType = popbill.MgtKeyType.SELL;
-
-    // 문서관리번호
-    var mgtKey = '20190109-001';
-
-    // 메모
-    var memo = '발행예정 메모';
-
-    // 안내메일 제목, 미기재시 기본양식으로 전송
-    var emailSubject = '';
-
-    taxinvoiceService.send(testCorpNum, keyType, mgtKey, memo, emailSubject,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
-        });
-});
-
-/*
- * [발행대기] 상태의 세금계산서를 [공급자]가 [취소]합니다.
- * - [취소]된 세금계산서를 삭제(Delete API)하면 등록된 문서관리번호를 재사용할 수 있습니다.
- */
-router.get('/cancelSend', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
-    var keyType = popbill.MgtKeyType.SELL;
-
-    // 문서관리번호
-    var mgtKey = '20190109-001';
-
-    // 메모
-    var memo = '발행예정 취소 메모';
-
-    taxinvoiceService.cancelSend(testCorpNum, keyType, mgtKey, memo,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
-        });
-});
-
-/*
- * [승인대기] 상태의 세금계산서를 [공급받는자]가 [승인]합니다.
- */
-router.get('/accept', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
-    var keyType = popbill.MgtKeyType.BUY;
-
-    // 문서관리번호
-    var mgtKey = '20190109-001';
-
-    // 메모
-    var memo = '발행예정 승인 메모';
-
-    taxinvoiceService.accept(testCorpNum, keyType, mgtKey, memo,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
-        });
-});
-
-/*
- * [승인대기] 상태의 세금계산서를 [공급받는자]가 [거부]합니다.
- * - [거부]처리된 세금계산서를 삭제(Delete API)하면 등록된 문서관리번호를 재사용할 수 있습니다.
- */
-router.get('/deny', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
-    var keyType = popbill.MgtKeyType.BUY;
-
-    // 문서관리번호
-    var mgtKey = '20190109-001';
-
-    // 메모
-    var memo = '발행예정 거부 메모';
-
-    taxinvoiceService.deny(testCorpNum, keyType, mgtKey, memo,
         function (result) {
             res.render('response', {path: req.path, code: result.code, message: result.message});
         }, function (Error) {
@@ -1607,6 +1500,29 @@ router.get('/getPopUpURL', function (req, res, next) {
     var mgtKey = '20190109-001';
 
     taxinvoiceService.getPopUpURL(testCorpNum, keyType, mgtKey,
+        function (url) {
+            res.render('result', {path: req.path, result: url});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
+ * 1건의 전자세금계산서 보기 팝업 URL을 반환합니다. (버튼/메뉴 제외)
+ * - 반환된 URL은 보안정책으로 인해 30초의 유효시간을 갖습니다.
+ */
+router.get('/getViewURL', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    var keyType = popbill.MgtKeyType.SELL;
+
+    // 문서관리번호
+    var mgtKey = '20190227-001';
+
+    taxinvoiceService.getViewURL(testCorpNum, keyType, mgtKey,
         function (url) {
             res.render('result', {path: req.path, result: url});
         }, function (Error) {
