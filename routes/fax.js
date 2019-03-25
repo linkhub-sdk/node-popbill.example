@@ -107,7 +107,10 @@ router.get('/sendFAX', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    faxService.sendFax(testCorpNum, senderNum, receiveNum, receiveName, filePaths, reserveDT, senderName, adsYN, title, requestNum,
+    // 팝빌회원 아이디
+    var userID = "testkorea";
+
+    faxService.sendFax(testCorpNum, senderNum, receiveNum, receiveName, filePaths, reserveDT, senderName, adsYN, title, requestNum, userID,
         function (receiptNum) {
             res.render('result', {path: req.path, result: receiptNum});
         }, function (Error) {
@@ -159,7 +162,10 @@ router.get('/sendFAX_multi', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    faxService.sendFax(testCorpNum, senderNum, Receivers, "", filePaths, reserveDT, senderName, adsYN, title, requestNum,
+    // 팝빌회원 아이디
+    var userID = "testkorea";
+
+    faxService.sendFax(testCorpNum, senderNum, Receivers, "", filePaths, reserveDT, senderName, adsYN, title, requestNum, userID,
         function (receiptNum) {
             res.render('result', {path: req.path, result: receiptNum});
         }, function (Error) {
@@ -178,7 +184,7 @@ router.get('/resendFAX', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 팩스 접수번호
-    var receiptNum = '019010912104300001';
+    var receiptNum = '019032511132400001';
 
     // 발신번호, 공백처리시 기존전송정보로 재전송
     var senderNum = '07043042991';
@@ -204,7 +210,10 @@ router.get('/resendFAX', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    faxService.resendFax(testCorpNum, receiptNum, senderNum, senderName, receiveNum, receiveName, reserveDT, title, requestNum,
+    // 팝빌회원 아이디
+    var userID = "testkorea";
+
+    faxService.resendFax(testCorpNum, receiptNum, senderNum, senderName, receiveNum, receiveName, reserveDT, title, requestNum, userID,
         function (receiptNum) {
             res.render('result', {path: req.path, result: receiptNum});
         }, function (Error) {
@@ -223,7 +232,7 @@ router.get('/resendFAXRN', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 원본 팩스 전송시 할당한 전송요청번호(requestNum)
-    var orgRequestNum = '20190109-002';
+    var orgRequestNum = '20190325-001';
 
     // 발신번호, 공백처리시 기존전송정보로 재전송
     var senderNum = '';
@@ -238,7 +247,7 @@ router.get('/resendFAXRN', function (req, res, next) {
     var receiveName = '';
 
     // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
-    var reserveDT = '20180930114331';
+    var reserveDT = '';
 
     // 팩스제목
     var title = '팩스재전송 (요청번호할당)';
@@ -248,7 +257,10 @@ router.get('/resendFAXRN', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var reqeustNum = '';
 
-    faxService.resendFaxRN(testCorpNum, orgRequestNum, senderNum, senderName, receiveNum, receiveName, reserveDT, title, reqeustNum,
+    // 팝빌회원 아이디
+    var userID = "testkorea";
+
+    faxService.resendFaxRN(testCorpNum, orgRequestNum, senderNum, senderName, receiveNum, receiveName, reserveDT, title, reqeustNum, userID,
         function (receiptNum) {
             res.render('result', {path: req.path, result: receiptNum});
         }, function (Error) {
@@ -267,7 +279,7 @@ router.get('/resendFAX_multi', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 팩스 접수번호
-    var receiptNum = '019010912104300001';
+    var receiptNum = '019032510182200001';
 
     // 발신번호, 공백처리시 기존전송정보로 재전송
     var senderNum = '';
@@ -301,7 +313,10 @@ router.get('/resendFAX_multi', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var reqeustNum = '';
 
-    faxService.resendFax(testCorpNum, receiptNum, senderNum, senderName, Receivers, "", reserveDT, title, reqeustNum,
+    // 팝빌회원 아이디
+    var userID = "testkorea";
+
+    faxService.resendFax(testCorpNum, receiptNum, senderNum, senderName, Receivers, "", reserveDT, title, reqeustNum, userID,
         function (receiptNum) {
             res.render('result', {path: req.path, result: receiptNum});
         }, function (Error) {
@@ -320,7 +335,7 @@ router.get('/resendFAXRN_multi', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 원본 팩스 전송시 할당한 전송요청번호(requestNum)
-    var orgRequestNum = '20190109-002';
+    var orgRequestNum = '20190325-001';
 
     // 발신번호, 공백처리시 기존전송정보로 재전송
     var senderNum = '';
@@ -351,7 +366,10 @@ router.get('/resendFAXRN_multi', function (req, res, next) {
     // 팩스 접수번호
     var reqeustNum = '';
 
-    faxService.resendFaxRN(testCorpNum, orgRequestNum, senderNum, senderName, Receivers, reserveDT, title, reqeustNum,
+    // 팝빌회원 아이디
+    var userID = "testkorea";
+
+    faxService.resendFaxRN(testCorpNum, orgRequestNum, senderNum, senderName, Receivers, "", reserveDT, title, reqeustNum, userID,
         function (receiptNum) {
             res.render('result', {path: req.path, result: receiptNum});
         }, function (Error) {
