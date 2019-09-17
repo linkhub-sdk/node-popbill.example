@@ -44,7 +44,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     statementService.checkMgtKeyInUse(testCorpNum, itemCode, mgtKey,
@@ -70,7 +70,7 @@ router.get('/registIssue', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var ItemCode = 121;
 
-    // 문서관리번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
+    // 문서번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
     var MgtKey = '20190109-001';
 
 
@@ -92,7 +92,7 @@ router.get('/registIssue', function (req, res, next) {
         // [필수] 명세서 코드
         itemCode: ItemCode,
 
-        // [필수] 문서관리번호
+        // [필수] 문서번호
         mgtKey: MgtKey,
 
         /*************************************************************************
@@ -259,7 +259,7 @@ router.get('/register', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var ItemCode = 121;
 
-    // 문서관리번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 구성
+    // 문서번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 구성
     var MgtKey = '20190109-002';
 
     // 전자명세서 정보
@@ -280,7 +280,7 @@ router.get('/register', function (req, res, next) {
         // [필수] 명세서 코드
         itemCode: ItemCode,
 
-        // [필수] 문서관리번호
+        // [필수] 문서번호
         mgtKey: MgtKey,
 
         /*************************************************************************
@@ -448,7 +448,7 @@ router.get('/update', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var ItemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var MgtKey = '20190109-001';
 
 
@@ -470,7 +470,7 @@ router.get('/update', function (req, res, next) {
         // [필수] 명세서 코드
         itemCode: ItemCode,
 
-        // [필수] 문서관리번호
+        // [필수] 문서번호
         mgtKey: MgtKey,
 
         /*************************************************************************
@@ -637,7 +637,7 @@ router.get('/issue', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 메모
@@ -662,7 +662,7 @@ router.get('/cancelIssue', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 메모
@@ -678,7 +678,7 @@ router.get('/cancelIssue', function (req, res, next) {
 
 /*
  * 1건의 전자명세서를 삭제합니다.
- * - 전자명세서를 삭제하면 사용된 문서관리번호(mgtKey)를 재사용할 수 있습니다.
+ * - 전자명세서를 삭제하면 사용된 문서번호(mgtKey)를 재사용할 수 있습니다.
  * - 삭제가능한 문서 상태 : [임시저장], [발행취소]
  */
 router.get('/delete', function (req, res, next) {
@@ -689,7 +689,7 @@ router.get('/delete', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     statementService.delete(testCorpNum, itemCode, mgtKey,
@@ -712,7 +712,7 @@ router.get('/getInfo', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     statementService.getInfo(testCorpNum, itemCode, mgtKey,
@@ -735,7 +735,7 @@ router.get('/getInfos', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호 배열, 최대 1000건
+    // 문서번호 배열, 최대 1000건
     var mgtKeyList = ['20190109-001', '20190109-002', '20190109-003'];
 
     statementService.getInfos(testCorpNum, itemCode, mgtKeyList,
@@ -758,7 +758,7 @@ router.get('/getDetailInfo', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     statementService.getDetailInfo(testCorpNum, itemCode, mgtKey,
@@ -826,7 +826,7 @@ router.get('/getLogs', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     statementService.getLogs(testCorpNum, itemCode, mgtKey,
@@ -869,7 +869,7 @@ router.get('/getPopUpURL', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     statementService.getPopUpURL(testCorpNum, itemCode, mgtKey,
@@ -892,7 +892,7 @@ router.get('/getPrintURL', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     statementService.getPrintURL(testCorpNum, itemCode, mgtKey,
@@ -915,7 +915,7 @@ router.get('/getEPrintURL', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     statementService.getEPrintURL(testCorpNum, itemCode, mgtKey,
@@ -938,7 +938,7 @@ router.get('/getMassPrintURL', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호 배열, 최대 100건
+    // 문서번호 배열, 최대 100건
     var mgtKeyList = ['20190109-001', '20190109-002', '20190109-002'];
 
     statementService.getMassPrintURL(testCorpNum, itemCode, mgtKeyList,
@@ -961,7 +961,7 @@ router.get('/getMailURL', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     statementService.getMailURL(testCorpNum, itemCode, mgtKey,
@@ -1005,7 +1005,7 @@ router.get('/attachFile', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 파일경로
@@ -1035,7 +1035,7 @@ router.get('/deleteFile', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 파일아이디 getFiles API의 attachedFile 변수값
@@ -1062,7 +1062,7 @@ router.get('/getFiles', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     statementService.getFiles(testCorpNum, itemCode, mgtKey,
@@ -1084,7 +1084,7 @@ router.get('/sendEmail', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 수신메일주소
@@ -1111,7 +1111,7 @@ router.get('/sendSMS', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 발신번호
@@ -1144,7 +1144,7 @@ router.get('/sendFAX', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 발신번호
@@ -1164,7 +1164,7 @@ router.get('/sendFAX', function (req, res, next) {
 /*
  * 팝빌에 전자명세서를 등록하지 않고 수신자에게 팩스전송합니다.
  * - 팩스 전송 요청시 포인트가 차감됩니다. (전송실패시 환불처리)
- * - 팩스 발행 요청시 작성한 문서관리번호는 팩스전송 파일명으로 사용됩니다.
+ * - 팩스 발행 요청시 작성한 문서번호는 팩스전송 파일명으로 사용됩니다.
  * - 전송내역 확인은 "팝빌 로그인" > [문자 팩스] > [팩스] > [전송내역] 메뉴에서 전송결과를 확인할 수 있습니다.
  * - 팩스 전송결과를 확인하기 위해서는 선팩스 전송 요청 시 반환받은 접수번호를 이용하여
  *   팩스 API의 전송결과 확인 (GetFaxDetail) API를 이용하면 됩니다.
@@ -1183,7 +1183,7 @@ router.get('/FAXSend', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var ItemCode = 121;
 
-    // 문서관리번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
+    // 문서번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
     var MgtKey = '20190109-001';
 
     // 전자명세서 정보
@@ -1204,7 +1204,7 @@ router.get('/FAXSend', function (req, res, next) {
         // [필수] 명세서 코드
         itemCode: ItemCode,
 
-        // [필수] 문서관리번호
+        // [필수] 문서번호
         mgtKey: MgtKey,
 
         /*************************************************************************
@@ -1371,13 +1371,13 @@ router.get('/attachStatement', function (req, res, next) {
     // 명세서 종류코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 첨부할 명세서 종류코드
     var subItemCode = 121;
 
-    // 첨부할 명세서 문서관리번호
+    // 첨부할 명세서 문서번호
     var subMgtKey = '20190109-002';
 
     statementService.attachStatement(testCorpNum, itemCode, mgtKey, subItemCode, subMgtKey,
@@ -1399,13 +1399,13 @@ router.get('/detachStatement', function (req, res, next) {
     // 명세서 종류코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 첨부해제할 명세서 종류코드
     var subItemCode = 121;
 
-    // 첨부해제할 명세서 문서관리번호
+    // 첨부해제할 명세서 문서번호
     var subMgtKey = '20190109-002';
 
     statementService.detachStatement(testCorpNum, itemCode, mgtKey, subItemCode, subMgtKey,

@@ -42,7 +42,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     cashbillService.checkMgtKeyInUse(testCorpNum, mgtKey,
@@ -67,7 +67,7 @@ router.get('/registIssue', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
+    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
     var MgtKey = '20190109-001';
 
     //현금영수증 상태메모
@@ -76,7 +76,7 @@ router.get('/registIssue', function (req, res, next) {
     // 현금영수증 항목
     var cashbill = {
 
-        // [필수] 문서관리번호
+        // [필수] 문서번호
         mgtKey: MgtKey,
 
         // [필수] 문서형태, (승인거래, 취소거래) 중 기재
@@ -173,13 +173,13 @@ router.get('/register', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
+    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
     var MgtKey = '20190109-001';
 
     // 현금영수증 항목
     var cashbill = {
 
-        // [필수] 문서관리번호
+        // [필수] 문서번호
         mgtKey: MgtKey,
 
         // [필수] 문서형태, (승인거래, 취소거래) 중 기재
@@ -271,13 +271,13 @@ router.get('/update', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
+    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
     var MgtKey = '20190109-002';
 
     // 현금영수증 항목
     var cashbill = {
 
-        // [필수] 문서관리번호
+        // [필수] 문서번호
         mgtKey: MgtKey,
 
         // [필수] 문서형태, (승인거래, 취소거래) 중 기재
@@ -369,7 +369,7 @@ router.get('/issue', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 메모
@@ -393,7 +393,7 @@ router.get('/cancelIssue', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 메모
@@ -409,7 +409,7 @@ router.get('/cancelIssue', function (req, res, next) {
 
 /*
  * 1건의 현금영수증을 [삭제]합니다.
- * - 현금영수증을 삭제하면 사용된 문서관리번호(mgtKey)를 재사용할 수 있습니다.
+ * - 현금영수증을 삭제하면 사용된 문서번호(mgtKey)를 재사용할 수 있습니다.
  * - 삭제가능한 문서 상태 : [임시저장], [발행취소]
  */
 router.get('/delete', function (req, res, next) {
@@ -417,7 +417,7 @@ router.get('/delete', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     cashbillService.delete(testCorpNum, mgtKey,
@@ -439,7 +439,7 @@ router.get('/revokeRegistIssue', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
+    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
     var mgtKey = '20190109-101';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
@@ -471,7 +471,7 @@ router.get('/revokeRegistIssue_part', function (req, res, next) {
     // 팝빌회원 아이디
     var testUserID = 'testkorea';
 
-    // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
+    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
     var mgtKey = '20190109-102';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
@@ -526,7 +526,7 @@ router.get('/revokeRegister', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
+    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
     var mgtKey = '20190109-103';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
@@ -560,7 +560,7 @@ router.get('/revokeRegister_part', function (req, res, next) {
     // 팝빌회원 아이디
     var testUserID = 'testkorea';
 
-    // 문서관리번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
+    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
     var mgtKey = '20190109-004';
 
     // 원본 현금영수증 국세청 승인번호
@@ -610,7 +610,7 @@ router.get('/getInfo', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     cashbillService.getInfo(testCorpNum, mgtKey,
@@ -630,7 +630,7 @@ router.get('/getInfos', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호 배열, 최대 1000건
+    // 문서번호 배열, 최대 1000건
     var mgtKeyList = ['20190109-001', '20190109-002', '20190109-003'];
 
     cashbillService.getInfos(testCorpNum, mgtKeyList,
@@ -650,7 +650,7 @@ router.get('/getDetailInfo', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     cashbillService.getDetailInfo(testCorpNum, mgtKey,
@@ -725,7 +725,7 @@ router.get('/getLogs', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20170306-01';
 
     cashbillService.getLogs(testCorpNum, mgtKey,
@@ -765,7 +765,7 @@ router.get('/getPopUpURL', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     cashbillService.getPopUpURL(testCorpNum, mgtKey,
@@ -785,7 +785,7 @@ router.get('/getPrintURL', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     cashbillService.getPrintURL(testCorpNum, mgtKey,
@@ -805,7 +805,7 @@ router.get('/getMassPrintURL', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호 배열, 최대 100건
+    // 문서번호 배열, 최대 100건
     var mgtKeyList = ['20190109-001', '20190109-002', '20190109-002'];
 
     cashbillService.getMassPrintURL(testCorpNum, mgtKeyList,
@@ -825,7 +825,7 @@ router.get('/getMailURL', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     cashbillService.getMailURL(testCorpNum, mgtKey,
@@ -864,7 +864,7 @@ router.get('/sendEmail', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 수신메일주소
@@ -888,7 +888,7 @@ router.get('/sendSMS', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 발신번호
@@ -918,7 +918,7 @@ router.get('/sendFAX', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 발신번호

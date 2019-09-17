@@ -37,7 +37,7 @@ router.get('/', function (req, res, next) {
 
 
 /*
- * 세금계산서 문서관리번호 중복여부를 확인합니다.
+ * 세금계산서 문서번호 중복여부를 확인합니다.
  * - 관리번호는 1~24자리로 숫자, 영문 '-', '_' 조합으로 사업자별로 중복되지 않도록 구성해야 합니다.
  */
 router.get('/checkMgtKeyInUse', function (req, res, next) {
@@ -48,7 +48,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 구성
+    // 문서번호, 1~24자리 영문,숫자,'-','_' 조합으로 구성
     var mgtKey = '20190109-001';
 
     taxinvoiceService.checkMgtKeyInUse(testCorpNum, keyType, mgtKey,
@@ -72,7 +72,7 @@ router.get('/registIssue', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+    // 문서번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
     var mgtKey = '20190227-032';
 
     // 세금계산서 항목
@@ -104,7 +104,7 @@ router.get('/registIssue', function (req, res, next) {
         // [필수] 공급자 사업자번호, '-' 제외 10자리
         invoicerCorpNum: testCorpNum,
 
-        // [정발행시 필수] 문서관리번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+        // [정발행시 필수] 문서번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
         invoicerMgtKey: mgtKey,
 
         // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -152,7 +152,7 @@ router.get('/registIssue', function (req, res, next) {
         // [필수] 공급받는자 사업자번호, '-'제외 10자리
         invoiceeCorpNum: '8888888888',
 
-        // [역발행시 필수] 공급받는자 문서관리번호
+        // [역발행시 필수] 공급받는자 문서번호
         invoiceeMgtKey: '',
 
         // 공급받는자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -332,7 +332,7 @@ router.get('/register', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+    // 문서번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
     var mgtKey = '20190227-033';
 
     // 세금계산서 항목
@@ -364,7 +364,7 @@ router.get('/register', function (req, res, next) {
         // [필수] 공급자 사업자번호, '-' 제외 10자리
         invoicerCorpNum: testCorpNum,
 
-        // [정발행시 필수] 문서관리번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+        // [정발행시 필수] 문서번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
         invoicerMgtKey: mgtKey,
 
         // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -412,7 +412,7 @@ router.get('/register', function (req, res, next) {
         // [필수] 공급받는자 사업자번호, '-'제외 10자리
         invoiceeCorpNum: '8888888888',
 
-        // [역발행시 필수] 공급받는자 문서관리번호
+        // [역발행시 필수] 공급받는자 문서번호
         invoiceeMgtKey: '',
 
         // 공급받는자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -589,7 +589,7 @@ router.get('/update', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 세금계산서 문서관리번호
+    // 세금계산서 문서번호
     var mgtKey = '20190109-003';
 
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
@@ -624,7 +624,7 @@ router.get('/update', function (req, res, next) {
         // [필수] 공급자 사업자번호, '-' 제외 10자리
         invoicerCorpNum: testCorpNum,
 
-        // [정발행시 필수] 문서관리번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+        // [정발행시 필수] 문서번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
         invoicerMgtKey: mgtKey,
 
         // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -672,7 +672,7 @@ router.get('/update', function (req, res, next) {
         // [필수] 공급받는자 사업자번호, '-'제외 10자리
         invoiceeCorpNum: '8888888888',
 
-        // [역발행시 필수] 공급받는자 문서관리번호
+        // [역발행시 필수] 공급받는자 문서번호
         invoiceeMgtKey: '',
 
         // 공급받는자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -841,7 +841,7 @@ router.get('/update', function (req, res, next) {
 });
 
 /*
- * [임시저장] 또는 [발행대기] 상태의 세금계산서를 [공급자]가 [발행]합니다.
+ * [임시저장] 상태의 세금계산서를 [공급자]가 [발행]합니다.
  * - 세금계산서 항목별 정보는 "[전자세금계산서 API 연동매뉴얼] > 4.1. (세금)계산서구성"을 참조하시기 바랍니다.
  */
 router.get('/issue', function (req, res, next) {
@@ -855,7 +855,7 @@ router.get('/issue', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190227-033';
 
     // 메모
@@ -880,7 +880,7 @@ router.get('/issue', function (req, res, next) {
  * [발행완료] 상태의 세금계산서를 [공급자]가 [발행취소]합니다.
  * - [발행취소]는 국세청 전송전에만 가능합니다.
  * - 발행취소된 세금계산서는 국세청에 전송되지 않습니다.
- * - 발행취소 세금계산서에 사용된 문서관리번호를 재사용 하기 위해서는 삭제(Delete API)를 호출하여 해당세금계산서를 삭제해야 합니다.
+ * - 발행취소 세금계산서에 사용된 문서번호를 재사용 하기 위해서는 삭제(Delete API)를 호출하여 해당세금계산서를 삭제해야 합니다.
  */
 router.get('/cancelIssue', function (req, res, next) {
 
@@ -890,7 +890,7 @@ router.get('/cancelIssue', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190227-031';
 
     // 메모
@@ -948,7 +948,7 @@ router.get('/registRequest', function (req, res, next) {
         // [필수] 공급자 사업자번호, '-' 제외 10자리
         invoicerCorpNum: '8888888888',
 
-        // [정발행시 필수] 문서관리번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+        // [정발행시 필수] 문서번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
         invoicerMgtKey: '',
 
         // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -996,7 +996,7 @@ router.get('/registRequest', function (req, res, next) {
         // [필수] 공급받는자 사업자번호, '-'제외 10자리
         invoiceeCorpNum: testCorpNum,
 
-        // [역발행시 필수] 공급받는자 문서관리번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+        // [역발행시 필수] 공급받는자 문서번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
         invoiceeMgtKey: '20190109-100',
 
         // 공급받는자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -1131,29 +1131,6 @@ router.get('/registRequest', function (req, res, next) {
          * 추가 담당자 정보를 등록하여 발행안내메일을 다수에게 전송할 수 있습니다. (최대 5명)
          **************************************************************************/
 
-        // 추가담당자 정보
-        addContactList: [
-            {
-                // 일련번호, 1부터 순차기재
-                serialNum: 1,
-
-                // 담당자명
-                contactName: '담당자 성명',
-
-                // 담당자 메일
-                email: 'test2@test.com'
-            },
-            {
-                // 일련번호, 1부터 순차기재
-                serialNum: 2,
-
-                // 담당자명
-                contactName: '담당자 성명 2',
-
-                // 담당자 메일
-                email: 'test3@test.com'
-            }
-        ]
     };
 
     // 메모
@@ -1181,7 +1158,7 @@ router.get('/request', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.BUY;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-003';
 
     // 메모
@@ -1197,7 +1174,7 @@ router.get('/request', function (req, res, next) {
 
 /*
  * [공급받는자]가 역)발행대기 상태의 세금계산서를 [취소]합니다.
- * - [취소]한 세금계산서의 문서관리번호를 재사용하기 위해서는 삭제 (Delete API)를 호출해야 합니다.
+ * - [취소]한 세금계산서의 문서번호를 재사용하기 위해서는 삭제 (Delete API)를 호출해야 합니다.
  */
 router.get('/cancelRequest', function (req, res, next) {
 
@@ -1207,7 +1184,7 @@ router.get('/cancelRequest', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.BUY;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-003';
 
     // 메모
@@ -1223,7 +1200,7 @@ router.get('/cancelRequest', function (req, res, next) {
 
 /*
  * 공급받는자에게 요청받은 역)발행대기 상태의 세금계산서를 [공급자]가 [거부]합니다.
- * - 세금계산서의 문서관리번호를 재사용하기 위해서는 삭제 (Delete API)를 호출하여 [삭제] 처리해야 합니다.
+ * - 세금계산서의 문서번호를 재사용하기 위해서는 삭제 (Delete API)를 호출하여 [삭제] 처리해야 합니다.
  */
 router.get('/refuse', function (req, res, next) {
 
@@ -1233,7 +1210,7 @@ router.get('/refuse', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 메모
@@ -1249,7 +1226,7 @@ router.get('/refuse', function (req, res, next) {
 
 /*
  * 1건의 전자세금계산서를 [삭제]합니다.
- * - 세금계산서를 삭제해야만 문서관리번호(mgtKey)를 재사용할 수 있습니다.
+ * - 세금계산서를 삭제해야만 문서번호(mgtKey)를 재사용할 수 있습니다.
  * - 삭제가능한 문서 상태 : [임시저장], [발행취소], [발행예정 취소], [발행예정 거부]
  */
 router.get('/delete', function (req, res, next) {
@@ -1260,7 +1237,7 @@ router.get('/delete', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-003';
 
     taxinvoiceService.delete(testCorpNum, keyType, mgtKey,
@@ -1285,7 +1262,7 @@ router.get('/sendToNTS', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     taxinvoiceService.sendToNTS(testCorpNum, keyType, mgtKey,
@@ -1309,7 +1286,7 @@ router.get('/getInfo', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-003';
 
     taxinvoiceService.getInfo(testCorpNum, keyType, mgtKey,
@@ -1333,7 +1310,7 @@ router.get('/getInfos', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호 배열, 최대 1000건
+    // 문서번호 배열, 최대 1000건
     var mgtKeyList = ['20190109-001', '20190109-003'];
 
     taxinvoiceService.getInfos(testCorpNum, keyType, mgtKeyList,
@@ -1356,7 +1333,7 @@ router.get('/getDetailInfo', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-003';
 
     taxinvoiceService.getDetailInfo(testCorpNum, keyType, mgtKey,
@@ -1453,7 +1430,7 @@ router.get('/getLogs', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-003';
 
     taxinvoiceService.getLogs(testCorpNum, keyType, mgtKey,
@@ -1496,7 +1473,7 @@ router.get('/getPopUpURL', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     taxinvoiceService.getPopUpURL(testCorpNum, keyType, mgtKey,
@@ -1519,7 +1496,7 @@ router.get('/getViewURL', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190227-001';
 
     taxinvoiceService.getViewURL(testCorpNum, keyType, mgtKey,
@@ -1542,7 +1519,7 @@ router.get('/getPrintURL', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     taxinvoiceService.getPrintURL(testCorpNum, keyType, mgtKey,
@@ -1565,7 +1542,7 @@ router.get('/getEPrintURL', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     taxinvoiceService.getEPrintURL(testCorpNum, keyType, mgtKey,
@@ -1588,7 +1565,7 @@ router.get('/getMassPrintURL', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호열 배열, 최대 100건
+    // 문서번호열 배열, 최대 100건
     var mgtKeyList = ['20190109-001', '20190109-002', '20190109-003'];
 
     taxinvoiceService.getMassPrintURL(testCorpNum, keyType, mgtKeyList,
@@ -1611,7 +1588,7 @@ router.get('/getMailURL', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     taxinvoiceService.getMailURL(testCorpNum, keyType, mgtKey,
@@ -1675,7 +1652,7 @@ router.get('/attachFile', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-003';
 
     // 파일경로
@@ -1704,7 +1681,7 @@ router.get('/deleteFile', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-003';
 
     // 삭제할 파일아이디, getFiles API의 attachedFile 변수값으로 확인
@@ -1730,7 +1707,7 @@ router.get('/getFiles', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-003';
 
     taxinvoiceService.getFiles(testCorpNum, keyType, mgtKey,
@@ -1752,7 +1729,7 @@ router.get('/sendEmail', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 수신 메일주소
@@ -1779,7 +1756,7 @@ router.get('/sendSMS', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 발신번호
@@ -1812,7 +1789,7 @@ router.get('/sendFAX', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-001';
 
     // 발신번호
@@ -1840,7 +1817,7 @@ router.get('/attachStatement', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-003';
 
     // 첨부할 전자명세서 종류코드, 121-거래명세서, 122-청구서, 123-발주서, 124-견적서, 125-입금표, 126-영수증
@@ -1868,7 +1845,7 @@ router.get('/detachStatement', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서관리번호
+    // 문서번호
     var mgtKey = '20190109-003';
 
     // 첨부해제할 전자명세서 종류코드, 121-거래명세서, 122-청구서, 123-발주서, 124-견적서, 125-입금표, 126-영수증
@@ -1902,7 +1879,7 @@ router.get('/getEmailPublicKeys', function (req, res, next) {
 });
 
 /*
- * 팝빌사이트에서 작성된 세금계산서에 파트너 문서관리번호를 할당합니다.
+ * 팝빌사이트에서 작성된 세금계산서에 파트너 문서번호를 할당합니다.
  */
 router.get('/assignMgtKey', function (req, res, next) {
 
@@ -1915,7 +1892,7 @@ router.get('/assignMgtKey', function (req, res, next) {
     // 세금계산서 아이템키, 문서 목록조회(Search) API의 반환항목중 ItemKey 참조
     var itemKey = '018111509343200001';
 
-    // 할당할 문서관리번호, 숫자, 영문 '-', '_' 조합으로 1~24자리까지
+    // 할당할 문서번호, 숫자, 영문 '-', '_' 조합으로 1~24자리까지
     // 사업자번호별 중복없는 고유번호 할당
     var mgtKey = '20190109-001';
 
