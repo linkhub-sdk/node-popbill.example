@@ -885,10 +885,10 @@ router.get('/search', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 시작일자, 표시형식 (yyyyMMdd)
-    var sDate = '20181201';
+    var sDate = '20190901';
 
     // 종료일자, 표시형식 (yyyyMMdd)
-    var eDate = '20190109';
+    var eDate = '20190930';
 
     // [배열] 전송상태 ( 0-대기 / 1-전송중 / 2-성공 / 3-대체 / 4-실패 / 5-취소)
     var state = [0, 1, 2, 3, 4, 5];

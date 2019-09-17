@@ -46,10 +46,10 @@ router.get('/requestJob', function (req, res, next) {
     var type = popbill.MgtKeyType.SELL;
 
     // 시작일자, 날짜형식(yyyyMMdd)
-    var SDate = '20181201';
+    var SDate = '20190801';
 
     // 종료일자, 날짜형식(yyyyMMdd)
-    var EDate = '20190109';
+    var EDate = '20191231';
 
     htCashbillService.requestJob(testCorpNum, type, SDate, EDate,
         function (jobID) {

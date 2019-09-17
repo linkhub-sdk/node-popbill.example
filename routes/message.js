@@ -515,7 +515,7 @@ router.get('/cancelReserveRN', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문자전송 요청번호
-    var requestNum = '20190109-001';
+    var requestNum = '20190917-001';
 
     messageService.cancelReserveRN(testCorpNum, requestNum,
         function (result) {
@@ -555,7 +555,7 @@ router.get('/getMessagesRN', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문자전송 요청번호
-    var requestNum = '20190109-001';
+    var requestNum = '20190917-001';
 
     messageService.getMessagesRN(testCorpNum, requestNum,
         function (result) {
@@ -597,10 +597,10 @@ router.get('/search', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 검색시작일자, 날짜형식(yyyyMMdd)
-    var SDate = '20181201';
+    var SDate = '20190901';
 
     // 검색종료일자, 날짜형식(yyyyMMdd)
-    var EDate = '20190109';
+    var EDate = '20190930';
 
     // 전송상태값 배열, 1-대기, 2-성공, 3-실패, 4-취소
     var State = [1, 2, 3, 4];

@@ -33,8 +33,8 @@ router.get('/', function (req, res, next) {
 });
 
 /*
- * 전자명세서 관리번호 중복여부를 확인합니다.
- * - 관리번호는 1~24자리로 숫자, 영문 '-', '_' 조합으로 구성할 수 있습니다.
+ * 전자명세서 문서번호 중복여부를 확인합니다.
+ * - 문서번호는 1~24자리로 숫자, 영문 '-', '_' 조합으로 구성할 수 있습니다.
  */
 router.get('/checkMgtKeyInUse', function (req, res, next) {
 
@@ -45,7 +45,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     statementService.checkMgtKeyInUse(testCorpNum, itemCode, mgtKey,
         function (result) {
@@ -71,14 +71,14 @@ router.get('/registIssue', function (req, res, next) {
     var ItemCode = 121;
 
     // 문서번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
-    var MgtKey = '20190109-001';
+    var MgtKey = '20190917-001';
 
 
     // 전자명세서 정보
     var statement = {
 
         // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20190109',
+        writeDate: '20190917',
 
         // [필수] 영수, 청구 중 기재
         purposeType: '영수',
@@ -205,7 +205,7 @@ router.get('/registIssue', function (req, res, next) {
             {
                 serialNum: 1,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명',
-                purchaseDT: '20190109',      // 구매일자
+                purchaseDT: '20190917',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -216,7 +216,7 @@ router.get('/registIssue', function (req, res, next) {
             {
                 serialNum: 2,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명2',
-                purchaseDT: '20190109',      // 구매일자
+                purchaseDT: '20190917',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -260,13 +260,13 @@ router.get('/register', function (req, res, next) {
     var ItemCode = 121;
 
     // 문서번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20190109-002';
+    var MgtKey = '20190917-002';
 
     // 전자명세서 정보
     var statement = {
 
         // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20190109',
+        writeDate: '20190917',
 
         // [필수] 영수, 청구 중 기재
         purposeType: '영수',
@@ -393,7 +393,7 @@ router.get('/register', function (req, res, next) {
             {
                 serialNum: 1,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명',
-                purchaseDT: '20190109',      // 구매일자
+                purchaseDT: '20190917',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -404,7 +404,7 @@ router.get('/register', function (req, res, next) {
             {
                 serialNum: 2,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명2',
-                purchaseDT: '20190109',      // 구매일자
+                purchaseDT: '20190917',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -449,14 +449,14 @@ router.get('/update', function (req, res, next) {
     var ItemCode = 121;
 
     // 문서번호
-    var MgtKey = '20190109-001';
+    var MgtKey = '20190917-001';
 
 
     // 전자명세서 정보
     var statement = {
 
         // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20190109',
+        writeDate: '20190917',
 
         // [필수] 영수, 청구 중 기재
         purposeType: '영수',
@@ -583,7 +583,7 @@ router.get('/update', function (req, res, next) {
             {
                 serialNum: 1,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명',
-                purchaseDT: '20190109',      // 구매일자
+                purchaseDT: '20190917',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -594,7 +594,7 @@ router.get('/update', function (req, res, next) {
             {
                 serialNum: 2,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명2',
-                purchaseDT: '20190109',      // 구매일자
+                purchaseDT: '20190917',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -638,7 +638,7 @@ router.get('/issue', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     // 메모
     var memo = '발행메모';
@@ -663,7 +663,7 @@ router.get('/cancelIssue', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     // 메모
     var memo = '발행취소 메모';
@@ -690,7 +690,7 @@ router.get('/delete', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     statementService.delete(testCorpNum, itemCode, mgtKey,
         function (result) {
@@ -713,7 +713,7 @@ router.get('/getInfo', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     statementService.getInfo(testCorpNum, itemCode, mgtKey,
         function (result) {
@@ -736,7 +736,7 @@ router.get('/getInfos', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호 배열, 최대 1000건
-    var mgtKeyList = ['20190109-001', '20190109-002', '20190109-003'];
+    var mgtKeyList = ['20190917-001', '20190917-002', '20190917-003'];
 
     statementService.getInfos(testCorpNum, itemCode, mgtKeyList,
         function (result) {
@@ -782,10 +782,10 @@ router.get('/search', function (req, res, next) {
     var DType = 'W';
 
     // 시작일자, 작성형식(yyyyMMdd)
-    var SDate = '20181201';
+    var SDate = '20190901';
 
     // 종료일자, 작성형식(yyyyMMdd)
-    var EDate = '20190109';
+    var EDate = '20190930';
 
     // 명세서 문서상태값 배열, 전송상태(stateCode)값 배열
     var State = ['200', '3**'];
@@ -827,7 +827,7 @@ router.get('/getLogs', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     statementService.getLogs(testCorpNum, itemCode, mgtKey,
         function (result) {
@@ -870,7 +870,7 @@ router.get('/getPopUpURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     statementService.getPopUpURL(testCorpNum, itemCode, mgtKey,
         function (url) {
@@ -893,7 +893,7 @@ router.get('/getPrintURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     statementService.getPrintURL(testCorpNum, itemCode, mgtKey,
         function (url) {
@@ -916,7 +916,7 @@ router.get('/getEPrintURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     statementService.getEPrintURL(testCorpNum, itemCode, mgtKey,
         function (url) {
@@ -939,7 +939,7 @@ router.get('/getMassPrintURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호 배열, 최대 100건
-    var mgtKeyList = ['20190109-001', '20190109-002', '20190109-002'];
+    var mgtKeyList = ['20190917-001', '20190917-002', '20190917-002'];
 
     statementService.getMassPrintURL(testCorpNum, itemCode, mgtKeyList,
         function (url) {
@@ -962,7 +962,7 @@ router.get('/getMailURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     statementService.getMailURL(testCorpNum, itemCode, mgtKey,
         function (url) {
@@ -1006,7 +1006,7 @@ router.get('/attachFile', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     // 파일경로
     var filePaths = ['./test.jpg'];
@@ -1036,7 +1036,7 @@ router.get('/deleteFile', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     // 파일아이디 getFiles API의 attachedFile 변수값
     var fileID = '5991857A-1CBC-4BB7-B32F-4126FFC1E64C.PBF';
@@ -1063,7 +1063,7 @@ router.get('/getFiles', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     statementService.getFiles(testCorpNum, itemCode, mgtKey,
         function (result) {
@@ -1085,7 +1085,7 @@ router.get('/sendEmail', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     // 수신메일주소
     var receiver = 'test@test.com';
@@ -1112,7 +1112,7 @@ router.get('/sendSMS', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     // 발신번호
     var senderNum = '07043042992';
@@ -1145,7 +1145,7 @@ router.get('/sendFAX', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     // 발신번호
     var senderNum = '07043042992';
@@ -1184,7 +1184,7 @@ router.get('/FAXSend', function (req, res, next) {
     var ItemCode = 121;
 
     // 문서번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
-    var MgtKey = '20190109-001';
+    var MgtKey = '20190917-001';
 
     // 전자명세서 정보
     var statement = {
@@ -1317,7 +1317,7 @@ router.get('/FAXSend', function (req, res, next) {
             {
                 serialNum: 1,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명',
-                purchaseDT: '20190109',      // 구매일자
+                purchaseDT: '20190917',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -1328,7 +1328,7 @@ router.get('/FAXSend', function (req, res, next) {
             {
                 serialNum: 2,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명2',
-                purchaseDT: '20190109',      // 구매일자
+                purchaseDT: '20190917',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -1372,7 +1372,7 @@ router.get('/attachStatement', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     // 첨부할 명세서 종류코드
     var subItemCode = 121;
@@ -1406,7 +1406,7 @@ router.get('/detachStatement', function (req, res, next) {
     var subItemCode = 121;
 
     // 첨부해제할 명세서 문서번호
-    var subMgtKey = '20190109-002';
+    var subMgtKey = '20190917-002';
 
     statementService.detachStatement(testCorpNum, itemCode, mgtKey, subItemCode, subMgtKey,
         function (result) {

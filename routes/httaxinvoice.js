@@ -47,14 +47,14 @@ router.get('/requestJob', function (req, res, next) {
     // 세금계산서 유형, SELL-매출, BUY-매입, TRUSTEE-수탁
     var type = popbill.MgtKeyType.SELL;
 
-    // 검색일자유형, W-작성일자, R-등록일자, I-발행일자
-    var DType = 'W';
+    // 검색일자유형, W-작성일자, I-발행일자, S-전송일자
+    var DType = 'S';
 
     // 시작일자, 날짜형식(yyyyMMdd)
-    var SDate = '20181201';
+    var SDate = '20190701';
 
     // 종료일자, 날짜형식(yyyyMMdd)
-    var EDate = '20190109';
+    var EDate = '20191231';
 
     htTaxinvoiceService.requestJob(testCorpNum, type, DType, SDate, EDate,
         function (jobID) {

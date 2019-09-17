@@ -38,7 +38,7 @@ router.get('/', function (req, res, next) {
 
 /*
  * 세금계산서 문서번호 중복여부를 확인합니다.
- * - 관리번호는 1~24자리로 숫자, 영문 '-', '_' 조합으로 사업자별로 중복되지 않도록 구성해야 합니다.
+ * - 문서번호는 1~24자리로 숫자, 영문 '-', '_' 조합으로 사업자별로 중복되지 않도록 구성해야 합니다.
  */
 router.get('/checkMgtKeyInUse', function (req, res, next) {
 
@@ -49,7 +49,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호, 1~24자리 영문,숫자,'-','_' 조합으로 구성
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     taxinvoiceService.checkMgtKeyInUse(testCorpNum, keyType, mgtKey,
         function (result) {
@@ -73,13 +73,13 @@ router.get('/registIssue', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20190227-032';
+    var mgtKey = '20190917-032';
 
     // 세금계산서 항목
     var Taxinvoice = {
 
         // [필수] 작성일자, 날짜형식 yyyyMMdd
-        writeDate: '20190227',
+        writeDate: '20190917',
 
         // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
         chargeDirection: '정과금',
@@ -243,7 +243,7 @@ router.get('/registIssue', function (req, res, next) {
         detailList: [
             {
                 serialNum: 1,                // 일련번호, 1부터 순차기재
-                purchaseDT: '20190109',      // 거래일자, 형식 : yyyyMMdd
+                purchaseDT: '20190917',      // 거래일자, 형식 : yyyyMMdd
                 itemName: '품명1',
                 spec: '규격',
                 qty: '1',                    // 수량, 소수점 2자리까지 기재 가능
@@ -254,7 +254,7 @@ router.get('/registIssue', function (req, res, next) {
             },
             {
                 serialNum: 2,                // 일련번호, 1부터 순차기재
-                purchaseDT: '20190109',      // 거래일자, 형식 : yyyyMMdd
+                purchaseDT: '20190917',      // 거래일자, 형식 : yyyyMMdd
                 itemName: '품명2',
                 spec: '규격',
                 qty: '1',                    // 수량, 소수점 2자리까지 기재 가능
@@ -333,13 +333,13 @@ router.get('/register', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20190227-033';
+    var mgtKey = '20190917-033';
 
     // 세금계산서 항목
     var Taxinvoice = {
 
         // [필수] 작성일자, 날짜형식 yyyyMMdd
-        writeDate: '20190227',
+        writeDate: '20190917',
 
         // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
         chargeDirection: '정과금',
@@ -503,7 +503,7 @@ router.get('/register', function (req, res, next) {
         detailList: [
             {
                 serialNum: 1,                // 일련번호, 1부터 순차기재
-                purchaseDT: '20190109',      // 거래일자, 형식 : yyyyMMdd
+                purchaseDT: '20190917',      // 거래일자, 형식 : yyyyMMdd
                 itemName: '품명1',
                 spec: '규격',
                 qty: '1',                    // 수량, 소수점 2자리까지 기재 가능
@@ -514,7 +514,7 @@ router.get('/register', function (req, res, next) {
             },
             {
                 serialNum: 2,                // 일련번호, 1부터 순차기재
-                purchaseDT: '20190109',      // 거래일자, 형식 : yyyyMMdd
+                purchaseDT: '20190917',      // 거래일자, 형식 : yyyyMMdd
                 itemName: '품명2',
                 spec: '규격',
                 qty: '1',                    // 수량, 소수점 2자리까지 기재 가능
@@ -590,7 +590,7 @@ router.get('/update', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 세금계산서 문서번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190917-003';
 
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
@@ -599,7 +599,7 @@ router.get('/update', function (req, res, next) {
     var Taxinvoice = {
 
         // [필수] 작성일자, 날짜형식 yyyyMMdd
-        writeDate: '20190109',
+        writeDate: '20190917',
 
         // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
         chargeDirection: '정과금',
@@ -763,7 +763,7 @@ router.get('/update', function (req, res, next) {
         detailList: [
             {
                 serialNum: 1,                // 일련번호, 1부터 순차기재
-                purchaseDT: '20190109',      // 거래일자, 형식 : yyyyMMdd
+                purchaseDT: '20190917',      // 거래일자, 형식 : yyyyMMdd
                 itemName: '품명1',
                 spec: '규격',
                 qty: '1',                    // 수량, 소수점 2자리까지 기재 가능
@@ -774,7 +774,7 @@ router.get('/update', function (req, res, next) {
             },
             {
                 serialNum: 2,                // 일련번호, 1부터 순차기재
-                purchaseDT: '20190109',      // 거래일자, 형식 : yyyyMMdd
+                purchaseDT: '20190917',      // 거래일자, 형식 : yyyyMMdd
                 itemName: '품명2',
                 spec: '규격',
                 qty: '1',                    // 수량, 소수점 2자리까지 기재 가능
@@ -856,7 +856,7 @@ router.get('/issue', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190227-033';
+    var mgtKey = '20190917-033';
 
     // 메모
     var memo = '발행 테스트';
@@ -891,7 +891,7 @@ router.get('/cancelIssue', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190227-031';
+    var mgtKey = '20190917-031';
 
     // 메모
     var memo = '발행취소 메모';
@@ -923,7 +923,7 @@ router.get('/registRequest', function (req, res, next) {
     var Taxinvoice = {
 
         // [필수] 작성일자, 날짜형식 yyyyMMdd
-        writeDate: '20190109',
+        writeDate: '20190917',
 
         // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
         chargeDirection: '정과금',
@@ -997,7 +997,7 @@ router.get('/registRequest', function (req, res, next) {
         invoiceeCorpNum: testCorpNum,
 
         // [역발행시 필수] 공급받는자 문서번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
-        invoiceeMgtKey: '20190109-100',
+        invoiceeMgtKey: '20190917-100',
 
         // 공급받는자 종사업장 식별번호, 필요시 기재, 4자리 숫자
         invoiceeTaxRegID: '',
@@ -1087,7 +1087,7 @@ router.get('/registRequest', function (req, res, next) {
         detailList: [
             {
                 serialNum: 1,                // 일련번호, 1부터 순차기재
-                purchaseDT: '20190109',      // 거래일자, 형식 : yyyyMMdd
+                purchaseDT: '20190917',      // 거래일자, 형식 : yyyyMMdd
                 itemName: '품명1',
                 spec: '규격',
                 qty: '1',                    // 수량, 소수점 2자리까지 기재 가능
@@ -1098,7 +1098,7 @@ router.get('/registRequest', function (req, res, next) {
             },
             {
                 serialNum: 2,                // 일련번호, 1부터 순차기재
-                purchaseDT: '20190109',      // 거래일자, 형식 : yyyyMMdd
+                purchaseDT: '20190917',      // 거래일자, 형식 : yyyyMMdd
                 itemName: '품명2',
                 spec: '규격',
                 qty: '1',                    // 수량, 소수점 2자리까지 기재 가능
@@ -1159,7 +1159,7 @@ router.get('/request', function (req, res, next) {
     var keyType = popbill.MgtKeyType.BUY;
 
     // 문서번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190917-003';
 
     // 메모
     var memo = '역발행요청 메모';
@@ -1185,7 +1185,7 @@ router.get('/cancelRequest', function (req, res, next) {
     var keyType = popbill.MgtKeyType.BUY;
 
     // 문서번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190917-003';
 
     // 메모
     var memo = '역발행요청 취소 메모';
@@ -1211,7 +1211,7 @@ router.get('/refuse', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     // 메모
     var memo = '역발행요청 거부 메모';
@@ -1263,7 +1263,7 @@ router.get('/sendToNTS', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     taxinvoiceService.sendToNTS(testCorpNum, keyType, mgtKey,
         function (result) {
@@ -1287,7 +1287,7 @@ router.get('/getInfo', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190917-003';
 
     taxinvoiceService.getInfo(testCorpNum, keyType, mgtKey,
         function (result) {
@@ -1311,7 +1311,7 @@ router.get('/getInfos', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호 배열, 최대 1000건
-    var mgtKeyList = ['20190109-001', '20190109-003'];
+    var mgtKeyList = ['20190917-001', '20190917-003'];
 
     taxinvoiceService.getInfos(testCorpNum, keyType, mgtKeyList,
         function (result) {
@@ -1334,7 +1334,7 @@ router.get('/getDetailInfo', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190917-003';
 
     taxinvoiceService.getDetailInfo(testCorpNum, keyType, mgtKey,
         function (result) {
@@ -1363,10 +1363,10 @@ router.get('/search', function (req, res, next) {
     var DType = 'W';
 
     // 시작일자, 날짜형식yyyyMMdd)
-    var SDate = '20181201';
+    var SDate = '20190701';
 
     // 종료일자, 날짜형식yyyyMMdd)
-    var EDate = '20190108';
+    var EDate = '20191231';
 
     // 전송상태값 배열, 문서상태코드 3자리 배열, 와일드카드(*) 사용가능
     var State = ['3**', '6**'];
@@ -1431,7 +1431,7 @@ router.get('/getLogs', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190917-003';
 
     taxinvoiceService.getLogs(testCorpNum, keyType, mgtKey,
         function (result) {
@@ -1474,7 +1474,7 @@ router.get('/getPopUpURL', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     taxinvoiceService.getPopUpURL(testCorpNum, keyType, mgtKey,
         function (url) {
@@ -1497,7 +1497,7 @@ router.get('/getViewURL', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190227-001';
+    var mgtKey = '20190917-001';
 
     taxinvoiceService.getViewURL(testCorpNum, keyType, mgtKey,
         function (url) {
@@ -1520,7 +1520,7 @@ router.get('/getPrintURL', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     taxinvoiceService.getPrintURL(testCorpNum, keyType, mgtKey,
         function (url) {
@@ -1566,7 +1566,7 @@ router.get('/getMassPrintURL', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호열 배열, 최대 100건
-    var mgtKeyList = ['20190109-001', '20190109-002', '20190109-003'];
+    var mgtKeyList = ['20190917-001', '20190917-002', '20190917-003'];
 
     taxinvoiceService.getMassPrintURL(testCorpNum, keyType, mgtKeyList,
         function (url) {
@@ -1589,7 +1589,7 @@ router.get('/getMailURL', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     taxinvoiceService.getMailURL(testCorpNum, keyType, mgtKey,
         function (url) {
@@ -1653,7 +1653,7 @@ router.get('/attachFile', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190917-003';
 
     // 파일경로
     var FilePaths = ['./test.jpg'];
@@ -1682,7 +1682,7 @@ router.get('/deleteFile', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190917-003';
 
     // 삭제할 파일아이디, getFiles API의 attachedFile 변수값으로 확인
     var fileID = '06B1E04E-29EC-451B-8AF7-BA717072DAAB.PBF';
@@ -1708,7 +1708,7 @@ router.get('/getFiles', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190917-003';
 
     taxinvoiceService.getFiles(testCorpNum, keyType, mgtKey,
         function (result) {
@@ -1730,7 +1730,7 @@ router.get('/sendEmail', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     // 수신 메일주소
     var receiver = 'test@test.com';
@@ -1757,7 +1757,7 @@ router.get('/sendSMS', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     // 발신번호
     var senderNum = '07043042991';
@@ -1790,7 +1790,7 @@ router.get('/sendFAX', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     // 발신번호
     var senderNum = '07043042991';
@@ -1818,12 +1818,12 @@ router.get('/attachStatement', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190917-003';
 
     // 첨부할 전자명세서 종류코드, 121-거래명세서, 122-청구서, 123-발주서, 124-견적서, 125-입금표, 126-영수증
     var subItemCode = 121;
 
-    // 첨부할 전자명세서 관리번호
+    // 첨부할 전자명세서 문서번호
     var subMgtKey = '20190109-001';
 
     taxinvoiceService.attachStatement(testCorpNum, keyType, mgtKey, subItemCode, subMgtKey,
@@ -1846,12 +1846,12 @@ router.get('/detachStatement', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190109-003';
+    var mgtKey = '20190917-003';
 
     // 첨부해제할 전자명세서 종류코드, 121-거래명세서, 122-청구서, 123-발주서, 124-견적서, 125-입금표, 126-영수증
     var subItemCode = 121;
 
-    // 첨부해제할 전자명세서 관리번호
+    // 첨부해제할 전자명세서 문서번호
     var subMgtKey = '20190109-001';
 
     taxinvoiceService.detachStatement(testCorpNum, keyType, mgtKey, subItemCode, subMgtKey,
@@ -1894,7 +1894,7 @@ router.get('/assignMgtKey', function (req, res, next) {
 
     // 할당할 문서번호, 숫자, 영문 '-', '_' 조합으로 1~24자리까지
     // 사업자번호별 중복없는 고유번호 할당
-    var mgtKey = '20190109-001';
+    var mgtKey = '20190917-001';
 
     taxinvoiceService.assignMgtKey(testCorpNum, keyType, itemKey, mgtKey,
         function (result) {
