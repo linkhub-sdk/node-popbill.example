@@ -63,18 +63,23 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
 /*
  * 1건의 현금영수증을 [즉시발행]합니다.
  * - 발행일 기준 오후 5시 이전에 발행된 현금영수증은 다음날 오후 2시에 국세청 전송결과를 확인할 수 있습니다.
- * - 현금영수증 국세청 전송 정책에 대한 정보는 "[현금영수증 API 연동매뉴얼] > 1.3. 국세청 전송정책"을 참조하시기 바랍니다.
  */
 router.get('/registIssue', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var MgtKey = '20190917-001';
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
 
-    //현금영수증 상태메모
-    var stateMemo = "발행메모";
+    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
+    var MgtKey = '20191031-003';
+
+    // 현금영수증 상태메모
+    var stateMemo = '발행메모';
+
+    // 안내메일 제목, 미기재시 기본양식으로 전송.
+    var emailSubject = '';
 
     // 현금영수증 항목
     var cashbill = {
@@ -144,7 +149,7 @@ router.get('/registIssue', function (req, res, next) {
         orderNumber: '주문번호',
 
         // 고객 메일주소
-        email: 'test@test.com',
+        email: 'code@linkhub.co.kr',
 
         // 고객 핸드폰번호
         hp: '010111222',
@@ -157,7 +162,7 @@ router.get('/registIssue', function (req, res, next) {
         smssendYN: false,
     };
 
-    cashbillService.registIssue(testCorpNum, cashbill, stateMemo,
+    cashbillService.registIssue(testCorpNum, cashbill, stateMemo, testUserID, emailSubject,
         function (result) {
             res.render('response', {path: req.path, code: result.code, message: result.message});
         }, function (Error) {

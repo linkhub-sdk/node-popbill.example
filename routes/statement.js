@@ -71,18 +71,26 @@ router.get('/registIssue', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var ItemCode = 121;
 
     // 문서번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
-    var MgtKey = '20190917-001';
+    var MgtKey = '20191031-005';
 
+    // 메모
+    var memo = '';
+
+    // 안내메일 제목, 미기재시 기본양식으로 전송.
+    var emailSubject = '';
 
     // 전자명세서 정보
     var statement = {
 
         // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20190917',
+        writeDate: '20191031',
 
         // [필수] 영수, 청구 중 기재
         purposeType: '영수',
@@ -244,7 +252,7 @@ router.get('/registIssue', function (req, res, next) {
         }
     };
 
-    statementService.registIssue(testCorpNum, statement,
+    statementService.registIssue(testCorpNum, statement, memo, testUserID, emailSubject,
         function (result) {
             res.render('response', {path: req.path, code: result.code, message: result.message});
         }, function (Error) {
