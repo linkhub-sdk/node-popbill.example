@@ -54,7 +54,7 @@ router.get('/requestJob', function (req, res, next) {
     var DType = 'S';
 
     // 시작일자, 날짜형식(yyyyMMdd)
-    var SDate = '20190701';
+    var SDate = '20190901';
 
     // 종료일자, 날짜형식(yyyyMMdd)
     var EDate = '20191231';
@@ -117,8 +117,11 @@ router.get('/search', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
+    // 팝빌회원 아이디
+    var testUserID = '';
+
     // 작업아이디
-    var jobID = '019010912000000057';
+    var jobID = '019103109000000121';
 
     // 문서형태 배열, N-일반 세금계산서, M-수정세금계산서
     var type = ['N', 'M'];
@@ -149,8 +152,11 @@ router.get('/search', function (req, res, next) {
     // 정렬방향, D-내림차순, A-오름차순
     var order = 'D';
 
+    // 조회 검색어, 거래처 사업자번호 또는 거래처명 like 검색
+    var searchString = '';
+
     htTaxinvoiceService.search(testCorpNum, jobID, type, taxType, purposeType, taxRegIDType,
-        taxRegIDYN, taxRegID, page, perPage, order,
+        taxRegIDYN, taxRegID, page, perPage, order, testUserID, searchString,
         function (response) {
             res.render('HTTaxinvoice/search', {path: req.path, result: response})
         }, function (Error) {
@@ -168,8 +174,11 @@ router.get('/summary', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
+    // 팝빌회원 아이디
+    var testUserID = '';
+
     // 작업아이디
-    var jobID = '019010912000000057';
+    var jobID = '019103109000000121';
 
     // 문서형태 배열, N-일반 세금계산서, M-수정세금계산서
     var type = ['N', 'M'];
@@ -188,8 +197,11 @@ router.get('/summary', function (req, res, next) {
     // 종사업장번호, 콤마(',')로 구분하여 구성, ex) '1234,0007';
     var taxRegID = '';
 
+    // 조회 검색어, 거래처 사업자번호 또는 거래처명 like 검색
+    var searchString = '';
+
     htTaxinvoiceService.summary(testCorpNum, jobID, type, taxType, purposeType,
-        taxRegIDType, taxRegIDYN, taxRegID,
+        taxRegIDType, taxRegIDYN, taxRegID, testUserID, searchString,
         function (response) {
             res.render('HTTaxinvoice/summary', {path: req.path, result: response})
         }, function (Error) {
