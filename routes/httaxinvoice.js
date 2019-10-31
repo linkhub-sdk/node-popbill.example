@@ -260,6 +260,26 @@ router.get('/getPopUpURL', function (req, res, next) {
 });
 
 /*
+ * 홈택스 전자세금계산서 인쇄 팝업 URL을 반환합니다.
+ * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ */
+router.get('/getPrintURL', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 국세청승인번호
+    var NTSConfirmNum = '201901074100020300000ecd';
+
+    htTaxinvoiceService.getPrintURL(testCorpNum, NTSConfirmNum,
+        function (url) {
+            res.render('result', {path: req.path, result: url});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
  * 홈택스연동 인증관리를 위한 URL을 반환합니다.
  * 인증방식에는 부서사용자/공인인증서 인증 방식이 있습니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
