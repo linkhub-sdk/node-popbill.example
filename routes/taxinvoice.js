@@ -76,13 +76,13 @@ router.get('/registIssue', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20190917-032';
+    var mgtKey = '20191031-002';
 
     // 세금계산서 항목
     var Taxinvoice = {
 
         // [필수] 작성일자, 날짜형식 yyyyMMdd
-        writeDate: '20190917',
+        writeDate: '20191031',
 
         // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
         chargeDirection: '정과금',
@@ -186,6 +186,8 @@ router.get('/registIssue', function (req, res, next) {
         invoiceeHP1: '070-111-222',
 
         // 공급받는자 이메일 주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: 'test2@test.com',
 
         // 역발행시 알림문자 전송여부
@@ -246,7 +248,7 @@ router.get('/registIssue', function (req, res, next) {
         detailList: [
             {
                 serialNum: 1,                // 일련번호, 1부터 순차기재
-                purchaseDT: '20190917',      // 거래일자, 형식 : yyyyMMdd
+                purchaseDT: '20191031',      // 거래일자, 형식 : yyyyMMdd
                 itemName: '품명1',
                 spec: '규격',
                 qty: '1',                    // 수량, 소수점 2자리까지 기재 가능
@@ -257,7 +259,7 @@ router.get('/registIssue', function (req, res, next) {
             },
             {
                 serialNum: 2,                // 일련번호, 1부터 순차기재
-                purchaseDT: '20190917',      // 거래일자, 형식 : yyyyMMdd
+                purchaseDT: '20191031',      // 거래일자, 형식 : yyyyMMdd
                 itemName: '품명2',
                 spec: '규격',
                 qty: '1',                    // 수량, 소수점 2자리까지 기재 가능
@@ -273,16 +275,14 @@ router.get('/registIssue', function (req, res, next) {
          *                         수정세금계산서 기재정보
          * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
          * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-         * - [참고] 수정세금계산서 작성방법 안내 - http://blog.linkhub.co.kr/650
+         * - [참고] 수정세금계산서 작성방법 안내 - https://docs.popbill.com/taxinvoice/modify?lang=node
          **************************************************************************/
 
         // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
         modifyCode: '',
 
-        // [수정세금계산서 발행시 필수] 원본세금계산서 ItemKey
-        // - 문서정보확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인
-        originalTaxinvoiceKey: '',
-
+        // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
+        orgNTSConfirmNum: '',
 
         /************************************************************************
          *                             추가담당자 정보
@@ -300,6 +300,8 @@ router.get('/registIssue', function (req, res, next) {
                 contactName: '담당자 성명',
 
                 // 담당자 메일
+                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 실제 거래처의 메일주소가 기재되지 않도록 주의
                 email: 'test2@test.com'
             },
             {
@@ -310,6 +312,8 @@ router.get('/registIssue', function (req, res, next) {
                 contactName: '담당자 성명 2',
 
                 // 담당자 메일
+                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 실제 거래처의 메일주소가 기재되지 않도록 주의
                 email: 'test3@test.com'
             }
         ]
@@ -446,6 +450,8 @@ router.get('/register', function (req, res, next) {
         invoiceeHP1: '070-111-222',
 
         // 공급받는자 이메일 주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: 'test2@test.com',
 
         // 역발행시 알림문자 전송여부
@@ -533,16 +539,14 @@ router.get('/register', function (req, res, next) {
          *                         수정세금계산서 기재정보
          * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
          * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-         * - [참고] 수정세금계산서 작성방법 안내 - http://blog.linkhub.co.kr/650
+         * - [참고] 수정세금계산서 작성방법 안내 - https://docs.popbill.com/taxinvoice/modify?lang=node
          **************************************************************************/
 
         // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
         modifyCode: '',
 
-        // [수정세금계산서 발행시 필수] 원본세금계산서 ItemKey
-        // - 문서정보확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인
-        originalTaxinvoiceKey: '',
-
+        // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
+        orgNTSConfirmNum: '',
 
         /************************************************************************
          *                             추가담당자 정보
@@ -560,6 +564,8 @@ router.get('/register', function (req, res, next) {
                 contactName: '담당자 성명',
 
                 // 담당자 메일
+                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 실제 거래처의 메일주소가 기재되지 않도록 주의
                 email: 'test2@test.com'
             },
             {
@@ -570,6 +576,8 @@ router.get('/register', function (req, res, next) {
                 contactName: '담당자 성명 2',
 
                 // 담당자 메일
+                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 실제 거래처의 메일주소가 기재되지 않도록 주의
                 email: 'test3@test.com'
             }
         ]
@@ -706,6 +714,8 @@ router.get('/update', function (req, res, next) {
         invoiceeHP1: '070-111-222',
 
         // 공급받는자 이메일 주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: 'test2@test.com',
 
         // 역발행시 알림문자 전송여부
@@ -793,16 +803,14 @@ router.get('/update', function (req, res, next) {
          *                         수정세금계산서 기재정보
          * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
          * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-         * - [참고] 수정세금계산서 작성방법 안내 - http://blog.linkhub.co.kr/650
+         * - [참고] 수정세금계산서 작성방법 안내 - https://docs.popbill.com/taxinvoice/modify?lang=node
          **************************************************************************/
 
         // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
         modifyCode: '',
 
-        // [수정세금계산서 발행시 필수] 원본세금계산서 ItemKey
-        // - 문서정보확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인
-        originalTaxinvoiceKey: '',
-
+        // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
+        orgNTSConfirmNum: '',
 
         /************************************************************************
          *                             추가담당자 정보
@@ -820,6 +828,8 @@ router.get('/update', function (req, res, next) {
                 contactName: '담당자 성명',
 
                 // 담당자 메일
+                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 실제 거래처의 메일주소가 기재되지 않도록 주의
                 email: 'test2@test.com'
             },
             {
@@ -830,6 +840,8 @@ router.get('/update', function (req, res, next) {
                 contactName: '담당자 성명 2',
 
                 // 담당자 메일
+                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 실제 거래처의 메일주소가 기재되지 않도록 주의
                 email: 'test3@test.com'
             }
         ]
@@ -1030,6 +1042,8 @@ router.get('/registRequest', function (req, res, next) {
         invoiceeHP1: '070-111-222',
 
         // 공급받는자 이메일 주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: 'test2@test.com',
 
         // 역발행시 알림문자 전송여부
@@ -1117,16 +1131,14 @@ router.get('/registRequest', function (req, res, next) {
          *                         수정세금계산서 기재정보
          * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
          * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-         * - [참고] 수정세금계산서 작성방법 안내 - http://blog.linkhub.co.kr/650
+         * - [참고] 수정세금계산서 작성방법 안내 - https://docs.popbill.com/taxinvoice/modify?lang=node
          **************************************************************************/
 
         // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
         modifyCode: '',
 
-        // [수정세금계산서 발행시 필수] 원본세금계산서 ItemKey
-        // - 문서정보확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인
-        originalTaxinvoiceKey: '',
-
+        // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
+        orgNTSConfirmNum: '',
 
         /************************************************************************
          *                             추가담당자 정보
@@ -1736,6 +1748,8 @@ router.get('/sendEmail', function (req, res, next) {
     var mgtKey = '20190917-001';
 
     // 수신 메일주소
+    // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+    // 실제 거래처의 메일주소가 기재되지 않도록 주의
     var receiver = 'test@test.com';
 
     taxinvoiceService.sendEmail(testCorpNum, keyType, mgtKey, receiver,

@@ -149,7 +149,9 @@ router.get('/registIssue', function (req, res, next) {
         orderNumber: '주문번호',
 
         // 고객 메일주소
-        email: 'code@linkhub.co.kr',
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
+        email: 'test@test.com',
 
         // 고객 핸드폰번호
         hp: '010111222',
@@ -248,6 +250,8 @@ router.get('/register', function (req, res, next) {
         orderNumber: '주문번호',
 
         // 고객 메일주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         email: 'test@test.com',
 
         // 고객 핸드폰번호
@@ -346,6 +350,8 @@ router.get('/update', function (req, res, next) {
         orderNumber: '주문번호',
 
         // 고객 메일주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         email: 'test@test.com',
 
         // 고객 핸드폰번호
@@ -876,6 +882,8 @@ router.get('/sendEmail', function (req, res, next) {
     var mgtKey = '20190917-001';
 
     // 수신메일주소
+    // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+    // 실제 거래처의 메일주소가 기재되지 않도록 주의
     var receiver = 'test@test.com';
 
     cashbillService.sendEmail(testCorpNum, mgtKey, receiver,

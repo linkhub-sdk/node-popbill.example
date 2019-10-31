@@ -173,6 +173,8 @@ router.get('/registIssue', function (req, res, next) {
         receiverContactName: '수신자 담당자 성명',
 
         // 수신자 메일주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         receiverEmail: 'test@test.com',
 
         // 수신자 연락처
@@ -361,6 +363,8 @@ router.get('/register', function (req, res, next) {
         receiverContactName: '수신자 담당자 성명',
 
         // 수신자 메일주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         receiverEmail: 'test@test.com',
 
         // 수신자 연락처
@@ -551,6 +555,8 @@ router.get('/update', function (req, res, next) {
         receiverContactName: '수신자 담당자 성명',
 
         // 수신자 메일주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         receiverEmail: 'test@test.com',
 
         // 수신자 연락처
@@ -1100,6 +1106,8 @@ router.get('/sendEmail', function (req, res, next) {
     var mgtKey = '20190917-001';
 
     // 수신메일주소
+    // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+    // 실제 거래처의 메일주소가 기재되지 않도록 주의
     var receiver = 'test@test.com';
 
     statementService.sendEmail(testCorpNum, itemCode, mgtKey, receiver,
@@ -1285,6 +1293,8 @@ router.get('/FAXSend', function (req, res, next) {
         receiverContactName: '수신자 담당자 성명',
 
         // 수신자 메일주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         receiverEmail: 'test@test.com',
 
         // 수신자 연락처
