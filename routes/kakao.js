@@ -206,8 +206,8 @@ router.get('/sendATS_one', function (req, res, next) {
     //     {
     //         n: '템플릿 안내',               //버튼명
     //         t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
-    //         u1: 'https://www.popbill.com', //[앱링크-Android, 웹링크-Mobile]
-    //         u2: 'http://www.popbill.com'  //[앱링크-IOS, 웹링크-PC URL]
+    //         u1: 'https://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+    //         u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
     //     }
     // ];
 
@@ -281,8 +281,8 @@ router.get('/sendATS_multi', function (req, res, next) {
     //     {
     //         n: '템플릿 안내',               //버튼명
     //         t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
-    //         u1: 'https://www.popbill.com', //[앱링크-Android, 웹링크-Mobile]
-    //         u2: 'http://www.popbill.com'  //[앱링크-IOS, 웹링크-PC URL]
+    //         u1: 'https://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+    //         u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
     //     }
     // ];
 
@@ -358,8 +358,8 @@ router.get('/sendATS_same', function (req, res, next) {
     //     {
     //         n: '템플릿 안내',               //버튼명
     //         t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
-    //         u1: 'https://www.popbill.com', //[앱링크-Android, 웹링크-Mobile]
-    //         u2: 'http://www.popbill.com'  //[앱링크-IOS, 웹링크-PC URL]
+    //         u1: 'https://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+    //         u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
     //     }
     // ];
 
@@ -412,8 +412,8 @@ router.get('/sendFTS_one', function (req, res, next) {
         {
             n: '팝빌 바로가기',               //버튼명
             t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
-            u1: 'http://www.popbill.com', //[앱링크-Android, 웹링크-Mobile]
-            u2: 'http://www.popbill.com'  //[앱링크-IOS, 웹링크-PC URL]
+            u1: 'http://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+            u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
         }
     ];
 
@@ -478,8 +478,8 @@ router.get('/sendFTS_multi', function (req, res, next) {
         {
             n: '팝빌 바로가기',              //버튼명
             t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
-            u1: 'http://www.popbill.com', //[앱링크-Android, 웹링크-Mobile]
-            u2: 'http://www.popbill.com'  //[앱링크-IOS, 웹링크-PC URL]
+            u1: 'http://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+            u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
         }
     ];
 
@@ -546,8 +546,8 @@ router.get('/sendFTS_same', function (req, res, next) {
         {
             n: '팝빌 바로가기',              //버튼명
             t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
-            u1: 'http://www.popbill.com', //[앱링크-Android, 웹링크-Mobile]
-            u2: 'http://www.popbill.com'  //[앱링크-IOS, 웹링크-PC URL]
+            u1: 'http://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+            u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
         }
     ];
 
@@ -616,8 +616,8 @@ router.get('/sendFMS_one', function (req, res, next) {
         {
             n: '팝빌 바로가기',              //버튼명
             t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
-            u1: 'http://www.popbill.com', //[앱링크-Android, 웹링크-Mobile]
-            u2: 'http://www.popbill.com'  //[앱링크-IOS, 웹링크-PC URL]
+            u1: 'http://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+            u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
         }
     ];
 
@@ -690,8 +690,8 @@ router.get('/sendFMS_multi', function (req, res, next) {
         {
             n: '팝빌 바로가기',               //버튼명
             t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
-            u1: 'http://www.popbill.com', //[앱링크-Android, 웹링크-Mobile]
-            u2: 'http://www.popbill.com'  //[앱링크-IOS, 웹링크-PC URL]
+            u1: 'http://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+            u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
         }
     ];
 
@@ -766,8 +766,8 @@ router.get('/sendFMS_same', function (req, res, next) {
         {
             n: '팝빌 바로가기',               //버튼명
             t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
-            u1: 'http://www.popbill.com', //[앱링크-Android, 웹링크-Mobile]
-            u2: 'http://www.popbill.com'  //[앱링크-IOS, 웹링크-PC URL]
+            u1: 'http://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+            u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
         }
     ];
 
