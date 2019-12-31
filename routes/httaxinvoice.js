@@ -78,7 +78,7 @@ router.get('/getJobState', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 작업아이디
-    var jobID = '019010912000000057';
+    var jobID = '019121721000000002';
 
     htTaxinvoiceService.getJobState(testCorpNum, jobID,
         function (response) {
@@ -121,7 +121,7 @@ router.get('/search', function (req, res, next) {
     var testUserID = '';
 
     // 작업아이디
-    var jobID = '019103109000000121';
+    var jobID = '019121721000000002';
 
     // 문서형태 배열, N-일반 세금계산서, M-수정세금계산서
     var type = ['N', 'M'];

@@ -76,13 +76,13 @@ router.get('/registIssue', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20191031-002';
+    var mgtKey = '20191217-002';
 
     // 세금계산서 항목
     var Taxinvoice = {
 
         // [필수] 작성일자, 날짜형식 yyyyMMdd
-        writeDate: '20191031',
+        writeDate: '20191217',
 
         // [필수] 과금방향, (정과금, 역과금) 중 기재, 역과금은 역발행의 경우만 가능
         chargeDirection: '정과금',

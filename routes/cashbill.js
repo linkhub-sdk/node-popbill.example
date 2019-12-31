@@ -73,7 +73,7 @@ router.get('/registIssue', function (req, res, next) {
     var testUserID = 'testkorea';
 
     // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var MgtKey = '20191031-003';
+    var MgtKey = '20191217-003';
 
     // 현금영수증 상태메모
     var stateMemo = '발행메모';
