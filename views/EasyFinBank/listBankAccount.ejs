@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <title>팝빌 SDK Express Example. </title>
+</head>
+<body>
+<div id="content">
+    <p class="heading1">Response</p>
+    <br/>
+    <fieldset class="fieldset1">
+        <legend><%= path %></legend>
+        <%
+        if ( (result.length) > 0 ){
+        result.forEach(function(info, index){
+        %>
+        <fieldset class="fieldset2">
+            <legend> 계좌 정보 [<%= index+1 %>/<%= result.length %>]</legend>
+            <ul>
+                <li>bankCode (은행코드) : <%= info.bankCode %></li>
+                <li>accountNumber (계좌번호) : <%= info.accountNumber %></li>
+                <li>accountName (계좌별칭) : <%= info.accountName %></li>
+                <li>accountType (계좌유형) : <%= info.accountType %></li>
+                <li>state (계좌 정액제 상태) : <%= info.state %></li>
+                <li>regDT (등록일시) : <%= info.regDT %></li>
+                <li>memo (메모) : <%= info.memo %></li>
+            </ul>
+        </fieldset>
+        <%
+        });
+        } else {
+        %>
+            <br/>
+            <p>은행계좌 정보가 존재하지 않습니다.</p>
+        <%
+        }
+        %>
+    </fieldset>
+</div>
+</body>
+</html>

@@ -34,6 +34,38 @@ router.get('/', function (req, res, next) {
     res.render('EasyFinBank/index', {});
 });
 
+/*
+ * 팝빌 계좌 관리 팝업 URL을 확인합니다.
+ * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ */
+router.get('/getBankAccountMgtURL', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    easyFinBankService.getBankAccountMgtURL(testCorpNum,
+        function (url) {
+            res.render('result', {path: req.path, result: url});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
+ * 팝빌에 등록된 은행 계좌 목록을 확인합니다.
+ */
+router.get('/listBankAccount', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    easyFinBankService.listBankAccount(testCorpNum,
+        function (response) {
+            res.render('EasyFinBank/listBankAccount', {path: req.path, result: response})
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
 
 /*
  * 팝빌에 등록된 계좌의 거래내역 수집을 요청합니다.
@@ -51,10 +83,10 @@ router.get('/requestJob', function (req, res, next) {
     var accountNumber = '131020538645';
 
     // 시작일자, 날짜형식(yyyyMMdd)
-    var SDate = '20191002';
+    var SDate = '20191009';
 
     // 종료일자, 날짜형식(yyyyMMdd)
-    var EDate = '20191231';
+    var EDate = '20200107';
 
     easyFinBankService.requestJob(testCorpNum, bankCode, accountNumber, SDate, EDate,
         function (jobID) {
@@ -129,7 +161,7 @@ router.get('/search', function (req, res, next) {
     var testUserID = '';
 
     // 작업아이디
-    var jobID = '019123110000000004';
+    var jobID = '020010713000000001';
 
     // 거래유형 배열, I-입금 / O-출금
     var tradeType = ['I', 'O'];
@@ -177,6 +209,25 @@ router.get('/summary', function (req, res, next) {
     easyFinBankService.summary(testCorpNum, jobID, tradeType, searchString, testUserID,
         function (response) {
             res.render('EasyFinBank/summary', {path: req.path, result: response})
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+router.get('/saveMemo', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 거래내역 아이디, Search API 응답 list tid 항목 확인.
+    var tid = '01912181100000000120191231000001';
+
+    // 메모
+    var memo = 'memo-nodejs';
+
+    easyFinBankService.saveMemo(testCorpNum, tid, memo,
+        function (result) {
+            res.render('response', {path: req.path, code: result.code, message: result.message});
         }, function (Error) {
             res.render('response', {path: req.path, code: Error.code, message: Error.message});
         });
