@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var popbill = require('popbill');
 
-
 /*
  * 팝빌 서비스 연동환경 초기화
  */
@@ -38,6 +37,7 @@ router.get('/', function (req, res, next) {
 /*
  * 문자 발신번호 관리 팝업 URL을 반합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/message/node/api#GetSenderNumberMgtURL
  */
 router.get('/getSenderNumberMgtURL', function (req, res, next) {
 
@@ -57,6 +57,7 @@ router.get('/getSenderNumberMgtURL', function (req, res, next) {
 
 /*
  * 문자 발신번호 목록을 반환합니다.
+ * - https://docs.popbill.com/message/node/api#GetSenderNumberList
  */
 router.get('/getSenderNumberList', function (req, res, next) {
 
@@ -73,7 +74,8 @@ router.get('/getSenderNumberList', function (req, res, next) {
 
 /*
  * SMS(단문)를 전송합니다.
- *  - 메시지 내용이 90Byte 초과시 메시지 내용은 자동으로 제거됩니다.
+ * - 메시지 내용이 90Byte 초과시 메시지 내용은 자동으로 제거됩니다.
+ * - https://docs.popbill.com/message/node/api#SendSMS
  */
 router.get('/sendSMS', function (req, res, next) {
 
@@ -117,7 +119,7 @@ router.get('/sendSMS', function (req, res, next) {
 /*
  * [대량전송] SMS(단문)를 전송합니다.
  *  - 메시지 내용이 90Byte 초과시 메시지 내용은 자동으로 제거됩니다.
- *  - 단건/대량 전송에 대한 설명은 "[문자 API 연동매뉴얼] > 3.2.1 SendSMS(단문전송)"을 참조하시기 바랍니다.
+ *  - https://docs.popbill.com/message/node/api#SendSMS_multi
  */
 router.get('/sendSMS_multi', function (req, res, next) {
 
@@ -171,7 +173,8 @@ router.get('/sendSMS_multi', function (req, res, next) {
 
 /*
  * LMS(장문)를 전송합니다.
- *  - 메시지 내용이 2,000Byte 초과시 메시지 내용은 자동으로 제거됩니다.
+ * - 메시지 내용이 2,000Byte 초과시 메시지 내용은 자동으로 제거됩니다.
+ * - https://docs.popbill.com/message/node/api#SendLMS
  */
 router.get('/sendLMS', function (req, res, next) {
 
@@ -217,8 +220,8 @@ router.get('/sendLMS', function (req, res, next) {
 
 /*
  * [대량전송] LMS(장문)를 전송합니다.
- *  - 메시지 내용이 2,000Byte 초과시 메시지 내용은 자동으로 제거됩니다.
- *  - 단건/대량 전송에 대한 설명은 "[문자 API 연동매뉴얼] > 3.2.2 SendLMS(장문전송)"을 참조하시기 바랍니다.
+ * - 메시지 내용이 2,000Byte 초과시 메시지 내용은 자동으로 제거됩니다.
+ * - https://docs.popbill.com/message/node/api#SendLMS_multi
  */
 router.get('/sendLMS_multi', function (req, res, next) {
 
@@ -275,8 +278,9 @@ router.get('/sendLMS_multi', function (req, res, next) {
 
 /*
  * MMS(포토)를 전송합니다.
- *  - 메시지 내용이 2,000Byte 초과시 메시지 내용은 자동으로 제거됩니다.
- *  - 이미지 파일의 크기는 최대 300Kbtye (JPEG), 가로/세로 1000px 이하 권장
+ * - 메시지 내용이 2,000Byte 초과시 메시지 내용은 자동으로 제거됩니다.
+ * - 이미지 파일의 크기는 최대 300Kbtye (JPEG), 가로/세로 1000px 이하 권장
+ * - https://docs.popbill.com/message/node/api#SendMMS
  */
 router.get('/sendMMS', function (req, res, next) {
 
@@ -322,8 +326,9 @@ router.get('/sendMMS', function (req, res, next) {
 
 /*
  * [대랑전송] MMS(포토)를 전송합니다.
- *  - 메시지 내용이 2,000Byte 초과시 메시지 내용은 자동으로 제거됩니다.
- *  - 이미지 파일의 크기는 최대 300Kbtye (JPEG), 가로/세로 1000px 이하 권장
+ * - 메시지 내용이 2,000Byte 초과시 메시지 내용은 자동으로 제거됩니다.
+ * - 이미지 파일의 크기는 최대 300Kbtye (JPEG), 가로/세로 1000px 이하 권장
+ * - https://docs.popbill.com/message/node/api#SendMMS_multi
  */
 router.get('/sendMMS_multi', function (req, res, next) {
 
@@ -383,8 +388,9 @@ router.get('/sendMMS_multi', function (req, res, next) {
 
 /*
  * XMS(단문/장문 자동인식)를 전송합니다.
- *  - 메시지 내용의 길이(90byte)에 따라 SMS/LMS(단문/장문)를 자동인식하여 전송합니다.
- *  - 90byte 초과시 LMS(장문)으로 인식 합니다.
+ * - 메시지 내용의 길이(90byte)에 따라 SMS/LMS(단문/장문)를 자동인식하여 전송합니다.
+ * - 90byte 초과시 LMS(장문)으로 인식 합니다.
+ * - https://docs.popbill.com/message/node/api#SendXMS
  */
 router.get('/sendXMS', function (req, res, next) {
 
@@ -430,9 +436,9 @@ router.get('/sendXMS', function (req, res, next) {
 
 /*
  * [대량전송] XMS(단문/장문 자동인식)를 전송합니다.
- *  - 메시지 내용의 길이(90byte)에 따라 SMS/LMS(단문/장문)를 자동인식하여 전송합니다.
- *  - 90byte 초과시 LMS(장문)으로 인식 합니다.
- *  - 단건/대량 전송에 대한 설명은 "[문자 API 연동매뉴얼] > 3.2.4 SendXMS(단문/장문 자동인식 전송)"을 참조하시기 바랍니다.
+ * - 메시지 내용의 길이(90byte)에 따라 SMS/LMS(단문/장문)를 자동인식하여 전송합니다.
+ * - 90byte 초과시 LMS(장문)으로 인식 합니다.
+ * - https://docs.popbill.com/message/node/api#SendXMS_multi
  */
 router.get('/sendXMS_multi', function (req, res, next) {
 
@@ -491,6 +497,7 @@ router.get('/sendXMS_multi', function (req, res, next) {
 /*
  * 문자전송요청시 발급받은 접수번호(receiptNum)로 예약문자 전송을 취소합니다.
  * - 예약취소는 예약전송시간 10분전까지만 가능합니다.
+ * - https://docs.popbill.com/message/node/api#CancelReserve
  */
 router.get('/cancelReserve', function (req, res, next) {
 
@@ -511,6 +518,7 @@ router.get('/cancelReserve', function (req, res, next) {
 /*
  * 문자전송요청시 할당한 전송요청번호(requestNum)로 예약문자 전송을 취소합니다.
  * - 예예약취소는 예약전송시간 10분전까지만 가능합니다.
+ * - https://docs.popbill.com/message/node/api#CancelReserveRN
  */
 router.get('/cancelReserveRN', function (req, res, next) {
 
@@ -530,7 +538,7 @@ router.get('/cancelReserveRN', function (req, res, next) {
 
 /*
  * 문자전송요청시 발급받은 접수번호(receiptNum)로 전송상태를 확인합니다
- * - 응답항목에 대한 자세한 사항은 "[문자 API 연동매뉴얼] >  3.3.1. GetMessages (전송내역 확인)을 참조하시기 바랍니다.
+ * - https://docs.popbill.com/message/node/api#GetMessages
  */
 router.get('/getMessages', function (req, res, next) {
 
@@ -550,7 +558,7 @@ router.get('/getMessages', function (req, res, next) {
 
 /*
  * 문자전송요청시 할당한 전송요청번호(requestNum)로 전송상태를 확인합니다
- * - 응답항목에 대한 자세한 사항은 "[문자 API 연동매뉴얼] > 3.3.2. GetMessagesRN (전송내역 확인 - 요청번호 할당)을 참조하시기 바랍니다.
+ * - https://docs.popbill.com/message/node/api#GetMessagesRN
  */
 router.get('/getMessagesRN', function (req, res, next) {
 
@@ -570,6 +578,7 @@ router.get('/getMessagesRN', function (req, res, next) {
 
 /*
  * 문자 전송내역 요약정보를 확인합니다. (최대 1000건)
+ * - https://docs.popbill.com/message/node/api#GetStates
  */
 router.get('/getStates', function (req, res, next) {
 
@@ -593,6 +602,7 @@ router.get('/getStates', function (req, res, next) {
 /*
  * 검색조건을 사용하여 문자전송 내역을 조회합니다.
  * - 최대 검색기간 : 6개월 이내
+ * - https://docs.popbill.com/message/node/api#Search
  */
 router.get('/search', function (req, res, next) {
 
@@ -642,6 +652,7 @@ router.get('/search', function (req, res, next) {
 /*
  * 문자 전송내역 팝업 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/message/node/api#GetSentListURL
  */
 router.get('/getSentListURL', function (req, res, next) {
 
@@ -661,6 +672,7 @@ router.get('/getSentListURL', function (req, res, next) {
 
 /*
  * 080 서비스 수신거부 목록을 확인합니다.
+ * - https://docs.popbill.com/message/node/api#GetAutoDenyList
  */
 router.get('/getAutoDenyList', function (req, res, next) {
 
@@ -678,6 +690,7 @@ router.get('/getAutoDenyList', function (req, res, next) {
 /*
  * 연동회원의 잔여포인트를 확인합니다.
  * - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API) 를 통해 확인하시기 바랍니다.
+ * - https://docs.popbill.com/message/node/api#GetBalance
  */
 router.get('/getBalance', function (req, res, next) {
 
@@ -695,6 +708,7 @@ router.get('/getBalance', function (req, res, next) {
 /*
  * 팝빌 연동회원 포인트 충전 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/message/node/api#GetChargeURL
  */
 router.get('/getChargeURL', function (req, res, next) {
 
@@ -715,6 +729,7 @@ router.get('/getChargeURL', function (req, res, next) {
 /*
  * 파트너의 잔여포인트를 확인합니다.
  * - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API)를 이용하시기 바랍니다.
+ * - https://docs.popbill.com/message/node/api#GetPartnerBalance
  */
 router.get('/getPartnerBalance', function (req, res, next) {
 
@@ -732,6 +747,7 @@ router.get('/getPartnerBalance', function (req, res, next) {
 /*
  * 파트너 포인트 충전 팝업 URL을 반환합니다.
  * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/message/node/api#GetPartnerURL
  */
 router.get('/getPartnerURL', function (req, res, next) {
 
@@ -751,6 +767,7 @@ router.get('/getPartnerURL', function (req, res, next) {
 
 /*
  * 문자메시지 전송단가를 확인합니다.
+ * - https://docs.popbill.com/message/node/api#GetUnitCost
  */
 router.get('/getUnitCost', function (req, res, next) {
 
@@ -770,6 +787,7 @@ router.get('/getUnitCost', function (req, res, next) {
 
 /*
  * 문자 API 서비스 과금정보를 확인합니다.
+ * - https://docs.popbill.com/message/node/api#GetChargeInfo
  */
 router.get('/getChargeInfo', function (req, res, next) {
 
@@ -789,6 +807,7 @@ router.get('/getChargeInfo', function (req, res, next) {
 
 /*
  * 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
+ * - https://docs.popbill.com/message/node/api#CheckIsMember
  */
 router.get('/checkIsMember', function (req, res, next) {
 
@@ -805,6 +824,7 @@ router.get('/checkIsMember', function (req, res, next) {
 
 /*
  * 팝빌 회원아이디 중복여부를 확인합니다.
+ * - https://docs.popbill.com/message/node/api#CheckID
  */
 router.get('/checkID', function (req, res, next) {
 
@@ -821,6 +841,7 @@ router.get('/checkID', function (req, res, next) {
 
 /*
  * 팝빌 연동회원 가입을 요청합니다.
+ * - https://docs.popbill.com/message/node/api#JoinMember
  */
 router.get('/joinMember', function (req, res, next) {
 
@@ -879,6 +900,7 @@ router.get('/joinMember', function (req, res, next) {
 /*
  * 팝빌(www.popbill.com)에 로그인된 팝빌 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/message/node/api#GetAccessURL
  */
 router.get('/getAccessURL', function (req, res, next) {
 
@@ -898,6 +920,7 @@ router.get('/getAccessURL', function (req, res, next) {
 
 /*
  * 연동회원의 담당자를 신규로 등록합니다.
+ * - https://docs.popbill.com/message/node/api#RegistContact
  */
 router.get('/registContact', function (req, res, next) {
 
@@ -943,6 +966,7 @@ router.get('/registContact', function (req, res, next) {
 
 /*
  * 연동회원의 담당자 목록을 확인합니다.
+ * - https://docs.popbill.com/message/node/api#ListContact
  */
 router.get('/listContact', function (req, res, next) {
 
@@ -959,6 +983,7 @@ router.get('/listContact', function (req, res, next) {
 
 /*
  * 담당자의 정보를 수정합니다
+ * - https://docs.popbill.com/message/node/api#UpdateContact
  */
 router.get('/updateContact', function (req, res, next) {
 
@@ -1004,6 +1029,7 @@ router.get('/updateContact', function (req, res, next) {
 
 /*
  * 연동회원의 회사정보를 확인합니다.
+ * - https://docs.popbill.com/message/node/api#GetCorpInfo
  */
 router.get('/getCorpInfo', function (req, res, next) {
 
@@ -1020,6 +1046,7 @@ router.get('/getCorpInfo', function (req, res, next) {
 
 /*
  * 연동회원의 회사정보를 수정합니다
+ * - https://docs.popbill.com/message/node/api#UpdateCorpInfo
  */
 router.get('/updateCorpInfo', function (req, res, next) {
 

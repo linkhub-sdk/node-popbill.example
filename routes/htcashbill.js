@@ -36,9 +36,7 @@ router.get('/', function (req, res, next) {
 
 /*
  * 현금영수증 매출/매입 내역 수집을 요청합니다
- * - 홈택스연동 프로세스는 "[홈택스연동(현금영수증) API 연동매뉴얼] >
- *   1.1. 홈택스연동(현금영수증) API 구성" 을 참고하시기 바랍니다.
- * - 수집 요청후 반환받은 작업아이디(JobID)의 유효시간은 1시간 입니다.
+ * - https://docs.popbill.com/htcashbill/node/api#RequestJob
  */
 router.get('/requestJob', function (req, res, next) {
 
@@ -64,8 +62,7 @@ router.get('/requestJob', function (req, res, next) {
 
 /*
  * 수집 요청 상태를 확인합니다.
- * - 응답항목 관한 정보는 "[홈택스연동 (현금영수증) API 연동매뉴얼] >
- *   3.1.2. GetJobState(수집 상태 확인)" 을 참고하시기 바랍니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetJobState
  */
 router.get('/getJobState', function (req, res, next) {
 
@@ -86,8 +83,7 @@ router.get('/getJobState', function (req, res, next) {
 /*
  * 수집 요청건들에 대한 상태 목록을 확인합니다.
  * - 수집 요청 작업아이디(JobID)의 유효시간은 1시간 입니다.
- * - 응답항목에 관한 정보는 "[홈택스연동 (현금영수증) API 연동매뉴얼] >
- *   3.1.3. ListActiveJob(수집 상태 목록 확인)" 을 참고하시기 바랍니다.
+ * - https://docs.popbill.com/htcashbill/node/api#ListActiveJob
  */
 router.get('/listActiveJob', function (req, res, next) {
 
@@ -104,8 +100,7 @@ router.get('/listActiveJob', function (req, res, next) {
 
 /*
  * 현금영수증 매입/매출 내역의 수집 결과를 조회합니다.
- * - 응답항목에 관한 정보는 "[홈택스연동 (현금영수증) API 연동매뉴얼] >
- *   3.2.1. Search(수집 결과 조회)" 을 참고하시기 바랍니다.
+ * - https://docs.popbill.com/htcashbill/node/api#Search
  */
 router.get('/search', function (req, res, next) {
 
@@ -140,8 +135,7 @@ router.get('/search', function (req, res, next) {
 
 /*
  * 현금영수증 매입/매출 내역의 수집 결과 요약정보를 조회합니다.
- * - 응답항목에 관한 정보는 "[홈택스연동 (현금영수증) API 연동매뉴얼] >
- *   3.2.2. Summary(수집 결과 요약정보 조회)" 을 참고하시기 바랍니다.
+ * - https://docs.popbill.com/htcashbill/node/api#Summary
  */
 router.get('/summary', function (req, res, next) {
 
@@ -170,6 +164,7 @@ router.get('/summary', function (req, res, next) {
  * 홈택스연동 인증관리를 위한 URL을 반환합니다.
  * 인증방식에는 부서사용자/공인인증서 인증 방식이 있습니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetCertificatePopUpURL
  */
 router.get('/getCertificatePopUpURL', function (req, res, next) {
 
@@ -186,6 +181,7 @@ router.get('/getCertificatePopUpURL', function (req, res, next) {
 
 /*
  * 팝빌에 등록된 홈택스 공인인증서의 만료일자를 반환합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetCertificateExpireDate
  */
 router.get('/getCertificateExpireDate', function (req, res, next) {
 
@@ -202,6 +198,7 @@ router.get('/getCertificateExpireDate', function (req, res, next) {
 
 /*
  * 팝빌에 등록된 공인인증서의 홈택스 로그인을 테스트합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#CheckCertValidation
  */
 router.get('/checkCertValidation', function (req, res, next) {
 
@@ -218,6 +215,7 @@ router.get('/checkCertValidation', function (req, res, next) {
 
 /*
  * 홈택스 현금영수증 부서사용자 계정정보를 등록합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#RegistDeptUser
  */
 router.get('/registDeptUser', function (req, res, next) {
 
@@ -241,6 +239,7 @@ router.get('/registDeptUser', function (req, res, next) {
 
 /*
  * 팝빌에 등록된 부서사용자 아이디를 확인합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#CheckDeptUser
  */
 router.get('/checkDeptUser', function (req, res, next) {
 
@@ -257,6 +256,7 @@ router.get('/checkDeptUser', function (req, res, next) {
 
 /*
  * 팝빌에 등록된 부서사용자 계정정보를 이용하여 홈택스 로그인을 테스트합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#CheckLoginDeptUser
  */
 router.get('/checkLoginDeptUser', function (req, res, next) {
 
@@ -273,6 +273,7 @@ router.get('/checkLoginDeptUser', function (req, res, next) {
 
 /*
  * 팝빌에 등록된 부서사용자 계정정보를 삭제합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#DeleteDeptUser
  */
 router.get('/deleteDeptUser', function (req, res, next) {
 
@@ -290,6 +291,7 @@ router.get('/deleteDeptUser', function (req, res, next) {
 /*
  * 연동회원의 잔여포인트를 확인합니다.
  * - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API) 를 통해 확인하시기 바랍니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetBalance
  */
 router.get('/getBalance', function (req, res, next) {
 
@@ -307,6 +309,7 @@ router.get('/getBalance', function (req, res, next) {
 /*
  * 팝빌 연동회원 포인트 충전 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetChargeURL
  */
 router.get('/getChargeURL', function (req, res, next) {
 
@@ -327,6 +330,7 @@ router.get('/getChargeURL', function (req, res, next) {
 /*
  * 파트너의 잔여포인트를 확인합니다.
  * - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API)를 이용하시기 바랍니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetPartnerBalance
  */
 router.get('/getPartnerBalance', function (req, res, next) {
 
@@ -344,6 +348,7 @@ router.get('/getPartnerBalance', function (req, res, next) {
 /*
  * 파트너 포인트 충전 팝업 URL을 반환합니다.
  * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetPartnerURL
  */
 router.get('/getPartnerURL', function (req, res, next) {
 
@@ -363,6 +368,7 @@ router.get('/getPartnerURL', function (req, res, next) {
 
 /*
  * 연동회원의 홈택스 현금영수증 연계 API 서비스 과금정보를 확인합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetChargeInfo
  */
 router.get('/getChargeInfo', function (req, res, next) {
 
@@ -380,6 +386,7 @@ router.get('/getChargeInfo', function (req, res, next) {
 /*
  * 정액제 신청 팝업 URL을 반환합니다.
  * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetFlatRatePopUpURL
  */
 router.get('/getFlatRatePopUpURL', function (req, res, next) {
 
@@ -396,6 +403,7 @@ router.get('/getFlatRatePopUpURL', function (req, res, next) {
 
 /*
  * 연동회원의 정액제 서비스 이용상태를 확인합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetFlatRateState
  */
 router.get('/getFlatRateState', function (req, res, next) {
 
@@ -412,6 +420,7 @@ router.get('/getFlatRateState', function (req, res, next) {
 
 /*
  * 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#CheckIsMember
  */
 router.get('/checkIsMember', function (req, res, next) {
 
@@ -428,6 +437,7 @@ router.get('/checkIsMember', function (req, res, next) {
 
 /*
  * 팝빌 회원아이디 중복여부를 확인합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#CheckID
  */
 router.get('/checkID', function (req, res, next) {
 
@@ -444,6 +454,7 @@ router.get('/checkID', function (req, res, next) {
 
 /*
  * 팝빌 연동회원 가입을 요청합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#JoinMember
  */
 router.get('/joinMember', function (req, res, next) {
 
@@ -502,6 +513,7 @@ router.get('/joinMember', function (req, res, next) {
 /*
  * 팝빌(www.popbill.com)에 로그인된 팝빌 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetAccessURL
  */
 router.get('/getAccessURL', function (req, res, next) {
 
@@ -521,6 +533,7 @@ router.get('/getAccessURL', function (req, res, next) {
 
 /*
  * 연동회원의 회사정보를 확인합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetCorpInfo
  */
 router.get('/getCorpInfo', function (req, res, next) {
 
@@ -537,6 +550,7 @@ router.get('/getCorpInfo', function (req, res, next) {
 
 /*
  * 연동회원의 회사정보를 수정합니다
+ * - https://docs.popbill.com/htcashbill/node/api#UpdateCorpInfo
  */
 router.get('/updateCorpInfo', function (req, res, next) {
 
@@ -572,6 +586,7 @@ router.get('/updateCorpInfo', function (req, res, next) {
 
 /*
  * 연동회원의 담당자를 신규로 등록합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#RegistContact
  */
 router.get('/registContact', function (req, res, next) {
 
@@ -616,6 +631,7 @@ router.get('/registContact', function (req, res, next) {
 
 /*
  * 연동회원의 담당자 목록을 확인합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#ListContact
  */
 router.get('/listContact', function (req, res, next) {
 
@@ -632,6 +648,7 @@ router.get('/listContact', function (req, res, next) {
 
 /*
  * 연동회원의 담당자 정보를 수정합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#UpdateContact
  */
 router.get('/updateContact', function (req, res, next) {
 

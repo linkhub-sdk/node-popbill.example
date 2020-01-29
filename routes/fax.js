@@ -39,6 +39,7 @@ router.get('/', function (req, res, next) {
 /*
  * 팩스 발신번호 관리 팝업 URL을 반합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/fax/node/api#GetSenderNumberMgtURL
  */
 router.get('/getSenderNumberMgtURL', function (req, res, next) {
 
@@ -58,6 +59,7 @@ router.get('/getSenderNumberMgtURL', function (req, res, next) {
 
 /*
  * 팩스 발신번호 목록을 반환합니다.
+ * - https://docs.popbill.com/fax/node/api#GetSenderNumberList
  */
 router.get('/getSenderNumberList', function (req, res, next) {
 
@@ -74,7 +76,7 @@ router.get('/getSenderNumberList', function (req, res, next) {
 
 /*
  * 팩스를 전송합니다. (전송할 파일 개수는 최대 20개까지 가능)
- * - 팩스전송 문서 파일포맷 안내 : http://blog.linkhub.co.kr/2561
+ * - https://docs.popbill.com/fax/node/api#SendFAX
  */
 router.get('/sendFAX', function (req, res, next) {
 
@@ -123,7 +125,7 @@ router.get('/sendFAX', function (req, res, next) {
 
 /*
  * [대량전송] 팩스를 전송합니다. (전송할 파일 개수는 최대 20개까지 가능)
- * - 팩스전송 문서 파일포맷 안내 : http://blog.linkhub.co.kr/2561
+ * - https://docs.popbill.com/fax/node/api#sendFAX_multi
  */
 router.get('/sendFAX_multi', function (req, res, next) {
 
@@ -180,6 +182,7 @@ router.get('/sendFAX_multi', function (req, res, next) {
  * 팩스를 재전송합니다.
  * - 접수일로부터 60일이 경과된 경우 재전송할 수 없습니다.
  * - 팩스 재전송 요청시 포인트가 차감됩니다. (전송실패시 환불처리)
+ * - https://docs.popbill.com/fax/node/api#ResendFAX
  */
 router.get('/resendFAX', function (req, res, next) {
 
@@ -228,6 +231,7 @@ router.get('/resendFAX', function (req, res, next) {
  * 전송요청번호(requestNum)을 할당한 팩스를 재전송합니다.
  * - 접수일로부터 60일이 경과된 경우 재전송할 수 없습니다.
  * - 팩스 재전송 요청시 포인트가 차감됩니다. (전송실패시 환불처리)
+ * - https://docs.popbill.com/fax/node/api#ResendFAXRN
  */
 router.get('/resendFAXRN', function (req, res, next) {
 
@@ -275,6 +279,7 @@ router.get('/resendFAXRN', function (req, res, next) {
  * [대량전송] 팩스를 재전송합니다.
  * - 접수일로부터 60일이 경과된 경우 재전송할 수 없습니다.
  * - 팩스 재전송 요청시 포인트가 차감됩니다. (전송실패시 환불처리)
+ * - https://docs.popbill.com/fax/node/api#ResendFAX_multi
  */
 router.get('/resendFAX_multi', function (req, res, next) {
 
@@ -331,6 +336,7 @@ router.get('/resendFAX_multi', function (req, res, next) {
  * [대량전송] 전송요청번호(requestNum)을 할당한 팩스를 재전송합니다.
  * - 접수일로부터 60일이 경과된 경우 재전송할 수 없습니다.
  * - 팩스 재전송 요청시 포인트가 차감됩니다. (전송실패시 환불처리)
+ * - https://docs.popbill.com/fax/node/api#ResendFAXRN_multi
  */
 router.get('/resendFAXRN_multi', function (req, res, next) {
 
@@ -383,6 +389,7 @@ router.get('/resendFAXRN_multi', function (req, res, next) {
 /*
  * 팩스전송요청시 발급받은 접수번호(receiptNum)로 팩스 예약전송건을 취소합니다.
  * - 예약전송 취소는 예약전송시간 10분전까지 가능하며, 팩스변환 이후 가능합니다.
+ * - https://docs.popbill.com/fax/node/api#CancelReserve
  */
 router.get('/cancelReserve', function (req, res, next) {
 
@@ -403,6 +410,7 @@ router.get('/cancelReserve', function (req, res, next) {
 /*
  * 팩스전송요청시 할당한 전송요청번호(requestNum)로 팩스 예약전송건을 취소합니다.
  * - 예약전송 취소는 예약전송시간 10분전까지 가능하며, 팩스변환 이후 가능합니다.
+ * - https://docs.popbill.com/fax/node/api#CancelReserveRN
  */
 router.get('/cancelReserveRN', function (req, res, next) {
 
@@ -422,7 +430,7 @@ router.get('/cancelReserveRN', function (req, res, next) {
 
 /*
  * 팩스전송요청시 발급받은 접수번호(receiptNum)로 전송결과를 확인합니다
- * - 응답항목에 대한 자세한 사항은 "[팩스 API 연동매뉴얼] >  3.3.1 GetFaxDetail (전송내역 및 전송상태 확인)을 참조하시기 바랍니다.
+ * - https://docs.popbill.com/fax/node/api#GetFaxResult
  */
 router.get('/getFaxResult', function (req, res, next) {
 
@@ -442,7 +450,7 @@ router.get('/getFaxResult', function (req, res, next) {
 
 /*
  * 팩스전송요청시 할당한 전송요청번호(requestNum)으로 전송결과를 확인합니다
- * - 응답항목에 대한 자세한 사항은 "[팩스 API 연동매뉴얼] >  3.3.2 GetFaxDetailRN (전송내역 및 전송상태 확인 - 요청번호 할당)을 참조하시기 바랍니다.
+ * - https://docs.popbill.com/fax/node/api#GetFaxResultRN
  */
 router.get('/getFaxResultRN', function (req, res, next) {
 
@@ -463,6 +471,7 @@ router.get('/getFaxResultRN', function (req, res, next) {
 /*
  * 검색조건을 사용하여 팩스 전송내역 목록을 확인합니다.
  * - 최대 검색기간 : 6개월 이내
+ * - https://docs.popbill.com/fax/node/api#Search
  */
 router.get('/search', function (req, res, next) {
 
@@ -509,6 +518,7 @@ router.get('/search', function (req, res, next) {
 /*
  * 팩스 전송내역 팝업 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/fax/node/api#GetSentListURL
  */
 router.get('/getSentListURL', function (req, res, next) {
 
@@ -529,6 +539,7 @@ router.get('/getSentListURL', function (req, res, next) {
 /*
  * 접수한 팩스 전송건에 대한 미리보기 팝업 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/fax/node/api#GetPreviewURL
  */
 router.get('/getPreviewURL', function (req, res, next) {
 
@@ -552,6 +563,7 @@ router.get('/getPreviewURL', function (req, res, next) {
 /*
  * 연동회원의 잔여포인트를 확인합니다.
  * - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API) 를 통해 확인하시기 바랍니다.
+ * - https://docs.popbill.com/fax/node/api#GetBalance
  */
 router.get('/getBalance', function (req, res, next) {
 
@@ -569,6 +581,7 @@ router.get('/getBalance', function (req, res, next) {
 /*
  * 팝빌 연동회원 포인트 충전 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/fax/node/api#GetChargeURL
  */
 router.get('/getChargeURL', function (req, res, next) {
 
@@ -589,6 +602,7 @@ router.get('/getChargeURL', function (req, res, next) {
 /*
  * 파트너의 잔여포인트를 확인합니다.
  * - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API)를 이용하시기 바랍니다.
+ * - https://docs.popbill.com/fax/node/api#GetPartnerBalance
  */
 router.get('/getPartnerBalance', function (req, res, next) {
 
@@ -606,6 +620,7 @@ router.get('/getPartnerBalance', function (req, res, next) {
 /*
  * 파트너 포인트 충전 팝업 URL을 반환합니다.
  * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/fax/node/api#GetPartnerURL
  */
 router.get('/getPartnerURL', function (req, res, next) {
 
@@ -625,6 +640,7 @@ router.get('/getPartnerURL', function (req, res, next) {
 
 /*
  * 팩스 전송단가를 확인합니다.
+ * - https://docs.popbill.com/fax/node/api#GetUnitCost
  */
 router.get('/getUnitCost', function (req, res, next) {
 
@@ -641,6 +657,7 @@ router.get('/getUnitCost', function (req, res, next) {
 
 /*
  * 연동회원의 팩스 API 서비스 과금정보를 확인합니다.
+ * - https://docs.popbill.com/fax/node/api#GetChargeInfo
  */
 router.get('/getChargeInfo', function (req, res, next) {
 
@@ -657,6 +674,7 @@ router.get('/getChargeInfo', function (req, res, next) {
 
 /*
  * 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
+ * - https://docs.popbill.com/fax/node/api#CheckIsMember
  */
 router.get('/checkIsMember', function (req, res, next) {
 
@@ -673,6 +691,7 @@ router.get('/checkIsMember', function (req, res, next) {
 
 /*
  * 팝빌 회원아이디 중복여부를 확인합니다.
+ * - https://docs.popbill.com/fax/node/api#CheckID
  */
 router.get('/checkID', function (req, res, next) {
 
@@ -689,6 +708,7 @@ router.get('/checkID', function (req, res, next) {
 
 /*
  * 팝빌 연동회원 가입을 요청합니다.
+ * - https://docs.popbill.com/fax/node/api#JoinMember
  */
 router.get('/joinMember', function (req, res, next) {
 
@@ -747,6 +767,7 @@ router.get('/joinMember', function (req, res, next) {
 /*
  * 팝빌(www.popbill.com)에 로그인된 팝빌 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/fax/node/api#GetAccessURL
  */
 router.get('/getAccessURL', function (req, res, next) {
 
@@ -766,6 +787,7 @@ router.get('/getAccessURL', function (req, res, next) {
 
 /*
  * 연동회원의 담당자를 신규로 등록합니다.
+ * - https://docs.popbill.com/fax/node/api#RegistContact
  */
 router.get('/registContact', function (req, res, next) {
 
@@ -811,6 +833,7 @@ router.get('/registContact', function (req, res, next) {
 
 /*
  * 연동회원의 담당자 목록을 확인합니다.
+ * - https://docs.popbill.com/fax/node/api#ListContact
  */
 router.get('/listContact', function (req, res, next) {
 
@@ -827,6 +850,7 @@ router.get('/listContact', function (req, res, next) {
 
 /*
  * 연동회원의 담당자 정보를 수정합니다.
+ * - https://docs.popbill.com/fax/node/api#UpdateContact
  */
 router.get('/updateContact', function (req, res, next) {
 
@@ -873,6 +897,7 @@ router.get('/updateContact', function (req, res, next) {
 
 /*
  * 연동회원의 회사정보를 확인합니다.
+ * - https://docs.popbill.com/fax/node/api#GetCorpInfo
  */
 router.get('/getCorpInfo', function (req, res, next) {
 
@@ -889,6 +914,7 @@ router.get('/getCorpInfo', function (req, res, next) {
 
 /*
  * 연동회원의 회사정보를 수정합니다
+ * - https://docs.popbill.com/fax/node/api#UpdateCorpInfo
  */
 router.get('/updateCorpInfo', function (req, res, next) {
 

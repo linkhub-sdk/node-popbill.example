@@ -37,6 +37,7 @@ router.get('/', function (req, res, next) {
 /*
  * 팝빌 계좌 관리 팝업 URL을 확인합니다.
  * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#GetBankAccountMgtURL
  */
 router.get('/getBankAccountMgtURL', function (req, res, next) {
 
@@ -53,6 +54,7 @@ router.get('/getBankAccountMgtURL', function (req, res, next) {
 
 /*
  * 팝빌에 등록된 은행 계좌 목록을 확인합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#ListBankAccount
  */
 router.get('/listBankAccount', function (req, res, next) {
 
@@ -70,6 +72,7 @@ router.get('/listBankAccount', function (req, res, next) {
 /*
  * 팝빌에 등록된 계좌의 거래내역 수집을 요청합니다.
  * - 수집 요청후 반환받은 작업아이디(JobID)의 유효시간은 1시간 입니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#RequestJob
  */
 router.get('/requestJob', function (req, res, next) {
 
@@ -98,6 +101,7 @@ router.get('/requestJob', function (req, res, next) {
 
 /*
  * 수집 요청 상태를 확인합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#GetJobState
  */
 router.get('/getJobState', function (req, res, next) {
 
@@ -119,6 +123,7 @@ router.get('/getJobState', function (req, res, next) {
 /*
  * 정액제 신청 팝업 URL을 반환합니다.
  * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#GetFlatRatePopUpURL
  */
 router.get('/getFlatRatePopUpURL', function (req, res, next) {
 
@@ -135,6 +140,7 @@ router.get('/getFlatRatePopUpURL', function (req, res, next) {
 
 /*
  * 수집 요청건들에 대한 상태 목록을 확인합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#ListActiveJob
  */
 router.get('/listActiveJob', function (req, res, next) {
 
@@ -151,6 +157,7 @@ router.get('/listActiveJob', function (req, res, next) {
 
 /*
  * 수집이 완료된 거래내역을 조회합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#Search
  */
 router.get('/search', function (req, res, next) {
 
@@ -188,6 +195,7 @@ router.get('/search', function (req, res, next) {
 
 /*
  * 수집이 완료된 거래내역 요약정보를 조회합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#Summary
  */
 router.get('/summary', function (req, res, next) {
 
@@ -214,6 +222,10 @@ router.get('/summary', function (req, res, next) {
         });
 });
 
+/*
+ * 한 건의 거래내역에 메모를 저장합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#SaveMemo
+ */
 router.get('/saveMemo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -233,10 +245,9 @@ router.get('/saveMemo', function (req, res, next) {
         });
 });
 
-
-
 /*
  * 연동회원의 정액제 서비스 상태를 확인합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#GetFlatRateState
  */
 router.get('/getFlatRateState', function (req, res, next) {
 
@@ -260,6 +271,7 @@ router.get('/getFlatRateState', function (req, res, next) {
 /*
  * 연동회원의 잔여포인트를 확인합니다.
  * - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API) 를 통해 확인하시기 바랍니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#GetBalance
  */
 router.get('/getBalance', function (req, res, next) {
 
@@ -277,6 +289,7 @@ router.get('/getBalance', function (req, res, next) {
 /*
  * 팝빌 연동회원 포인트 충전 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#GetChargeURL
  */
 router.get('/getChargeURL', function (req, res, next) {
 
@@ -297,6 +310,7 @@ router.get('/getChargeURL', function (req, res, next) {
 /*
  * 파트너의 잔여포인트를 확인합니다.
  * - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API)를 이용하시기 바랍니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#GetPartnerBalance
  */
 router.get('/getPartnerBalance', function (req, res, next) {
 
@@ -315,6 +329,7 @@ router.get('/getPartnerBalance', function (req, res, next) {
 /*
  * 파트너 포인트 충전 팝업 URL을 반환합니다.
  * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#GetPartnerURL
  */
 router.get('/getPartnerURL', function (req, res, next) {
 
@@ -334,6 +349,7 @@ router.get('/getPartnerURL', function (req, res, next) {
 
 /*
  * 연동회원의 계좌조회 API 서비스 과금정보를 확인합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#GetChargeInfo
  */
 router.get('/getChargeInfo', function (req, res, next) {
 
@@ -351,6 +367,7 @@ router.get('/getChargeInfo', function (req, res, next) {
 
 /*
  * 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#CheckIsMember
  */
 router.get('/checkIsMember', function (req, res, next) {
 
@@ -367,6 +384,7 @@ router.get('/checkIsMember', function (req, res, next) {
 
 /*
  * 팝빌 회원아이디 중복여부를 확인합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#CheckID
  */
 router.get('/checkID', function (req, res, next) {
 
@@ -383,6 +401,7 @@ router.get('/checkID', function (req, res, next) {
 
 /*
  * 팝빌 연동회원 가입을 요청합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#JoinMember
  */
 router.get('/joinMember', function (req, res, next) {
 
@@ -441,6 +460,7 @@ router.get('/joinMember', function (req, res, next) {
 /*
  * 팝빌(www.popbill.com)에 로그인된 팝빌 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#GetAccessURL
  */
 router.get('/getAccessURL', function (req, res, next) {
 
@@ -460,6 +480,7 @@ router.get('/getAccessURL', function (req, res, next) {
 
 /*
  * 연동회원의 담당자를 신규로 등록합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#RegistContact
  */
 router.get('/registContact', function (req, res, next) {
 
@@ -505,6 +526,7 @@ router.get('/registContact', function (req, res, next) {
 
 /*
  * 연동회원의 담당자 목록을 확인합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#ListContact
  */
 router.get('/listContact', function (req, res, next) {
 
@@ -521,6 +543,7 @@ router.get('/listContact', function (req, res, next) {
 
 /*
  * 연동회원의 담당자 정보를 수정합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#UpdateContact
  */
 router.get('/updateContact', function (req, res, next) {
 
@@ -566,6 +589,7 @@ router.get('/updateContact', function (req, res, next) {
 
 /*
  * 연동회원의 회사정보를 확인합니다.
+ * - https://docs.popbill.com/easyfinbank/node/api#GetCorpInfo
  */
 router.get('/getCorpInfo', function (req, res, next) {
 
@@ -582,6 +606,7 @@ router.get('/getCorpInfo', function (req, res, next) {
 
 /*
  * 연동회원의 회사정보를 수정합니다
+ * - https://docs.popbill.com/easyfinbank/node/api#UpdateCorpInfo
  */
 router.get('/updateCorpInfo', function (req, res, next) {
 
