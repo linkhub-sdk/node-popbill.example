@@ -16,6 +16,7 @@ var htTaxinvoice = require('./routes/httaxinvoice');
 var htCashbill = require('./routes/htcashbill');
 var closedown = require('./routes/closedown');
 var easyfinbank = require('./routes/easyfinbank');
+var accountCheck = require('./routes/accountCheck');
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.use('/HTTaxinvoiceService', htTaxinvoice);
 app.use('/HTCashbillService', htCashbill);
 app.use('/ClosedownService', closedown);
 app.use('/EasyFinBankService', easyfinbank);
+app.use('/AccountCheckService', accountCheck);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
