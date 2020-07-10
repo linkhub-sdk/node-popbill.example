@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var popbill = require('popbill');
+var https = require('https');
 
 /*
  * 팝빌 서비스 연동환경 초기화
@@ -179,6 +180,82 @@ router.get('/sendFAX_multi', function (req, res, next) {
         }, function (Error) {
             res.render('response', {path: req.path, code: Error.code, message: Error.message});
         });
+});
+
+router.get('/sendFAXBinary', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 발신번호
+    var senderNum = '07043042991';
+
+    // 발신자명
+    var senderName = '발신자명';
+
+    // 광고팩스 전송여부
+    var adsYN = false;
+
+    // 수신팩스번호
+    var receiveNum = '070111222';
+
+    // 수신자명
+    var receiveName = '수신자명';
+
+    // 팩스제목
+    var title = '팩스전송';
+
+    // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
+    var reserveDT = '';
+
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
+
+    // 팝빌회원 아이디
+    var userID = "testkorea";
+
+
+    var targeturl = "https://d17ecin4ilxxme.cloudfront.net/notice/20200626_01.jpg";
+
+    https.get(targeturl, function(response) {
+      var data = [];
+      response.on('data', function(chunk) {
+        data.push(chunk);
+      }).on('end', function() {
+
+        if(response.statusCode == 200) {
+          var binary = Buffer.concat(data);
+
+          // Binary 파일정보 배열, 전송개수 촤대 20개
+          var BinaryFiles = []
+          BinaryFiles.push(
+            {
+              // 파일명
+              fileName: '20200626_01.jpg',
+              // 파일데이터
+              fileData: binary
+            }
+          );
+
+          BinaryFiles.push({fileName: '20200626_01.jpg', fileData: binary});
+
+          faxService.sendFaxBinary(testCorpNum, senderNum, receiveNum, receiveName, BinaryFiles, reserveDT, senderName, adsYN, title, requestNum, userID,
+              function (receiptNum) {
+                  res.render('result', {path: req.path, result: receiptNum});
+              }, function (Error) {
+                  res.render('response', {path: req.path, code: Error.code, message: Error.message});
+              });
+
+        } else {
+            res.render('response', {path: req.path, code: -99999999, message: response.statusCode});
+        }
+
+      })
+    }).on('error', function(err) {
+        res.render('response', {path: req.path, code: -99999999, message: err.message});
+    });
 });
 
 /*
