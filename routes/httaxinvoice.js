@@ -19,9 +19,12 @@ popbill.config({
 
     // 인증토큰 IP제한기능 사용여부, 권장(true)
     IPRestrictOnOff: true,
-    
+
     // 인증토큰정보 로컬서버 시간 사용여부
     UseLocalTimeYN: true,
+
+    // 팝빌 API 서비스 고정 IP 사용여부(GA)
+    UseStaticIP: false,
 
     defaultErrorHandler: function (Error) {
         console.log('Error Occur : [' + Error.code + '] ' + Error.message);
