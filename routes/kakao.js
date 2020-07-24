@@ -255,7 +255,7 @@ router.get('/sendATS_multi', function (req, res, next) {
     content += 'support@linkhub.co.kr';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
-    var snd = '070-4304-2992';
+    var snd = '01043245117';
 
     // 대체문자 유형 [공백-미전송, C-알림톡내용, A-대체문자내용]
     var altSendType = 'A';
@@ -269,13 +269,15 @@ router.get('/sendATS_multi', function (req, res, next) {
             rcv: '010111222',           //수신번호
             rcvnm: 'popbill',           //수신자명
             msg: content,    //알림톡 내용
-            altmsg: '알림톡 대체 문자_0'    //대체문자 내용
+            altmsg: '알림톡 대체 문자_0',    //대체문자 내용
+            interOPRefKey : '20200724-01' // 파트너 지정키, 수신자 구별용 메모
         },
         {
             rcv: '010111222',
             rcvnm: 'linkhub',
             msg: content,
-            altmsg: '알림톡 대체 문자_1'
+            altmsg: '알림톡 대체 문자_1',
+            interOPRefKey : '20200724-02' // 파트너 지정키, 수신자 구별용 메모
         }
     ];
 
@@ -866,7 +868,7 @@ router.get('/getMessages', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 카카오톡 접수번호
-    var receiptNum = '019010912074600001';
+    var receiptNum = '020072412185700001';
 
     // 팝빌회원 아이디
     var UserID = 'testkorea';
