@@ -1538,6 +1538,29 @@ router.get('/getViewURL', function (req, res, next) {
 });
 
 /*
+ * 1건의 전자세금계산서 PDF 다운로드 URL을 반환합니다.
+ * - 반환된 URL은 보안정책으로 인해 30초의 유효시간을 갖습니다.
+ */
+router.get('/getPDFURL', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    var keyType = popbill.MgtKeyType.SELL;
+
+    // 문서번호
+    var mgtKey = '20200723-01';
+
+    taxinvoiceService.getPDFURL(testCorpNum, keyType, mgtKey,
+        function (url) {
+            res.render('result', {path: req.path, result: url});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
  * 1건의 전자세금계산서 인쇄팝업 URL을 반환합니다.
  * - 반환된 URL은 보안정책으로 인해 30초의 유효시간을 갖습니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetPrintURL

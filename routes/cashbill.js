@@ -795,6 +795,26 @@ router.get('/getPopUpURL', function (req, res, next) {
 });
 
 /*
+ * 1건의 현금영수증 PDF 다운로드 URL을 반환합니다.
+ * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ */
+router.get('/getPDFURL', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 문서번호
+    var mgtKey = '20200721-002';
+
+    cashbillService.getPDFURL(testCorpNum, mgtKey,
+        function (url) {
+            res.render('result', {path: req.path, result: url});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
  * 1건의 현금영수증 인쇄팝업 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
  * - https://docs.popbill.com/cashbill/node/api#GetPrintURL
