@@ -912,6 +912,29 @@ router.get('/getPopUpURL', function (req, res, next) {
 });
 
 /*
+ * 1건의 전자명세서 보기 URL을 반환합니다. (메뉴/버튼 제외)
+ * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ */
+router.get('/getViewURL', function (req, res, next) {
+
+    // 팝빌회원 사업자번호
+    var testCorpNum = '1234567890';
+
+    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    var itemCode = 121;
+
+    // 문서번호
+    var mgtKey = '20190917-001';
+
+    statementService.getViewURL(testCorpNum, itemCode, mgtKey,
+        function (url) {
+            res.render('result', {path: req.path, result: url});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
  * 1건의 전자명세서 인쇄팝업 URL을 반환합니다. (발신자/수신자)
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
  * - https://docs.popbill.com/statement/node/api#GetPrintURL
