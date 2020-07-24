@@ -1027,6 +1027,29 @@ router.get('/updateEmailConfig', function (req, res, next) {
 });
 
 /*
+ * 팝빌사이트에서 작성된 현금영수증에 파트너 문서번호를 할당합니다.
+ * - https://docs.popbill.com/taxinvoice/node/api#AssignMgtKey */
+router.get('/assignMgtKey', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 현금영수증 아이템키, 문서 목록조회(Search) API의 반환항목중 ItemKey 참조
+    var itemKey = '020021116561000001';
+
+    // 할당할 문서번호, 숫자, 영문 '-', '_' 조합으로 최대 24자리 식별키 구성
+    // 사업자번호별 중복없는 고유번호 할당
+    var mgtKey = '20200724-04';
+
+    cashbillService.assignMgtKey(testCorpNum, itemKey, mgtKey,
+        function (result) {
+            res.render('response', {path: req.path, code: result.code, message: result.message});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
  * 연동회원의 잔여포인트를 확인합니다.
  * - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API)를 통해 확인하시기 바랍니다.
  * - https://docs.popbill.com/cashbill/node/api#GetBalance
