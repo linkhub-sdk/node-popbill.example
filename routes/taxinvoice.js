@@ -1446,7 +1446,7 @@ router.get('/getLogs', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20190917-003';
+    var mgtKey = '20200720-01';
 
     taxinvoiceService.getLogs(testCorpNum, keyType, mgtKey,
         function (result) {

@@ -276,16 +276,16 @@ router.get('/requestJob', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 은행코드
-    var bankCode = '0048';
+    var bankCode = '0039';
 
     // 계좌번호,  하이픈('-') 제외
-    var accountNumber = '131020538645';
+    var accountNumber = '2070064402404';
 
     // 시작일자, 날짜형식(yyyyMMdd)
-    var SDate = '20191009';
+    var SDate = '20200701';
 
     // 종료일자, 날짜형식(yyyyMMdd)
-    var EDate = '20200107';
+    var EDate = '20200724';
 
     easyFinBankService.requestJob(testCorpNum, bankCode, accountNumber, SDate, EDate,
         function (jobID) {
@@ -364,7 +364,7 @@ router.get('/search', function (req, res, next) {
     var testUserID = '';
 
     // 작업아이디
-    var jobID = '020010713000000001';
+    var jobID = '020072414000000001';
 
     // 거래유형 배열, I-입금 / O-출금
     var tradeType = ['I', 'O'];
