@@ -1382,10 +1382,10 @@ router.get('/search', function (req, res, next) {
     var DType = 'W';
 
     // 시작일자, 날짜형식yyyyMMdd)
-    var SDate = '20190701';
+    var SDate = '20200701';
 
     // 종료일자, 날짜형식yyyyMMdd)
-    var EDate = '20191231';
+    var EDate = '20200731';
 
     // 전송상태값 배열, 문서상태코드 3자리 배열, 와일드카드(*) 사용가능
     var State = ['3**', '6**'];
@@ -1398,6 +1398,12 @@ router.get('/search', function (req, res, next) {
 
     // 발행형태, N-정발행, R-역발행, T-위수탁
     var IssueType = ['N', 'R', 'T'];
+
+    // 등록형태 배열, P-팝빌 등록, H-홈택스,외부 ASP
+    var RegType = ['P', 'H'];
+
+    // 공급받는자 휴폐업조회 상태 배열, N-미확인, 0-미등록, 1-사업중, 2-폐업, 3-휴업
+    var CloseDownState = ['N', '0', '1', '2', '3'];
 
     // 지연발행 여부, null-전체조회, true-지연발행분, false-정상발행분
     var LateOnly = null;
@@ -1423,12 +1429,15 @@ router.get('/search', function (req, res, next) {
     // 거래처 정보, 거래처 상호 또는 사업자등록번호 기재, 미기재시 전체조회
     var QString = '';
 
+    // 전자세금계산서 문서번호 또는 국세청승인번호 기재, 공백 처리시 전체조회
+    var MgtKey = '';
+
     // 연동문서 조회여부, 공백-전체조회, 0-일반문서 조회, 1-연동문서 조회
     var InterOPYN = '';
 
-    taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State,
-        Type, TaxType, LateOnly, Order, Page, PerPage, TaxRegIDType,
-        TaxRegIDYN, TaxRegID, QString, InterOPYN, testUserID, IssueType,
+    taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State, Type, TaxType,
+      LateOnly, Order, Page, PerPage, TaxRegIDType, TaxRegIDYN, TaxRegID, QString, InterOPYN,
+      testUserID, IssueType, RegType, CloseDownState, MgtKey,
         function (result) {
             res.render('Taxinvoice/Search', {path: req.path, result: result});
         }, function (Error) {
