@@ -304,12 +304,11 @@ router.get('/sendATS_multi', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    // 알림톡 버튼정보를 템플릿 신청시 기재한 버튼정보와 동일하게 전송하는 경우
-    // or 수신자별 개별 버늩내용 전송하는 경우 btns를 null 처리.
-    var btns = null;
-
+    // 알림톡 버튼정보를 템플릿 신청시 기재한 버튼정보와 동일하게 전송하는 경우 btns를 null처리.
+    // 수신자별 개별 버늩내용 전송하는 경우 btns를 null 처리.
     // 알림톡 버튼 URL에 #{템플릿변수}를 기재한경우 템플릿변수 영역을 변경하여 버튼정보 구성
-    // var btns = [
+    var btns = null;
+    // btns = [
     //     {
     //         n: '템플릿 안내',               //버튼명
     //         t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
@@ -521,12 +520,11 @@ router.get('/sendFTS_multi', function (req, res, next) {
         }
     );
 
-    // 버튼 전송 하지 않는 경우
-    // or 수신자별 개별버튼내용 전송하는 경우 null 처리
-    var btns = null;
-
     // [배열] 버튼 목록 (최대 5개)
-    // var btns = [
+    // 버튼 전송 하지 않는 경우 null처리
+    // 수신자별 개별버튼내용 전송하는 경우 null 처리
+    var btns = null;
+    // btns = [
     //     {
     //         n: '팝빌 바로가기',              //버튼명
     //         t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
@@ -753,14 +751,13 @@ router.get('/sendFMS_multi', function (req, res, next) {
         }
     );
 
-    // 버튼 전송 하지 않는 경우
-    // or 수신자별 개별 버튼내용 전송 하는 경우 null 처리
+    // [배열] 버튼 목록 (최대 5개)
+    // 버튼 전송 하지 않는 경우 null처리
+    // 수신자별 개별버튼내용 전송하는 경우 null 처리
     var btns = null;
-
-    // // [배열] 버튼 목록 (최대 5개)
-    // var btns = [
+    // btns = [
     //     {
-    //         n: '팝빌 바로가기',               //버튼명
+    //         n: '팝빌 바로가기',              //버튼명
     //         t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
     //         u1: 'http://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
     //         u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
