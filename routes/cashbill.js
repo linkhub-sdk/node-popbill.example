@@ -829,16 +829,20 @@ router.get('/getPDF', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20201113-AS001';
+    var mgtKey = '20201116-N001';
 
     //파일 저장 경로
-    var filepath = '../PDF_TEST/Cashbill_20201123_001.pdf';
+    var filepath = './Cashbill_20201116-N001.pdf';
 
     cashbillService.getPDF(testCorpNum, mgtKey,
         function (bufPDF) {
             fs.appendFile(filepath, bufPDF, function(err){
-                if (err) console.log(err);
-                res.render('response', {path: req.path, code: "1", message: filepath});
+                if (err) {
+                    console.log(err);
+                    res.render('response', {path: req.path, code: "-", message: '저장실패'});
+                } else {
+                    res.render('response', {path: req.path, code: "1", message: filepath});
+                }
             })
         }, function (Error) {
             res.render('response', {path: req.path, code: Error.code, message: Error.message});

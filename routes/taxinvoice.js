@@ -1565,15 +1565,19 @@ router.get('/getPDF', function(req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20201111-000000001';
+    var mgtKey = '20201119-001';
 
-    var filepath = '../PDF_TEST/Taxinvoice_20201111_001.pdf';
+    var filepath = './Taxinvoice_20201119-001.pdf';
 
     taxinvoiceService.getPDF(testCorpNum, keyType, mgtKey,
         function (bufPDF) {
             fs.appendFile(filepath, bufPDF, function(err){
-                if (err) console.log(err);
-                res.render('response', {path: req.path, code: "1", message: filepath});
+                if (err) {
+                    console.log(err);
+                    res.render('response', {path: req.path, code: "-", message: '저장실패'});
+                } else {
+                    res.render('response', {path: req.path, code: "1", message: filepath});
+                }
             });
         }, function (Error) {
             res.render('response', {path: req.path, code: Error.code, message: Error.message});
