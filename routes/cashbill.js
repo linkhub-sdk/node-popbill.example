@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var popbill = require('popbill');
+var fs = require('fs');
 
 /*
  * 팝빌 서비스 연동환경 초기화
@@ -53,7 +54,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20201120-001';
 
     cashbillService.checkMgtKeyInUse(testCorpNum, mgtKey,
         function (result) {
@@ -81,7 +82,7 @@ router.get('/registIssue', function (req, res, next) {
     var testUserID = 'testkorea';
 
     // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var MgtKey = '20191217-003';
+    var MgtKey = '20201120-003';
 
     // 현금영수증 상태메모
     var stateMemo = '발행메모';
@@ -191,7 +192,7 @@ router.get('/register', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var MgtKey = '20190917-001';
+    var MgtKey = '20201123-001';
 
     // 현금영수증 항목
     var cashbill = {
@@ -291,7 +292,7 @@ router.get('/update', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var MgtKey = '20190917-002';
+    var MgtKey = '20201123-002';
 
     // 현금영수증 항목
     var cashbill = {
@@ -391,7 +392,7 @@ router.get('/issue', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20201123-001';
 
     // 메모
     var memo = '발행메모';
@@ -416,7 +417,7 @@ router.get('/cancelIssue', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20201123-001';
 
     // 메모
     var memo = '발행취소 메모';
@@ -440,7 +441,7 @@ router.get('/delete', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20201123-001';
 
     cashbillService.delete(testCorpNum, mgtKey,
         function (result) {
@@ -461,7 +462,7 @@ router.get('/revokeRegistIssue', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var mgtKey = '20190917-101';
+    var mgtKey = '20201123-101';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
@@ -493,7 +494,7 @@ router.get('/revokeRegistIssue_part', function (req, res, next) {
     var testUserID = 'testkorea';
 
     // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var mgtKey = '20190917-102';
+    var mgtKey = '20201123-102';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
@@ -501,7 +502,7 @@ router.get('/revokeRegistIssue_part', function (req, res, next) {
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    var orgTradeDate = '20190104';
+    var orgTradeDate = '20201120';
 
     // 안내문자 전송여부
     var smssendYN = false;
@@ -547,7 +548,7 @@ router.get('/revokeRegister', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var mgtKey = '20190917-103';
+    var mgtKey = '20201123-103';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
@@ -555,7 +556,7 @@ router.get('/revokeRegister', function (req, res, next) {
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    orgTradeDate = '20190104';
+    orgTradeDate = '20201120';
 
     cashbillService.revokeRegister(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate,
         function (result) {
@@ -579,7 +580,7 @@ router.get('/revokeRegister_part', function (req, res, next) {
     var testUserID = 'testkorea';
 
     // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var mgtKey = '20190917-004';
+    var mgtKey = '20201123-004';
 
     // 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
@@ -587,7 +588,7 @@ router.get('/revokeRegister_part', function (req, res, next) {
 
     // 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    var orgTradeDate = '20190104';
+    var orgTradeDate = '20201120';
 
     // 안내문자 전송여부
     var smssendYN = false;
@@ -629,7 +630,7 @@ router.get('/getInfo', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20201120-001';
 
     cashbillService.getInfo(testCorpNum, mgtKey,
         function (result) {
@@ -649,7 +650,7 @@ router.get('/getInfos', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호 배열, 최대 1000건
-    var mgtKeyList = ['20190917-001', '20190917-002', '20190917-003'];
+    var mgtKeyList = ['20201120-001', '20201120-002', '20201120-003'];
 
     cashbillService.getInfos(testCorpNum, mgtKeyList,
         function (result) {
@@ -669,7 +670,7 @@ router.get('/getDetailInfo', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20201123-001';
 
     cashbillService.getDetailInfo(testCorpNum, mgtKey,
         function (result) {
@@ -692,10 +693,10 @@ router.get('/search', function (req, res, next) {
     var DType = 'R';
 
     // 시작일자, 작성형식(yyyyMMdd)
-    var SDate = '20190901';
+    var SDate = '20201001';
 
     // 종료일자, 작성형식(yyyyMMdd)
-    var EDate = '20191231';
+    var EDate = '20201101';
 
     // 문서상태코드 배열, 2,3번째 자리에 와일드카드(*) 사용가능
     var State = ['1**', '3**', '4**'];
@@ -743,7 +744,7 @@ router.get('/getLogs', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190917-01';
+    var mgtKey = '20201120-01';
 
     cashbillService.getLogs(testCorpNum, mgtKey,
         function (result) {
@@ -784,7 +785,7 @@ router.get('/getPopUpURL', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20201120-001';
 
     cashbillService.getPopUpURL(testCorpNum, mgtKey,
         function (url) {
@@ -797,6 +798,7 @@ router.get('/getPopUpURL', function (req, res, next) {
 /*
  * 1건의 현금영수증 PDF 다운로드 URL을 반환합니다.
  * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+  * - https://docs.popbill.com/cashbill/node/api#GetPDFURL
  */
 router.get('/getPDFURL', function (req, res, next) {
 
@@ -804,11 +806,37 @@ router.get('/getPDFURL', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20200721-002';
+    var mgtKey = '20201120-002';
 
     cashbillService.getPDFURL(testCorpNum, mgtKey,
         function (url) {
             res.render('result', {path: req.path, result: url});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
+ * 1건의 현금영수증을 PDF 파일로 저장하기 위한 데이터를 담은 Buffer를 반환합니다.
+ * -  https://docs.popbill.com/cashbill/node/api#GetPDF
+ */
+router.get('/getPDF', function(req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 문서번호
+    var mgtKey = '20201113-AS001';
+
+    //파일 저장 경로
+    var filepath = '../PDF_TEST/Cashbill_20201123_001.pdf';
+
+    cashbillService.getPDF(testCorpNum, mgtKey,
+        function (bufPDF) {
+            fs.appendFile(filepath, bufPDF, function(err){
+                if (err) console.log(err);
+                res.render('response', {path: req.path, code: "1", message: filepath});
+            })
         }, function (Error) {
             res.render('response', {path: req.path, code: Error.code, message: Error.message});
         });
