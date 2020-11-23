@@ -247,6 +247,7 @@ router.get('/sendATS_multi', function (req, res, next) {
     var templateCode = '019020000163';
 
     // 알림톡 내용 (최대 1000자)
+    // 알림톡 템플릿 신청시 내용에 #{템플릿변수}를 기재한경우 템플릿변수 영역을 변경하여 내용 구성
     var content = '[ 팝빌 ]\n';
     content += '신청하신 #{템플릿코드}에 대한 심사가 완료되어 승인 처리되었습니다.\n';
     content += '해당 템플릿으로 전송 가능합니다.\n\n';
@@ -264,22 +265,33 @@ router.get('/sendATS_multi', function (req, res, next) {
     var sndDT = '';
 
     // [배열] 알림톡 전송정보 (최대 1000개)
-    var msgs = [
+    var msgs = [];
+    msgs.push(
         {
             rcv: '010111222',           //수신번호
             rcvnm: 'popbill',           //수신자명
             msg: content,    //알림톡 내용
             altmsg: '알림톡 대체 문자_0',    //대체문자 내용
-            interOPRefKey : '20200724-01' // 파트너 지정키, 수신자 구별용 메모
-        },
+            interOPRefKey : '20200724-01', // 파트너 지정키, 수신자 구별용 메모
+        }
+    );
+    msgs.push(
         {
             rcv: '010111222',
             rcvnm: 'linkhub',
             msg: content,
             altmsg: '알림톡 대체 문자_1',
-            interOPRefKey : '20200724-02' // 파트너 지정키, 수신자 구별용 메모
+            interOPRefKey : '20200724-02', // 파트너 지정키, 수신자 구별용 메모
+            btns: [                         //수신자별 개별 버튼내용 전송시
+                {
+                    n: '템플릿 안내 TEST',                 //버튼명
+                    t: 'WL',                         //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
+                    u1: 'https://www.popbill.com',  //[앱링크-iOS, 웹링크-Mobile]
+                    u2: 'http://www.popbill.com'    //[앱링크-Android, 웹링크-PC URL]
+                }
+            ]
         }
-    ];
+    );
 
     // 팝빌회원 아이디
     var UserID = 'testkorea';
@@ -289,7 +301,8 @@ router.get('/sendATS_multi', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    // 알림톡 버튼정보를 템플릿 신청시 기재한 버튼정보와 동일하게 전송하는 경우 btns를 null 처리.
+    // 알림톡 버튼정보를 템플릿 신청시 기재한 버튼정보와 동일하게 전송하는 경우
+    // or 수신자별 개별 버늩내용 전송하는 경우 btns를 null 처리.
     var btns = null;
 
     // 알림톡 버튼 URL에 #{템플릿변수}를 기재한경우 템플릿변수 영역을 변경하여 버튼정보 구성
@@ -465,7 +478,7 @@ router.get('/sendFTS_multi', function (req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
-    var snd = '070-4304-2992';
+    var snd = '070-4304-2991';
 
     // 대체문자 유형 [공백-미전송, C-친구톡내용, A-대체문자내용]
     var altSendType = 'A';
@@ -477,30 +490,47 @@ router.get('/sendFTS_multi', function (req, res, next) {
     var adsYN = false;
 
     // [배열] 친구톡 전송정보 (최대 1000개)
-    var msgs = [
+    var msgs = [];
+    msgs.push(
         {
             rcv: '010111222',           //수신번호
             rcvnm: 'popbill',           //수신자명
             msg: '테스트 템플릿 입니다.',    //친구톡 내용
-            altmsg: '친구톡 대체 문자_0'    //대체문자 내용
-        },
+            altmsg: '친구톡 대체 문자_0',    //대체문자 내용
+            interOPRefKey : '20200724-01' // 파트너 지정키, 수신자 구별용 메모
+        }
+    );
+    msgs.push(
         {
             rcv: '010111222',
             rcvnm: 'linkhub',
             msg: '테스트 템플릿 입니다1',
-            altmsg: '친구톡 대체 문자_1'
+            altmsg: '친구톡 대체 문자_1',
+            interOPRefKey : '20200724-01', // 파트너 지정키, 수신자 구별용 메모
+            btns: [                         //수신자별 개별 버튼내용 전송시
+                {
+                    n: '템플릿 안내',               //버튼명
+                    t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
+                    u1: 'https://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+                    u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
+                }
+            ]
         }
-    ];
+    );
+
+    // 버튼 전송 하지 않는 경우
+    // or 수신자별 개별버튼내용 전송하는 경우 null 처리
+    var btns = null;
 
     // [배열] 버튼 목록 (최대 5개)
-    var btns = [
-        {
-            n: '팝빌 바로가기',              //버튼명
-            t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
-            u1: 'http://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
-            u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
-        }
-    ];
+    // var btns = [
+    //     {
+    //         n: '팝빌 바로가기',              //버튼명
+    //         t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
+    //         u1: 'http://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+    //         u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
+    //     }
+    // ];
 
     // 팝빌회원 아이디
     var UserID = 'testkorea';
@@ -673,7 +703,7 @@ router.get('/sendFMS_multi', function (req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
-    var snd = '070-4304-2992';
+    var snd = '070-4304-2991';
 
     // 대체문자 유형 [공백-미전송, C-친구톡내용, A-대체문자내용]
     var altSendType = 'A';
@@ -689,33 +719,50 @@ router.get('/sendFMS_multi', function (req, res, next) {
 
     // 파일경로
     // 이미지 전송 규격 (전송포맷-JPG,JPEG / 용량제한-최대 500Kbte / 이미지 높이/너비 비율 : 1.333 이하, 1/2 이상)
-    var filePath = ['./fmsImage.jpg'];
+    var filePath = ['./fmsimage.jpg'];
 
     // [배열] 친구톡 전송정보 (최대 1000개)
-    var msgs = [
+    var msgs = [];
+    msgs.push(
         {
             rcv: '010111222',           //수신번호
             rcvnm: 'popbill',           //수신자명
             msg: '친구톡 이미지 입니다_0',   //친구톡 내용 (최대 400자)
-            altmsg: '친구톡 대체 문자_0'    //대체문자 내용 (최대 2000byte)
-        },
+            altmsg: '친구톡 대체 문자_0',    //대체문자 내용 (최대 2000byte)
+            interOPRefKey : '20201116-01' // 파트너 지정키, 수신자 구별용 메모
+        }
+    );
+    msgs.push(
         {
             rcv: '010111222',
             rcvnm: 'linkhub',
-            msg: '친구톡 이미지 입니다_0',
-            altmsg: '친구톡 대체 문자_1'
+            msg: '친구톡 이미지 입니다_1',
+            altmsg: '친구톡 대체 문자_1',
+            interOPRefKey : '20201116-02', // 파트너 지정키, 수신자 구별용 메모
+            btns: [                         //수신자별 개별 버튼내용 전송시
+                {
+                    n: '템플릿 안내',               //버튼명
+                    t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
+                    u1: 'https://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+                    u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
+                }
+            ]
         }
-    ];
+    );
 
-    // [배열] 버튼 목록 (최대 5개)
-    var btns = [
-        {
-            n: '팝빌 바로가기',               //버튼명
-            t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
-            u1: 'http://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
-            u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
-        }
-    ];
+    // 버튼 전송 하지 않는 경우
+    // or 수신자별 개별 버튼내용 전송 하는 경우 null 처리
+    var btns = null;
+
+    // // [배열] 버튼 목록 (최대 5개)
+    // var btns = [
+    //     {
+    //         n: '팝빌 바로가기',               //버튼명
+    //         t: 'WL',                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
+    //         u1: 'http://www.popbill.com', //[앱링크-iOS, 웹링크-Mobile]
+    //         u2: 'http://www.popbill.com'  //[앱링크-Android, 웹링크-PC URL]
+    //     }
+    // ];
 
     // 팝빌회원 아이디
     var UserID = 'testkorea';
