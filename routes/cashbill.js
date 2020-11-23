@@ -838,8 +838,7 @@ router.get('/getPDF', function(req, res, next) {
         function (bufPDF) {
             fs.appendFile(filepath, bufPDF, function(err){
                 if (err) {
-                    console.log(err);
-                    res.render('response', {path: req.path, code: "-", message: '저장실패'});
+                    res.render('response', {path: req.path, code: '-99999999', message: 'PDF 저장 실패'});
                 } else {
                     res.render('response', {path: req.path, code: "1", message: filepath});
                 }
