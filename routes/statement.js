@@ -25,6 +25,9 @@ popbill.config({
     // 팝빌 API 서비스 고정 IP 사용여부(GA)
     UseStaticIP: false,
 
+    // 로컬서버 시간 사용여부 true-사용(기본값-권장), false-미사용
+    UseLocalTimeYN: true,
+
     defaultErrorHandler: function (Error) {
         console.log('Error Occur : [' + Error.code + '] ' + Error.message);
     }
