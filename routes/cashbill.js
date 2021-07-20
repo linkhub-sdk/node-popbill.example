@@ -73,7 +73,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
 
 /*
  * 1건의 현금영수증을 [즉시발행]합니다.
- * - 발행일 기준 오후 5시 이전에 발행된 현금영수증은 다음날 오후 2시에 국세청 전송결과를 확인할 수 있습니다.
+ * - 현금영수증 국세청 전송 정책 : https://docs.popbill.com/cashbill/ntsSendPolicy?lang=node
  * - https://docs.popbill.com/cashbill/node/api#RegistIssue
  */
 router.get('/registIssue', function (req, res, next) {
@@ -386,7 +386,7 @@ router.get('/update', function (req, res, next) {
 
 /*
  * 1건의 [임시저장] 현금영수증을 [발행]합니다.
- * - 발행일 기준 오후 5시 이전에 발행된 현금영수증은 다음날 오후 2시에 국세청 전송결과를 확인할 수 있습니다.
+ * - 현금영수증 국세청 전송 정책 : https://docs.popbill.com/cashbill/ntsSendPolicy?lang=node
  * - https://docs.popbill.com/cashbill/node/api#CBIssue
  */
 router.get('/issue', function (req, res, next) {
@@ -456,7 +456,7 @@ router.get('/delete', function (req, res, next) {
 
 /*
  * 1건의 취소현금영수증을 [즉시발행]합니다.
- * - 발행일 기준 오후 5시 이전에 발행된 현금영수증은 다음날 오후 2시에 국세청 전송결과를 확인할 수 있습니다.
+ * - 현금영수증 국세청 전송 정책 : https://docs.popbill.com/cashbill/ntsSendPolicy?lang=node
  * - https://docs.popbill.com/cashbill/node/api#RevokeRegistIssue
  */
 router.get('/revokeRegistIssue', function (req, res, next) {
@@ -485,7 +485,7 @@ router.get('/revokeRegistIssue', function (req, res, next) {
 
 /*
  * 1건의 (부분)취소현금영수증을 [즉시발행]합니다.
- * - 발행일 기준 오후 5시 이전에 발행된 현금영수증은 다음날 오후 2시에 국세청 전송결과를 확인할 수 있습니다.
+ * - 현금영수증 국세청 전송 정책 : https://docs.popbill.com/cashbill/ntsSendPolicy?lang=node
  * - https://docs.popbill.com/cashbill/node/api#RevokeRegistIssue
  */
 router.get('/revokeRegistIssue_part', function (req, res, next) {
