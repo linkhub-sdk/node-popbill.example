@@ -49,8 +49,8 @@ router.get('/', function (req, res, next) {
 
 
 /*
- * 세금계산서 문서번호 중복여부를 확인합니다.
- * - 문서번호는 1~24자리로 숫자, 영문 '-', '_' 조합으로 사업자별로 중복되지 않도록 구성해야 합니다.
+ * 파트너가 세금계산서 관리 목적으로 할당하는 문서번호의 사용여부를 확인합니다.
+ * - 문서번호는 최대 24자리 영문 대소문자, 숫자, 특수문자('-','_')로 구성 합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#CheckMgtKeyInUse
  */
 router.get('/checkMgtKeyInUse', function (req, res, next) {
@@ -61,7 +61,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
-    // 문서번호, 1~24자리 영문,숫자,'-','_' 조합으로 구성
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
     var mgtKey = '20201123-001';
 
     taxinvoiceService.checkMgtKeyInUse(testCorpNum, keyType, mgtKey,
@@ -77,7 +77,8 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
 });
 
 /*
- * 1건의 세금계산서를 [즉시발행]합니다.
+ * 작성된 세금계산서 데이터를 팝빌에 저장과 동시에 발행(전자서명)하여 "발행완료" 상태로 처리합니다.
+ * - 세금계산서 국세청 전송 정책 : https://docs.popbill.com/taxinvoice/ntsSendPolicy?lang=node
  * - https://docs.popbill.com/taxinvoice/node/api#RegistIssue
  */
 router.get('/registIssue', function (req, res, next) {
@@ -85,7 +86,7 @@ router.get('/registIssue', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
     var mgtKey = '20201123-001';
 
     // 세금계산서 항목
@@ -114,7 +115,7 @@ router.get('/registIssue', function (req, res, next) {
         // [필수] 공급자 사업자번호, '-' 제외 10자리
         invoicerCorpNum: testCorpNum,
 
-        // [정발행시 필수] 문서번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+        // [정발행시 필수] 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
         invoicerMgtKey: mgtKey,
 
         // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -335,8 +336,10 @@ router.get('/registIssue', function (req, res, next) {
 });
 
 /*
- * 1건의 세금계산서를 [임시저장]합니다.
- * - 세금계산서 임시저장(Register API) 호출후에는 발행(Issue API)을 호출해야만 국세청으로 전송됩니다.
+ * 작성된 세금계산서 데이터를 팝빌에 저장합니다.
+ * - "임시저장" 상태의 세금계산서는 발행(Issue)함수를 호출하여 "발행완료" 처리한 경우에만 국세청으로 전송됩니다.
+ * - 정발행시 임시저장(Register)과 발행(Issue)을 한번의 호출로 처리하는 즉시발행(RegistIssue API) 프로세스 연동을 권장합니다.
+ * - 역발행시 임시저장(Register)과 역발행요청(Request)을 한번의 호출로 처리하는 즉시요청(RegistRequest API) 프로세스 연동을 권장합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#Register
  */
 router.get('/register', function (req, res, next) {
@@ -344,7 +347,7 @@ router.get('/register', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서번호, 1~24자리 영문,숫자,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
     var mgtKey = '20201123-033';
 
     // 세금계산서 항목
@@ -373,7 +376,7 @@ router.get('/register', function (req, res, next) {
         // [필수] 공급자 사업자번호, '-' 제외 10자리
         invoicerCorpNum: testCorpNum,
 
-        // [정발행시 필수] 문서번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+        // [정발행시 필수] 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
         invoicerMgtKey: mgtKey,
 
         // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -594,7 +597,7 @@ router.get('/register', function (req, res, next) {
 });
 
 /*
- * [임시저장] 상태의 세금계산서의 항목을 [수정]합니다.
+ * "임시저장" 상태의 세금계산서를 수정합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#Update
  */
 router.get('/update', function (req, res, next) {
@@ -602,7 +605,7 @@ router.get('/update', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 세금계산서 문서번호
+    // 세금계산서 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
     var mgtKey = '20201123-003';
 
     // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
@@ -634,7 +637,7 @@ router.get('/update', function (req, res, next) {
         // [필수] 공급자 사업자번호, '-' 제외 10자리
         invoicerCorpNum: testCorpNum,
 
-        // [정발행시 필수] 문서번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+        // [정발행시 필수] 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
         invoicerMgtKey: mgtKey,
 
         // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -855,7 +858,8 @@ router.get('/update', function (req, res, next) {
 });
 
 /*
- * [임시저장] 상태의 세금계산서를 [공급자]가 [발행]합니다.
+ * "임시저장" 또는 "(역)발행대기" 상태의 세금계산서를 발행(전자서명)하며, "발행완료" 상태로 처리합니다.
+ *  - 세금계산서 국세청 전송정책 : https://docs.popbill.com/taxinvoice/ntsSendPolicy?lang=node
  * - https://docs.popbill.com/taxinvoice/node/api#TIissue
  */
 router.get('/issue', function (req, res, next) {
@@ -891,8 +895,8 @@ router.get('/issue', function (req, res, next) {
 });
 
 /*
- * [발행완료] 상태의 세금계산서를 [공급자]가 [발행취소]합니다.
- * - [발행취소]는 국세청 전송전에만 가능합니다.
+ * 국세청 전송 이전 "발행완료" 상태의 세금계산서를 "발행취소"하고 국세청 전송 대상에서 제외합니다.
+ * - Delete(삭제)함수를 호출하여 "발행취소" 상태의 전자세금계산서를 삭제하면, 문서번호 재사용이 가능합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#CancelIssue
  */
 router.get('/cancelIssue', function (req, res, next) {
@@ -918,10 +922,9 @@ router.get('/cancelIssue', function (req, res, next) {
 });
 
 /*
- * [공급받는자]가 공급자에게 역발행 세금계산서를 [즉시 요청]합니다.
- * - 역발행 세금계산서 프로세스를 구현하기 위해서는 공급자/공급받는자가 모두 팝빌에 회원이여야 합니다.
- * - 역발행 즉시요청후 공급자가 [발행] 처리시 포인트가 차감되며 역발행 세금계산서 항목중 과금방향(ChargeDirection)에 기재한 값에 따라
- *   정과금(공급자과금) 또는 역과금(공급받는자과금) 처리됩니다.
+ * 공급받는자가 작성한 세금계산서 데이터를 팝빌에 저장하고 공급자에게 송부하여 발행을 요청합니다.
+ * - 역발행 세금계산서 프로세스를 구현하기위해서는 공급자/공급받는자가 모두 팝빌에 회원이여야 합니다.
+ * - 역발행 즉시요청후 공급자가 [발행] 처리시 포인트가 차감되며 역발행 세금계산서 항목중 과금방향(ChargeDirection)에 기재한 값에 따라 정과금(공급자과금) 또는 역과금(공급받는자과금) 처리됩니다.
  * - https://docs.popbill.com/taxinvoice/node/api#RegistRequest
  */
 router.get('/registRequest', function (req, res, next) {
@@ -958,7 +961,7 @@ router.get('/registRequest', function (req, res, next) {
         // [필수] 공급자 사업자번호, '-' 제외 10자리
         invoicerCorpNum: '8888888888',
 
-        // [정발행시 필수] 문서번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+        // [정발행시 필수] 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
         invoicerMgtKey: '',
 
         // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -1006,7 +1009,7 @@ router.get('/registRequest', function (req, res, next) {
         // [필수] 공급받는자 사업자번호, '-'제외 10자리
         invoiceeCorpNum: testCorpNum,
 
-        // [역발행시 필수] 공급받는자 문서번호, 1~24자리 숫자,영문,'-','_' 조합으로 사업자별로 중복되지 않도록 구성
+        // [역발행시 필수] 공급받는자 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
         invoiceeMgtKey: '20201123-100',
 
         // 공급받는자 종사업장 식별번호, 필요시 기재, 4자리 숫자
@@ -1155,10 +1158,9 @@ router.get('/registRequest', function (req, res, next) {
 });
 
 /*
- * [공급받는자]가 임시저장 상태의 역발행 세금계산서를 공급자에게 [발행요청] 합니다.
+ * 공급받는자가 저장된 역발행 세금계산서를 공급자에게 송부하여 발행 요청합니다.
  * - 역발행 세금계산서 프로세스를 구현하기 위해서는 공급자/공급받는자가 모두 팝빌에 회원이여야 합니다.
- * - 역발행 요청후 공급자가 [발행] 처리시 포인트가 차감되며 역발행 세금계산서 항목중 과금방향(ChargeDirection)에 기재한 값에 따라
- *   정과금(공급자과금) 또는 역과금(공급받는자과금) 처리됩니다.
+ * - 역발행 요청후 공급자가 [발행] 처리시 포인트가 차감되며 역발행 세금계산서 항목중 과금방향(ChargeDirection)에 기재한 값에 따라 정과금(공급자과금) 또는 역과금(공급받는자과금) 처리됩니다.
  * - https://docs.popbill.com/taxinvoice/node/api#Request
  */
 router.get('/request', function (req, res, next) {
@@ -1184,7 +1186,7 @@ router.get('/request', function (req, res, next) {
 });
 
 /*
- * [공급받는자]가 역)발행대기 상태의 세금계산서를 [취소]합니다.
+ * 공급자가 요청받은 역발행 세금계산서를 발행하기 전, 공급받는자가 역발행요청을 취소합니다.
  * - [취소]한 세금계산서의 문서번호를 재사용하기 위해서는 삭제 (Delete API)를 호출해야 합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#CancelRequest
  */
@@ -1211,7 +1213,7 @@ router.get('/cancelRequest', function (req, res, next) {
 });
 
 /*
- * 공급받는자에게 요청받은 역)발행대기 상태의 세금계산서를 [공급자]가 [거부]합니다.
+ * 공급자가 공급받는자에게 역발행 요청 받은 세금계산서의 발행을 거부합니다.
  * - 세금계산서의 문서번호를 재사용하기 위해서는 삭제 (Delete API)를 호출하여 [삭제] 처리해야 합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#Refuse
  */
@@ -1238,9 +1240,9 @@ router.get('/refuse', function (req, res, next) {
 });
 
 /*
- * 1건의 전자세금계산서를 [삭제]합니다.
+ * 삭제 가능한 상태의 세금계산서를 삭제합니다.
+ * - 삭제 가능한 상태: "임시저장", "발행취소", "역발행거부", "역발행취소", "전송실패"
  * - 세금계산서를 삭제해야만 문서번호(mgtKey)를 재사용할 수 있습니다.
- * - 삭제가능한 문서 상태 : [임시저장], [발행취소], [발행예정 취소], [발행예정 거부]
  * - https://docs.popbill.com/taxinvoice/node/api#Delete
  */
 router.get('/delete', function (req, res, next) {
@@ -1263,7 +1265,9 @@ router.get('/delete', function (req, res, next) {
 });
 
 /*
- * [발행완료] 상태의 세금계산서를 국세청으로 [즉시전송]합니다.
+ * 공급자가 "발행완료" 상태의 전자세금계산서를 국세청에 즉시 전송하며, 함수 호출 후 최대 30분 이내에 전송 처리가 완료됩니다.
+ * - 국세청 즉시전송을 호출하지 않은 세금계산서는 발행일 기준 익일 오후 3시에 팝빌 시스템에서 일괄적으로 국세청으로 전송합니다.
+ * - 익일전송시 전송일이 법정공휴일인 경우 다음 영업일에 전송됩니다.
  * - https://docs.popbill.com/taxinvoice/node/api#SendToNTS
  */
 router.get('/sendToNTS', function (req, res, next) {
@@ -1286,7 +1290,7 @@ router.get('/sendToNTS', function (req, res, next) {
 });
 
 /*
- * 1건의 세금계산서 상태/요약 정보를 확인합니다.
+ * 세금계산서 1건의 상태 및 요약정보를 확인합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetInfo
  */
 router.get('/getInfo', function (req, res, next) {
@@ -1309,7 +1313,7 @@ router.get('/getInfo', function (req, res, next) {
 });
 
 /*
- * 대량의 세금계산서 상태/요약 정보를 확인합니다. (최대 1000건)
+ * 다수건의 세금계산서 상태 및 요약 정보를 확인합니다. (1회 호출 시 최대 1,000건 확인 가능)
  * - https://docs.popbill.com/taxinvoice/node/api#GetInfos
  */
 router.get('/getInfos', function (req, res, next) {
@@ -1332,7 +1336,7 @@ router.get('/getInfos', function (req, res, next) {
 });
 
 /*
- * 1건의 세금계산서 상세정보를 확인합니다.
+ * 세금계산서 1건의 상세정보를 확인합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetDetailInfo
  */
 router.get('/getDetailInfo', function (req, res, next) {
@@ -1355,7 +1359,7 @@ router.get('/getDetailInfo', function (req, res, next) {
 });
 
 /*
- * 검색조건을 사용하여 세금계산서 목록을 조회합니다.
+ * 검색조건에 해당하는 세금계산서를 조회합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#Search
  */
 router.get('/search', function (req, res, next) {
@@ -1437,7 +1441,7 @@ router.get('/search', function (req, res, next) {
 });
 
 /*
- * 세금계산서 상태 변경이력을 확인합니다.
+ * 세금계산서의 상태에 대한 변경이력을 확인합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetLogs
  */
 router.get('/getLogs', function (req, res, next) {
@@ -1460,8 +1464,8 @@ router.get('/getLogs', function (req, res, next) {
 });
 
 /*
- * 팝빌 전자세금계산서 문서함 팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 로그인 상태로 팝빌 사이트의 전자세금계산서 문서함 메뉴에 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetURL
  */
 router.get('/getURL', function (req, res, next) {
@@ -1481,8 +1485,8 @@ router.get('/getURL', function (req, res, next) {
 });
 
 /*
- * 1건의 전자세금계산서 보기 팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책으로 인해 30초의 유효시간을 갖습니다.
+ * 팝빌 사이트와 동일한 세금계산서 1건의 상세 정보 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetPopUpURL
  */
 router.get('/getPopUpURL', function (req, res, next) {
@@ -1506,7 +1510,7 @@ router.get('/getPopUpURL', function (req, res, next) {
 
 /*
  * 1건의 전자세금계산서 보기 팝업 URL을 반환합니다. (버튼/메뉴 제외)
- * - 반환된 URL은 보안정책으로 인해 30초의 유효시간을 갖습니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetViewURL
  */
 router.get('/getViewURL', function (req, res, next) {
@@ -1529,8 +1533,8 @@ router.get('/getViewURL', function (req, res, next) {
 });
 
 /*
- * 1건의 전자세금계산서 PDF 다운로드 URL을 반환합니다.
- * - 반환된 URL은 보안정책으로 인해 30초의 유효시간을 갖습니다.
+ * 전자세금계산서 PDF 파일을 다운 받을 수 있는 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * -  https://docs.popbill.com/taxinvoice/node/api#GetPDFURL
  */
 router.get('/getPDFURL', function (req, res, next) {
@@ -1584,8 +1588,8 @@ router.get('/getPDF', function(req, res, next) {
 });
 
 /*
- * 1건의 전자세금계산서 인쇄팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책으로 인해 30초의 유효시간을 갖습니다.
+ * 세금계산서 1건을 인쇄하기 위한 페이지의 팝업 URL을 반환하며, 페이지내에서 인쇄 설정값을 "공급자" / "공급받는자" / "공급자+공급받는자"용 중 하나로 지정할 수 있습니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetPrintURL
  */
 router.get('/getPrintURL', function (req, res, next) {
@@ -1608,8 +1612,8 @@ router.get('/getPrintURL', function (req, res, next) {
 });
 
 /*
- * 1건의 전자세금계산서 (구)인쇄팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책으로 인해 30초의 유효시간을 갖습니다.
+ * 세금계산서 1건을 구버전 양식으로 인쇄하기 위한 페이지의 팝업 URL을 반환하며, 페이지내에서 인쇄 설정값을 "공급자" / "공급받는자" / "공급자+공급받는자"용 중 하나로 지정할 수 있습니다..
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetOldPrintURL
  */
 router.get('/getOldPrintURL', function (req, res, next) {
@@ -1632,8 +1636,8 @@ router.get('/getOldPrintURL', function (req, res, next) {
 });
 
 /*
- * 세금계산서 인쇄(공급받는자) 팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * "공급받는자" 용 세금계산서 1건을 인쇄하기 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetEPrintURL
  */
 router.get('/getEPrintURL', function (req, res, next) {
@@ -1656,8 +1660,8 @@ router.get('/getEPrintURL', function (req, res, next) {
 });
 
 /*
- * 대량의 세금계산서 인쇄팝업 URL을 반환합니다. (최대 100건)
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 다수건의 세금계산서를 인쇄하기 위한 페이지의 팝업 URL을 반환합니다. (최대 100건)
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetMassPrintURL
  */
 router.get('/getMassPrintURL', function (req, res, next) {
@@ -1680,8 +1684,8 @@ router.get('/getMassPrintURL', function (req, res, next) {
 });
 
 /*
- * 공급받는자 메일링크 URL을 반환합니다.
- * - 메일링크 URL은 유효시간이 존재하지 않습니다.
+ * 안내메일과 관련된 전자세금계산서를 확인 할 수 있는 상세 페이지의 팝업 URL을 반환하며, 해당 URL은 메일 하단의 "전자세금계산서 보기" 버튼의 링크와 같습니다.
+ * - 함수 호출로 반환 받은 URL에는 유효시간이 없습니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetMailURL
  */
 router.get('/getMailURL', function (req, res, next) {
@@ -1704,8 +1708,8 @@ router.get('/getMailURL', function (req, res, next) {
 });
 
 /*
- * 팝빌에 로그인 상태로 접근할 수 있는 팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetAccessURL
  */
 router.get('/getAccessURL', function (req, res, next) {
@@ -1725,8 +1729,8 @@ router.get('/getAccessURL', function (req, res, next) {
 });
 
 /*
- * 인감 및 첨부문서 등록 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 세금계산서에 첨부할 인감, 사업자등록증, 통장사본을 등록하는 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetSealURL
  */
 router.get('/getSealURL', function (req, res, next) {
@@ -1746,9 +1750,7 @@ router.get('/getSealURL', function (req, res, next) {
 });
 
 /*
- * 세금계산서에 첨부파일을 등록합니다.
- * - [임시저장] 상태의 세금계산서만 파일을 첨부할수 있습니다.
- * - 첨부파일은 최대 5개까지 등록할 수 있습니다.
+ * "임시저장" 상태의 세금계산서에 1개의 파일을 첨부합니다. (최대 5개)
  * - https://docs.popbill.com/taxinvoice/node/api#AttachFile
  */
 router.get('/attachFile', function (req, res, next) {
@@ -1777,7 +1779,7 @@ router.get('/attachFile', function (req, res, next) {
 });
 
 /*
- * 세금계산서에 첨부된 파일을 삭제합니다.
+ * "임시저장" 상태의 세금계산서에 첨부된 1개의 파일을 삭제합니다.
  * - 파일을 식별하는 파일아이디는 첨부파일 목록(GetFiles API) 의 응답항목 중 파일아이디(AttachedFile) 값을 통해 확인할 수 있습니다.
  * - https://docs.popbill.com/taxinvoice/node/api#DeleteFile
  */
@@ -1804,7 +1806,7 @@ router.get('/deleteFile', function (req, res, next) {
 });
 
 /*
- * 세금계산서 첨부파일 목록을 확인합니다.
+ * 세금계산서에 첨부된 파일목록을 확인합니다.
  * - 응답항목 중 파일아이디(AttachedFile) 항목은 파일삭제(DeleteFile API) 호출시 이용할 수 있습니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetFiles
  */
@@ -1828,7 +1830,7 @@ router.get('/getFiles', function (req, res, next) {
 });
 
 /*
- * 세금계산서 발행안내 메일을 재전송합니다.
+ * 세금계산서와 관련된 안내 메일을 재전송 합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#SendEmail
  */
 router.get('/sendEmail', function (req, res, next) {
@@ -1856,9 +1858,9 @@ router.get('/sendEmail', function (req, res, next) {
 });
 
 /*
- * 알림문자를 전송합니다. (단문/SMS - 한글 최대 45자)
- * - 알림문자 전송시 포인트가 차감됩니다. (전송실패시 환불처리)
- * - 전송내역 확인은 "팝빌 로그인" > [문자 팩스] > [문자] > [전송내역] 메뉴에서 전송결과를 확인할 수 있습니다.
+ * 세금계산서와 관련된 안내 SMS(단문) 문자를 재전송하는 함수로, 팝빌 사이트 [문자·팩스] > [문자] > [전송내역] 메뉴에서 전송결과를 확인 할 수 있습니다.
+ * - 메시지는 최대 90byte까지 입력 가능하고, 초과한 내용은 자동으로 삭제되어 전송합니다. (한글 최대 45자)
+ * - 함수 호출시 포인트가 과금됩니다.
  * - https://docs.popbill.com/taxinvoice/node/api#SendSMS
  */
 router.get('/sendSMS', function (req, res, next) {
@@ -1890,9 +1892,8 @@ router.get('/sendSMS', function (req, res, next) {
 });
 
 /*
- * 전자세금계산서를 팩스전송합니다.
- * - 팩스 전송 요청시 포인트가 차감됩니다. (전송실패시 환불처리)
- * - 전송내역 확인은 "팝빌 로그인" > [문자 팩스] > [팩스] > [전송내역] 메뉴에서 전송결과를 확인할 수 있습니다.
+ * 세금계산서를 팩스로 전송하는 함수로, 팝빌 사이트 [문자·팩스] > [팩스] > [전송내역] 메뉴에서 전송결과를 확인 할 수 있습니다.
+ * - 함수 호출시 포인트가 과금됩니다.
  * - https://docs.popbill.com/taxinvoice/node/api#SendFAX
  */
 router.get('/sendFAX', function (req, res, next) {
@@ -1921,7 +1922,7 @@ router.get('/sendFAX', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서를 세금계산서에 첨부합니다.
+ * 팝빌 전자명세서 API를 통해 발행한 전자명세서를 세금계산서에 첨부합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#AttachStatement
  */
 router.get('/attachStatement', function (req, res, next) {
@@ -1950,7 +1951,7 @@ router.get('/attachStatement', function (req, res, next) {
 });
 
 /*
- * 세금계산서에 첨부된 전자명세서 1건을 첨부해제합니다.
+ * 세금계산서에 첨부된 전자명세서를 해제합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#DetachStatement
  */
 router.get('/detachStatement', function (req, res, next) {
@@ -1979,7 +1980,7 @@ router.get('/detachStatement', function (req, res, next) {
 });
 
 /*
- * 대용량 연계사업자 유통메일주소 목록을 반환합니다.
+ * 전자세금계산서 유통사업자의 메일 목록을 확인합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetEmailPublicKeys
  */
 router.get('/getEmailPublicKeys', function (req, res, next) {
@@ -1996,7 +1997,7 @@ router.get('/getEmailPublicKeys', function (req, res, next) {
 });
 
 /*
- * 팝빌사이트에서 작성된 세금계산서에 파트너 문서번호를 할당합니다.
+ * 팝빌 사이트를 통해 발행하였지만 문서번호가 존재하지 않는 세금계산서에 문서번호를 할당합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#AssignMgtKey
  */
 router.get('/assignMgtKey', function (req, res, next) {
@@ -2023,7 +2024,7 @@ router.get('/assignMgtKey', function (req, res, next) {
 });
 
 /*
- * 전자세금계산서 관련 메일전송 항목에 대한 전송여부를 목록으로 반환합니다.
+ * 세금계산서 관련 메일 항목에 대한 발송설정을 확인합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#ListEmailConfig
  */
 router.get('/listEmailConfig', function (req, res, next) {
@@ -2040,7 +2041,7 @@ router.get('/listEmailConfig', function (req, res, next) {
 });
 
 /*
- * 전자세금계산서 관련 메일전송 항목에 대한 전송여부를 수정합니다.
+ * 세금계산서 관련 메일 항목에 대한 발송설정을 수정합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#UpdateEmailConfig
  * 메일전송유형
  * [정발행]
@@ -2103,11 +2104,10 @@ router.get('/updateEmailConfig', function (req, res, next) {
 });
 
 /*
- * 팝빌 회원의 공인인증서를 등록하는 팝업 URL을 반환합니다.
+ * 전자세금계산서 발행에 필요한 인증서를 팝빌 인증서버에 등록하기 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
+ * - 인증서 갱신/재발급/비밀번호 변경한 경우, 변경된 인증서를 팝빌 인증서버에 재등록 해야합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetTaxCertURL
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
- * - 팝빌에 등록된 공인인증서가 유효하지 않은 경우 (비밀번호 변경, 인증서 재발급/갱신, 만료일 경과)
- *   인증서를 재등록해야 정상적으로 전자세금계산서 발행이 가능합니다.
  */
 router.get('/getTaxCertURL', function (req, res, next) {
 
@@ -2126,9 +2126,7 @@ router.get('/getTaxCertURL', function (req, res, next) {
 });
 
 /*
- * 팝빌에 등록되어 있는 공인인증서의 만료일자를 확인합니다.
- * - 공인인증서가 갱신/재발급/비밀번호 변경이 되는 경우 해당 인증서를
- *   재등록 하셔야 정상적으로 세금계산서를 발행할 수 있습니다.
+ * 팝빌 인증서버에 등록된 인증서의 만료일을 확인합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetCertificateExpireDate
  */
 router.get('/getCertificateExpireDate', function (req, res, next) {
@@ -2145,7 +2143,7 @@ router.get('/getCertificateExpireDate', function (req, res, next) {
 });
 
 /*
- * 팝빌에 등록된 공인인증서의 유효성을 확인합니다.
+ * 팝빌 인증서버에 등록된 인증서의 유효성을 확인합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#CheckCertValidation
  */
 router.get('/checkCertValidation', function (req, res, next) {
@@ -2163,7 +2161,7 @@ router.get('/checkCertValidation', function (req, res, next) {
 
 /*
  * 연동회원의 잔여포인트를 확인합니다.
- * - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API) 함수를 통해 확인하시기 바랍니다.
+ * - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API)를 통해 확인하시기 바랍니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetBalance
  */
 router.get('/getBalance', function (req, res, next) {
@@ -2180,8 +2178,8 @@ router.get('/getBalance', function (req, res, next) {
 });
 
 /*
- * 팝빌 연동회원 포인트 충전 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetChargeURL
  */
 router.get('/getChargeURL', function (req, res, next) {
@@ -2202,7 +2200,7 @@ router.get('/getChargeURL', function (req, res, next) {
 
 /*
  * 파트너의 잔여포인트를 확인합니다.
- * - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API) 함수를 통해 확인하시기 바랍니다.
+ * - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API)를 이용하시기 바랍니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetPartnerBalance
  */
 router.get('/getPartnerBalance', function (req, res, next) {
@@ -2219,8 +2217,8 @@ router.get('/getPartnerBalance', function (req, res, next) {
 });
 
 /*
- * 파트너 포인트 충전 팝업 URL을 반환합니다.
- * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ * 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetPartnerURL
  */
 router.get('/getPartnerURL', function (req, res, next) {
@@ -2257,7 +2255,7 @@ router.get('/getUnitCost', function (req, res, next) {
 });
 
 /*
- * 전자세금계산서 API 서비스 과금정보를 확인합니다.
+ * 팝빌 전자세금계산서 API 서비스 과금정보를 확인합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetChargeInfo
  */
 router.get('/getChargeInfo', function (req, res, next) {
@@ -2274,7 +2272,7 @@ router.get('/getChargeInfo', function (req, res, next) {
 });
 
 /*
- * 사업자의 연동회원 가입여부를 확인합니다.
+ * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#CheckIsMember
  */
 router.get('/checkIsMember', function (req, res, next) {
@@ -2291,7 +2289,7 @@ router.get('/checkIsMember', function (req, res, next) {
 });
 
 /*
- * 팝빌회원 아이디 중복여부를 확인합니다.
+ * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#CheckID
  */
 router.get('/checkID', function (req, res, next) {
@@ -2308,7 +2306,7 @@ router.get('/checkID', function (req, res, next) {
 });
 
 /*
- * 파트너의 연동회원으로 회원가입을 요청합니다.
+ * 사용자를 연동회원으로 가입처리합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#JoinMember
  */
 router.get('/joinMember', function (req, res, next) {
@@ -2419,7 +2417,7 @@ router.get('/updateCorpInfo', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자를 신규로 등록합니다.
+ * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#RegistContact
  */
 router.get('/registContact', function (req, res, next) {
@@ -2464,7 +2462,7 @@ router.get('/registContact', function (req, res, next) {
 });
 
 /*
- * 담당자 정보를 수정합니다.
+ * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#UpdateContact
  */
 router.get('/updateContact', function (req, res, next) {
@@ -2509,7 +2507,7 @@ router.get('/updateContact', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자 목록을 확인합니다.
+ * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#ListContact
  */
 router.get('/listContact', function (req, res, next) {
