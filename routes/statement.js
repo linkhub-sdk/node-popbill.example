@@ -46,8 +46,8 @@ router.get('/', function (req, res, next) {
 });
 
 /*
- * 전자명세서 문서번호 중복여부를 확인합니다.
- * - 문서번호는 1~24자리로 숫자, 영문 '-', '_' 조합으로 구성할 수 있습니다.
+ * 파트너가 전자명세서 관리 목적으로 할당하는 문서번호의 사용여부를 확인합니다.
+ * - 문서번호는 최대 24자리 영문 대소문자, 숫자, 특수문자('-','_')로 구성 합니다.
  * - https://docs.popbill.com/statement/node/api#CheckMgtKeyInUse
  */
 router.get('/checkMgtKeyInUse', function (req, res, next) {
@@ -59,7 +59,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     statementService.checkMgtKeyInUse(testCorpNum, itemCode, mgtKey,
         function (result) {
@@ -74,7 +74,8 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서를 즉시발행 처리합니다.
+ * 작성된 전자명세서 데이터를 팝빌에 저장과 동시에 발행하여, "발행완료" 상태로 처리합니다.
+ * - 팝빌 사이트 [전자명세서] > [환경설정] > [전자명세서 관리] 메뉴의 발행시 자동승인 옵션 설정을 통해 전자명세서를 "발행완료" 상태가 아닌 "승인대기" 상태로 발행 처리 할 수 있습니다.
  * - https://docs.popbill.com/statement/node/api#RegistIssue
  */
 router.get('/registIssue', function (req, res, next) {
@@ -88,8 +89,8 @@ router.get('/registIssue', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var ItemCode = 121;
 
-    // 문서번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
-    var MgtKey = '20191031-005';
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
+    var MgtKey = '20210801-005';
 
     // 메모
     var memo = '';
@@ -101,7 +102,7 @@ router.get('/registIssue', function (req, res, next) {
     var statement = {
 
         // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20191031',
+        writeDate: '20210801',
 
         // [필수] 영수, 청구 중 기재
         purposeType: '영수',
@@ -230,7 +231,7 @@ router.get('/registIssue', function (req, res, next) {
             {
                 serialNum: 1,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명',
-                purchaseDT: '20190917',      // 구매일자
+                purchaseDT: '20210801',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -241,7 +242,7 @@ router.get('/registIssue', function (req, res, next) {
             {
                 serialNum: 2,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명2',
-                purchaseDT: '20190917',      // 구매일자
+                purchaseDT: '20210801',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -274,7 +275,7 @@ router.get('/registIssue', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서를 임시저장합니다.
+ * 작성된 전자명세서 데이터를 팝빌에 저장합니다
  * - https://docs.popbill.com/statement/node/api#Register
  */
 router.get('/register', function (req, res, next) {
@@ -285,14 +286,14 @@ router.get('/register', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var ItemCode = 121;
 
-    // 문서번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20190917-002';
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
+    var MgtKey = '20210801-002';
 
     // 전자명세서 정보
     var statement = {
 
         // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20190917',
+        writeDate: '20210801',
 
         // [필수] 영수, 청구 중 기재
         purposeType: '영수',
@@ -421,7 +422,7 @@ router.get('/register', function (req, res, next) {
             {
                 serialNum: 1,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명',
-                purchaseDT: '20190917',      // 구매일자
+                purchaseDT: '20210801',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -432,7 +433,7 @@ router.get('/register', function (req, res, next) {
             {
                 serialNum: 2,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명2',
-                purchaseDT: '20190917',      // 구매일자
+                purchaseDT: '20210801',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -465,8 +466,7 @@ router.get('/register', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서를 수정합니다.
- * - [임시저장] 상태의 전자명세서만 수정할 수 있습니다.
+ * "임시저장" 상태의 전자명세서를 수정합니다.건의 전자명세서를 [수정]합니다.
  * - https://docs.popbill.com/statement/node/api#Update
  */
 router.get('/update', function (req, res, next) {
@@ -477,15 +477,15 @@ router.get('/update', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var ItemCode = 121;
 
-    // 문서번호
-    var MgtKey = '20190917-001';
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
+    var MgtKey = '20210801-001';
 
 
     // 전자명세서 정보
     var statement = {
 
         // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20190917',
+        writeDate: '20210801',
 
         // [필수] 영수, 청구 중 기재
         purposeType: '영수',
@@ -614,7 +614,7 @@ router.get('/update', function (req, res, next) {
             {
                 serialNum: 1,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명',
-                purchaseDT: '20190917',      // 구매일자
+                purchaseDT: '20210801',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -625,7 +625,7 @@ router.get('/update', function (req, res, next) {
             {
                 serialNum: 2,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명2',
-                purchaseDT: '20190917',      // 구매일자
+                purchaseDT: '20210801',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -658,7 +658,9 @@ router.get('/update', function (req, res, next) {
 });
 
 /*
- * 1건의 [임시저장] 상태의 전자명세서를 발행처리합니다.
+ * "임시저장" 상태의 전자명세서를 발행하여, "발행완료" 상태로 처리합니다.
+ * - 팝빌 사이트 [전자명세서] > [환경설정] > [전자명세서 관리] 메뉴의 발행시 자동승인 옵션 설정을 통해 전자명세서를 "발행완료" 상태가 아닌 "승인대기" 상태로 발행 처리 할 수 있습니다.
+ * - 전자명세서 발행 함수 호출시 포인트가 과금되며, 수신자에게 발행 안내 메일이 발송됩니다.
  * - https://docs.popbill.com/statement/node/api#Stmissue
  */
 router.get('/issue', function (req, res, next) {
@@ -670,7 +672,7 @@ router.get('/issue', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     // 메모
     var memo = '발행메모';
@@ -684,7 +686,7 @@ router.get('/issue', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서를 [발행취소] 처리합니다.
+ * 발신자가 발행한 전자명세서를 발행취소합니다.
  * - https://docs.popbill.com/statement/node/api#Cancel
  */
 router.get('/cancelIssue', function (req, res, next) {
@@ -696,7 +698,7 @@ router.get('/cancelIssue', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     // 메모
     var memo = '발행취소 메모';
@@ -710,7 +712,8 @@ router.get('/cancelIssue', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서를 삭제합니다.
+ * 삭제 가능한 상태의 전자명세서를 삭제합니다.
+ * - 삭제 가능한 상태: "임시저장", "취소", "승인거부", "발행취소"
  * - 전자명세서를 삭제하면 사용된 문서번호(mgtKey)를 재사용할 수 있습니다.
  * - https://docs.popbill.com/statement/node/api#Delete
  */
@@ -723,7 +726,7 @@ router.get('/delete', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     statementService.delete(testCorpNum, itemCode, mgtKey,
         function (result) {
@@ -734,7 +737,7 @@ router.get('/delete', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서 상태/요약 정보를 확인합니다.
+ * 전자명세서의 1건의 상태 및 요약정보 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetInfo
  */
 router.get('/getInfo', function (req, res, next) {
@@ -746,7 +749,7 @@ router.get('/getInfo', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     statementService.getInfo(testCorpNum, itemCode, mgtKey,
         function (result) {
@@ -769,7 +772,7 @@ router.get('/getInfos', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호 배열, 최대 1000건
-    var mgtKeyList = ['20190917-001', '20190917-002', '20190917-003'];
+    var mgtKeyList = ['20210801-001', '20210801-002', '20210801-003'];
 
     statementService.getInfos(testCorpNum, itemCode, mgtKeyList,
         function (result) {
@@ -780,7 +783,7 @@ router.get('/getInfos', function (req, res, next) {
 });
 
 /*
- * 전자명세서 1건의 상세정보를 조회합니다.
+ * 전자명세서 1건의 상세정보 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetDetailInfo
  */
 router.get('/getDetailInfo', function (req, res, next) {
@@ -792,7 +795,7 @@ router.get('/getDetailInfo', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20210801-001';
 
     statementService.getDetailInfo(testCorpNum, itemCode, mgtKey,
         function (result) {
@@ -803,7 +806,7 @@ router.get('/getDetailInfo', function (req, res, next) {
 });
 
 /*
- * 검색조건을 사용하여 전자명세서 목록을 조회합니다.
+ * 검색조건에 해당하는 세금계산서를 조회합니다.
  * - https://docs.popbill.com/statement/node/api#Search
  */
 router.get('/search', function (req, res, next) {
@@ -815,10 +818,10 @@ router.get('/search', function (req, res, next) {
     var DType = 'W';
 
     // 시작일자, 작성형식(yyyyMMdd)
-    var SDate = '20190901';
+    var SDate = '20210801';
 
     // 종료일자, 작성형식(yyyyMMdd)
-    var EDate = '20190930';
+    var EDate = '20210830';
 
     // 명세서 문서상태값 배열, 전송상태(stateCode)값 배열
     var State = ['200', '3**'];
@@ -847,7 +850,7 @@ router.get('/search', function (req, res, next) {
 });
 
 /*
- * 전자명세서 상태 변경이력을 확인합니다.
+ * 전자명세서의 상태에 대한 변경이력을 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetLogs
  */
 router.get('/getLogs', function (req, res, next) {
@@ -859,7 +862,7 @@ router.get('/getLogs', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     statementService.getLogs(testCorpNum, itemCode, mgtKey,
         function (result) {
@@ -870,8 +873,8 @@ router.get('/getLogs', function (req, res, next) {
 });
 
 /*
- * 팝빌 전자명세서 문서함 관련 팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 로그인 상태로 팝빌 사이트의 전자명세서 문서함 메뉴에 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetURL
  */
 router.get('/getURL', function (req, res, next) {
@@ -891,8 +894,8 @@ router.get('/getURL', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서 보기 팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 팝빌 사이트와 동일한 전자명세서 1건의 상세 정보 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetPopUpURL
  */
 router.get('/getPopUpURL', function (req, res, next) {
@@ -904,7 +907,7 @@ router.get('/getPopUpURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     statementService.getPopUpURL(testCorpNum, itemCode, mgtKey,
         function (url) {
@@ -915,8 +918,8 @@ router.get('/getPopUpURL', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서 보기 URL을 반환합니다. (메뉴/버튼 제외)
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 팝빌 사이트와 동일한 전자명세서 1건의 상세 정보 페이지(사이트 상단, 좌측 메뉴 및 버튼 제외)의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  */
 router.get('/getViewURL', function (req, res, next) {
 
@@ -927,7 +930,7 @@ router.get('/getViewURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     statementService.getViewURL(testCorpNum, itemCode, mgtKey,
         function (url) {
@@ -938,8 +941,8 @@ router.get('/getViewURL', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서 인쇄팝업 URL을 반환합니다. (발신자/수신자)
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 전자명세서 1건을 인쇄하기 위한 페이지의 팝업 URL을 반환하며, 페이지내에서 인쇄 설정값을 "공급자" / "공급받는자" / "공급자+공급받는자"용 중 하나로 지정할 수 있습니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetPrintURL
  */
 router.get('/getPrintURL', function (req, res, next) {
@@ -951,7 +954,7 @@ router.get('/getPrintURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     statementService.getPrintURL(testCorpNum, itemCode, mgtKey,
         function (url) {
@@ -962,8 +965,8 @@ router.get('/getPrintURL', function (req, res, next) {
 });
 
 /*
- * 1건의 전자명세서 인쇄팝업 URL을 반환합니다. (수신자)
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * "공급받는자" 용 세금계산서 1건을 인쇄하기 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetEPrintURL
  */
 router.get('/getEPrintURL', function (req, res, next) {
@@ -975,7 +978,7 @@ router.get('/getEPrintURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     statementService.getEPrintURL(testCorpNum, itemCode, mgtKey,
         function (url) {
@@ -986,8 +989,8 @@ router.get('/getEPrintURL', function (req, res, next) {
 });
 
 /*
- * 다수건의 전자명세서 인쇄팝업 URL을 반환합니다. (최대 100건)
- * - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.
+ * 다수건의 전자명세서를 인쇄하기 위한 페이지의 팝업 URL을 반환합니다. (최대 100건)
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetMassPrintURL
  */
 router.get('/getMassPrintURL', function (req, res, next) {
@@ -999,7 +1002,7 @@ router.get('/getMassPrintURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호 배열, 최대 100건
-    var mgtKeyList = ['20190917-001', '20190917-002', '20190917-002'];
+    var mgtKeyList = ['20210801-001', '20210801-002', '20210801-003'];
 
     statementService.getMassPrintURL(testCorpNum, itemCode, mgtKeyList,
         function (url) {
@@ -1010,8 +1013,8 @@ router.get('/getMassPrintURL', function (req, res, next) {
 });
 
 /*
- * 수신자 메일링크 URL을 반환합니다.
- * - 메일링크 URL은 유효시간이 존재하지 않습니다.
+ * 안내메일과 관련된 전자명세서를 확인 할 수 있는 상세 페이지의 팝업 URL을 반환하며, 해당 URL은 메일 하단의 파란색 버튼의 링크와 같습니다.
+ * - 함수 호출로 반환 받은 URL에는 유효시간이 없습니다.
  * - https://docs.popbill.com/statement/node/api#GetMailURL
  */
 router.get('/getMailURL', function (req, res, next) {
@@ -1023,7 +1026,7 @@ router.get('/getMailURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     statementService.getMailURL(testCorpNum, itemCode, mgtKey,
         function (url) {
@@ -1034,8 +1037,8 @@ router.get('/getMailURL', function (req, res, next) {
 });
 
 /*
- * 팝빌에 로그인 상태로 접근할 수 있는 팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetAccessURL
  */
 router.get('/getAccessURL', function (req, res, next) {
@@ -1055,9 +1058,7 @@ router.get('/getAccessURL', function (req, res, next) {
 });
 
 /*
- * 전자명세서에 첨부파일을 등록합니다.
- * - 첨부파일 등록은 전자명세서가 [임시저장] 상태인 경우에만 가능합니다.
- * - 첨부파일은 최대 5개까지 등록할 수 있습니다.
+ * "임시저장" 상태의 명세서에 1개의 파일을 첨부합니다. (최대 5개)
  * - https://docs.popbill.com/statement/node/api#AttachFile
  */
 router.get('/attachFile', function (req, res, next) {
@@ -1069,7 +1070,7 @@ router.get('/attachFile', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     // 파일경로
     var filePaths = ['./test.jpg'];
@@ -1086,9 +1087,7 @@ router.get('/attachFile', function (req, res, next) {
 });
 
 /*
- * 전자명세서에 첨부된 파일을 삭제합니다.
- * - 파일을 식별하는 파일아이디는 첨부파일 목록(GetFiles API) 의 응답항목
- *   중 파일아이디(AttachedFile) 값을 통해 확인할 수 있습니다.
+ * "임시저장" 상태의 전자명세서에 첨부된 1개의 파일을 삭제합니다.
  * - https://docs.popbill.com/statement/node/api#DeleteFile
  */
 router.get('/deleteFile', function (req, res, next) {
@@ -1100,7 +1099,7 @@ router.get('/deleteFile', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     // 파일아이디 getFiles API의 attachedFile 변수값
     var fileID = '5991857A-1CBC-4BB7-B32F-4126FFC1E64C.PBF';
@@ -1114,9 +1113,8 @@ router.get('/deleteFile', function (req, res, next) {
 });
 
 /*
- * 전자명세서에 첨부된 파일의 목록을 확인합니다.
- * - 응답항목 중 파일아이디(AttachedFile) 항목은 파일삭제(DeleteFile API)
- *   호출시 이용할 수 있습니다.
+ * 전자명세서에 첨부된 파일목록을 확인합니다.
+ * - 응답항목 중 파일아이디(AttachedFile) 항목은 파일삭제(DeleteFile API) 호출시 이용할 수 있습니다.
  * - https://docs.popbill.com/statement/node/api#GetFiles
  */
 router.get('/getFiles', function (req, res, next) {
@@ -1128,7 +1126,7 @@ router.get('/getFiles', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     statementService.getFiles(testCorpNum, itemCode, mgtKey,
         function (result) {
@@ -1139,7 +1137,7 @@ router.get('/getFiles', function (req, res, next) {
 });
 
 /*
- * 발행 안내메일을 재전송합니다.
+ * "승인대기", "발행완료" 상태의 전자명세서와 관련된 발행 안내 메일을 재전송 합니다.
  * - https://docs.popbill.com/statement/node/api#SendEmail
  */
 router.get('/sendEmail', function (req, res, next) {
@@ -1151,7 +1149,7 @@ router.get('/sendEmail', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     // 수신메일주소
     // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
@@ -1167,9 +1165,9 @@ router.get('/sendEmail', function (req, res, next) {
 });
 
 /*
- * 알림문자를 전송합니다. (단문/SMS- 한글 최대 45자)
- * - 알림문자 전송시 포인트가 차감됩니다. (전송실패시 환불처리)
- * - 전송내역 확인은 "팝빌 로그인" > [문자 팩스] > [문자] > [전송내역] 탭에서 전송결과를 확인할 수 있습니다.
+ * 전자명세서와 관련된 안내 SMS(단문) 문자를 재전송하는 함수로, 팝빌 사이트 [문자·팩스] > [문자] > [전송내역] 메뉴에서 전송결과를 확인 할 수 있습니다.
+ * - 메시지는 최대 90byte까지 입력 가능하고, 초과한 내용은 자동으로 삭제되어 전송합니다. (한글 최대 45자)
+ * - 함수 호출시 포인트가 과금됩니다.
  * - https://docs.popbill.com/statement/node/api#SendSMS
  */
 router.get('/sendSMS', function (req, res, next) {
@@ -1181,7 +1179,7 @@ router.get('/sendSMS', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     // 발신번호
     var senderNum = '07043042992';
@@ -1201,9 +1199,8 @@ router.get('/sendSMS', function (req, res, next) {
 });
 
 /*
- * 전자명세서를 팩스전송합니다.
- * - 팩스 전송 요청시 포인트가 차감됩니다. (전송실패시 환불처리)
- * - 전송내역 확인은 "팝빌 로그인" > [문자 팩스] > [팩스] > [전송내역] 메뉴에서 전송결과를 확인할 수 있습니다.
+ * 전자명세서를 팩스로 전송하는 함수로, 팝빌 사이트 [문자·팩스] > [팩스] > [전송내역] 메뉴에서 전송결과를 확인 할 수 있습니다.
+ * - 함수 호출시 포인트가 과금됩니다.
  * - https://docs.popbill.com/statement/node/api#SendFAX
  */
 router.get('/sendFAX', function (req, res, next) {
@@ -1215,7 +1212,7 @@ router.get('/sendFAX', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     // 발신번호
     var senderNum = '07043042992';
@@ -1232,12 +1229,11 @@ router.get('/sendFAX', function (req, res, next) {
 });
 
 /*
- * 팝빌에 전자명세서를 등록하지 않고 수신자에게 팩스전송합니다.
- * - 팩스 전송 요청시 포인트가 차감됩니다. (전송실패시 환불처리)
+ * 전자명세서를 팩스로 전송하는 함수로, 팝빌에 데이터를 저장하는 과정이 없습니다.
+ * - 팝빌 사이트 [문자·팩스] > [팩스] > [전송내역] 메뉴에서 전송결과를 확인 할 수 있습니다.
+ * - 함수 호출시 포인트가 과금됩니다.
  * - 팩스 발행 요청시 작성한 문서번호는 팩스전송 파일명으로 사용됩니다.
- * - 전송내역 확인은 "팝빌 로그인" > [문자 팩스] > [팩스] > [전송내역] 메뉴에서 전송결과를 확인할 수 있습니다.
- * - 팩스 전송결과를 확인하기 위해서는 선팩스 전송 요청 시 반환받은 접수번호를 이용하여
- *   팩스 API의 전송결과 확인 (GetFaxDetail) API를 이용하면 됩니다.
+ * - 팩스 전송결과를 확인하기 위해서는 선팩스 전송 요청 시 반환받은 접수번호를 이용하여 팩스 API의 전송결과 확인 (GetFaxResult) API를 이용하면 됩니다.
  * - https://docs.popbill.com/statement/node/api#FAXSend
  */
 router.get('/FAXSend', function (req, res, next) {
@@ -1254,14 +1250,14 @@ router.get('/FAXSend', function (req, res, next) {
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var ItemCode = 121;
 
-    // 문서번호, 1~24자리 영문, 숫자, '-', '_' 조합으로 구성, 사업자별로 중복되지 않도록 생성
-    var MgtKey = '20190917-001';
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
+    var MgtKey = '20210801-001';
 
     // 전자명세서 정보
     var statement = {
 
         // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20190109',
+        writeDate: '20210801',
 
         // [필수] 영수, 청구 중 기재
         purposeType: '영수',
@@ -1390,7 +1386,7 @@ router.get('/FAXSend', function (req, res, next) {
             {
                 serialNum: 1,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명',
-                purchaseDT: '20190917',      // 구매일자
+                purchaseDT: '20210801',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -1401,7 +1397,7 @@ router.get('/FAXSend', function (req, res, next) {
             {
                 serialNum: 2,                // 품목 일련번호 1부터 순차기재
                 itemName: '품명2',
-                purchaseDT: '20190917',      // 구매일자
+                purchaseDT: '20210801',      // 구매일자
                 qty: '1',                    // 수량
                 unitCost: '10000',           // 단가
                 spec: '규격',                 // 규격
@@ -1434,7 +1430,7 @@ router.get('/FAXSend', function (req, res, next) {
 });
 
 /*
- * 전자명세서에 다른 전자명세서 1건을 첨부합니다.
+ * 하나의 전자명세서에 다른 전자명세서를 첨부합니다.
  * - https://docs.popbill.com/statement/node/api#AttachStatement
  */
 router.get('/attachStatement', function (req, res, next) {
@@ -1446,13 +1442,13 @@ router.get('/attachStatement', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     // 첨부할 명세서 종류코드
     var subItemCode = 121;
 
     // 첨부할 명세서 문서번호
-    var subMgtKey = '20190109-002';
+    var subMgtKey = '20210801-S002';
 
     statementService.attachStatement(testCorpNum, itemCode, mgtKey, subItemCode, subMgtKey,
         function (result) {
@@ -1463,7 +1459,7 @@ router.get('/attachStatement', function (req, res, next) {
 });
 
 /*
- * 전자명세서에 첨부된 다른 전자명세서를 첨부해제합니다.
+ * 하나의 전자명세서에 첨부된 다른 전자명세서를 해제합니다.
  * - https://docs.popbill.com/statement/node/api#DetachStatement
  */
 router.get('/detachStatement', function (req, res, next) {
@@ -1475,13 +1471,13 @@ router.get('/detachStatement', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20190109-001';
+    var mgtKey = '20210801-001';
 
     // 첨부해제할 명세서 종류코드
     var subItemCode = 121;
 
     // 첨부해제할 명세서 문서번호
-    var subMgtKey = '20190917-002';
+    var subMgtKey = '20210801-002';
 
     statementService.detachStatement(testCorpNum, itemCode, mgtKey, subItemCode, subMgtKey,
         function (result) {
@@ -1492,7 +1488,7 @@ router.get('/detachStatement', function (req, res, next) {
 });
 
 /*
- * 전자명세서 관련 메일전송 항목에 대한 전송여부를 목록으로 반환합니다.
+ * 전자명세서 관련 메일 항목에 대한 발송설정을 확인합니다.
  * - https://docs.popbill.com/statement/node/api#ListEmailConfig
  */
 router.get('/listEmailConfig', function (req, res, next) {
@@ -1509,7 +1505,7 @@ router.get('/listEmailConfig', function (req, res, next) {
 });
 
 /*
- * 전자명세서 관련 메일전송 항목에 대한 전송여부를 수정합니다.
+ * 전자명세서 관련 메일 항목에 대한 발송설정을 수정합니다.
  * - https://docs.popbill.com/statement/node/api#UpdateEmailConfig
  *
  * 메일전송유형
@@ -1557,8 +1553,8 @@ router.get('/getBalance', function (req, res, next) {
 });
 
 /*
- * 팝빌 연동회원 포인트 충전 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetChargeURL
  */
 router.get('/getChargeURL', function (req, res, next) {
@@ -1596,8 +1592,8 @@ router.get('/getPartnerBalance', function (req, res, next) {
 });
 
 /*
- * 파트너 포인트 충전 팝업 URL을 반환합니다.
- * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ * 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetPartnerURL
  */
 router.get('/getPartnerURL', function (req, res, next) {
@@ -1617,7 +1613,7 @@ router.get('/getPartnerURL', function (req, res, next) {
 });
 
 /*
- * 전자명세서 발행단가를 확인합니다.
+ * 전자명세서 발행시 과금되는 포인트 단가를 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetUnitCost
  */
 router.get('/getUnitCost', function (req, res, next) {
@@ -1637,7 +1633,7 @@ router.get('/getUnitCost', function (req, res, next) {
 });
 
 /*
- * 전자명세서 API 서비스 과금정보를 확인합니다.
+ * 팝빌 전자명세서 API 서비스 과금정보를 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetChargeInfo
  */
 router.get('/getChargeInfo', function (req, res, next) {
@@ -1657,7 +1653,7 @@ router.get('/getChargeInfo', function (req, res, next) {
 });
 
 /*
- * 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
+ * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://docs.popbill.com/statement/node/api#CheckIsMember
  */
 router.get('/checkIsMember', function (req, res, next) {
@@ -1674,7 +1670,7 @@ router.get('/checkIsMember', function (req, res, next) {
 });
 
 /*
- * 팝빌 회원아이디 중복여부를 확인합니다.
+ * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://docs.popbill.com/statement/node/api#CheckID
  */
 router.get('/checkID', function (req, res, next) {
@@ -1691,7 +1687,7 @@ router.get('/checkID', function (req, res, next) {
 });
 
 /*
- * 팝빌 연동회원 가입을 요청합니다.
+ * 사용자를 연동회원으로 가입처리합니다.
  * - https://docs.popbill.com/statement/node/api#JoinMember
  */
 router.get('/joinMember', function (req, res, next) {
@@ -1766,7 +1762,7 @@ router.get('/getCorpInfo', function (req, res, next) {
 });
 
 /*
- * 연동회원의 회사정보를 수정합니다
+ * 연동회원의 회사정보를 수정합니다.
  * - https://docs.popbill.com/statement/node/api#UpdateCorpInfo
  */
 router.get('/updateCorpInfo', function (req, res, next) {
@@ -1803,7 +1799,7 @@ router.get('/updateCorpInfo', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자를 신규로 등록합니다.
+ * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://docs.popbill.com/statement/node/api#RegistContact
  */
 router.get('/registContact', function (req, res, next) {
@@ -1848,7 +1844,7 @@ router.get('/registContact', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자 목록을 확인합니다.
+ * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://docs.popbill.com/statement/node/api#ListContact
  */
 router.get('/listContact', function (req, res, next) {
@@ -1865,7 +1861,7 @@ router.get('/listContact', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자 정보를 수정합니다.
+ * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://docs.popbill.com/statement/node/api#UpdateContact
  */
 router.get('/updateContact', function (req, res, next) {

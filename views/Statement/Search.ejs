@@ -25,10 +25,10 @@
                 <legend>조회결과 [ <%= ((result.pageNum - 1) * result.perPage) + (index + 1) %> / <%= result.total %>]
                 </legend>
                 <ul>
-                    <li> itemCode (문서종류코드) : <%= searchInfo.itemCode %></li>
-                    <li> itemKey (팝빌 관리번호) : <%= searchInfo.itemKey %></li>
+                    <li> itemCode (명세서 코드) : <%= searchInfo.itemCode %></li>
+                    <li> itemKey (팝빌번호) : <%= searchInfo.itemKey %></li>
                     <li> invoiceNum (문서고유번호) : <%= searchInfo.invoiceNum %></li>
-                    <li> mgtKey (문서관리번호) : <%= searchInfo.mgtKey %></li>
+                    <li> mgtKey (문서번호) : <%= searchInfo.mgtKey %></li>
                     <li> taxType (세금형태) : <%= searchInfo.taxType %></li>
                     <li> writeDate (작성일자) : <%= searchInfo.writeDate %></li>
                     <li> regDT (임시저장일시) : <%= searchInfo.regDT %></li>

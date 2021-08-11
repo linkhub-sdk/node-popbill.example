@@ -86,8 +86,8 @@ router.get('/getBalance', function (req, res, next) {
 });
 
 /*
- * 팝빌 연동회원 포인트 충전 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  */
 router.get('/getChargeURL', function (req, res, next) {
 
@@ -123,8 +123,8 @@ router.get('/getPartnerBalance', function (req, res, next) {
 });
 
 /*
- * 파트너 포인트 충전 팝업 URL을 반환합니다.
- * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ * 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  */
 router.get('/getPartnerURL', function (req, res, next) {
 
@@ -175,7 +175,7 @@ router.get('/getChargeInfo', function (req, res, next) {
 });
 
 /*
- * 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
+ * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  */
 router.get('/checkIsMember', function (req, res, next) {
 
@@ -191,7 +191,7 @@ router.get('/checkIsMember', function (req, res, next) {
 });
 
 /*
- * 팝빌 회원아이디 중복여부를 확인합니다.
+ * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  */
 router.get('/checkID', function (req, res, next) {
 
@@ -207,7 +207,7 @@ router.get('/checkID', function (req, res, next) {
 });
 
 /*
- * 팝빌 연동회원 가입을 요청합니다.
+ * 사용자를 연동회원으로 가입처리합니다.
  */
 router.get('/joinMember', function (req, res, next) {
 
@@ -264,7 +264,7 @@ router.get('/joinMember', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자를 신규로 등록합니다.
+ * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  */
 router.get('/registContact', function (req, res, next) {
 
@@ -309,7 +309,7 @@ router.get('/registContact', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자 목록을 확인합니다.
+ * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  */
 router.get('/listContact', function (req, res, next) {
 
@@ -325,7 +325,7 @@ router.get('/listContact', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자 정보를 수정합니다.
+ * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  */
 router.get('/updateContact', function (req, res, next) {
 
@@ -423,8 +423,8 @@ router.get('/updateCorpInfo', function (req, res, next) {
 });
 
 /*
- * 팝빌(www.popbill.com)에 로그인된 팝빌 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  */
 router.get('/getAccessURL', function (req, res, next) {
 

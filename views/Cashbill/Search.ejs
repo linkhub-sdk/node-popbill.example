@@ -25,9 +25,9 @@
                 <legend>조회결과 [ <%= ((result.pageNum - 1) * result.perPage) + (index + 1) %> / <%= result.total %>]
                 </legend>
                 <ul>
-                    <li> itemKey (아이템키) : <%= cashbillInfo.itemKey %></li>
+                    <li> itemKey (팝빌번호) : <%= cashbillInfo.itemKey %></li>
                     <li> confirmNum (국세청 승인번호) : <%= cashbillInfo.confirmNum %></li>
-                    <li> mgtKey (문서관리번호) : <%= cashbillInfo.mgtKey %></li>
+                    <li> mgtKey (문서번호) : <%= cashbillInfo.mgtKey %></li>
                     <li> tradeDate (거래일자) : <%= cashbillInfo.tradeDate %></li>
                     <li> issueDT (발행일시) : <%= cashbillInfo.issueDT %></li>
                     <li> regDT (등록일시) : <%= cashbillInfo.regDT %></li>

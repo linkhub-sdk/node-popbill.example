@@ -47,8 +47,9 @@ router.get('/', function (req, res, next) {
 });
 
 /*
- * 현금영수증 문서번호 중복여부를 확인합니다.
- * - 문서번호는 1~24자리로 숫자, 영문 '-', '_' 조합으로 구성할 수 있습니다.
+ * 파트너가 현금영수증 관리 목적으로 할당하는 문서번호 사용여부를 확인합니다.
+ * - 이미 사용 중인 문서번호는 중복 사용이 불가하며 현금영수증이 삭제된 경우에만 문서번호의 재사용이 가능합니다.
+ * - 문서번호는 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성 합니다.
  * - https://docs.popbill.com/cashbill/node/api#CheckMgtKeyInUse
  */
 router.get('/checkMgtKeyInUse', function (req, res, next) {
@@ -57,7 +58,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20201120-001';
+    var mgtKey = '20210801-001';
 
     cashbillService.checkMgtKeyInUse(testCorpNum, mgtKey,
         function (result) {
@@ -72,7 +73,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
 });
 
 /*
- * 1건의 현금영수증을 [즉시발행]합니다.
+ * 작성된 현금영수증 데이터를 팝빌에 저장과 동시에 발행하여 "발행완료" 상태로 처리합니다.
  * - 현금영수증 국세청 전송 정책 : https://docs.popbill.com/cashbill/ntsSendPolicy?lang=node
  * - https://docs.popbill.com/cashbill/node/api#RegistIssue
  */
@@ -84,8 +85,8 @@ router.get('/registIssue', function (req, res, next) {
     // 팝빌회원 아이디
     var testUserID = 'testkorea';
 
-    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var MgtKey = '20201120-003';
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
+    var MgtKey = '20210801-003';
 
     // 현금영수증 상태메모
     var stateMemo = '발행메모';
@@ -194,8 +195,8 @@ router.get('/register', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var MgtKey = '20201123-001';
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
+    var MgtKey = '20210801-001';
 
     // 현금영수증 항목
     var cashbill = {
@@ -294,8 +295,8 @@ router.get('/update', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var MgtKey = '20201123-002';
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
+    var MgtKey = '20210801-002';
 
     // 현금영수증 항목
     var cashbill = {
@@ -395,7 +396,7 @@ router.get('/issue', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20201123-001';
+    var mgtKey = '20210801-001';
 
     // 메모
     var memo = '발행메모';
@@ -409,9 +410,8 @@ router.get('/issue', function (req, res, next) {
 });
 
 /*
- * [발행완료] 상태의 현금영수증을 [발행취소]합니다.
- * - 발행취소는 국세청 전송전에만 가능합니다.
- * - 발행취소된 현금영수증은 국세청에 전송되지 않습니다.
+ * 국세청 전송 이전 "발행완료" 상태의 현금영수증을 "발행취소"하고 국세청 신고 대상에서 제외합니다.
+ * - Delete(삭제)함수를 호출하여 "발행취소" 상태의 현금영수증을 삭제하면, 문서번호 재사용이 가능합니다.
  * - https://docs.popbill.com/cashbill/node/api#CancelIssue
  */
 router.get('/cancelIssue', function (req, res, next) {
@@ -420,7 +420,7 @@ router.get('/cancelIssue', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20201123-001';
+    var mgtKey = '20210801-001';
 
     // 메모
     var memo = '발행취소 메모';
@@ -434,7 +434,8 @@ router.get('/cancelIssue', function (req, res, next) {
 });
 
 /*
- * 1건의 현금영수증을 [삭제]합니다.
+ * 삭제 가능한 상태의 현금영수증을 삭제합니다.
+ * - 삭제 가능한 상태: "임시저장", "발행취소", "전송실패"
  * - 현금영수증을 삭제하면 사용된 문서번호(mgtKey)를 재사용할 수 있습니다.
  * - https://docs.popbill.com/cashbill/node/api#Delete
  */
@@ -444,7 +445,7 @@ router.get('/delete', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20201123-001';
+    var mgtKey = '20210801-001';
 
     cashbillService.delete(testCorpNum, mgtKey,
         function (result) {
@@ -455,7 +456,7 @@ router.get('/delete', function (req, res, next) {
 });
 
 /*
- * 1건의 취소현금영수증을 [즉시발행]합니다.
+ * 취소 현금영수증 데이터를 팝빌에 저장과 동시에 발행하여 "발행완료" 상태로 처리합니다.
  * - 현금영수증 국세청 전송 정책 : https://docs.popbill.com/cashbill/ntsSendPolicy?lang=node
  * - https://docs.popbill.com/cashbill/node/api#RevokeRegistIssue
  */
@@ -464,8 +465,8 @@ router.get('/revokeRegistIssue', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var mgtKey = '20201123-101';
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
+    var mgtKey = '20210801-101';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
@@ -473,7 +474,7 @@ router.get('/revokeRegistIssue', function (req, res, next) {
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    orgTradeDate = '20190104';
+    orgTradeDate = '20210801';
 
     cashbillService.revokeRegistIssue(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate,
         function (result) {
@@ -484,7 +485,8 @@ router.get('/revokeRegistIssue', function (req, res, next) {
 });
 
 /*
- * 1건의 (부분)취소현금영수증을 [즉시발행]합니다.
+ * 작성된 (부분)취소 현금영수증 데이터를 팝빌에 저장과 동시에 발행하여 "발행완료" 상태로 처리합니다.
+ * - 취소 현금영수증의 금액은 원본 금액을 넘을 수 없습니다.
  * - 현금영수증 국세청 전송 정책 : https://docs.popbill.com/cashbill/ntsSendPolicy?lang=node
  * - https://docs.popbill.com/cashbill/node/api#RevokeRegistIssue
  */
@@ -496,8 +498,8 @@ router.get('/revokeRegistIssue_part', function (req, res, next) {
     // 팝빌회원 아이디
     var testUserID = 'testkorea';
 
-    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var mgtKey = '20201123-102';
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
+    var mgtKey = '20210801-102';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
@@ -505,7 +507,7 @@ router.get('/revokeRegistIssue_part', function (req, res, next) {
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    var orgTradeDate = '20201120';
+    var orgTradeDate = '20210801';
 
     // 안내문자 전송여부
     var smssendYN = false;
@@ -550,8 +552,8 @@ router.get('/revokeRegister', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var mgtKey = '20201123-103';
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
+    var mgtKey = '20210801-103';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
@@ -559,7 +561,7 @@ router.get('/revokeRegister', function (req, res, next) {
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    orgTradeDate = '20201120';
+    orgTradeDate = '20210801';
 
     cashbillService.revokeRegister(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate,
         function (result) {
@@ -582,8 +584,8 @@ router.get('/revokeRegister_part', function (req, res, next) {
     // 팝빌회원 아이디
     var testUserID = 'testkorea';
 
-    // 문서번호, 1~24자리 숫자, 영문, '-', '_'를 조합하여 사업자별로 중복되지 않도록 작성
-    var mgtKey = '20201123-004';
+    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
+    var mgtKey = '20210801-004';
 
     // 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
@@ -591,7 +593,7 @@ router.get('/revokeRegister_part', function (req, res, next) {
 
     // 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    var orgTradeDate = '20201120';
+    var orgTradeDate = '20210801';
 
     // 안내문자 전송여부
     var smssendYN = false;
@@ -624,7 +626,7 @@ router.get('/revokeRegister_part', function (req, res, next) {
 });
 
 /*
- * 1건의 현금영수증 상태/요약 정보를 확인합니다.
+ * 현금영수증 1건의 상태 및 요약정보를 확인합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetInfo
  */
 router.get('/getInfo', function (req, res, next) {
@@ -633,7 +635,7 @@ router.get('/getInfo', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20201120-001';
+    var mgtKey = '20210801-001';
 
     cashbillService.getInfo(testCorpNum, mgtKey,
         function (result) {
@@ -644,7 +646,7 @@ router.get('/getInfo', function (req, res, next) {
 });
 
 /*
- * 대량의 현금영수증 상태/요약 정보를 확인합니다. (최대 1000건)
+ * 다수건의 현금영수증 상태 및 요약 정보를 확인합니다. (1회 호출 시 최대 1,000건 확인 가능)
  * - https://docs.popbill.com/cashbill/node/api#GetInfos
  */
 router.get('/getInfos', function (req, res, next) {
@@ -653,7 +655,7 @@ router.get('/getInfos', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호 배열, 최대 1000건
-    var mgtKeyList = ['20201120-001', '20201120-002', '20201120-003'];
+    var mgtKeyList = ['20210801-001', '20210801-002', '20210801-003'];
 
     cashbillService.getInfos(testCorpNum, mgtKeyList,
         function (result) {
@@ -664,7 +666,7 @@ router.get('/getInfos', function (req, res, next) {
 });
 
 /*
- * 현금영수증 1건의 상세정보를 조회합니다.
+ * 현금영수증 1건의 상세정보를 확인합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetDetailInfo
  */
 router.get('/getDetailInfo', function (req, res, next) {
@@ -673,7 +675,7 @@ router.get('/getDetailInfo', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20201123-001';
+    var mgtKey = '20210801-001';
 
     cashbillService.getDetailInfo(testCorpNum, mgtKey,
         function (result) {
@@ -684,7 +686,7 @@ router.get('/getDetailInfo', function (req, res, next) {
 });
 
 /*
- * 검색조건을 사용하여 현금영수증 목록을 조회합니다.
+ * 검색조건에 해당하는 현금영수증을 조회합니다.
  * - https://docs.popbill.com/cashbill/node/api#Search
  */
 router.get('/search', function (req, res, next) {
@@ -696,10 +698,10 @@ router.get('/search', function (req, res, next) {
     var DType = 'R';
 
     // 시작일자, 작성형식(yyyyMMdd)
-    var SDate = '20201001';
+    var SDate = '20210801';
 
     // 종료일자, 작성형식(yyyyMMdd)
-    var EDate = '20201101';
+    var EDate = '20210810';
 
     // 문서상태코드 배열, 2,3번째 자리에 와일드카드(*) 사용가능
     var State = ['1**', '3**', '4**'];
@@ -738,7 +740,7 @@ router.get('/search', function (req, res, next) {
 });
 
 /*
- * 현금영수증 상태 변경이력을 확인합니다.
+ * 현금영수증의 상태에 대한 변경이력을 확인합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetLogs
  */
 router.get('/getLogs', function (req, res, next) {
@@ -747,7 +749,7 @@ router.get('/getLogs', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20201120-01';
+    var mgtKey = '20210801-01';
 
     cashbillService.getLogs(testCorpNum, mgtKey,
         function (result) {
@@ -758,7 +760,8 @@ router.get('/getLogs', function (req, res, next) {
 });
 
 /*
- * 팝빌 현금영수증 문서함 팝업 URL을 반환합니다.
+ * 로그인 상태로 팝빌 사이트의 현금영수증 문서함 메뉴에 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetURL
  */
 router.get('/getURL', function (req, res, next) {
@@ -778,8 +781,8 @@ router.get('/getURL', function (req, res, next) {
 });
 
 /*
- * 1건의 현금영수증 보기 팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 팝빌 사이트와 동일한 현금영수증 1건의 상세 정보 페이지의 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetPopUpURL
  */
 router.get('/getPopUpURL', function (req, res, next) {
@@ -788,7 +791,7 @@ router.get('/getPopUpURL', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20201120-001';
+    var mgtKey = '20210801-001';
 
     cashbillService.getPopUpURL(testCorpNum, mgtKey,
         function (url) {
@@ -799,8 +802,8 @@ router.get('/getPopUpURL', function (req, res, next) {
 });
 
 /*
- * 1건의 현금영수증 PDF 다운로드 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 현금영수증 PDF 파일을 다운 받을 수 있는 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
   * - https://docs.popbill.com/cashbill/node/api#GetPDFURL
  */
 router.get('/getPDFURL', function (req, res, next) {
@@ -809,7 +812,7 @@ router.get('/getPDFURL', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20201120-002';
+    var mgtKey = '20210801-002';
 
     cashbillService.getPDFURL(testCorpNum, mgtKey,
         function (url) {
@@ -829,10 +832,10 @@ router.get('/getPDF', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20201116-N001';
+    var mgtKey = '20210801-N001';
 
     //파일 저장 경로
-    var filepath = './Cashbill_20201116-N001.pdf';
+    var filepath = './Cashbill_20210801-N001.pdf';
 
     cashbillService.getPDF(testCorpNum, mgtKey,
         function (bufPDF) {
@@ -849,8 +852,8 @@ router.get('/getPDF', function(req, res, next) {
 });
 
 /*
- * 1건의 현금영수증 인쇄팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 현금영수증 1건을 인쇄하기 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetPrintURL
  */
 router.get('/getPrintURL', function (req, res, next) {
@@ -859,7 +862,7 @@ router.get('/getPrintURL', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     cashbillService.getPrintURL(testCorpNum, mgtKey,
         function (url) {
@@ -870,8 +873,8 @@ router.get('/getPrintURL', function (req, res, next) {
 });
 
 /*
- * 대량의 현금영수증 인쇄팝업 URL을 반환합니다. (최대 100건)
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 다수건의 현금영수증을 인쇄하기 위한 페이지의 팝업 URL을 반환합니다. (최대 100건)
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetMassPrintURL
  */
 router.get('/getMassPrintURL', function (req, res, next) {
@@ -880,7 +883,7 @@ router.get('/getMassPrintURL', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호 배열, 최대 100건
-    var mgtKeyList = ['20190917-001', '20190917-002', '20190917-002'];
+    var mgtKeyList = ['20210801-001', '20210801-002', '20210801-002'];
 
     cashbillService.getMassPrintURL(testCorpNum, mgtKeyList,
         function (url) {
@@ -891,8 +894,8 @@ router.get('/getMassPrintURL', function (req, res, next) {
 });
 
 /*
- * 현금영수증 수신메일 링크주소를 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 구매자가 수신하는 현금영수증 안내 메일의 하단에 버튼 URL 주소를 반환합니다.
+ * - 함수 호출로 반환 받은 URL에는 유효시간이 없습니다.
  * - https://docs.popbill.com/cashbill/node/api#GetMailURL
  */
 router.get('/getMailURL', function (req, res, next) {
@@ -901,7 +904,7 @@ router.get('/getMailURL', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     cashbillService.getMailURL(testCorpNum, mgtKey,
         function (url) {
@@ -912,8 +915,8 @@ router.get('/getMailURL', function (req, res, next) {
 });
 
 /*
- * 팝빌에 로그인 상태로 접근할 수 있는 팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetAccessURL
  */
 router.get('/getAccessURL', function (req, res, next) {
@@ -933,7 +936,7 @@ router.get('/getAccessURL', function (req, res, next) {
 });
 
 /*
- * 현금영수증 발행 안내메일을 재전송합니다.
+ * 현금영수증과 관련된 안내 메일을 재전송 합니다.
  * - https://docs.popbill.com/cashbill/node/api#SendEmail
  */
 router.get('/sendEmail', function (req, res, next) {
@@ -942,7 +945,7 @@ router.get('/sendEmail', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     // 수신메일주소
     // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
@@ -958,9 +961,8 @@ router.get('/sendEmail', function (req, res, next) {
 });
 
 /*
- * 알림문자를 전송합니다. (단문/SMS - 한글 최대 45자)
+ * 현금영수증과 관련된 안내 SMS(단문) 문자를 재전송하는 함수로, 팝빌 사이트 [문자·팩스] > [문자] > [전송내역] 메뉴에서 전송결과를 확인 할 수 있습니다.
  * - 알림문자 전송시 포인트가 차감됩니다. (전송실패시 환불처리)
- * - 전송내역 확인은 "팝빌 로그인" > [문자 팩스] > [문자] > [전송내역] 탭에서 전송결과를 확인할 수 있습니다.
  * - https://docs.popbill.com/cashbill/node/api#SendSMS
  */
 router.get('/sendSMS', function (req, res, next) {
@@ -969,7 +971,7 @@ router.get('/sendSMS', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     // 발신번호
     var senderNum = '07043042991';
@@ -989,9 +991,8 @@ router.get('/sendSMS', function (req, res, next) {
 });
 
 /*
- * 현금영수증을 팩스전송합니다.
+ * 현금영수증을 팩스로 전송하는 함수로, 팝빌 사이트 [문자·팩스] > [팩스] > [전송내역] 메뉴에서 전송결과를 확인 할 수 있습니다.
  * - 팩스 전송 요청시 포인트가 차감됩니다. (전송실패시 환불처리)
- * - 전송내역 확인은 "팝빌 로그인" > [문자 팩스] > [팩스] > [전송내역] 메뉴에서 전송결과를 확인할 수 있습니다.
  * - https://docs.popbill.com/cashbill/node/api#SendFAX
  */
 router.get('/sendFAX', function (req, res, next) {
@@ -1000,7 +1001,7 @@ router.get('/sendFAX', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20190917-001';
+    var mgtKey = '20210801-001';
 
     // 발신번호
     var senderNum = '07043042991';
@@ -1017,7 +1018,7 @@ router.get('/sendFAX', function (req, res, next) {
 });
 
 /*
- * 현금영수증 관련 메일전송 항목에 대한 전송여부를 목록을 반환합니다.
+ * 현금영수증 관련 메일 항목에 대한 발송설정을 확인합니다.
  * - https://docs.popbill.com/cashbill/node/api#ListEmailConfig
  */
 router.get('/listEmailConfig', function (req, res, next) {
@@ -1034,7 +1035,7 @@ router.get('/listEmailConfig', function (req, res, next) {
 });
 
 /*
- * 현금영수증 관련 메일전송 항목에 대한 전송여부를 수정합니다.
+ * 현금영수증 관련 메일 항목에 대한 발송설정을 수정합니다.
  * - https://docs.popbill.com/cashbill/node/api#UpdateEmailConfig
  *
  * 메일전송유형
@@ -1061,19 +1062,19 @@ router.get('/updateEmailConfig', function (req, res, next) {
 });
 
 /*
- * 팝빌사이트에서 작성된 현금영수증에 파트너 문서번호를 할당합니다.
+ * 팝빌 사이트를 통해 발행하였지만 문서번호가 존재하지 않는 현금영수증에 문서번호를 할당합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#AssignMgtKey */
 router.get('/assignMgtKey', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 현금영수증 아이템키, 문서 목록조회(Search) API의 반환항목중 ItemKey 참조
-    var itemKey = '020021116561000001';
+    // 현금영수증 팝빌번호, 문서 목록조회(Search) API의 반환항목중 ItemKey 참조
+    var itemKey = '021021116561000001';
 
     // 할당할 문서번호, 숫자, 영문 '-', '_' 조합으로 최대 24자리 식별키 구성
     // 사업자번호별 중복없는 고유번호 할당
-    var mgtKey = '20200724-04';
+    var mgtKey = '20210801-04';
 
     cashbillService.assignMgtKey(testCorpNum, itemKey, mgtKey,
         function (result) {
@@ -1102,8 +1103,8 @@ router.get('/getBalance', function (req, res, next) {
 });
 
 /*
- * 팝빌 연동회원 포인트 충전 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetChargeURL
  */
 router.get('/getChargeURL', function (req, res, next) {
@@ -1141,8 +1142,8 @@ router.get('/getPartnerBalance', function (req, res, next) {
 });
 
 /*
- * 파트너 포인트 충전 팝업 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetPartnerURL
  */
 router.get('/getPartnerURL', function (req, res, next) {
@@ -1162,7 +1163,7 @@ router.get('/getPartnerURL', function (req, res, next) {
 });
 
 /*
- * 현금영수증 발행단가를 확인합니다.
+ * 현금영수증 발행시 과금되는 포인트 단가를 확인합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetUnitCost
  */
 router.get('/getUnitCost', function (req, res, next) {
@@ -1179,7 +1180,7 @@ router.get('/getUnitCost', function (req, res, next) {
 });
 
 /*
- * 현금영수증 API 서비스 과금정보를 확인합니다.
+ * 팝빌 현금영수증 API 서비스 과금정보를 확인합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetChargeInfo
  */
 router.get('/getChargeInfo', function (req, res, next) {
@@ -1196,7 +1197,7 @@ router.get('/getChargeInfo', function (req, res, next) {
 });
 
 /*
- * 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
+ * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://docs.popbill.com/cashbill/node/api#CheckIsMember
  */
 router.get('/checkIsMember', function (req, res, next) {
@@ -1213,7 +1214,7 @@ router.get('/checkIsMember', function (req, res, next) {
 });
 
 /*
- * 팝빌 회원아이디 중복여부를 확인합니다.
+ * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://docs.popbill.com/cashbill/node/api#CheckID
  */
 router.get('/checkID', function (req, res, next) {
@@ -1230,7 +1231,7 @@ router.get('/checkID', function (req, res, next) {
 });
 
 /*
- * 팝빌 연동회원 가입을 요청합니다.
+ * 사용자를 연동회원으로 가입처리합니다.
  * - https://docs.popbill.com/cashbill/node/api#JoinMember
  */
 router.get('/joinMember', function (req, res, next) {
@@ -1342,7 +1343,7 @@ router.get('/updateCorpInfo', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자를 신규로 등록합니다.
+ * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://docs.popbill.com/cashbill/node/api#RegistContact
  */
 router.get('/registContact', function (req, res, next) {
@@ -1388,7 +1389,7 @@ router.get('/registContact', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자 목록을 확인합니다.
+ * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://docs.popbill.com/cashbill/node/api#ListContact
  */
 router.get('/listContact', function (req, res, next) {
@@ -1405,7 +1406,7 @@ router.get('/listContact', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자 정보를 수정합니다.
+ * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://docs.popbill.com/cashbill/node/api#UpdateContact
  */
 router.get('/updateContact', function (req, res, next) {

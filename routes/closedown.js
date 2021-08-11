@@ -35,8 +35,8 @@ popbill.config({
 });
 
 /*
-* 휴폐업조회 API 모듈초기화
-*/
+ * 휴폐업조회 API 모듈초기화
+ */
 var closedownService = popbill.ClosedownService();
 
 router.get('/', function (req, res, next) {
@@ -44,7 +44,7 @@ router.get('/', function (req, res, next) {
 });
 
 /*
- * 1건의 사업자에 대한 휴폐업여부를 조회합니다.
+ * 사업자번호 1건에 대한 휴폐업정보를 확인합니다.
  * - https://docs.popbill.com/closedown/node/api#CheckCorpNum
  */
 router.get('/checkCorpNum', function (req, res, next) {
@@ -70,7 +70,7 @@ router.get('/checkCorpNum', function (req, res, next) {
 });
 
 /*
- * 대량의 사업자에 대한 휴폐업여부를 조회합니다. (최대 1000건)
+ * 다수건의 사업자번호에 대한 휴폐업정보를 확인합니다. (최대 1,000건)
  * - https://docs.popbill.com/closedown/node/api#CheckCorpNums
  */
 router.get('/checkCorpNums', function (req, res, next) {
@@ -108,8 +108,8 @@ router.get('/getBalance', function (req, res, next) {
 });
 
 /*
- * 팝빌 연동회원 포인트 충전 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/closedown/node/api#GetChargeURL
  */
 router.get('/getChargeURL', function (req, res, next) {
@@ -147,8 +147,8 @@ router.get('/getPartnerBalance', function (req, res, next) {
 });
 
 /*
- * 파트너 포인트 충전 팝업 URL을 반환합니다.
- * - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+ * 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/closedown/node/api#GetPartnerURL
  */
 router.get('/getPartnerURL', function (req, res, next) {
@@ -168,7 +168,7 @@ router.get('/getPartnerURL', function (req, res, next) {
 });
 
 /*
- * 휴폐업조회 단가를 확인합니다.
+ * 휴폐업 조회시 과금되는 포인트 단가를 확인합니다.
  * - https://docs.popbill.com/closedown/node/api#GetUnitCost
  */
 router.get('/getUnitCost', function (req, res, next) {
@@ -202,7 +202,7 @@ router.get('/getChargeInfo', function (req, res, next) {
 });
 
 /*
- * 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
+ * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://docs.popbill.com/closedown/node/api#CheckIsMember
  */
 router.get('/checkIsMember', function (req, res, next) {
@@ -219,7 +219,7 @@ router.get('/checkIsMember', function (req, res, next) {
 });
 
 /*
- * 팝빌 회원아이디 중복여부를 확인합니다.
+ * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://docs.popbill.com/closedown/node/api#CheckID
  */
 router.get('/checkID', function (req, res, next) {
@@ -236,7 +236,7 @@ router.get('/checkID', function (req, res, next) {
 });
 
 /*
- * 팝빌 연동회원 가입을 요청합니다.
+ * 사용자를 연동회원으로 가입처리합니다.
  * - https://docs.popbill.com/closedown/node/api#JoinMember
  */
 router.get('/joinMember', function (req, res, next) {
@@ -294,7 +294,7 @@ router.get('/joinMember', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자를 신규로 등록합니다.
+ * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://docs.popbill.com/closedown/node/api#RegistContact
  */
 router.get('/registContact', function (req, res, next) {
@@ -340,7 +340,7 @@ router.get('/registContact', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자 목록을 확인합니다.
+ * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://docs.popbill.com/closedown/node/api#ListContact
  */
 router.get('/listContact', function (req, res, next) {
@@ -357,7 +357,7 @@ router.get('/listContact', function (req, res, next) {
 });
 
 /*
- * 연동회원의 담당자 정보를 수정합니다.
+ * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://docs.popbill.com/closedown/node/api#UpdateContact
  */
 router.get('/updateContact', function (req, res, next) {
@@ -458,8 +458,8 @@ router.get('/updateCorpInfo', function (req, res, next) {
 });
 
 /*
- * 팝빌(www.popbill.com)에 로그인된 팝빌 URL을 반환합니다.
- * - 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+ * 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/closedown/node/api#GetAccessURL
  */
 router.get('/getAccessURL', function (req, res, next) {
