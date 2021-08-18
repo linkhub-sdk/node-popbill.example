@@ -16,6 +16,9 @@
             <% if (typeof ntsConfirmNum  != 'undefined') { %>
               <li>국세청승인번호 (Response.ntsConfirmNum) : <%= ntsConfirmNum %></li>
             <% } %>
+            <% if (typeof receiptID != 'undefined') { %>
+                <li>접수아이디 (Response.receiptID) : <%= receiptID%></li>
+            <% } %>
         </ul>
     </fieldset>
 </div>
