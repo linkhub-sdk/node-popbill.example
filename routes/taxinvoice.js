@@ -2398,7 +2398,7 @@ router.get('/updateEmailConfig', function (req, res, next) {
 /*
  * 연동회원의 국세청 전송 옵션 설정 상태를 확인합니다.
  * - 국세청 전송 옵션 설정은 팝빌 사이트 [전자세금계산서] > [환경설정] > [세금계산서 관리] 메뉴에서 설정할 수 있으며, API로 설정은 불가능 합니다.
- * - https://docs.popbill.com/taxinvoice/dotnet/api#GetSendToNTSConfig
+ * - https://docs.popbill.com/taxinvoice/node/api#GetSendToNTSConfig
  */
 router.get('/getSendToNTSConfig', function (req, res, next) {
 
@@ -2503,6 +2503,48 @@ router.get('/getChargeURL', function (req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getChargeURL(testCorpNum, testUserID,
+        function (url) {
+            res.render('result', {path: req.path, result: url});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
+ * 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
+ * - https://docs.popbill.com/taxinvoice/node/api#GetPaymentURL
+ */
+router.get('/getPaymentURL', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    taxinvoiceService.getPaymentURL(testCorpNum, testUserID,
+        function (url) {
+            res.render('result', {path: req.path, result: url});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
+ * 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
+ * - https://docs.popbill.com/taxinvoice/node/api#GetUseHistoryURL
+ */
+router.get('/getUseHistoryURL', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    taxinvoiceService.getUseHistoryURL(testCorpNum, testUserID,
         function (url) {
             res.render('result', {path: req.path, result: url});
         }, function (Error) {
