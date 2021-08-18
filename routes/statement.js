@@ -90,7 +90,7 @@ router.get('/registIssue', function (req, res, next) {
     var ItemCode = 121;
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20210801-005';
+    var MgtKey = '20210818-Node04';
 
     // 메모
     var memo = '';
@@ -102,7 +102,7 @@ router.get('/registIssue', function (req, res, next) {
     var statement = {
 
         // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20210801',
+        writeDate: '20210818',
 
         // [필수] 영수, 청구 중 기재
         purposeType: '영수',
@@ -268,7 +268,7 @@ router.get('/registIssue', function (req, res, next) {
 
     statementService.registIssue(testCorpNum, statement, memo, testUserID, emailSubject,
         function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
+            res.render('Statement/IssueResponse', {path: req.path, code: result.code, message: result.message, invoiceNum: result.invoiceNum});
         }, function (Error) {
             res.render('response', {path: req.path, code: Error.code, message: Error.message});
         });
