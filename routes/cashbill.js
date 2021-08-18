@@ -802,6 +802,27 @@ router.get('/getPopUpURL', function (req, res, next) {
 });
 
 /*
+ * 팝빌 사이트와 동일한 현금영수증 1건의 상세 정보 페이지(사이트 상단, 좌측 메뉴 및 버튼 제외)의 URL을 반환합니다.
+ * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
+ * - https://docs.popbill.com/cashbill/dotnet/api#GetViewURL
+ */
+router.get('/getViewURL', function (req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 문서번호
+    var mgtKey = '20210801-001';
+
+    cashbillService.getViewURL(testCorpNum, mgtKey,
+        function (url) {
+            res.render('result', {path: req.path, result: url});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
  * 현금영수증 PDF 파일을 다운 받을 수 있는 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
   * - https://docs.popbill.com/cashbill/node/api#GetPDFURL
