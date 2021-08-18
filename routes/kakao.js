@@ -147,6 +147,28 @@ router.get('/getATSTemplateMgtURL', function (req, res, next) {
 });
 
 /*
+ * 승인된 알림톡 템플릿 정보를 확인합니다.
+ * - https://docs.popbill.com/kakao/node/api#GetATSTemplate
+ */
+router.get('/getATSTemplate', function (req, res, next) {
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 확인할 템플릿 코드
+    var templateCode = '   021010000078  ';
+
+    // 팝빌 회원아이디
+    var UserID = 'testkorea';
+
+    kakaoService.getATSTemplate(testCorpNum, templateCode, UserID,
+        function (response) {
+            res.render('Kakao/getATSTemplate', {path: req.path, result: response});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
  * 승인된 알림톡 템플릿 목록을 확인합니다.
  * - https://docs.popbill.com/kakao/node/api#ListATSTemplate
  */

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <title>팝빌 SDK Express Example. </title>
+</head>
+<body>
+<div id="content">
+    <p class="heading1">Response</p>
+    <br/>
+    <fieldset class="fieldset1">
+        <legend><%= path %></legend>
+        <ul>
+            <li> templateCode (템플릿 코드) : <%= result.templateCode %></li>
+            <li> templateName (템플릿 제목) : <%= result.templateName %></li>
+            <li> template (템플릿 내용) : <%= result.template %></li>
+            <li> plusFriendID (템플릿 카카오톡 채널 아이디) : <%= result.plusFriendID %></li>
+
+            <% if (result.btns) { %>
+            <% result.btns.forEach(function (btn, index) { %>
+            <fieldset class="fieldset2">
+                <legend> btns (버튼목록) [ <%= index + 1 %> / <%= result.btns.length %> ]</legend>
+                <ul>
+                    <li> n (버튼명) : <%= btn.n %> </li>
+                    <li> t (버튼유형) <%= btn.t %> </li>
+                    <li> u1 ([앱링크] Android [웹링크] Mobile) : <%= btn.u1 %></li>
+                    <li> u2 ([앱링크] IOS [웹링크] PC) : <%= btn.u2 %></li>
+                </ul>
+            </fieldset>
+            <% });} %>
+        </ul>
+    </fieldset>
+</div>
+</body>
+</html>
