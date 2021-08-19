@@ -995,8 +995,8 @@ router.get('/registContact', function (req, res, next) {
         // 이메일 (최대 100자)
         email: 'test@test.co.kr',
 
-        // 전체조회여부, 회사조회(true), 개인조회(false)
-        searchAllAllowYN: true
+        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        searchRole: 3
 
     };
 
@@ -1058,8 +1058,8 @@ router.get('/updateContact', function (req, res, next) {
         // 이메일 (최대 100자)
         email: 'test@test.co.kr',
 
-        // 전체조회여부, 회사조회(true), 개인조회(false)
-        searchAllAllowYN: true
+        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        searchRole: 3
 
     };
 

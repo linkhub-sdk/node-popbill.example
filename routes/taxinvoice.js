@@ -2803,8 +2803,8 @@ router.get('/registContact', function (req, res, next) {
         // 이메일 (최대 100자)
         email: 'test@test.co.kr',
 
-        // 전체조회여부, 회사조회(true), 개인조회(false)
-        searchAllAllowYN: true
+        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        searchRole: 3
     };
 
     taxinvoiceService.registContact(testCorpNum, contactInfo,
@@ -2834,7 +2834,7 @@ router.get('/updateContact', function (req, res, next) {
         id: testUserID,
 
         // 담당자명 (최대 100자)
-        personName: '담당자명0309',
+        personName: '담당자명0319',
 
         // 연락처 (최대 20자)
         tel: '070-4304-2991',
@@ -2848,8 +2848,8 @@ router.get('/updateContact', function (req, res, next) {
         // 이메일 (최대 100자)
         email: 'test@test.co.kr',
 
-        // 전체조회여부, 회사조회(true), 개인조회(false)
-        searchAllAllowYN: true
+        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        searchRole: 3
     };
 
     taxinvoiceService.updateContact(testCorpNum, testUserID, contactInfo,
