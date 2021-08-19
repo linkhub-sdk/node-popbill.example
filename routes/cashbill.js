@@ -86,7 +86,7 @@ router.get('/registIssue', function (req, res, next) {
     var testUserID = 'testkorea';
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20210801-003';
+    var MgtKey = '20210819-003';
 
     // 현금영수증 상태메모
     var stateMemo = '발행메모';
@@ -179,7 +179,7 @@ router.get('/registIssue', function (req, res, next) {
 
     cashbillService.registIssue(testCorpNum, cashbill, stateMemo, testUserID, emailSubject,
         function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
+            res.render('Cashbill/IssueResponse', {path: req.path, code: result.code, message: result.message, confirmNum: result.confirmNum, tradeDate: result.tradeDate});
         }, function (Error) {
             res.render('response', {path: req.path, code: Error.code, message: Error.message});
         });
@@ -196,7 +196,7 @@ router.get('/register', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20210801-001';
+    var MgtKey = '20210818-100';
 
     // 현금영수증 항목
     var cashbill = {
@@ -396,14 +396,14 @@ router.get('/issue', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20210818-100';
 
     // 메모
     var memo = '발행메모';
 
     cashbillService.issue(testCorpNum, mgtKey, memo,
         function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
+            res.render('Cashbill/IssueResponse', {path: req.path, code: result.code, message: result.message, confirmNum: result.confirmNum, tradeDate: result.tradeDate});
         }, function (Error) {
             res.render('response', {path: req.path, code: Error.code, message: Error.message});
         });
@@ -466,19 +466,19 @@ router.get('/revokeRegistIssue', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20210801-101';
+    var mgtKey = '20210818-202';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
-    orgConfirmNum = '081648147';
+    orgConfirmNum = 'TB0000012';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    orgTradeDate = '20210801';
+    orgTradeDate = '20210803';
 
     cashbillService.revokeRegistIssue(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate,
         function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
+            res.render('Cashbill/IssueResponse', {path: req.path, code: result.code, message: result.message, confirmNum: result.confirmNum, tradeDate: result.tradeDate});
         }, function (Error) {
             res.render('response', {path: req.path, code: Error.code, message: Error.message});
         });
@@ -499,15 +499,15 @@ router.get('/revokeRegistIssue_part', function (req, res, next) {
     var testUserID = 'testkorea';
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20210801-102';
+    var mgtKey = '20210818-301';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
-    var orgConfirmNum = '081648147';
+    var orgConfirmNum = 'TB0000012';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    var orgTradeDate = '20210801';
+    var orgTradeDate = '20210803';
 
     // 안내문자 전송여부
     var smssendYN = false;
@@ -536,7 +536,7 @@ router.get('/revokeRegistIssue_part', function (req, res, next) {
     cashbillService.revokeRegistIssue(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN, memo, testUserID,
         isPartCancel, cancelType, supplyCost, tax, serviceFee, totalAmount,
         function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
+            res.render('Cashbill/IssueResponse', {path: req.path, code: result.code, message: result.message, confirmNum: result.confirmNum, tradeDate: result.tradeDate});
         }, function (Error) {
             res.render('response', {path: req.path, code: Error.code, message: Error.message});
         });
@@ -553,11 +553,11 @@ router.get('/revokeRegister', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20210801-103';
+    var mgtKey = '20210801-200';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
-    orgConfirmNum = '081648147';
+    orgConfirmNum = 'TB0000012';
 
     // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
@@ -589,7 +589,7 @@ router.get('/revokeRegister_part', function (req, res, next) {
 
     // 원본 현금영수증 국세청 승인번호
     // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
-    var orgConfirmNum = '081648147';
+    var orgConfirmNum = 'TB0000012';
 
     // 원본 현금영수증 거래일자
     // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
