@@ -681,6 +681,26 @@ router.get('/registContact', function (req, res, next) {
 });
 
 /*
+ * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
+ * - https://docs.popbill.com/htcashbill/node/api#GetContactInfo
+ */
+router.get('/getContactInfo', function (req, res, next) {
+
+    // 팝빌회원 사업자번호
+    var testCorpNum = '1234567890';
+
+    // 확인할 담당자 아이디
+    var contactID = 'checkContactID';
+
+    htCashbillService.getContactInfo(testCorpNum, contactID,
+        function (result) {
+            res.render('Base/getContactInfo', {path: req.path, result: result});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://docs.popbill.com/htcashbill/node/api#ListContact
  */
