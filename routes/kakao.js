@@ -1256,8 +1256,8 @@ router.get('/joinMember', function (req, res, next) {
         // 회원 아이디 (6자 이상 50자 미만)
         ID: 'userid',
 
-        // 회원 비밀번호 (6자 이상 20자 미만)
-        PWD: 'this_is_password',
+        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        Password: 'asdf8536!@#',
 
         // 링크아이디
         LinkID: 'TESTER',
@@ -1338,8 +1338,8 @@ router.get('/registContact', function (req, res, next) {
         // 아이디 (6자 이상 50자 미만)
         id: 'testkorea03033',
 
-        // 비밀번호 (6자 이상 20자 미만)
-        pwd: 'thisispassword',
+        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        Password: 'asdf8536!@#',
 
         // 담당자명 (최대 100자)
         personName: '담당자명0309',
