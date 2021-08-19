@@ -844,35 +844,6 @@ router.get('/getPDFURL', function (req, res, next) {
 });
 
 /*
- * 1건의 현금영수증을 PDF 파일로 저장하기 위한 데이터를 담은 Buffer를 반환합니다.
- * -  https://docs.popbill.com/cashbill/node/api#GetPDF
- */
-router.get('/getPDF', function(req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 문서번호
-    var mgtKey = '20210801-N001';
-
-    //파일 저장 경로
-    var filepath = './Cashbill_20210801-N001.pdf';
-
-    cashbillService.getPDF(testCorpNum, mgtKey,
-        function (bufPDF) {
-            fs.appendFile(filepath, bufPDF, function(err){
-                if (err) {
-                    res.render('response', {path: req.path, code: '-99999999', message: 'PDF 저장 실패'});
-                } else {
-                    res.render('response', {path: req.path, code: "1", message: filepath});
-                }
-            })
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
-        });
-});
-
-/*
  * 현금영수증 1건을 인쇄하기 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/cashbill/node/api#GetPrintURL
