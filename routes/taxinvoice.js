@@ -2376,7 +2376,8 @@ router.get('/getSendToNTSConfig', function (req, res, next) {
 
     // 팝빌회원 아이디
     var testUserID = 'testkorea';
-    taxinvoiceService.getSendToNTSConfig(testCorpNum,
+    
+    taxinvoiceService.getSendToNTSConfig(testCorpNum, testUserID,
         function (result) {
             res.render('Taxinvoice/SendToNTSConfig', {path: req.path, sendToNTSConfig: result});
         }, function (Error) {
