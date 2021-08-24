@@ -188,7 +188,6 @@ router.get('/registIssue', function (req, res, next) {
 /*
  * 1건의 현금영수증을 [임시저장]합니다.
  * - [임시저장] 상태의 현금영수증은 발행(Issue API)을 호출해야만 국세청에 전송됩니다.
- * - https://docs.popbill.com/cashbill/node/api#Register
  */
 router.get('/register', function (req, res, next) {
 
@@ -288,7 +287,6 @@ router.get('/register', function (req, res, next) {
 /*
  * 1건의 현금영수증을 [수정]합니다.
  * - [임시저장] 상태의 현금영수증만 수정할 수 있습니다.
- * - https://docs.popbill.com/cashbill/node/api#Update
  */
 router.get('/update', function (req, res, next) {
 
@@ -388,7 +386,6 @@ router.get('/update', function (req, res, next) {
 /*
  * 1건의 [임시저장] 현금영수증을 [발행]합니다.
  * - 현금영수증 국세청 전송 정책 : https://docs.popbill.com/cashbill/ntsSendPolicy?lang=node
- * - https://docs.popbill.com/cashbill/node/api#CBIssue
  */
 router.get('/issue', function (req, res, next) {
 
@@ -545,7 +542,6 @@ router.get('/revokeRegistIssue_part', function (req, res, next) {
 /*
  * 1건의 취소현금영수증을 [임시저장]합니다.
  * - [임시저장] 상태의 현금영수증은 발행(Issue API)을 호출해야만 국세청에 전송됩니다.
- * - https://docs.popbill.com/cashbill/node/api#RevokeRegister
  */
 router.get('/revokeRegister', function (req, res, next) {
 
@@ -574,7 +570,6 @@ router.get('/revokeRegister', function (req, res, next) {
 /*
  * 1건의 (부분)취소현금영수증을 [임시저장]합니다.
  * - [임시저장] 상태의 현금영수증은 발행(Issue API)을 호출해야만 국세청에 전송됩니다.
- * - https://docs.popbill.com/cashbill/node/api#RevokeRegister
  */
 router.get('/revokeRegister_part', function (req, res, next) {
 
