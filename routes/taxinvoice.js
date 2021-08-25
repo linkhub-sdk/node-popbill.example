@@ -2376,7 +2376,7 @@ router.get('/getSendToNTSConfig', function (req, res, next) {
 
     // 팝빌회원 아이디
     var testUserID = 'testkorea';
-    
+
     taxinvoiceService.getSendToNTSConfig(testCorpNum, testUserID,
         function (result) {
             res.render('Taxinvoice/SendToNTSConfig', {path: req.path, sendToNTSConfig: result});
@@ -2645,7 +2645,7 @@ router.get('/joinMember', function (req, res, next) {
         Password: 'asdf8536!@#',
 
         // 링크아이디
-        LinkID: 'TESTER',
+        LinkID: taxinvoiceService._config.LinkID,
 
         // 사업자번호, '-' 제외 10자리
         CorpNum: '1234567890',
@@ -2678,7 +2678,7 @@ router.get('/joinMember', function (req, res, next) {
         ContactHP: '010-1234-1234'
 
     };
-
+    
     taxinvoiceService.joinMember(joinInfo,
         function (result) {
             res.render('response', {path: req.path, code: result.code, message: result.message});

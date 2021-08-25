@@ -519,7 +519,7 @@ router.get('/joinMember', function (req, res, next) {
         Password: 'asdf8536!@#',
 
         // 링크아이디
-        LinkID: 'TESTER',
+        LinkID: htCashbillService._config.LinkID,
 
         // 사업자번호, '-' 제외 10자리
         CorpNum: '1234567890',
