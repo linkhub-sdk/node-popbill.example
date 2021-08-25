@@ -581,7 +581,6 @@ router.get('/getMessagesRN', function (req, res, next) {
 
 /*
  * 문자전송에 대한 전송결과 요약정보를 확인합니다.
- * - https://docs.popbill.com/message/node/api#GetStates
  */
 router.get('/getStates', function (req, res, next) {
 

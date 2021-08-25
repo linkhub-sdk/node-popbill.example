@@ -2259,7 +2259,7 @@ router.get('/getEmailPublicKeys', function (req, res, next) {
 });
 
 /*
- * 팝빌 사이트를 통해 발행하였지만 문서번호가 존재하지 않는 세금계산서에 문서번호를 할당합니다.
+ * 팝빌 사이트를 통해 발행하여 문서번호가 부여되지 않은 세금계산서에 문서번호를 할당합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#AssignMgtKey
  */
 router.get('/assignMgtKey', function (req, res, next) {
@@ -2678,7 +2678,7 @@ router.get('/joinMember', function (req, res, next) {
         ContactHP: '010-1234-1234'
 
     };
-    
+
     taxinvoiceService.joinMember(joinInfo,
         function (result) {
             res.render('response', {path: req.path, code: result.code, message: result.message});

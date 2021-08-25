@@ -194,7 +194,8 @@ router.get('/summary', function (req, res, next) {
 
     // 종사업장 사업자유형, S-공급자, B-공급받는자, T-수탁자
     var taxRegIDType = 'S';
-
+    
+    // 종사업장번호 유무, 공백-전체조회, 0-종사업장번호 없음, 1-종사업장번호 있음
     var taxRegIDYN = '';
 
     // 종사업장번호, 콤마(',')로 구분하여 구성, ex) '1234,0007';

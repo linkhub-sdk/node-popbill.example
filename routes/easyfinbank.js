@@ -299,7 +299,7 @@ router.get('/listBankAccount', function (req, res, next) {
 });
 
 /*
- * RequestJob(수집 요청)를 통해 반환 받은 작업아이디의 상태를 확인합니다.
+ * 계좌 거래내역을 확인하기 위해 팝빌에 수집요청을 합니다. 조회기간은 당일 기준으로 90일 이내로만 지정 가능합니다.
  * - https://docs.popbill.com/easyfinbank/node/api#RequestJob
  */
 router.get('/requestJob', function (req, res, next) {
