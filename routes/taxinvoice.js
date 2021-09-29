@@ -23,10 +23,12 @@ popbill.config({
     UseLocalTimeYN: true,
 
     // 팝빌 API 서비스 고정 IP 사용여부(GA)
-    UseStaticIP: false,
+    UseStaticIP: true,
 
     // 로컬서버 시간 사용여부 true-사용(기본값-권장), false-미사용
     UseLocalTimeYN: true,
+
+    UseGAIP: true,
 
     defaultErrorHandler: function (Error) {
         console.log('Error Occur : [' + Error.code + '] ' + Error.message);
@@ -1652,7 +1654,7 @@ router.get('/getDetailInfo', function (req, res, next) {
 });
 
 /*
- * 검색조건에 해당하는 세금계산서를 조회합니다.
+ * 검색조건에 해당하는 세금계산서를 조회합니다. (조회기간 단위 : 최대 6개월)
  * - https://docs.popbill.com/taxinvoice/node/api#Search
  */
 router.get('/search', function (req, res, next) {

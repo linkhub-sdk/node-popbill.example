@@ -681,7 +681,7 @@ router.get('/getDetailInfo', function (req, res, next) {
 });
 
 /*
- * 검색조건에 해당하는 현금영수증을 조회합니다.
+ * 검색조건에 해당하는 현금영수증을 조회합니다. (조회기간 단위 : 최대 6개월)
  * - https://docs.popbill.com/cashbill/node/api#Search
  */
 router.get('/search', function (req, res, next) {

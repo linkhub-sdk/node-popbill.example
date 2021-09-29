@@ -46,7 +46,7 @@ router.get('/', function (req, res, next) {
 });
 
 /*
- * 홈택스에 신고된 전자세금계산서 매입/매출 내역 수집을 팝빌에 요청합니다.
+ * 홈택스에 신고된 전자세금계산서 매입/매출 내역 수집을 팝빌에 요청합니다. (조회기간 단위 : 최대 3개월)
  * - https://docs.popbill.com/httaxinvoice/node/api#RequestJob
  */
 router.get('/requestJob', function (req, res, next) {
@@ -194,7 +194,7 @@ router.get('/summary', function (req, res, next) {
 
     // 종사업장 사업자유형, S-공급자, B-공급받는자, T-수탁자
     var taxRegIDType = 'S';
-    
+
     // 종사업장번호 유무, 공백-전체조회, 0-종사업장번호 없음, 1-종사업장번호 있음
     var taxRegIDYN = '';
 

@@ -299,7 +299,8 @@ router.get('/listBankAccount', function (req, res, next) {
 });
 
 /*
- * 계좌 거래내역을 확인하기 위해 팝빌에 수집요청을 합니다. 조회기간은 당일 기준으로 90일 이내로만 지정 가능합니다.
+ * 계좌 거래내역을 확인하기 위해 팝빌에 수집요청을 합니다. (조회기간 단위 : 최대 1개월)
+ * - 조회일로부터 최대 3개월 이전 내역까지 조회할 수 있습니다.
  * - https://docs.popbill.com/easyfinbank/node/api#RequestJob
  */
 router.get('/requestJob', function (req, res, next) {
