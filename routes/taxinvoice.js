@@ -22,13 +22,11 @@ popbill.config({
     // 인증토큰정보 로컬서버 시간 사용여부
     UseLocalTimeYN: true,
 
-    // 팝빌 API 서비스 고정 IP 사용여부(GA)
-    UseStaticIP: true,
+    // 팝빌 API 서비스 고정 IP 사용여부
+    UseStaticIP: false,
 
     // 로컬서버 시간 사용여부 true-사용(기본값-권장), false-미사용
     UseLocalTimeYN: true,
-
-    UseGAIP: true,
 
     defaultErrorHandler: function (Error) {
         console.log('Error Occur : [' + Error.code + '] ' + Error.message);
