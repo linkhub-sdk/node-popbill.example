@@ -82,9 +82,9 @@ router.get('/checkDepositorInfo', function (req, res, next) {
     var testCorpNum = '1234567890';
   
     /*
-	 * 기관코드
-	 * - https://docs.popbill.com/accountcheck/?lang=node#BankCodeList
-	 */
+     * 기관코드
+     * - https://docs.popbill.com/accountcheck/?lang=node#BankCodeList
+     */
     var bankCode = '0004';
   
     // 계좌번호 (하이픈 '-' 제외 8자리 이상 14자리 이하)
@@ -94,10 +94,10 @@ router.get('/checkDepositorInfo', function (req, res, next) {
     var identityNumType = "B";
 
     /*
-	 * 등록번호
-	 * - IdentityNumType 값이 "B" 인 경우 (하이픈 '-' 제외  사업자번호(10)자리 입력 )
-	 * - IdentityNumType 값이 "P" 인 경우 (생년월일(6)자리 입력 (형식 : YYMMDD))
-	 */
+     * 등록번호
+     * - IdentityNumType 값이 "B" 인 경우 (하이픈 '-' 제외  사업자번호(10)자리 입력 )
+     * - IdentityNumType 값이 "P" 인 경우 (생년월일(6)자리 입력 (형식 : YYMMDD))
+     */
     var identityNum = "1234567890";
 
     // 팝빌회원 아이디
