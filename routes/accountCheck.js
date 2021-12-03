@@ -53,11 +53,14 @@ router.get('/checkAccountInfo', function (req, res, next) {
   // 팝빌회원 사업자번호, '-' 제외 10자리
   var testCorpNum = '1234567890';
 
-  // 기관코드
+  /*
+  * 기관코드
+  * - https://docs.popbill.com/accountcheck/?lang=node#BankCodeList
+  */
   var bankCode = '0004';
 
-  // 계좌번호
-  var accountNumber = '9432451175812';
+  // 계좌번호 (하이픈 '-' 제외 8자리 이상 14자리 이하)
+  var accountNumber = '1234567890';
 
   accountCheckService.checkAccountInfo(testCorpNum, bankCode, accountNumber,
       function (returnObj) {
@@ -67,6 +70,47 @@ router.get('/checkAccountInfo', function (req, res, next) {
       });
 
 });
+
+/*
+ * 1건의 계좌에 대한 예금주실명을 조회합니다.
+ * - https://docs.popbill.com/accountcheck/node/api#CheckDepositorInfo
+ */
+router.get('/checkDepositorInfo', function (req, res, next) {
+
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+  
+    /*
+	 * 기관코드
+	 * - https://docs.popbill.com/accountcheck/?lang=node#BankCodeList
+	 */
+    var bankCode = '0004';
+  
+    // 계좌번호 (하이픈 '-' 제외 8자리 이상 14자리 이하)
+    var accountNumber = '1234567890';
+  
+    // 등록번호 유형 ( P / B 중 택 1 ,  P = 개인, B = 사업자)
+    var identityNumType = "B";
+
+    /*
+	 * 등록번호
+	 * - IdentityNumType 값이 "B" 인 경우 (하이픈 '-' 제외  사업자번호(10)자리 입력 )
+	 * - IdentityNumType 값이 "P" 인 경우 (생년월일(6)자리 입력 (형식 : YYMMDD))
+	 */
+    var identityNum = "1234567890";
+
+    // 팝빌회원 아이디
+    var userId = "";
+
+    accountCheckService.checkDepositorInfo(testCorpNum, bankCode, accountNumber, identityNumType, identityNum, userId,
+        function (returnObj) {
+            res.render('AccountCheck/CheckDepositorInfo', {path: req.path, result: returnObj});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+  
+  });
 
 
 /*
@@ -198,7 +242,10 @@ router.get('/getUnitCost', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    accountCheckService.getUnitCost(testCorpNum,
+    // 서비스 유형, 계좌성명조회 - 성명 , 계좌실명조회 - 실명 	
+    var serviceType = '성명';
+
+    accountCheckService.getUnitCost(testCorpNum, serviceType,
         function (unitCost) {
             res.render('result', {path: req.path, result: unitCost});
         }, function (Error) {
@@ -215,7 +262,13 @@ router.get('/getChargeInfo', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    accountCheckService.getChargeInfo(testCorpNum,
+    // 서비스 유형, 계좌성명조회 - 성명 , 계좌실명조회 - 실명 	
+    var serviceType = '성명';
+    
+    // 팝빌회원 아이디
+    var userId = '';
+
+    accountCheckService.getChargeInfo(testCorpNum, serviceType, userId,
         function (result) {
             res.render('Base/getChargeInfo', {path: req.path, result: result});
         }, function (Error) {
