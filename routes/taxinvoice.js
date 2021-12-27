@@ -1641,7 +1641,7 @@ router.get('/getDetailInfo', function (req, res, next) {
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
-    var mgtKey = '20210801-003';
+    var mgtKey = '20211224_TEST001';
 
     taxinvoiceService.getDetailInfo(testCorpNum, keyType, mgtKey,
         function (result) {
