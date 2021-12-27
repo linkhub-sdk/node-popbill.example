@@ -528,7 +528,7 @@ router.get('/getFaxResult', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 팩스전송 접수번호
-    var receiptNum = '021010912104300001';
+    var receiptNum = '021122710161400002';
 
     faxService.getFaxResult(testCorpNum, receiptNum,
         function (result) {
@@ -548,7 +548,7 @@ router.get('/getFaxResultRN', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 팩스전송 요청번호
-    var requestNum = '20210801-001';
+    var requestNum = '20211224_TEST001';
 
     faxService.getFaxResultRN(testCorpNum, requestNum,
         function (result) {
