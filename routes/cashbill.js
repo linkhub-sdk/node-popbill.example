@@ -86,7 +86,7 @@ router.get('/registIssue', function (req, res, next) {
     var testUserID = 'testkorea';
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20210819-003';
+    var MgtKey = '20211227-Node001';
 
     // 현금영수증 상태메모
     var stateMemo = '발행메모';
@@ -127,6 +127,9 @@ router.get('/registIssue', function (req, res, next) {
 
         // [필수] 가맹점 사업자번호
         franchiseCorpNum: testCorpNum,
+
+        // 가맹점 종사업장 식별번호
+        franchiseTaxRegID: '',
 
         // 가맹점 상호
         franchiseCorpName: '가맹점 상호',
@@ -195,7 +198,7 @@ router.get('/register', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20210818-100';
+    var MgtKey = '20211227-Node002';
 
     // 현금영수증 항목
     var cashbill = {
@@ -226,6 +229,9 @@ router.get('/register', function (req, res, next) {
 
         // [필수] 가맹점 사업자번호
         franchiseCorpNum: testCorpNum,
+
+        // 가맹점 종사업장 식별번호
+        franchiseTaxRegID: '',
 
         // 가맹점 상호
         franchiseCorpName: '가맹점 상호',
@@ -294,7 +300,7 @@ router.get('/update', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20210801-002';
+    var MgtKey = '20211227-Node002';
 
     // 현금영수증 항목
     var cashbill = {
@@ -325,6 +331,9 @@ router.get('/update', function (req, res, next) {
 
         // [필수] 가맹점 사업자번호
         franchiseCorpNum: testCorpNum,
+
+        // 가맹점 종사업장 식별번호
+        franchiseTaxRegID: '',
 
         // 가맹점 상호
         franchiseCorpName: '가맹점 상호_수정',
@@ -670,7 +679,7 @@ router.get('/getDetailInfo', function (req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20211227-Node001';
 
     cashbillService.getDetailInfo(testCorpNum, mgtKey,
         function (result) {
@@ -693,10 +702,10 @@ router.get('/search', function (req, res, next) {
     var DType = 'R';
 
     // 시작일자, 작성형식(yyyyMMdd)
-    var SDate = '20210801';
+    var SDate = '20211201';
 
     // 종료일자, 작성형식(yyyyMMdd)
-    var EDate = '20210810';
+    var EDate = '20211230';
 
     // 문서상태코드 배열, 2,3번째 자리에 와일드카드(*) 사용가능
     var State = ['1**', '3**', '4**'];
@@ -725,8 +734,12 @@ router.get('/search', function (req, res, next) {
     // 페이지당 검색개수, 최대 1000건
     var PerPage = 50;
 
+    // 가맹점 종사업장 번호
+    // └ 다수건 검색시 콤마(",")로 구분. 예) 1234,1000
+    var FranchiseTaxRegID = '';
+
     cashbillService.search(testCorpNum, DType, SDate, EDate, State, TradeType,
-        TradeUsage, TradeOpt, TaxationType, QString, Order, Page, PerPage,
+        TradeUsage, TradeOpt, TaxationType, QString, Order, Page, PerPage, FranchiseTaxRegID,
         function (result) {
             res.render('Cashbill/Search', {path: req.path, result: result});
         }, function (Error) {
