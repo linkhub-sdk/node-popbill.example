@@ -189,6 +189,145 @@ router.get('/registIssue', function (req, res, next) {
 });
 
 /*
+ * 최대 100건의 현금영수증 발행을 한번의 요청으로 접수합니다.
+ * - https://docs.popbill.com/cashbill/node/api#BulkSubmit
+ */
+router.get('/bulkSubmit', function (req, res, next) {
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 제출 아이디
+    var submitID = 'NODEBULK01';
+
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    // 세금계산서 객체정보 목록
+    var cashbillList = [];
+
+    for(var i = 0; i < 100; i++){
+        // 현금영수증 항목
+        var cashbill = {
+
+            // [필수] 문서번호
+            mgtKey: submitID + '-' + i,
+
+            // [필수] 문서형태, (승인거래, 취소거래) 중 기재
+            tradeType: '승인거래',
+
+            // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
+            // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
+            orgConfirmNum: '',
+
+            // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
+            // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
+            orgTradeDate: '',
+
+            // [필수] 과세형태 (과세, 비과세) 중 기재
+            taxationType: '과세',
+
+            // [필수] 거래구분 (소득공제용, 지출증빙용) 중 기재
+            tradeUsage: '소득공제용',
+
+            // 거래유형 (일반, 도서공연, 대중교통) 중 기재
+            tradeOpt: '일반',
+
+            // [필수] 거래처 식별번호, 거래유형에 따라 작성
+            // 소득공제용 - 주민등록/휴대폰/카드번호 기재가능
+            // 지출증빙용 - 사업자번호/주민등록/휴대폰/카드번호 기재가능
+            identityNum: '0101112222',
+
+            // [필수] 가맹점 사업자번호
+            franchiseCorpNum: testCorpNum,
+
+            // 가맹점 종사업장 식별번호
+            franchiseTaxRegID: '',
+
+            // 가맹점 상호
+            franchiseCorpName: '가맹점 상호',
+
+            // 가맹점 대표자성명
+            franchiseCEOName: '가맹점 대표자 성명',
+
+            // 가맹점 주소
+            franchiseAddr: '가맹점 주소',
+
+            // 가맹점 연락처
+            franchiseTEL: '01012341234',
+
+            // [필수] 공급가액
+            supplyCost: '10000',
+
+            // [필수] 세액
+            tax: '1000',
+
+            // [필수] 봉사료
+            serviceFee: '0',
+
+            // [필수] 거래금액 (공급가액 + 세액 + 봉사료)
+            totalAmount: '11000',
+
+            // 고객명
+            customerName: '고객명',
+
+            // 상품명
+            itemName: '상품명',
+
+            // 주문번호
+            orderNumber: '주문번호',
+
+            // 고객 메일주소
+            // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+            // 실제 거래처의 메일주소가 기재되지 않도록 주의
+            email: 'test@test.com',
+
+            // 고객 핸드폰번호
+            hp: '010111222',
+
+            // 고객 팩스번호
+            fax: '000111222',
+
+            // 발행시 알림문자 전송여부
+            // 문자전송시 포인트가 차감되며 전송실패시 환불처리됨.
+            smssendYN: false,
+        };
+
+        cashbillList.push(cashbill);
+    }
+
+    cashbillService.bulkSubmit(testCorpNum, submitID, cashbillList, testUserID,
+        function (result) {
+            res.render('response', {path: req.path, code: result.code, message: result.message, receiptID: result.receiptID});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
+ * 접수시 기재한 SubmitID를 사용하여 현금영수증 접수결과를 확인합니다.
+ * - 개별 현금영수증 처리상태는 접수상태(txState)가 완료(2) 시 반환됩니다.
+ * - https://docs.popbill.com/cashbill/node/api#GetBulkResult
+ */
+router.get('/getBulkResult', function(req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 초대량 발행 접수시 기재한 제출아이디
+    var submitID = 'NODEBULK01';
+
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    cashbillService.getBulkResult(testCorpNum, submitID, testUserID,
+        function (result) {
+            res.render('Cashbill/BulkResult', {path: req.path, result: result});
+        }, function (Error) {
+            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        });
+});
+
+/*
  * 1건의 현금영수증을 [임시저장]합니다.
  * - [임시저장] 상태의 현금영수증은 발행(Issue API)을 호출해야만 국세청에 전송됩니다.
  */
