@@ -1879,6 +1879,37 @@ router.get('/getDetailInfo', function(req, res, next) {
 });
 
 /*
+ * 세금계산서 1건의 상세정보를 XML로 반환합니다.
+ * - https://docs.popbill.com/taxinvoice/node/api#GetXML
+ */
+router.get('/getXML', function(req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    var keyType = popbill.MgtKeyType.SELL;
+
+    // 문서번호
+    var mgtKey = '20220629-001';
+
+    taxinvoiceService.getXML(testCorpNum, keyType, mgtKey,
+        function(result) {
+            res.render('Taxinvoice/TaxinvoiceXML', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+});
+
+/*
  * 검색조건에 해당하는 세금계산서를 조회합니다. (조회기간 단위 : 최대 6개월)
  * - https://docs.popbill.com/taxinvoice/node/api#Search
  */
