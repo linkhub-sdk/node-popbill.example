@@ -288,7 +288,7 @@ router.get('/sendATS_one', function(req, res, next) {
     // 승인된 알림톡 템플릿코드
     // └ 알림톡 템플릿 관리 팝업 URL(GetATSTemplateMgtURL API) 함수, 알림톡 템플릿 목록 확인(ListATStemplate API) 함수를 호출하거나
     //   팝빌사이트에서 승인된 알림톡 템플릿 코드를  확인 가능.
-    var templateCode = '019020000163';
+    var templateCode = '022040000005';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     var snd = '';
@@ -301,13 +301,17 @@ router.get('/sendATS_one', function(req, res, next) {
     content += '팝빌 파트너센터 : 1600-8536\n';
     content += 'support@linkhub.co.kr';
 
+    // 대체문자 제목
+    // - 메시지 길이(90byte)에 따라 장문(LMS)인 경우에만 적용.
+    var altSubject = "알림톡 대체 문자 제목";
+
     // 대체문자 유형(altSendType)이 "A"일 경우, 대체문자로 전송할 내용 (최대 2000byte)
     // └ 팝빌이 메시지 길이에 따라 단문(90byte 이하) 또는 장문(90byte 초과)으로 전송처리
     var altContent = '알림톡 대체 문자';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 알림톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
-    var altSendType = 'A';
+    var altSendType = 'C';
 
     // 예약전송일시, yyyyMMddHHmmss
     // - 분단위 전송, 미입력 시 즉시 전송
@@ -340,7 +344,7 @@ router.get('/sendATS_one', function(req, res, next) {
     //     }
     // ];
 
-    kakaoService.sendATS_one(testCorpNum, templateCode, snd, content, altContent, altSendType, sndDT, receiver, receiverName, UserID, requestNum, btns,
+    kakaoService.sendATS_one(testCorpNum, templateCode, snd, content, altSubject, altContent, altSendType, sndDT, receiver, receiverName, UserID, requestNum, btns,
         function(receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -370,7 +374,7 @@ router.get('/sendATS_multi', function(req, res, next) {
     // 승인된 알림톡 템플릿코드
     // └ 알림톡 템플릿 관리 팝업 URL(GetATSTemplateMgtURL API) 함수, 알림톡 템플릿 목록 확인(ListATStemplate API) 함수를 호출하거나
     //   팝빌사이트에서 승인된 알림톡 템플릿 코드를  확인 가능.
-    var templateCode = '019020000163';
+    var templateCode = '022040000005';
 
     // 알림톡 내용 (최대 1000자)
     // 알림톡 템플릿 신청시 내용에 #{템플릿변수}를 기재한경우 템플릿변수 영역을 변경하여 내용 구성
@@ -386,7 +390,7 @@ router.get('/sendATS_multi', function(req, res, next) {
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 알림톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
-    var altSendType = 'A';
+    var altSendType = 'C';
 
     // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
     var sndDT = '';
@@ -397,6 +401,7 @@ router.get('/sendATS_multi', function(req, res, next) {
         rcv: '', //수신번호
         rcvnm: 'popbill', //수신자명
         msg: content, //알림톡 내용
+        altsjt: "대체문자 제목1", // 대체문자 제목
         altmsg: '알림톡 대체 문자_0', //대체문자 내용
         interOPRefKey: '20220629-01', // 파트너 지정키, 수신자 구별용 메모
     });
@@ -467,7 +472,7 @@ router.get('/sendATS_same', function(req, res, next) {
     // 승인된 알림톡 템플릿코드
     // └ 알림톡 템플릿 관리 팝업 URL(GetATSTemplateMgtURL API) 함수, 알림톡 템플릿 목록 확인(ListATStemplate API) 함수를 호출하거나
     //   팝빌사이트에서 승인된 알림톡 템플릿 코드를  확인 가능.
-    var templateCode = '019020000163';
+    var templateCode = '022040000005';
 
     // 알림톡 내용 (최대 1000자)
     var content = '[ 팝빌 ]\n';
@@ -480,8 +485,9 @@ router.get('/sendATS_same', function(req, res, next) {
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     var snd = '';
 
-    // 알림톡 내용 (최대 1000자)
-    var content = '테스트 템플릿 입니다.';
+    // 대체문자 제목
+    // - 메시지 길이(90byte)에 따라 장문(LMS)인 경우에만 적용.
+    var altSubject = '대체문자 동보 제목';
 
     // 대체문자 유형(altSendType)이 "A"일 경우, 대체문자로 전송할 내용 (최대 2000byte)
     // └ 팝빌이 메시지 길이에 따라 단문(90byte 이하) 또는 장문(90byte 초과)으로 전송처리
@@ -489,7 +495,7 @@ router.get('/sendATS_same', function(req, res, next) {
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 알림톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
-    var altSendType = 'A';
+    var altSendType = 'C';
 
     // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
     var sndDT = '';
@@ -526,7 +532,7 @@ router.get('/sendATS_same', function(req, res, next) {
     //     }
     // ];
 
-    kakaoService.sendATS_same(testCorpNum, templateCode, snd, content, altContent, altSendType, sndDT, msgs, UserID, requestNum, btns,
+    kakaoService.sendATS_same(testCorpNum, templateCode, snd, content, altSubject, altContent, altSendType, sndDT, msgs, UserID, requestNum, btns,
         function(receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -562,9 +568,16 @@ router.get('/sendFTS_one', function(req, res, next) {
     // 친구톡 내용 (최대 1000자)
     var content = '친구톡 내용.';
 
+    // 대체문자 제목
+    // - 메시지 길이(90byte)에 따라 장문(LMS)인 경우에만 적용.
+    var altSubject = '친구톡 대체문자 제목';
+
     // 대체문자 유형(altSendType)이 "A"일 경우, 대체문자로 전송할 내용 (최대 2000byte)
     // └ 팝빌이 메시지 길이에 따라 단문(90byte 이하) 또는 장문(90byte 초과)으로 전송처리
-    var altContent = '친구톡 대체 문자';
+    var altContent = '친구톡 대체 문자입니다.\n\n' +
+    'altSendType을 A로 지정하게 될 경우 해당 내용의 문자가 전송됩니다.\n' +
+    'altSendType을 C로 지정하게 되면 content에 작성했던 내용 그대로 전송됩니다.\n' +
+    '대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 알림톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
@@ -600,7 +613,7 @@ router.get('/sendFTS_one', function(req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    kakaoService.sendFTS_one(testCorpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, receiver, receiverName, adsYN, btns, UserID, requestNum,
+    kakaoService.sendFTS_one(testCorpNum, plusFriendID, snd, content, altSubject, altContent, altSendType, sndDT, receiver, receiverName, adsYN, btns, UserID, requestNum,
         function(receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -651,6 +664,7 @@ router.get('/sendFTS_multi', function(req, res, next) {
         rcv: '', //수신번호
         rcvnm: 'popbill', //수신자명
         msg: '테스트 템플릿 입니다.', //친구톡 내용
+        altsjt: '친구톡 대체 제목', // 대체문자 제목
         altmsg: '친구톡 대체 문자_0', //대체문자 내용
         interOPRefKey: '20220629-01' // 파트너 지정키, 수신자 구별용 메모
     });
@@ -727,9 +741,16 @@ router.get('/sendFTS_same', function(req, res, next) {
     // 친구톡 내용 (최대 1000자)
     var content = '친구톡 내용.';
 
+    // 대체문자 제목
+    // - 메시지 길이(90byte)에 따라 장문(LMS)인 경우에만 적용.
+    var altSubject = '친구톡 대체문자 제목';
+
     // 대체문자 유형(altSendType)이 "A"일 경우, 대체문자로 전송할 내용 (최대 2000byte)
     // └ 팝빌이 메시지 길이에 따라 단문(90byte 이하) 또는 장문(90byte 초과)으로 전송처리
-    var altContent = '친구톡 대체 문자';
+    var altContent = '친구톡 대체 문자입니다.\n\n' +
+    'altSendType을 A로 지정하게 될 경우 해당 내용의 문자가 전송됩니다.\n' +
+    'altSendType을 C로 지정하게 되면 content에 작성했던 내용 그대로 전송됩니다.\n' +
+    '대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 친구톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
@@ -770,7 +791,7 @@ router.get('/sendFTS_same', function(req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    kakaoService.sendFTS_same(testCorpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, adsYN, msgs, btns, UserID, requestNum,
+    kakaoService.sendFTS_same(testCorpNum, plusFriendID, snd, content, altSubject, altContent, altSendType, sndDT, adsYN, msgs, btns, UserID, requestNum,
         function(receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -807,9 +828,16 @@ router.get('/sendFMS_one', function(req, res, next) {
     // 친구톡 내용 (최대 400자)
     var content = '친구톡 내용.';
 
+    // 대체문자 제목
+    // - 메시지 길이(90byte)에 따라 장문(LMS)인 경우에만 적용.
+    var altSubject = '친구톡 대체문자 제목';
+
     // 대체문자 유형(altSendType)이 "A"일 경우, 대체문자로 전송할 내용 (최대 2000byte)
     // └ 팝빌이 메시지 길이에 따라 단문(90byte 이하) 또는 장문(90byte 초과)으로 전송처리
-    var altContent = '친구톡 대체 문자';
+    var altContent = '친구톡 대체 문자입니다.\n\n' +
+    'altSendType을 A로 지정하게 될 경우 해당 내용의 문자가 전송됩니다.\n' +
+    'altSendType을 C로 지정하게 되면 content에 작성했던 내용 그대로 전송됩니다.\n' +
+    '대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 친구톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
@@ -836,7 +864,7 @@ router.get('/sendFMS_one', function(req, res, next) {
 
     // 첨부이미지 파일 경로
     // - 이미지 파일 규격: 전송 포맷 – JPG 파일 (.jpg, .jpeg), 용량 – 최대 500 Kbyte, 크기 – 가로 500px 이상, 가로 기준으로 세로 0.5~1.3배 비율 가능
-    var filePath = ['./fmsImage.jpg'];
+    var filePath = ['./fmsimage.jpg'];
 
     // [배열] 버튼 목록 (최대 5개)
     var btns = [{
@@ -854,7 +882,7 @@ router.get('/sendFMS_one', function(req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    kakaoService.sendFMS_one(testCorpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, receiver, receiverName, adsYN, imageURL, filePath, btns, UserID, requestNum,
+    kakaoService.sendFMS_one(testCorpNum, plusFriendID, snd, content, altSubject, altContent, altSendType, sndDT, receiver, receiverName, adsYN, imageURL, filePath, btns, UserID, requestNum,
         function(receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -915,6 +943,7 @@ router.get('/sendFMS_multi', function(req, res, next) {
         rcv: '', //수신번호
         rcvnm: 'popbill', //수신자명
         msg: '친구톡 이미지 입니다_0', //친구톡 내용 (최대 400자)
+        altsjt: '친구톡 이미지 대체문자제목0',  // 대체문자 제목
         altmsg: '친구톡 대체 문자_0', //대체문자 내용 (최대 2000byte)
         interOPRefKey: '20220629-01' // 파트너 지정키, 수신자 구별용 메모
     });
@@ -922,6 +951,7 @@ router.get('/sendFMS_multi', function(req, res, next) {
         rcv: '',
         rcvnm: 'linkhub',
         msg: '친구톡 이미지 입니다_1',
+        altsjt: '친구톡 이미지 대체문자제목1',
         altmsg: '친구톡 대체 문자_1',
         interOPRefKey: '20220629-02', // 파트너 지정키, 수신자 구별용 메모
         btns: [ //수신자별 개별 버튼내용 전송시
@@ -992,9 +1022,16 @@ router.get('/sendFMS_same', function(req, res, next) {
     // 친구톡 내용 (최대 400자)
     var content = '친구톡 내용.';
 
+    // 대체문자 제목
+    // - 메시지 길이(90byte)에 따라 장문(LMS)인 경우에만 적용.
+    var altSubject = '친구톡 대체문자 제목';
+
     // 대체문자 유형(altSendType)이 "A"일 경우, 대체문자로 전송할 내용 (최대 2000byte)
     // └ 팝빌이 메시지 길이에 따라 단문(90byte 이하) 또는 장문(90byte 초과)으로 전송처리
-    var altContent = '친구톡 대체 문자';
+    var altContent = '친구톡 대체 문자입니다.\n\n' +
+    'altSendType을 A로 지정하게 될 경우 해당 내용의 문자가 전송됩니다.\n' +
+    'altSendType을 C로 지정하게 되면 content에 작성했던 내용 그대로 전송됩니다.\n' +
+    '대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 친구톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
@@ -1011,11 +1048,11 @@ router.get('/sendFMS_same', function(req, res, next) {
     // 이미지 링크 URL
     // └ 수신자가 친구톡 상단 이미지 클릭시 호출되는 URL
     // - 미입력시 첨부된 이미지를 링크 기능 없이 표시
-    var imageURL = 'http://www.linkhun.co.kr';
+    var imageURL = 'http://www.linkhub.co.kr';
 
     // 첨부이미지 파일 경로
     // - 이미지 파일 규격: 전송 포맷 – JPG 파일 (.jpg, .jpeg), 용량 – 최대 500 Kbyte, 크기 – 가로 500px 이상, 가로 기준으로 세로 0.5~1.3배 비율 가능
-    var filePath = ['./fmsImage.jpg'];
+    var filePath = ['./fmsimage.jpg'];
 
     // [배열] 친구톡 전송정보 (최대 1000개)
     var msgs = [{
@@ -1044,7 +1081,7 @@ router.get('/sendFMS_same', function(req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    kakaoService.sendFMS_same(testCorpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, adsYN, imageURL, filePath, msgs, btns, UserID, requestNum,
+    kakaoService.sendFMS_same(testCorpNum, plusFriendID, snd, content, altSubject, altContent, altSendType, sndDT, adsYN, imageURL, filePath, msgs, btns, UserID, requestNum,
         function(receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -1134,7 +1171,7 @@ router.get('/getMessages', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 카카오톡 접수번호
-    var receiptNum = '021072412185700001';
+    var receiptNum = '022070114430900001';
 
     // 팝빌회원 아이디
     var UserID = 'testkorea';
