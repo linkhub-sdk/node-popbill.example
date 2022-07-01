@@ -225,7 +225,7 @@ router.get('/getATSTemplate', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 확인할 템플릿 코드
-    var templateCode = '021010000078';
+    var templateCode = '022040000374';
 
     // 팝빌 회원아이디
     var UserID = 'testkorea';
