@@ -81,10 +81,7 @@ router.get('/listPlusFriendID', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌 회원아이디
-    var UserID = 'testkorea';
-
-    kakaoService.listPlusFriendID(testCorpNum, UserID,
+    kakaoService.listPlusFriendID(testCorpNum,
         function(response) {
             res.render('Kakao/listPlusFriendID', {
                 path: req.path,
@@ -168,10 +165,7 @@ router.get('/getSenderNumberList', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌 회원아이디
-    var UserID = 'testkorea';
-
-    kakaoService.getSenderNumberList(testCorpNum, UserID,
+    kakaoService.getSenderNumberList(testCorpNum,
         function(response) {
             res.render('Kakao/getSenderNumberList', {
                 path: req.path,
@@ -227,10 +221,7 @@ router.get('/getATSTemplate', function(req, res, next) {
     // 확인할 템플릿 코드
     var templateCode = '022040000374';
 
-    // 팝빌 회원아이디
-    var UserID = 'testkorea';
-
-    kakaoService.getATSTemplate(testCorpNum, templateCode, UserID,
+    kakaoService.getATSTemplate(testCorpNum, templateCode,
         function(response) {
             res.render('Kakao/getATSTemplate', {
                 path: req.path,
@@ -255,10 +246,7 @@ router.get('/listATSTemplate', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌 회원아이디
-    var UserID = 'testkorea';
-
-    kakaoService.listATSTemplate(testCorpNum, UserID,
+    kakaoService.listATSTemplate(testCorpNum,
         function(response) {
             res.render('Kakao/listATSTemplate', {
                 path: req.path,
@@ -1112,7 +1100,7 @@ router.get('/cancelReserve', function(req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.cancelReserve(testCorpNum, receiptNum, UserID,
+    kakaoService.cancelReserve(testCorpNum, receiptNum,
         function(response) {
             res.render('response', {
                 path: req.path,
@@ -1144,7 +1132,7 @@ router.get('/cancelReserveRN', function(req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.cancelReserveRN(testCorpNum, requestNum, UserID,
+    kakaoService.cancelReserveRN(testCorpNum, requestNum,
         function(response) {
             res.render('response', {
                 path: req.path,
@@ -1176,7 +1164,7 @@ router.get('/getMessages', function(req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.getMessages(testCorpNum, receiptNum, UserID,
+    kakaoService.getMessages(testCorpNum, receiptNum,
         function(response) {
             res.render('Kakao/getMessages', {
                 path: req.path,
@@ -1207,7 +1195,7 @@ router.get('/getMessagesRN', function(req, res, next) {
     // 팝빌회원 아이디
     var UserID = 'testkorea';
 
-    kakaoService.getMessagesRN(testCorpNum, requestNum, UserID,
+    kakaoService.getMessagesRN(testCorpNum, requestNum,
         function(response) {
             res.render('Kakao/getMessages', {
                 path: req.path,
@@ -1495,14 +1483,10 @@ router.get('/getUnitCost', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
-
-    // 팝빌 회원아이디
-    var UserID = 'testkorea';
-
     // 전송유형 ( ATS-알림톡 / FTS-친구톡텍스트 / FMS-친구톡이미지 )
     var kakaoType = popbill.KakaoType.ATS;
 
-    kakaoService.getUnitCost(testCorpNum, kakaoType, UserID,
+    kakaoService.getUnitCost(testCorpNum, kakaoType,
         function(unitCost) {
             res.render('result', {
                 path: req.path,
@@ -1527,13 +1511,10 @@ router.get('/getChargeInfo', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌 회원아이디
-    var UserID = 'testkorea';
-
     // 전송유형 ( ATS-알림톡 / FTS-친구톡텍스트 / FMS-친구톡이미지 )
     var kakaoType = popbill.KakaoType.ATS;
 
-    kakaoService.getChargeInfo(testCorpNum, kakaoType, UserID,
+    kakaoService.getChargeInfo(testCorpNum, kakaoType,
         function(result) {
             res.render('Base/getChargeInfo', {
                 path: req.path,

@@ -210,9 +210,6 @@ router.get('/bulkSubmit', function(req, res, next) {
     // 제출 아이디
     var submitID = 'NODEBULK01';
 
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
     // 세금계산서 객체정보 목록
     var cashbillList = [];
 
@@ -305,7 +302,7 @@ router.get('/bulkSubmit', function(req, res, next) {
         cashbillList.push(cashbill);
     }
 
-    cashbillService.bulkSubmit(testCorpNum, submitID, cashbillList, testUserID,
+    cashbillService.bulkSubmit(testCorpNum, submitID, cashbillList,
         function(result) {
             res.render('response', {
                 path: req.path,
@@ -336,10 +333,7 @@ router.get('/getBulkResult', function(req, res, next) {
     // 초대량 발행 접수시 기재한 제출아이디
     var submitID = 'NODEBULK01';
 
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    cashbillService.getBulkResult(testCorpNum, submitID, testUserID,
+    cashbillService.getBulkResult(testCorpNum, submitID,
         function(result) {
             res.render('Cashbill/BulkResult', {
                 path: req.path,
@@ -475,9 +469,6 @@ router.get('/revokeRegistIssue_part', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
     var mgtKey = '20220629-004';
 
@@ -528,7 +519,7 @@ router.get('/revokeRegistIssue_part', function(req, res, next) {
     var totalAmount = "7700";
 
     cashbillService.revokeRegistIssue(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN, memo,
-        testUserID, isPartCancel, cancelType, supplyCost, tax, serviceFee, totalAmount,
+        isPartCancel, cancelType, supplyCost, tax, serviceFee, totalAmount,
         function(result) {
             res.render('Cashbill/IssueResponse', {
                 path: req.path,

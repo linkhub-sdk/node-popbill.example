@@ -99,13 +99,10 @@ router.get('/checkDepositorInfo', function(req, res, next) {
     // └ 등록번호 유형 값이 "B"인 경우 사업자번호(10 자리) 입력
     // └ 등록번호 유형 값이 "P"인 경우 생년월일(6 자리) 입력 (형식 : YYMMDD)
     // 하이픈 '-' 제외하고 입력
-    var identityNum = "970906";
-
-    // 팝빌회원 아이디
-    var userId = "";
+    var identityNum = "";
 
     accountCheckService.checkDepositorInfo(testCorpNum, bankCode, accountNumber, identityNumType,
-        identityNum, userId,
+        identityNum,
         function(returnObj) {
             res.render('AccountCheck/CheckDepositorInfo', {
                 path: req.path,

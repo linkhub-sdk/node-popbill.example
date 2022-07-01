@@ -1461,13 +1461,10 @@ router.get('/getStates', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
     // 문자전송 접수번호 배열 ,최대 1000건
     var reciptNumList = ['021041717000000018', '021041717000000019'];
 
-    messageService.getStates(testCorpNum, reciptNumList, testUserID,
+    messageService.getStates(testCorpNum, reciptNumList,
         function(result) {
             res.render('Message/GetStates', {
                 path: req.path,

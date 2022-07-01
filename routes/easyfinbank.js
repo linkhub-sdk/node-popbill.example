@@ -380,10 +380,10 @@ router.get('/requestJob', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 기관코드
-    var bankCode = '0048';
+    var bankCode = '';
 
     // 계좌번호,  하이픈('-') 제외
-    var accountNumber = '131020538645';
+    var accountNumber = '';
 
     // 시작일자, 날짜형식(yyyyMMdd)
     var SDate = '20220601';
@@ -476,9 +476,6 @@ router.get('/search', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌회원 아이디
-    var testUserID = '';
-
     // 수집 요청(RequestJob API) 함수 호출시 반환받은 작업아이디
     var jobID = '021072414000000001';
 
@@ -502,7 +499,7 @@ router.get('/search', function(req, res, next) {
     // 정렬방향, D-내림차순, A-오름차순
     var order = 'D';
 
-    easyFinBankService.search(testCorpNum, jobID, tradeType, searchString, page, perPage, order, testUserID,
+    easyFinBankService.search(testCorpNum, jobID, tradeType, searchString, page, perPage, order,
         function(response) {
             res.render('EasyFinBank/search', {
                 path: req.path,
@@ -528,9 +525,6 @@ router.get('/summary', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌회원 아이디
-    var testUserID = '';
-
     // 수집 요청(requestJob API)시 반환반은 작업아이디(jobID)
     var jobID = '021123110000000004';
 
@@ -545,7 +539,7 @@ router.get('/summary', function(req, res, next) {
     // - 미입력시 전체조회
     var searchString = '';
 
-    easyFinBankService.summary(testCorpNum, jobID, tradeType, searchString, testUserID,
+    easyFinBankService.summary(testCorpNum, jobID, tradeType, searchString,
         function(response) {
             res.render('EasyFinBank/summary', {
                 path: req.path,

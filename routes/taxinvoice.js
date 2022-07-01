@@ -371,9 +371,6 @@ router.get('/bulkSubmit', function(req, res, next) {
     // 제출 아이디
     var submitID = '20220629-NODE';
 
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
     // 세금계산서 객체정보 목록
     var taxinvoiceList = [];
 
@@ -632,7 +629,7 @@ router.get('/bulkSubmit', function(req, res, next) {
         // 세금계산서 객체 목록에 추가
         taxinvoiceList.push(Taxinvoice);
     }
-    taxinvoiceService.bulkSubmit(testCorpNum, submitID, taxinvoiceList, forceIssue, testUserID,
+    taxinvoiceService.bulkSubmit(testCorpNum, submitID, taxinvoiceList, forceIssue,
         function(result) {
             res.render('response', {
                 path: req.path,
@@ -663,10 +660,7 @@ router.get('/getBulkResult', function(req, res, next) {
     // 초대량 발행 접수시 기재한 제출아이디
     var submitID = '20220629-NODE';
 
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    taxinvoiceService.getBulkResult(testCorpNum, submitID, testUserID,
+    taxinvoiceService.getBulkResult(testCorpNum, submitID,
         function(result) {
             res.render('Taxinvoice/BulkResult', {
                 path: req.path,
@@ -1354,9 +1348,6 @@ router.get('/registRequest', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
     // 세금계산서 항목
     var Taxinvoice = {
 
@@ -1584,7 +1575,7 @@ router.get('/registRequest', function(req, res, next) {
     // 메모
     var memo = '즉시요청 메모';
 
-    taxinvoiceService.registRequest(testCorpNum, Taxinvoice, memo, testUserID,
+    taxinvoiceService.registRequest(testCorpNum, Taxinvoice, memo,
         function(result) {
             res.render('response', {
                 path: req.path,
@@ -2849,10 +2840,7 @@ router.get('/getSendToNTSConfig', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    taxinvoiceService.getSendToNTSConfig(testCorpNum, testUserID,
+    taxinvoiceService.getSendToNTSConfig(testCorpNum,
         function(result) {
             res.render('Taxinvoice/SendToNTSConfig', {
                 path: req.path,

@@ -167,11 +167,8 @@ router.get('/sendFAX', function(req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    // 팝빌회원 아이디
-    var userID = "testkorea";
-
     faxService.sendFax(testCorpNum, senderNum, receiveNum, receiveName, filePaths, reserveDT,
-        senderName, adsYN, title, requestNum, userID,
+        senderName, adsYN, title, requestNum,
         function(receiptNum) {
             res.render('result', {
                 path: req.path,
@@ -234,11 +231,8 @@ router.get('/sendFAX_multi', function(req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    // 팝빌회원 아이디
-    var userID = "testkorea";
-
     faxService.sendFax(testCorpNum, senderNum, Receivers, "", filePaths, reserveDT, senderName,
-        adsYN, title, requestNum, userID,
+        adsYN, title, requestNum,
         function(receiptNum) {
             res.render('result', {
                 path: req.path,
@@ -291,10 +285,6 @@ router.get('/sendFAXBinary', function(req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    // 팝빌회원 아이디
-    var userID = "testkorea";
-
-
     var targeturl = "https://docs.popbill.com/static/img/home/home_title.png";
 
     https.get(targeturl, function(response) {
@@ -321,7 +311,7 @@ router.get('/sendFAXBinary', function(req, res, next) {
                 });
 
                 faxService.sendFaxBinary(testCorpNum, senderNum, receiveNum, receiveName, BinaryFiles,
-                    reserveDT, senderName, adsYN, title, requestNum, userID,
+                    reserveDT, senderName, adsYN, title, requestNum,
                     function(receiptNum) {
                         res.render('result', {
                             path: req.path,
@@ -396,7 +386,7 @@ router.get('/resendFAX', function(req, res, next) {
     var userID = "testkorea";
 
     faxService.resendFax(testCorpNum, receiptNum, senderNum, senderName, receiveNum, receiveName,
-        reserveDT, title, requestNum, userID,
+        reserveDT, title, requestNum,
         function(receiptNum) {
             res.render('result', {
                 path: req.path,
@@ -460,11 +450,8 @@ router.get('/resendFAX_multi', function(req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var reqeustNum = '';
 
-    // 팝빌회원 아이디
-    var userID = "testkorea";
-
     faxService.resendFax(testCorpNum, receiptNum, senderNum, senderName, Receivers, "", reserveDT,
-        title, reqeustNum, userID,
+        title, reqeustNum,
         function(receiptNum) {
             res.render('result', {
                 path: req.path,
@@ -522,7 +509,7 @@ router.get('/resendFAXRN', function(req, res, next) {
     var userID = "testkorea";
 
     faxService.resendFaxRN(testCorpNum, orgRequestNum, senderNum, senderName, receiveNum, receiveName,
-        reserveDT, title, reqeustNum, userID,
+        reserveDT, title, reqeustNum,
         function(receiptNum) {
             res.render('result', {
                 path: req.path,
@@ -587,7 +574,7 @@ router.get('/resendFAXRN_multi', function(req, res, next) {
     var userID = "testkorea";
 
     faxService.resendFaxRN(testCorpNum, orgRequestNum, senderNum, senderName, Receivers, "",
-        reserveDT, title, reqeustNum, userID,
+        reserveDT, title, reqeustNum,
         function(receiptNum) {
             res.render('result', {
                 path: req.path,
