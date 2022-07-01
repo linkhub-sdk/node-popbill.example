@@ -1014,7 +1014,10 @@ router.get('/getUnitCost', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    faxService.getUnitCost(testCorpNum,
+    // 수신번호 유형, 일반 / 지능 중 택 1
+    var receiveNumType = '지능';
+
+    faxService.getUnitCost(testCorpNum, receiveNumType,
         function(unitCost) {
             res.render('result', {
                 path: req.path,
@@ -1039,7 +1042,13 @@ router.get('/getChargeInfo', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    faxService.getChargeInfo(testCorpNum,
+    // 수신번호 유형, 일반 / 지능 중 택 1
+    var receiveNumType = '지능';
+
+    // 팝빌회원 아이디
+    var userID = 'testkorea';
+
+    faxService.getChargeInfo(testCorpNum, receiveNumType, userID,
         function(result) {
             res.render('Base/getChargeInfo', {
                 path: req.path,
