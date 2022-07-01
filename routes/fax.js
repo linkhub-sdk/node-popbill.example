@@ -209,10 +209,12 @@ router.get('/sendFAX_multi', function(req, res, next) {
     var Receivers = [{
             receiveName: '수신자명1', // 수신자명
             receiveNum: '', // 수신팩스번호
+            interOPRefKey: '20220629-FAX001'
         },
         {
             receiveName: '수신자명2',
             receiveNum: '',
+            interOPRefKey: '20220629-FAX002'
         }
     ];
 
@@ -423,7 +425,7 @@ router.get('/resendFAX_multi', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 팩스 접수번호
-    var receiptNum = '021032510182200001';
+    var receiptNum = '022070116355600001';
 
     // 발신번호, 공백처리시 기존전송정보로 재전송
     var senderNum = '';
@@ -435,10 +437,12 @@ router.get('/resendFAX_multi', function(req, res, next) {
     var Receivers = [{
             receiveName: '수신자명1', // 수신자명
             receiveNum: '', // 수신팩스번호
+            interOPRefKey: '20220629-FAX003'
         },
         {
             receiveName: '수신자명2',
             receiveNum: '',
+            interOPRefKey: '20220629-FAX004'
         }
     ]
 
@@ -558,11 +562,13 @@ router.get('/resendFAXRN_multi', function(req, res, next) {
     //수신자정보 배열, 최대 1000건
     var Receivers = [{
             receiveName: '수신자명1', // 수신자명
-            receiveNum: '' // 수신팩스번호
+            receiveNum: '', // 수신팩스번호
+            interOPRefKey: '20220629-FAX005'
         },
         {
             receiveName: '수신자명2',
-            receiveNum: ''
+            receiveNum: '',
+            interOPRefKey: '20220629-FAX006'
         }
     ]
     // 수신자정보를 기존전송정보와 동일하게 재전송하는 경우 아래코드 적용
@@ -665,7 +671,7 @@ router.get('/getFaxResult', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 팩스전송 접수번호
-    var receiptNum = '021122710161400002';
+    var receiptNum = '022070116363600001';
 
     faxService.getFaxResult(testCorpNum, receiptNum,
         function(result) {
