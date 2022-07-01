@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
     <title>팝빌 SDK Express Example. </title>
 </head>
+
 <body>
-<div id="content">
-    <p class="heading1">Response</p>
-    <br/>
-    <fieldset class="fieldset1">
-        <ul>
-            <li>code (응답코드) : <%= result.code %></li>
-            <li>message (응답메시지) : <%= result.message %></li>
-            <li>total (총 검색건수) : <%= result.total %></li>
-            <li>perPage (페이지당 검색개수) : <%= result.perPage %></li>
-            <li>pageNum (페이지 번호) : <%= result.pageNum %></li>
-            <li>pageCount (페이지 개수) : <%= result.pageCount %></li>
-        </ul>
-        <legend><%= path %></legend>
-        <%
+    <div id="content">
+        <p class="heading1">Response</p>
+        <br />
+        <fieldset class="fieldset1">
+            <ul>
+                <li>code (응답코드) : <%= result.code %></li>
+                <li>message (응답메시지) : <%= result.message %></li>
+                <li>total (총 검색건수) : <%= result.total %></li>
+                <li>perPage (페이지당 검색개수) : <%= result.perPage %></li>
+                <li>pageNum (페이지 번호) : <%= result.pageNum %></li>
+                <li>pageCount (페이지 개수) : <%= result.pageCount %></li>
+            </ul>
+            <legend><%= path %></legend>
+            <%
         result.list.forEach(function(searchInfo, index){
         %>
             <fieldset class="fieldset2">
@@ -49,10 +51,11 @@
                     <li>tiffFileSize (변환파일용량 (단위 : byte)) : <%= searchInfo.tiffFileSize %></li>
                 </ul>
             </fieldset>
-        <%
+            <%
         });
         %>
-    </fieldset>
-</div>
+        </fieldset>
+    </div>
 </body>
+
 </html>

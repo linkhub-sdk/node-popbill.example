@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" media="screen"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" media="screen" />
     <title>팝빌 SDK Nodejs - Express Example.</title>
 </head>
+
 <body>
-<div id="content">
-    <p class="heading1">Response</p>
-    <br/>
-    <fieldset class="fieldset1">
-        <legend><%= path %></legend>
-        <ul>
-            <li>code (응답코드) : <%= result.code %></li>
-            <li>message (응답메시지) : <%= result.message %></li>
-            <li>total (총 검색건수) : <%= result.total %></li>
-            <li>perPage (페이지당 검색개수) : <%= result.perPage %></li>
-            <li>pageNum (페이지 번호) : <%= result.pageNum %></li>
-            <li>pageCount (페이지 개수) : <%= result.pageCount %></li>
-        </ul>
-        <%
+    <div id="content">
+        <p class="heading1">Response</p>
+        <br />
+        <fieldset class="fieldset1">
+            <legend><%= path %></legend>
+            <ul>
+                <li>code (응답코드) : <%= result.code %></li>
+                <li>message (응답메시지) : <%= result.message %></li>
+                <li>total (총 검색건수) : <%= result.total %></li>
+                <li>perPage (페이지당 검색개수) : <%= result.perPage %></li>
+                <li>pageNum (페이지 번호) : <%= result.pageNum %></li>
+                <li>pageCount (페이지 개수) : <%= result.pageCount %></li>
+            </ul>
+            <%
         result.list.forEach(function(searchInfo, index){
         %>
             <fieldset class="fieldset2">
@@ -44,10 +46,11 @@
                     <li> requestNum (요청번호) : <%= searchInfo.requestNum %></li>
                 </ul>
             </fieldset>
-        <%
+            <%
         });
         %>
-    </fieldset>
-</div>
+        </fieldset>
+    </div>
 </body>
+
 </html>

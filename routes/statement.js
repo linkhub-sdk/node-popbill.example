@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var popbill = require('popbill');
 
+
 /*
  * 팝빌 서비스 연동환경 초기화
  */
@@ -19,38 +20,35 @@ popbill.config({
     // 인증토큰 IP제한기능 사용여부, 권장(true)
     IPRestrictOnOff: true,
 
-    // 인증토큰정보 로컬서버 시간 사용여부
-    UseLocalTimeYN: true,
-
-    // 팝빌 API 서비스 고정 IP 사용여부
+    // 팝빌 API 서비스 고정 IP 사용여부, 기본값(false)
     UseStaticIP: false,
 
-    // 로컬서버 시간 사용여부 true-사용(기본값-권장), false-미사용
+    // 로컬서버 시간 사용 여부 true(기본값) - 사용, false(미사용)
     UseLocalTimeYN: true,
 
-    defaultErrorHandler: function (Error) {
+    defaultErrorHandler: function(Error) {
         console.log('Error Occur : [' + Error.code + '] ' + Error.message);
     }
 });
 
 /*
- * 전자명세서 API 서비스 클래스 생성
+ * 전자명세서 API 모듈 초기화
  */
 var statementService = popbill.StatementService();
 
 /*
  * Statement API Index 목록
  */
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
     res.render('Statement/index', {});
 });
 
 /*
  * 파트너가 전자명세서 관리 목적으로 할당하는 문서번호의 사용여부를 확인합니다.
- * - 문서번호는 최대 24자리 영문 대소문자, 숫자, 특수문자('-','_')로 구성 합니다.
+ * - 이미 사용 중인 문서번호는 중복 사용이 불가하고, 전자명세서가 삭제된 경우에만 문서번호의 재사용이 가능합니다.
  * - https://docs.popbill.com/statement/node/api#CheckMgtKeyInUse
  */
-router.get('/checkMgtKeyInUse', function (req, res, next) {
+router.get('/checkMgtKeyInUse', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -59,17 +57,28 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     statementService.checkMgtKeyInUse(testCorpNum, itemCode, mgtKey,
-        function (result) {
+        function(result) {
             if (result) {
-                res.render('result', {path: req.path, result: '사용중'});
+                res.render('result', {
+                    path: req.path,
+                    result: '사용중'
+                });
             } else {
-                res.render('result', {path: req.path, result: '미사용중'});
+                res.render('result', {
+                    path: req.path,
+                    result: '미사용중'
+                });
             }
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -78,7 +87,7 @@ router.get('/checkMgtKeyInUse', function (req, res, next) {
  * - 팝빌 사이트 [전자명세서] > [환경설정] > [전자명세서 관리] 메뉴의 발행시 자동승인 옵션 설정을 통해 전자명세서를 "발행완료" 상태가 아닌 "승인대기" 상태로 발행 처리 할 수 있습니다.
  * - https://docs.popbill.com/statement/node/api#RegistIssue
  */
-router.get('/registIssue', function (req, res, next) {
+router.get('/registIssue', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -90,33 +99,34 @@ router.get('/registIssue', function (req, res, next) {
     var ItemCode = 121;
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20210818-Node04';
+    var MgtKey = '20220629-001';
 
     // 메모
     var memo = '';
 
-    // 안내메일 제목, 미기재시 기본양식으로 전송.
+    // 발행 안내 메일 제목
+    // - 미입력 시 팝빌에서 지정한 이메일 제목으로 전송
     var emailSubject = '';
 
     // 전자명세서 정보
     var statement = {
 
-        // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20210818',
+        // 기재상 작성일자, 날짜형식(yyyyMMdd)
+        writeDate: '20220629',
 
-        // [필수] 영수, 청구 중 기재
+        // {영수, 청구, 없음} 중 기재
         purposeType: '영수',
 
-        // [필수] 과세형태, 과세, 영세, 면세 중 기재
+        // 과세형태, {과세, 영세, 면세} 중 기재
         taxType: '과세',
 
-        // 맞춤양식코드, 미기재시 기본양식으로 작성
+        // 맞춤양식코드, 기본값을 공백('')으로 처리하면 기본양식으로 처리.
         formCode: '',
 
-        // [필수] 명세서 코드
+        // 명세서 코드
         itemCode: ItemCode,
 
-        // [필수] 문서번호
+        // 문서번호
         mgtKey: MgtKey,
 
         /*************************************************************************
@@ -148,13 +158,13 @@ router.get('/registIssue', function (req, res, next) {
         senderContactName: '담당자명',
 
         // 발신자 메일주소
-        senderEmail: 'test@test.com',
+        senderEmail: '',
 
         // 발신자 연락처
-        senderTEL: '070-4304-2991',
+        senderTEL: '',
 
         // 발신자 휴대폰번호
-        senderHP: '000-111-222',
+        senderHP: '',
 
         /*************************************************************************
          *                             수신자 정보
@@ -187,25 +197,25 @@ router.get('/registIssue', function (req, res, next) {
         // 수신자 메일주소
         // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
-        receiverEmail: 'test@test.com',
+        receiverEmail: '',
 
         // 수신자 연락처
-        receiverTEL: '070-1111-2222',
+        receiverTEL: '',
 
         // 수신자 휴대폰 번호
-        receiverHP: '000111222',
+        receiverHP: '',
 
         /*************************************************************************
          *                            전자명세서 기재정보
          **************************************************************************/
 
-        // [필수] 공급가액 합계
+        // 공급가액 합계
         supplyCostTotal: '20000',
 
-        // [필수] 세액 합계
+        // 세액 합계
         taxTotal: '2000',
 
-        // [필수] 합계금액 (공급가액 합계+ 세액 합계)
+        // 합계금액 (공급가액 합계+ 세액 합계)
         totalAmount: '22000',
 
         // 기재 상 '일련번호' 항목
@@ -216,10 +226,14 @@ router.get('/registIssue', function (req, res, next) {
         remark2: '비고2',
         remark3: '비고3',
 
-        // 사업자등록증 이미지 첨부 여부
+        // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
+        // └ true = 첨부 , false = 미첨부(기본값)
+        // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         businessLicenseYN: false,
 
-        // 통장사본 이미지 첨부 여부
+        // 통장사본 이미지 첨부여부 (true / false 중 택 1)
+        // └ true = 첨부 , false = 미첨부(기본값)
+        // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         bankBookYN: false,
 
 
@@ -227,27 +241,26 @@ router.get('/registIssue', function (req, res, next) {
          *                          상세9항목(품목) 정보
          **************************************************************************/
 
-        detailList: [
-            {
-                serialNum: 1,                // 품목 일련번호 1부터 순차기재
+        detailList: [{
+                serialNum: 1, // 품목 일련번호 1부터 순차기재
                 itemName: '품명',
-                purchaseDT: '20210801',      // 구매일자
-                qty: '1',                    // 수량
-                unitCost: '10000',           // 단가
-                spec: '규격',                 // 규격
-                supplyCost: '10000',          // 공급가액
-                tax: '1000',                  // 세액
+                purchaseDT: '20220629', // 구매일자
+                qty: '1', // 수량
+                unitCost: '10000', // 단가
+                spec: '규격', // 규격
+                supplyCost: '10000', // 공급가액
+                tax: '1000', // 세액
                 remark: '비고'
             },
             {
-                serialNum: 2,                // 품목 일련번호 1부터 순차기재
+                serialNum: 2, // 품목 일련번호 1부터 순차기재
                 itemName: '품명2',
-                purchaseDT: '20210801',      // 구매일자
-                qty: '1',                    // 수량
-                unitCost: '10000',           // 단가
-                spec: '규격',                 // 규격
-                supplyCost: '10000',          // 공급가액
-                tax: '1000',                  // 세액
+                purchaseDT: '20220629', // 구매일자
+                qty: '1', // 수량
+                unitCost: '10000', // 단가
+                spec: '규격', // 규격
+                supplyCost: '10000', // 공급가액
+                tax: '1000', // 세액
                 remark: '비고'
             }
         ],
@@ -256,22 +269,32 @@ router.get('/registIssue', function (req, res, next) {
         /*************************************************************************
          *                               전자명세서 추가속성
          * - 추가속성에 관한 자세한 사항은 "[전자명세서 API 연동매뉴얼] >
-         *   5.2. 기본양식 추가속성 테이블"을 참조하시기 바랍니다.
+         *   기본양식 추가속성 테이블"을 참조하시기 바랍니다.
          * - https://docs.popbill.com/statement/propertyBag?lang=node
          **************************************************************************/
 
         propertyBag: {
-            Balance: '2000',     // 전잔액
-            Deposit: '500',      // 입금액
-            CBalance: '2500'     // 현잔액
+            Balance: '2000', // 전잔액
+            Deposit: '500', // 입금액
+            CBalance: '2500' // 현잔액
         }
     };
 
     statementService.registIssue(testCorpNum, statement, memo, testUserID, emailSubject,
-        function (result) {
-            res.render('Statement/IssueResponse', {path: req.path, code: result.code, message: result.message, invoiceNum: result.invoiceNum});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('Statement/IssueResponse', {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+                invoiceNum: result.invoiceNum
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -279,7 +302,7 @@ router.get('/registIssue', function (req, res, next) {
  * 작성된 전자명세서 데이터를 팝빌에 저장합니다
  * - https://docs.popbill.com/statement/node/api#Register
  */
-router.get('/register', function (req, res, next) {
+router.get('/register', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -288,27 +311,27 @@ router.get('/register', function (req, res, next) {
     var ItemCode = 121;
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20210801-002';
+    var MgtKey = '20220629-002';
 
     // 전자명세서 정보
     var statement = {
 
-        // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20210801',
+        // 기재상 작성일자, 날짜형식(yyyyMMdd)
+        writeDate: '20220629',
 
-        // [필수] 영수, 청구 중 기재
+        // {영수, 청구, 없음} 중 기재
         purposeType: '영수',
 
-        // [필수] 과세형태, 과세, 영세, 면세 중 기재
+        // 과세형태, {과세, 영세, 면세} 중 기재
         taxType: '과세',
 
-        // 맞춤양식코드, 미기재시 기본양식으로 작성
+        // 맞춤양식코드, 기본값을 공백('')으로 처리하면 기본양식으로 처리.
         formCode: '',
 
-        // [필수] 명세서 코드
+        // 명세서 코드
         itemCode: ItemCode,
 
-        // [필수] 문서번호
+        // 문서번호
         mgtKey: MgtKey,
 
         /*************************************************************************
@@ -340,13 +363,13 @@ router.get('/register', function (req, res, next) {
         senderContactName: '담당자명',
 
         // 발신자 메일주소
-        senderEmail: 'test@test.com',
+        senderEmail: '',
 
         // 발신자 연락처
-        senderTEL: '070-4304-2991',
+        senderTEL: '',
 
         // 발신자 휴대폰번호
-        senderHP: '000-111-222',
+        senderHP: '',
 
         /*************************************************************************
          *                             수신자 정보
@@ -379,25 +402,25 @@ router.get('/register', function (req, res, next) {
         // 수신자 메일주소
         // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
-        receiverEmail: 'test@test.com',
+        receiverEmail: '',
 
         // 수신자 연락처
-        receiverTEL: '070-1111-2222',
+        receiverTEL: '',
 
         // 수신자 휴대폰 번호
-        receiverHP: '000111222',
+        receiverHP: '',
 
         /*************************************************************************
          *                            전자명세서 기재정보
          **************************************************************************/
 
-        // [필수] 공급가액 합계
+        // 공급가액 합계
         supplyCostTotal: '20000',
 
-        // [필수] 세액 합계
+        // 세액 합계
         taxTotal: '2000',
 
-        // [필수] 합계금액 (공급가액 합계+ 세액 합계)
+        // 합계금액 (공급가액 합계+ 세액 합계)
         totalAmount: '22000',
 
         // 기재 상 '일련번호' 항목
@@ -408,10 +431,14 @@ router.get('/register', function (req, res, next) {
         remark2: '비고2',
         remark3: '비고3',
 
-        // 사업자등록증 이미지 첨부 여부
+        // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
+        // └ true = 첨부 , false = 미첨부(기본값)
+        // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         businessLicenseYN: false,
 
-        // 통장사본 이미지 첨부 여부
+        // 통장사본 이미지 첨부여부 (true / false 중 택 1)
+        // └ true = 첨부 , false = 미첨부(기본값)
+        // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         bankBookYN: false,
 
 
@@ -419,27 +446,26 @@ router.get('/register', function (req, res, next) {
          *                          상세9항목(품목) 정보
          **************************************************************************/
 
-        detailList: [
-            {
-                serialNum: 1,                // 품목 일련번호 1부터 순차기재
+        detailList: [{
+                serialNum: 1, // 품목 일련번호 1부터 순차기재
                 itemName: '품명',
-                purchaseDT: '20210801',      // 구매일자
-                qty: '1',                    // 수량
-                unitCost: '10000',           // 단가
-                spec: '규격',                 // 규격
-                supplyCost: '10000',          // 공급가액
-                tax: '1000',                  // 세액
+                purchaseDT: '20220629', // 구매일자
+                qty: '1', // 수량
+                unitCost: '10000', // 단가
+                spec: '규격', // 규격
+                supplyCost: '10000', // 공급가액
+                tax: '1000', // 세액
                 remark: '비고'
             },
             {
-                serialNum: 2,                // 품목 일련번호 1부터 순차기재
+                serialNum: 2, // 품목 일련번호 1부터 순차기재
                 itemName: '품명2',
-                purchaseDT: '20210801',      // 구매일자
-                qty: '1',                    // 수량
-                unitCost: '10000',           // 단가
-                spec: '규격',                 // 규격
-                supplyCost: '10000',          // 공급가액
-                tax: '1000',                  // 세액
+                purchaseDT: '20220629', // 구매일자
+                qty: '1', // 수량
+                unitCost: '10000', // 단가
+                spec: '규격', // 규격
+                supplyCost: '10000', // 공급가액
+                tax: '1000', // 세액
                 remark: '비고'
             }
         ],
@@ -448,22 +474,31 @@ router.get('/register', function (req, res, next) {
         /*************************************************************************
          *                               전자명세서 추가속성
          * - 추가속성에 관한 자세한 사항은 "[전자명세서 API 연동매뉴얼] >
-         *   5.2. 기본양식 추가속성 테이블"을 참조하시기 바랍니다.
+         *   기본양식 추가속성 테이블"을 참조하시기 바랍니다.
          * - https://docs.popbill.com/statement/propertyBag?lang=node
          **************************************************************************/
 
         propertyBag: {
-            Balance: '2000',     // 전잔액
-            Deposit: '500',      // 입금액
-            CBalance: '2500'     // 현잔액
+            Balance: '2000', // 전잔액
+            Deposit: '500', // 입금액
+            CBalance: '2500' // 현잔액
         }
     };
 
     statementService.register(testCorpNum, statement,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -471,7 +506,7 @@ router.get('/register', function (req, res, next) {
  * "임시저장" 상태의 전자명세서를 수정합니다.건의 전자명세서를 [수정]합니다.
  * - https://docs.popbill.com/statement/node/api#Update
  */
-router.get('/update', function (req, res, next) {
+router.get('/update', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -480,28 +515,28 @@ router.get('/update', function (req, res, next) {
     var ItemCode = 121;
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20210801-001';
+    var MgtKey = '20220629-002';
 
 
     // 전자명세서 정보
     var statement = {
 
-        // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20210801',
+        // 기재상 작성일자, 날짜형식(yyyyMMdd)
+        writeDate: '20220629',
 
-        // [필수] 영수, 청구 중 기재
+        // {영수, 청구, 없음} 중 기재
         purposeType: '영수',
 
-        // [필수] 과세형태, 과세, 영세, 면세 중 기재
+        // 과세형태, {과세, 영세, 면세} 중 기재
         taxType: '과세',
 
-        // 맞춤양식코드, 미기재시 기본양식으로 작성
+        // 맞춤양식코드, 기본값을 공백('')으로 처리하면 기본양식으로 처리.
         formCode: '',
 
-        // [필수] 명세서 코드
+        // 명세서 코드
         itemCode: ItemCode,
 
-        // [필수] 문서번호
+        // 문서번호
         mgtKey: MgtKey,
 
         /*************************************************************************
@@ -533,13 +568,13 @@ router.get('/update', function (req, res, next) {
         senderContactName: '담당자명',
 
         // 발신자 메일주소
-        senderEmail: 'test@test.com',
+        senderEmail: '',
 
         // 발신자 연락처
-        senderTEL: '070-4304-2991',
+        senderTEL: '',
 
         // 발신자 휴대폰번호
-        senderHP: '000-111-222',
+        senderHP: '',
 
         /*************************************************************************
          *                             수신자 정보
@@ -572,25 +607,25 @@ router.get('/update', function (req, res, next) {
         // 수신자 메일주소
         // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
-        receiverEmail: 'test@test.com',
+        receiverEmail: '',
 
         // 수신자 연락처
-        receiverTEL: '070-1111-2222',
+        receiverTEL: '',
 
         // 수신자 휴대폰 번호
-        receiverHP: '000111222',
+        receiverHP: '',
 
         /*************************************************************************
          *                            전자명세서 기재정보
          **************************************************************************/
 
-        // [필수] 공급가액 합계
+        // 공급가액 합계
         supplyCostTotal: '20000',
 
-        // [필수] 세액 합계
+        // 세액 합계
         taxTotal: '2000',
 
-        // [필수] 합계금액 (공급가액 합계+ 세액 합계)
+        // 합계금액 (공급가액 합계+ 세액 합계)
         totalAmount: '22000',
 
         // 기재 상 '일련번호' 항목
@@ -601,10 +636,14 @@ router.get('/update', function (req, res, next) {
         remark2: '비고2',
         remark3: '비고3',
 
-        // 사업자등록증 이미지 첨부 여부
+        // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
+        // └ true = 첨부 , false = 미첨부(기본값)
+        // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         businessLicenseYN: false,
 
-        // 통장사본 이미지 첨부 여부
+        // 통장사본 이미지 첨부여부 (true / false 중 택 1)
+        // └ true = 첨부 , false = 미첨부(기본값)
+        // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         bankBookYN: false,
 
 
@@ -612,27 +651,26 @@ router.get('/update', function (req, res, next) {
          *                          상세9항목(품목) 정보
          **************************************************************************/
 
-        detailList: [
-            {
-                serialNum: 1,                // 품목 일련번호 1부터 순차기재
+        detailList: [{
+                serialNum: 1, // 품목 일련번호 1부터 순차기재
                 itemName: '품명',
-                purchaseDT: '20210801',      // 구매일자
-                qty: '1',                    // 수량
-                unitCost: '10000',           // 단가
-                spec: '규격',                 // 규격
-                supplyCost: '10000',          // 공급가액
-                tax: '1000',                  // 세액
+                purchaseDT: '20220629', // 구매일자
+                qty: '1', // 수량
+                unitCost: '10000', // 단가
+                spec: '규격', // 규격
+                supplyCost: '10000', // 공급가액
+                tax: '1000', // 세액
                 remark: '비고'
             },
             {
-                serialNum: 2,                // 품목 일련번호 1부터 순차기재
+                serialNum: 2, // 품목 일련번호 1부터 순차기재
                 itemName: '품명2',
-                purchaseDT: '20210801',      // 구매일자
-                qty: '1',                    // 수량
-                unitCost: '10000',           // 단가
-                spec: '규격',                 // 규격
-                supplyCost: '10000',          // 공급가액
-                tax: '1000',                  // 세액
+                purchaseDT: '20220629', // 구매일자
+                qty: '1', // 수량
+                unitCost: '10000', // 단가
+                spec: '규격', // 규격
+                supplyCost: '10000', // 공급가액
+                tax: '1000', // 세액
                 remark: '비고'
             }
         ],
@@ -646,17 +684,26 @@ router.get('/update', function (req, res, next) {
          **************************************************************************/
 
         propertyBag: {
-            Balance: '2000',     // 전잔액
-            Deposit: '500',      // 입금액
-            CBalance: '2500'     // 현잔액
+            Balance: '2000', // 전잔액
+            Deposit: '500', // 입금액
+            CBalance: '2500' // 현잔액
         }
     };
 
     statementService.update(testCorpNum, ItemCode, MgtKey, statement,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -666,7 +713,7 @@ router.get('/update', function (req, res, next) {
  * - 전자명세서 발행 함수 호출시 포인트가 과금되며, 수신자에게 발행 안내 메일이 발송됩니다.
  * - https://docs.popbill.com/statement/node/api#Stmissue
  */
-router.get('/issue', function (req, res, next) {
+router.get('/issue', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -675,16 +722,25 @@ router.get('/issue', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-002';
 
     // 메모
     var memo = '발행메모';
 
     statementService.issue(testCorpNum, itemCode, mgtKey, memo,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -692,7 +748,7 @@ router.get('/issue', function (req, res, next) {
  * 발신자가 발행한 전자명세서를 발행취소합니다.
  * - https://docs.popbill.com/statement/node/api#Cancel
  */
-router.get('/cancelIssue', function (req, res, next) {
+router.get('/cancelIssue', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -701,26 +757,34 @@ router.get('/cancelIssue', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     // 메모
     var memo = '발행취소 메모';
 
     statementService.cancel(testCorpNum, itemCode, mgtKey, memo,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
 /*
  * 삭제 가능한 상태의 전자명세서를 삭제합니다.
  * - 삭제 가능한 상태: "임시저장", "취소", "승인거부", "발행취소"
- * - 전자명세서를 삭제하면 사용된 문서번호(mgtKey)를 재사용할 수 있습니다.
  * - https://docs.popbill.com/statement/node/api#Delete
  */
-router.get('/delete', function (req, res, next) {
+router.get('/delete', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -729,13 +793,22 @@ router.get('/delete', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     statementService.delete(testCorpNum, itemCode, mgtKey,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -743,7 +816,7 @@ router.get('/delete', function (req, res, next) {
  * 전자명세서의 1건의 상태 및 요약정보 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetInfo
  */
-router.get('/getInfo', function (req, res, next) {
+router.get('/getInfo', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -752,13 +825,21 @@ router.get('/getInfo', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     statementService.getInfo(testCorpNum, itemCode, mgtKey,
-        function (result) {
-            res.render('Statement/StatementInfo', {path: req.path, result: result});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('Statement/StatementInfo', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -766,7 +847,7 @@ router.get('/getInfo', function (req, res, next) {
  * 다수건의 전자명세서 상태/요약 정보를 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetInfos
  */
-router.get('/getInfos', function (req, res, next) {
+router.get('/getInfos', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -775,13 +856,21 @@ router.get('/getInfos', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호 배열, 최대 1000건
-    var mgtKeyList = ['20210801-001', '20210801-002', '20210801-003'];
+    var mgtKeyList = ['20220629-001', '20220629-002'];
 
     statementService.getInfos(testCorpNum, itemCode, mgtKeyList,
-        function (result) {
-            res.render('Statement/StatementInfos', {path: req.path, result: result});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('Statement/StatementInfos', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -789,7 +878,7 @@ router.get('/getInfos', function (req, res, next) {
  * 전자명세서 1건의 상세정보 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetDetailInfo
  */
-router.get('/getDetailInfo', function (req, res, next) {
+router.get('/getDetailInfo', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -798,13 +887,21 @@ router.get('/getDetailInfo', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     statementService.getDetailInfo(testCorpNum, itemCode, mgtKey,
-        function (result) {
-            res.render('Statement/StatementDetail', {path: req.path, result: result});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('Statement/StatementDetail', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -812,27 +909,30 @@ router.get('/getDetailInfo', function (req, res, next) {
  * 검색조건에 해당하는 전자명세서를 조회합니다. (조회기간 단위 : 최대 6개월)
  * - https://docs.popbill.com/statement/node/api#Search
  */
-router.get('/search', function (req, res, next) {
+router.get('/search', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // 검색일자 유형, R-등록일자, W-작성일자, I-발행일자
+    // 일자 유형 ("R" , "W" , "I" 중 택 1)
+    // └ R = 등록일자 , W = 작성일자 , I = 발행일자
     var DType = 'W';
 
     // 시작일자, 작성형식(yyyyMMdd)
-    var SDate = '20210801';
+    var SDate = '20220601';
 
     // 종료일자, 작성형식(yyyyMMdd)
-    var EDate = '20210830';
+    var EDate = '20220629';
 
-    // 명세서 문서상태값 배열, 전송상태(stateCode)값 배열
+    // 전자명세서 상태코드 배열 (2,3번째 자리에 와일드카드(*) 사용 가능)
+    // - 미입력시 전체조회
     var State = ['200', '3**'];
 
     // 전자명세서 종류코드 배열, 121-거래명세서, 122-청구서, 123-견적서, 124-발주서, 125-입금표, 126-영수증
     var ItemCode = [121, 122, 123, 124, 125, 126];
 
-    // 거래처 정보, 거래처 상호 또는 사업자등록번호 기재, 미기재시 전체조회
+    // 통합검색어, 거래처 상호명 또는 거래처 사업자번호로 조회
+    // - 미입력시 전체조회
     var QString = '';
 
     // 정렬방향, D-내림차순, A-오름차순
@@ -845,10 +945,18 @@ router.get('/search', function (req, res, next) {
     var PerPage = 10;
 
     statementService.search(testCorpNum, DType, SDate, EDate, State, ItemCode, QString, Order, Page, PerPage,
-        function (result) {
-            res.render('Statement/Search', {path: req.path, result: result});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('Statement/Search', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -856,7 +964,7 @@ router.get('/search', function (req, res, next) {
  * 전자명세서의 상태에 대한 변경이력을 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetLogs
  */
-router.get('/getLogs', function (req, res, next) {
+router.get('/getLogs', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -865,13 +973,21 @@ router.get('/getLogs', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     statementService.getLogs(testCorpNum, itemCode, mgtKey,
-        function (result) {
-            res.render('Statement/StatementLogs', {path: req.path, result: result});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('Statement/StatementLogs', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -880,7 +996,7 @@ router.get('/getLogs', function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetURL
  */
-router.get('/getURL', function (req, res, next) {
+router.get('/getURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -889,10 +1005,18 @@ router.get('/getURL', function (req, res, next) {
     var TOGO = 'SBOX';
 
     statementService.getURL(testCorpNum, TOGO,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -901,7 +1025,7 @@ router.get('/getURL', function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetPopUpURL
  */
-router.get('/getPopUpURL', function (req, res, next) {
+router.get('/getPopUpURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -910,13 +1034,21 @@ router.get('/getPopUpURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     statementService.getPopUpURL(testCorpNum, itemCode, mgtKey,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -925,7 +1057,7 @@ router.get('/getPopUpURL', function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetViewURL
  */
-router.get('/getViewURL', function (req, res, next) {
+router.get('/getViewURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -934,13 +1066,21 @@ router.get('/getViewURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     statementService.getViewURL(testCorpNum, itemCode, mgtKey,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -949,7 +1089,7 @@ router.get('/getViewURL', function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetPrintURL
  */
-router.get('/getPrintURL', function (req, res, next) {
+router.get('/getPrintURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -958,13 +1098,21 @@ router.get('/getPrintURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     statementService.getPrintURL(testCorpNum, itemCode, mgtKey,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -973,7 +1121,7 @@ router.get('/getPrintURL', function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetEPrintURL
  */
-router.get('/getEPrintURL', function (req, res, next) {
+router.get('/getEPrintURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -982,13 +1130,21 @@ router.get('/getEPrintURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     statementService.getEPrintURL(testCorpNum, itemCode, mgtKey,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -997,7 +1153,7 @@ router.get('/getEPrintURL', function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetMassPrintURL
  */
-router.get('/getMassPrintURL', function (req, res, next) {
+router.get('/getMassPrintURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1006,13 +1162,21 @@ router.get('/getMassPrintURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호 배열, 최대 100건
-    var mgtKeyList = ['20210801-001', '20210801-002', '20210801-003'];
+    var mgtKeyList = ['20220629-001', '20220629-002'];
 
     statementService.getMassPrintURL(testCorpNum, itemCode, mgtKeyList,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1021,7 +1185,7 @@ router.get('/getMassPrintURL', function (req, res, next) {
  * - 함수 호출로 반환 받은 URL에는 유효시간이 없습니다.
  * - https://docs.popbill.com/statement/node/api#GetMailURL
  */
-router.get('/getMailURL', function (req, res, next) {
+router.get('/getMailURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1030,13 +1194,21 @@ router.get('/getMailURL', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     statementService.getMailURL(testCorpNum, itemCode, mgtKey,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1045,7 +1217,7 @@ router.get('/getMailURL', function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetAccessURL
  */
-router.get('/getAccessURL', function (req, res, next) {
+router.get('/getAccessURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1054,10 +1226,18 @@ router.get('/getAccessURL', function (req, res, next) {
     var testUserID = 'testkorea';
 
     statementService.getAccessURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1066,7 +1246,7 @@ router.get('/getAccessURL', function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetSealURL
  */
-router.get('/getSealURL', function (req, res, next) {
+router.get('/getSealURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1075,10 +1255,18 @@ router.get('/getSealURL', function (req, res, next) {
     var testUserID = 'testkorea';
 
     statementService.getSealURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1086,7 +1274,7 @@ router.get('/getSealURL', function (req, res, next) {
  * "임시저장" 상태의 명세서에 1개의 파일을 첨부합니다. (최대 5개)
  * - https://docs.popbill.com/statement/node/api#AttachFile
  */
-router.get('/attachFile', function (req, res, next) {
+router.get('/attachFile', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1095,7 +1283,7 @@ router.get('/attachFile', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-002';
 
     // 파일경로
     var filePaths = ['./test.jpg'];
@@ -1104,10 +1292,19 @@ router.get('/attachFile', function (req, res, next) {
     var fileName = filePaths[0].replace(/^.*[\\\/]/, '');
 
     statementService.attachFile(testCorpNum, itemCode, mgtKey, fileName, filePaths,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1115,7 +1312,7 @@ router.get('/attachFile', function (req, res, next) {
  * "임시저장" 상태의 전자명세서에 첨부된 1개의 파일을 삭제합니다.
  * - https://docs.popbill.com/statement/node/api#DeleteFile
  */
-router.get('/deleteFile', function (req, res, next) {
+router.get('/deleteFile', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1124,16 +1321,25 @@ router.get('/deleteFile', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-002';
 
     // 파일아이디 getFiles API의 attachedFile 변수값
-    var fileID = '5991857A-1CBC-4BB7-B32F-4126FFC1E64C.PBF';
+    var fileID = '';
 
     statementService.deleteFile(testCorpNum, itemCode, mgtKey, fileID,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1142,7 +1348,7 @@ router.get('/deleteFile', function (req, res, next) {
  * - 응답항목 중 파일아이디(AttachedFile) 항목은 파일삭제(DeleteFile API) 호출시 이용할 수 있습니다.
  * - https://docs.popbill.com/statement/node/api#GetFiles
  */
-router.get('/getFiles', function (req, res, next) {
+router.get('/getFiles', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1151,13 +1357,21 @@ router.get('/getFiles', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-002';
 
     statementService.getFiles(testCorpNum, itemCode, mgtKey,
-        function (result) {
-            res.render('Statement/AttachedFile', {path: req.path, result: result});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('Statement/AttachedFile', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1165,7 +1379,7 @@ router.get('/getFiles', function (req, res, next) {
  * "승인대기", "발행완료" 상태의 전자명세서와 관련된 발행 안내 메일을 재전송 합니다.
  * - https://docs.popbill.com/statement/node/api#SendEmail
  */
-router.get('/sendEmail', function (req, res, next) {
+router.get('/sendEmail', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1174,18 +1388,27 @@ router.get('/sendEmail', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     // 수신메일주소
     // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
     // 실제 거래처의 메일주소가 기재되지 않도록 주의
-    var receiver = 'test@test.com';
+    var receiver = '';
 
     statementService.sendEmail(testCorpNum, itemCode, mgtKey, receiver,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1195,7 +1418,7 @@ router.get('/sendEmail', function (req, res, next) {
  * - 함수 호출시 포인트가 과금됩니다.
  * - https://docs.popbill.com/statement/node/api#SendSMS
  */
-router.get('/sendSMS', function (req, res, next) {
+router.get('/sendSMS', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1204,22 +1427,31 @@ router.get('/sendSMS', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     // 발신번호
-    var senderNum = '07043042992';
+    var senderNum = '';
 
     // 수신번호
-    var receiverNum = '010111222';
+    var receiverNum = '';
 
     // 문자메시지 내용, 최대 90Byte 초과시 길이가 조정되어 전송됨
     var contents = '전자명세서 알림문자재전송 테스트';
 
     statementService.sendSMS(testCorpNum, itemCode, mgtKey, senderNum, receiverNum, contents,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1228,7 +1460,7 @@ router.get('/sendSMS', function (req, res, next) {
  * - 함수 호출시 포인트가 과금됩니다.
  * - https://docs.popbill.com/statement/node/api#SendFAX
  */
-router.get('/sendFAX', function (req, res, next) {
+router.get('/sendFAX', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1237,19 +1469,28 @@ router.get('/sendFAX', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     // 발신번호
-    var senderNum = '07043042992';
+    var senderNum = '';
 
     // 수신팩스번호
-    var receiverNum = '010111222';
+    var receiverNum = '';
 
     statementService.sendFAX(testCorpNum, itemCode, mgtKey, senderNum, receiverNum,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1261,42 +1502,42 @@ router.get('/sendFAX', function (req, res, next) {
  * - 팩스 전송결과를 확인하기 위해서는 선팩스 전송 요청 시 반환받은 접수번호를 이용하여 팩스 API의 전송결과 확인 (GetFaxResult) API를 이용하면 됩니다.
  * - https://docs.popbill.com/statement/node/api#FAXSend
  */
-router.get('/FAXSend', function (req, res, next) {
+router.get('/FAXSend', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
 
     // 발신번호
-    var sendNum = '07043042991';
+    var sendNum = '';
 
     // 수신팩스번호
-    var receiveNum = '010111222';
+    var receiveNum = '';
 
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var ItemCode = 121;
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20210801-001';
+    var MgtKey = '20220629-003';
 
     // 전자명세서 정보
     var statement = {
 
-        // [필수] 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: '20210801',
+        // 기재상 작성일자, 날짜형식(yyyyMMdd)
+        writeDate: '20220629',
 
-        // [필수] 영수, 청구 중 기재
+        // {영수, 청구, 없음} 중 기재
         purposeType: '영수',
 
-        // [필수] 과세형태, 과세, 영세, 면세 중 기재
+        // 과세형태, {과세, 영세, 면세} 중 기재
         taxType: '과세',
 
-        // 맞춤양식코드, 미기재시 기본양식으로 작성
+        // 맞춤양식코드, 기본값을 공백('')으로 처리하면 기본양식으로 처리.
         formCode: '',
 
-        // [필수] 명세서 코드
+        // 명세서 코드
         itemCode: ItemCode,
 
-        // [필수] 문서번호
+        // 문서번호
         mgtKey: MgtKey,
 
         /*************************************************************************
@@ -1328,13 +1569,13 @@ router.get('/FAXSend', function (req, res, next) {
         senderContactName: '담당자명',
 
         // 발신자 메일주소
-        senderEmail: 'test@test.com',
+        senderEmail: '',
 
         // 발신자 연락처
-        senderTEL: '070-4304-2991',
+        senderTEL: '',
 
         // 발신자 휴대폰번호
-        senderHP: '000-111-222',
+        senderHP: '',
 
         /*************************************************************************
          *                             수신자 정보
@@ -1367,25 +1608,25 @@ router.get('/FAXSend', function (req, res, next) {
         // 수신자 메일주소
         // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
-        receiverEmail: 'test@test.com',
+        receiverEmail: '',
 
         // 수신자 연락처
-        receiverTEL: '070-1111-2222',
+        receiverTEL: '',
 
         // 수신자 휴대폰 번호
-        receiverHP: '000111222',
+        receiverHP: '',
 
         /*************************************************************************
          *                            전자명세서 기재정보
          **************************************************************************/
 
-        // [필수] 공급가액 합계
+        // 공급가액 합계
         supplyCostTotal: '20000',
 
-        // [필수] 세액 합계
+        // 세액 합계
         taxTotal: '2000',
 
-        // [필수] 합계금액 (공급가액 합계+ 세액 합계)
+        // 합계금액 (공급가액 합계+ 세액 합계)
         totalAmount: '22000',
 
         // 기재 상 '일련번호' 항목
@@ -1396,10 +1637,14 @@ router.get('/FAXSend', function (req, res, next) {
         remark2: '비고2',
         remark3: '비고3',
 
-        // 사업자등록증 이미지 첨부 여부
+        // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
+        // └ true = 첨부 , false = 미첨부(기본값)
+        // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         businessLicenseYN: false,
 
-        // 통장사본 이미지 첨부 여부
+        // 통장사본 이미지 첨부여부 (true / false 중 택 1)
+        // └ true = 첨부 , false = 미첨부(기본값)
+        // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         bankBookYN: false,
 
 
@@ -1407,27 +1652,26 @@ router.get('/FAXSend', function (req, res, next) {
          *                          상세9항목(품목) 정보
          **************************************************************************/
 
-        detailList: [
-            {
-                serialNum: 1,                // 품목 일련번호 1부터 순차기재
+        detailList: [{
+                serialNum: 1, // 품목 일련번호 1부터 순차기재
                 itemName: '품명',
-                purchaseDT: '20210801',      // 구매일자
-                qty: '1',                    // 수량
-                unitCost: '10000',           // 단가
-                spec: '규격',                 // 규격
-                supplyCost: '10000',          // 공급가액
-                tax: '1000',                  // 세액
+                purchaseDT: '20220629', // 구매일자
+                qty: '1', // 수량
+                unitCost: '10000', // 단가
+                spec: '규격', // 규격
+                supplyCost: '10000', // 공급가액
+                tax: '1000', // 세액
                 remark: '비고'
             },
             {
-                serialNum: 2,                // 품목 일련번호 1부터 순차기재
+                serialNum: 2, // 품목 일련번호 1부터 순차기재
                 itemName: '품명2',
-                purchaseDT: '20210801',      // 구매일자
-                qty: '1',                    // 수량
-                unitCost: '10000',           // 단가
-                spec: '규격',                 // 규격
-                supplyCost: '10000',          // 공급가액
-                tax: '1000',                  // 세액
+                purchaseDT: '20220629', // 구매일자
+                qty: '1', // 수량
+                unitCost: '10000', // 단가
+                spec: '규격', // 규격
+                supplyCost: '10000', // 공급가액
+                tax: '1000', // 세액
                 remark: '비고'
             }
         ],
@@ -1441,17 +1685,25 @@ router.get('/FAXSend', function (req, res, next) {
          **************************************************************************/
 
         propertyBag: {
-            Balance: '2000',     // 전잔액
-            Deposit: '500',      // 입금액
-            CBalance: '2500'     // 현잔액
+            Balance: '2000', // 전잔액
+            Deposit: '500', // 입금액
+            CBalance: '2500' // 현잔액
         }
     };
 
     statementService.FAXSend(testCorpNum, statement, sendNum, receiveNum,
-        function (receiptNum) {
-            res.render('result', {path: req.path, result: receiptNum});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(receiptNum) {
+            res.render('result', {
+                path: req.path,
+                result: receiptNum
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1459,7 +1711,7 @@ router.get('/FAXSend', function (req, res, next) {
  * 하나의 전자명세서에 다른 전자명세서를 첨부합니다.
  * - https://docs.popbill.com/statement/node/api#AttachStatement
  */
-router.get('/attachStatement', function (req, res, next) {
+router.get('/attachStatement', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1468,19 +1720,28 @@ router.get('/attachStatement', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     // 첨부할 명세서 종류코드
     var subItemCode = 121;
 
     // 첨부할 명세서 문서번호
-    var subMgtKey = '20210801-S002';
+    var subMgtKey = '20220629-002';
 
     statementService.attachStatement(testCorpNum, itemCode, mgtKey, subItemCode, subMgtKey,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1488,7 +1749,7 @@ router.get('/attachStatement', function (req, res, next) {
  * 하나의 전자명세서에 첨부된 다른 전자명세서를 해제합니다.
  * - https://docs.popbill.com/statement/node/api#DetachStatement
  */
-router.get('/detachStatement', function (req, res, next) {
+router.get('/detachStatement', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1497,19 +1758,28 @@ router.get('/detachStatement', function (req, res, next) {
     var itemCode = 121;
 
     // 문서번호
-    var mgtKey = '20210801-001';
+    var mgtKey = '20220629-001';
 
     // 첨부해제할 명세서 종류코드
     var subItemCode = 121;
 
     // 첨부해제할 명세서 문서번호
-    var subMgtKey = '20210801-002';
+    var subMgtKey = '20220629-002';
 
     statementService.detachStatement(testCorpNum, itemCode, mgtKey, subItemCode, subMgtKey,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1517,16 +1787,24 @@ router.get('/detachStatement', function (req, res, next) {
  * 전자명세서 관련 메일 항목에 대한 발송설정을 확인합니다.
  * - https://docs.popbill.com/statement/node/api#ListEmailConfig
  */
-router.get('/listEmailConfig', function (req, res, next) {
+router.get('/listEmailConfig', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     statementService.listEmailConfig(testCorpNum,
-        function (result) {
-            res.render('Statement/ListEmailConfig', {path: req.path, result: result});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('Statement/ListEmailConfig', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1541,7 +1819,7 @@ router.get('/listEmailConfig', function (req, res, next) {
  * SMT_CANCEL : 수신자에게 전자명세서가 취소 되었음을 알려주는 메일입니다.
  * SMT_CANCEL_ISSUE : 수신자에게 전자명세서가 발행취소 되었음을 알려주는 메일입니다.
  */
-router.get('/updateEmailConfig', function (req, res, next) {
+router.get('/updateEmailConfig', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1553,28 +1831,44 @@ router.get('/updateEmailConfig', function (req, res, next) {
     var sendYN = true;
 
     statementService.updateEmailConfig(testCorpNum, emailType, sendYN,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
 /*
  * 연동회원의 잔여포인트를 확인합니다.
- * - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API)를 통해 확인하시기 바랍니다.
  * - https://docs.popbill.com/statement/node/api#GetBalance
  */
-router.get('/getBalance', function (req, res, next) {
+router.get('/getBalance', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     statementService.getBalance(testCorpNum,
-        function (remainPoint) {
-            res.render('result', {path: req.path, result: remainPoint});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(remainPoint) {
+            res.render('result', {
+                path: req.path,
+                result: remainPoint
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1583,7 +1877,7 @@ router.get('/getBalance', function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetChargeURL
  */
-router.get('/getChargeURL', function (req, res, next) {
+router.get('/getChargeURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1592,10 +1886,18 @@ router.get('/getChargeURL', function (req, res, next) {
     var testUserID = 'testkorea';
 
     statementService.getChargeURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1604,7 +1906,7 @@ router.get('/getChargeURL', function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetPaymentURL
  */
-router.get('/getPaymentURL', function (req, res, next) {
+router.get('/getPaymentURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1613,10 +1915,18 @@ router.get('/getPaymentURL', function (req, res, next) {
     var testUserID = 'testkorea';
 
     statementService.getPaymentURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1625,7 +1935,7 @@ router.get('/getPaymentURL', function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetUseHistoryURL
  */
-router.get('/getUseHistoryURL', function (req, res, next) {
+router.get('/getUseHistoryURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1634,28 +1944,43 @@ router.get('/getUseHistoryURL', function (req, res, next) {
     var testUserID = 'testkorea';
 
     statementService.getUseHistoryURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
 /*
  * 파트너의 잔여포인트를 확인합니다.
- * - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API)를 이용하시기 바랍니다.
  * - https://docs.popbill.com/statement/node/api#GetPartnerBalance
  */
-router.get('/getPartnerBalance', function (req, res, next) {
+router.get('/getPartnerBalance', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     statementService.getPartnerBalance(testCorpNum,
-        function (remainPoint) {
-            res.render('result', {path: req.path, result: remainPoint});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(remainPoint) {
+            res.render('result', {
+                path: req.path,
+                result: remainPoint
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1664,7 +1989,7 @@ router.get('/getPartnerBalance', function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://docs.popbill.com/statement/node/api#GetPartnerURL
  */
-router.get('/getPartnerURL', function (req, res, next) {
+router.get('/getPartnerURL', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1673,10 +1998,18 @@ router.get('/getPartnerURL', function (req, res, next) {
     var TOGO = 'CHRG';
 
     statementService.getPartnerURL(testCorpNum, TOGO,
-        function (url) {
-            res.render('result', {path: req.path, result: url});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(url) {
+            res.render('result', {
+                path: req.path,
+                result: url
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1684,7 +2017,7 @@ router.get('/getPartnerURL', function (req, res, next) {
  * 전자명세서 발행시 과금되는 포인트 단가를 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetUnitCost
  */
-router.get('/getUnitCost', function (req, res, next) {
+router.get('/getUnitCost', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1693,10 +2026,18 @@ router.get('/getUnitCost', function (req, res, next) {
     var itemCode = 121;
 
     statementService.getUnitCost(testCorpNum, itemCode,
-        function (unitCost) {
-            res.render('result', {path: req.path, result: unitCost});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(unitCost) {
+            res.render('result', {
+                path: req.path,
+                result: unitCost
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1704,7 +2045,7 @@ router.get('/getUnitCost', function (req, res, next) {
  * 팝빌 전자명세서 API 서비스 과금정보를 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetChargeInfo
  */
-router.get('/getChargeInfo', function (req, res, next) {
+router.get('/getChargeInfo', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1713,10 +2054,18 @@ router.get('/getChargeInfo', function (req, res, next) {
     var itemCode = 121;
 
     statementService.getChargeInfo(testCorpNum, itemCode,
-        function (result) {
-            res.render('Base/getChargeInfo', {path: req.path, result: result});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('Base/getChargeInfo', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1724,16 +2073,24 @@ router.get('/getChargeInfo', function (req, res, next) {
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://docs.popbill.com/statement/node/api#CheckIsMember
  */
-router.get('/checkIsMember', function (req, res, next) {
+router.get('/checkIsMember', function(req, res, next) {
 
     // 조회할 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     statementService.checkIsMember(testCorpNum,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1741,16 +2098,25 @@ router.get('/checkIsMember', function (req, res, next) {
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://docs.popbill.com/statement/node/api#CheckID
  */
-router.get('/checkID', function (req, res, next) {
+router.get('/checkID', function(req, res, next) {
 
     // 조회할 아이디
     var testID = 'testkorea';
 
     statementService.checkID(testID,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1758,7 +2124,7 @@ router.get('/checkID', function (req, res, next) {
  * 사용자를 연동회원으로 가입처리합니다.
  * - https://docs.popbill.com/statement/node/api#JoinMember
  */
-router.get('/joinMember', function (req, res, next) {
+router.get('/joinMember', function(req, res, next) {
 
     // 회원정보
     var joinInfo = {
@@ -1794,21 +2160,27 @@ router.get('/joinMember', function (req, res, next) {
         ContactName: '담당자 성명',
 
         // 담당자 이메일 (최대 20자)
-        ContactEmail: 'test@test.com',
+        ContactEmail: '',
 
         // 담당자 연락처 (최대 20자)
-        ContactTEL: '070-4304-2991',
-
-        // 담당자 휴대폰번호 (최대 20자)
-        ContactHP: '010-1234-1234'
+        ContactTEL: ''
 
     };
 
     statementService.joinMember(joinInfo,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1816,16 +2188,24 @@ router.get('/joinMember', function (req, res, next) {
  * 연동회원의 회사정보를 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetCorpInfo
  */
-router.get('/getCorpInfo', function (req, res, next) {
+router.get('/getCorpInfo', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     statementService.getCorpInfo(testCorpNum,
-        function (result) {
-            res.render('Base/getCorpInfo', {path: req.path, result: result});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('Base/getCorpInfo', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1833,7 +2213,7 @@ router.get('/getCorpInfo', function (req, res, next) {
  * 연동회원의 회사정보를 수정합니다.
  * - https://docs.popbill.com/statement/node/api#UpdateCorpInfo
  */
-router.get('/updateCorpInfo', function (req, res, next) {
+router.get('/updateCorpInfo', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1859,10 +2239,19 @@ router.get('/updateCorpInfo', function (req, res, next) {
     };
 
     statementService.updateCorpInfo(testCorpNum, corpInfo,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1870,7 +2259,7 @@ router.get('/updateCorpInfo', function (req, res, next) {
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://docs.popbill.com/statement/node/api#RegistContact
  */
-router.get('/registContact', function (req, res, next) {
+router.get('/registContact', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1888,26 +2277,29 @@ router.get('/registContact', function (req, res, next) {
         personName: '담당자명0309',
 
         // 연락처 (최대 20자)
-        tel: '070-4304-2991',
-
-        // 휴대폰번호 (최대 20자)
-        hp: '010-1234-1234',
-
-        // 팩스번호 (최대 20자)
-        fax: '070-4304-2991',
+        tel: '',
 
         // 이메일 (최대 100자)
-        email: 'test@test.co.kr',
+        email: '',
 
         // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3
     };
 
     statementService.registContact(testCorpNum, contactInfo,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1915,7 +2307,7 @@ router.get('/registContact', function (req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
  * - https://docs.popbill.com/statement/node/api#GetContactInfo
  */
-router.get('/getContactInfo', function (req, res, next) {
+router.get('/getContactInfo', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1924,10 +2316,18 @@ router.get('/getContactInfo', function (req, res, next) {
     var contactID = 'checkContactID';
 
     statementService.getContactInfo(testCorpNum, contactID,
-        function (result) {
-            res.render('Base/getContactInfo', {path: req.path, result: result});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('Base/getContactInfo', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1935,16 +2335,24 @@ router.get('/getContactInfo', function (req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://docs.popbill.com/statement/node/api#ListContact
  */
-router.get('/listContact', function (req, res, next) {
+router.get('/listContact', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
 
     statementService.listContact(testCorpNum,
-        function (result) {
-            res.render('Base/listContact', {path: req.path, result: result});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('Base/listContact', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 
@@ -1952,7 +2360,7 @@ router.get('/listContact', function (req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://docs.popbill.com/statement/node/api#UpdateContact
  */
-router.get('/updateContact', function (req, res, next) {
+router.get('/updateContact', function(req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1970,16 +2378,10 @@ router.get('/updateContact', function (req, res, next) {
         personName: '담당자명0309',
 
         // 연락처 (최대 20자)
-        tel: '070-4304-2991',
-
-        // 휴대폰번호 (최대 20자)
-        hp: '010-1234-1234',
-
-        // 팩스번호 (최대 20자)
-        fax: '070-4304-2991',
+        tel: '',
 
         // 이메일 (최대 100자)
-        email: 'test@test.co.kr',
+        email: '',
 
         // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3
@@ -1987,10 +2389,19 @@ router.get('/updateContact', function (req, res, next) {
     };
 
     statementService.updateContact(testCorpNum, testUserID, contactInfo,
-        function (result) {
-            res.render('response', {path: req.path, code: result.code, message: result.message});
-        }, function (Error) {
-            res.render('response', {path: req.path, code: Error.code, message: Error.message});
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
         });
 });
 

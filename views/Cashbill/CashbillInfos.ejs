@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
     <title>팝빌 SDK Express Example. </title>
 </head>
+
 <body>
-<div id="content">
-    <p class="heading1">Response</p>
-    <br/>
-    <fieldset class="fieldset1">
-        <legend><%= path %></legend>
-        <%
+    <div id="content">
+        <p class="heading1">Response</p>
+        <br />
+        <fieldset class="fieldset1">
+            <legend><%= path %></legend>
+            <%
         result.forEach(function(cashbillInfo, index){
         %>
             <fieldset class="fieldset2">
@@ -41,10 +43,11 @@
                     <li> printYN (인쇄여부) : <%= cashbillInfo.printYN %></li>
                 </ul>
             </fieldset>
-        <%
+            <%
         });
         %>
-    </fieldset>
-</div>
+        </fieldset>
+    </div>
 </body>
+
 </html>

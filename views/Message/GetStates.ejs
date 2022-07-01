@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" media="screen"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" media="screen" />
     <title>팝빌 SDK Nodejs - Express Example.</title>
 </head>
+
 <body>
-<div id="content">
-    <p class="heading1">Response</p>
-    <br/>
-    <fieldset class="fieldset1">
-        <legend><%= path %></legend>
-        <%
+    <div id="content">
+        <p class="heading1">Response</p>
+        <br />
+        <fieldset class="fieldset1">
+            <legend><%= path %></legend>
+            <%
         result.forEach(function(result, index){
         %>
             <fieldset class="fieldset2">
@@ -26,10 +28,11 @@
                     <li> srt (구 전송결과 코드) : <%= result.srt %></li>
                 </ul>
             </fieldset>
-        <%
+            <%
         });
         %>
-    </fieldset>
-</div>
+        </fieldset>
+    </div>
 </body>
+
 </html>
