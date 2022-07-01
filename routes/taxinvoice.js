@@ -2919,6 +2919,31 @@ router.get('/checkCertValidation', function(req, res, next) {
 });
 
 /*
+ * 팝빌 인증서버에 등록된 공동인증서의 정보를 확인합니다.
+ * - https://docs.popbill.com/taxinvoice/node/api#GetTaxCertInfo
+ */
+router.get('/getTaxCertInfo', function(req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    taxinvoiceService.getTaxCertInfo(testCorpNum,
+        function(result) {
+            res.render('Taxinvoice/TaxinvoiceCertificate', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+});
+
+/*
  * 연동회원의 잔여포인트를 확인합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#GetBalance
  */
