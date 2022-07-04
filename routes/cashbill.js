@@ -58,17 +58,10 @@ router.get('/checkMgtKeyInUse', function(req, res, next) {
 
     cashbillService.checkMgtKeyInUse(testCorpNum, mgtKey,
         function(result) {
-            if (result) {
-                res.render('result', {
-                    path: req.path,
-                    result: '사용중'
-                });
-            } else {
-                res.render('result', {
-                    path: req.path,
-                    result: '미사용중'
-                });
-            }
+            res.render('result', {
+                path: req.path,
+                result: '사용중'
+            });
         },
         function(Error) {
             res.render('response', {
@@ -210,7 +203,7 @@ router.get('/bulkSubmit', function(req, res, next) {
     // 제출 아이디
     var submitID = 'NODEBULK01';
 
-    // 세금계산서 객체정보 목록
+    // 현금영수증 객체정보 목록
     var cashbillList = [];
 
     for (var i = 0; i < 100; i++) {

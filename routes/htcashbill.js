@@ -234,7 +234,10 @@ router.get('/getCertificatePopUpURL', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    htCashbillService.getCertificatePopUpURL(testCorpNum,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    htCashbillService.getCertificatePopUpURL(testCorpNum, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -422,7 +425,10 @@ router.get('/getFlatRatePopUpURL', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    htCashbillService.getFlatRatePopUpURL(testCorpNum,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    htCashbillService.getFlatRatePopUpURL(testCorpNum, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,

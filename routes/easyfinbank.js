@@ -239,7 +239,10 @@ router.get('/getBankAccountMgtURL', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    easyFinBankService.getBankAccountMgtURL(testCorpNum,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    easyFinBankService.getBankAccountMgtURL(testCorpNum, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -598,7 +601,10 @@ router.get('/getFlatRatePopUpURL', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    easyFinBankService.getFlatRatePopUpURL(testCorpNum,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    easyFinBankService.getFlatRatePopUpURL(testCorpNum, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -624,10 +630,10 @@ router.get('/getFlatRateState', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 기관코드
-    var bankCode = '0048';
+    var bankCode = '';
 
     // 계좌번호, 하이픈('-') 제외
-    var accountNumber = '131020538645';
+    var accountNumber = '';
 
     easyFinBankService.getFlatRateState(testCorpNum, bankCode, accountNumber,
         function(response) {

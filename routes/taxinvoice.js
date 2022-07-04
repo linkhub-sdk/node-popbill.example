@@ -62,17 +62,10 @@ router.get('/checkMgtKeyInUse', function(req, res, next) {
 
     taxinvoiceService.checkMgtKeyInUse(testCorpNum, keyType, mgtKey,
         function(result) {
-            if (result) {
-                res.render('result', {
-                    path: req.path,
-                    result: '사용중'
-                });
-            } else {
-                res.render('result', {
-                    path: req.path,
-                    result: '미사용중'
-                });
-            }
+            res.render('result', {
+                path: req.path,
+                result: '사용중'
+            });
         },
         function(Error) {
             res.render('response', {
@@ -529,8 +522,8 @@ router.get('/bulkSubmit', function(req, res, next) {
             credit: '',
 
             // 비고
-        // {invoiceeType}이 "외국인" 이면 remark1 필수
-        // - 외국인 등록번호 또는 여권번호 입력
+            // {invoiceeType}이 "외국인" 이면 remark1 필수
+            // - 외국인 등록번호 또는 여권번호 입력
             remark1: '비고',
             remark2: '비고2',
             remark3: '비고3',
@@ -1633,9 +1626,9 @@ router.get('/request', function(req, res, next) {
 });
 
 /*
-* 공급자가 요청받은 역발행 세금계산서를 발행하기 전, 공급받는자가 역발행요청을 취소합니다.
-* - 함수 호출시 상태 값이 "취소"로 변경되고, 해당 역발행 세금계산서는 공급자에 의해 발행 될 수 없습니다.
-* - [취소]한 세금계산서의 문서번호를 재사용하기 위해서는 삭제 (Delete API) 함수를 호출해야 합니다.
+ * 공급자가 요청받은 역발행 세금계산서를 발행하기 전, 공급받는자가 역발행요청을 취소합니다.
+ * - 함수 호출시 상태 값이 "취소"로 변경되고, 해당 역발행 세금계산서는 공급자에 의해 발행 될 수 없습니다.
+ * - [취소]한 세금계산서의 문서번호를 재사용하기 위해서는 삭제 (Delete API) 함수를 호출해야 합니다.
  * - https://docs.popbill.com/taxinvoice/node/api#CancelRequest
  */
 router.get('/cancelRequest', function(req, res, next) {
@@ -2055,7 +2048,10 @@ router.get('/getURL', function(req, res, next) {
     // TBOX : 임시문서함 , SBOX : 매출문서함 , PBOX : 매입문서함 , WRITE : 매출작성
     var TOGO = 'TBOX';
 
-    taxinvoiceService.getURL(testCorpNum, TOGO,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    taxinvoiceService.getURL(testCorpNum, TOGO, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -2087,7 +2083,10 @@ router.get('/getPopUpURL', function(req, res, next) {
     // 문서번호
     var mgtKey = '20220629-001';
 
-    taxinvoiceService.getPopUpURL(testCorpNum, keyType, mgtKey,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    taxinvoiceService.getPopUpURL(testCorpNum, keyType, mgtKey, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -2119,7 +2118,10 @@ router.get('/getViewURL', function(req, res, next) {
     // 문서번호
     var mgtKey = '20220629-001';
 
-    taxinvoiceService.getViewURL(testCorpNum, keyType, mgtKey,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    taxinvoiceService.getViewURL(testCorpNum, keyType, mgtKey, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -2151,7 +2153,10 @@ router.get('/getPrintURL', function(req, res, next) {
     // 문서번호
     var mgtKey = '20220629-001';
 
-    taxinvoiceService.getPrintURL(testCorpNum, keyType, mgtKey,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    taxinvoiceService.getPrintURL(testCorpNum, keyType, mgtKey, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -2183,7 +2188,10 @@ router.get('/getOldPrintURL', function(req, res, next) {
     // 문서번호
     var mgtKey = '20220629-001';
 
-    taxinvoiceService.getOldPrintURL(testCorpNum, keyType, mgtKey,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    taxinvoiceService.getOldPrintURL(testCorpNum, keyType, mgtKey, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -2215,7 +2223,10 @@ router.get('/getEPrintURL', function(req, res, next) {
     // 문서번호
     var mgtKey = '20220629-001';
 
-    taxinvoiceService.getEPrintURL(testCorpNum, keyType, mgtKey,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    taxinvoiceService.getEPrintURL(testCorpNum, keyType, mgtKey, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -2247,7 +2258,10 @@ router.get('/getMassPrintURL', function(req, res, next) {
     // 문서번호 배열, 최대 100건
     var mgtKeyList = ['20220629-001', '20220629-002'];
 
-    taxinvoiceService.getMassPrintURL(testCorpNum, keyType, mgtKeyList,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    taxinvoiceService.getMassPrintURL(testCorpNum, keyType, mgtKeyList, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -2279,7 +2293,10 @@ router.get('/getMailURL', function(req, res, next) {
     // 문서번호
     var mgtKey = '20220629-001';
 
-    taxinvoiceService.getMailURL(testCorpNum, keyType, mgtKey,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    taxinvoiceService.getMailURL(testCorpNum, keyType, mgtKey, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -2311,7 +2328,10 @@ router.get('/getPDFURL', function(req, res, next) {
     // 문서번호
     var mgtKey = '20220629-001';
 
-    taxinvoiceService.getPDFURL(testCorpNum, keyType, mgtKey,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    taxinvoiceService.getPDFURL(testCorpNum, keyType, mgtKey, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,

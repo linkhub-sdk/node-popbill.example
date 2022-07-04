@@ -212,7 +212,7 @@ router.get('/sendSMS_multi', function(req, res, next) {
             ReceiverName: '수신자명1', // 수신자명
             Contents: '문자 메시지 내용1', // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
             // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
-            interOPRefKey: '20220629-SMS001'
+            interOPRefKey: '20220629-SMS001' // 파트너 지정키, 수신자 구별용 메모
         },
         {
             Sender: '', // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
@@ -221,7 +221,7 @@ router.get('/sendSMS_multi', function(req, res, next) {
             ReceiverName: '수신자명2', // 수신자명
             Contents: '문자 메시지 내용2', // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
             // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
-            interOPRefKey: '20220629-SMS002'
+            interOPRefKey: '20220629-SMS002' // 파트너 지정키, 수신자 구별용 메모
         }
     ]
 
@@ -338,7 +338,7 @@ router.get('/sendLMS_multi', function(req, res, next) {
             Subject: '메시지 제목1', // 메시지 제목
             Contents: '문자 메시지 내용1', // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송,
             // 개벌전송정보 배열에 메시지내용(Contents)항목 없는경우 동보전송 메시지내용로 전송
-            interOPRefKey: '20220629-LMS001'
+            interOPRefKey: '20220629-LMS001' // 파트너 지정키, 수신자 구별용 메모
         },
         {
             Sender: '', // 발신번호
@@ -347,7 +347,7 @@ router.get('/sendLMS_multi', function(req, res, next) {
             ReceiverName: '수신자명2', // 수신자명
             Subject: '메시지 제목2', // 메시지 제목, 2000Byte 초과시 길이가 조정되어 전송
             Contents: '문자 메시지 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ', // 메시지 내용
-            interOPRefKey: '20220629-LMS002'
+            interOPRefKey: '20220629-LMS002' // 파트너 지정키, 수신자 구별용 메모
         }
     ]
 
@@ -457,7 +457,7 @@ router.get('/sendMMS_multi', function(req, res, next) {
     // - 미입력 시 기본값 false 처리
     var adsYN = false;
 
-    // MMS 이지 파일경로, 최대 300Kbyte, JPEG 포맷
+    // MMS 이미지 파일경로, 최대 300Kbyte, JPEG 포맷
     var filePaths = ['./fmsimage.jpg'];
 
     // 개별전송정보, 최대 1000건
@@ -468,7 +468,7 @@ router.get('/sendMMS_multi', function(req, res, next) {
             ReceiverName: '수신자명',
             Subject: 'MMS 테스트 제목1',
             Contents: 'MMS 전송 테스트 내용1', // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
-            interOPRefKey: '20220629-MMS001'
+            interOPRefKey: '20220629-MMS001' // 파트너 지정키, 수신자 구별용 메모
         },
         {
             Sender: '', // 발신번호
@@ -477,7 +477,7 @@ router.get('/sendMMS_multi', function(req, res, next) {
             ReceiverName: '수신자명',
             Subject: 'MMS 테스트 제목2',
             Contents: 'MMS 전송 테스트 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만 무궁화 삼천리 화려강산 ', // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
-            interOPRefKey: '20220629-MMS001'
+            interOPRefKey: '20220629-MMS001' // 파트너 지정키, 수신자 구별용 메모
         }
     ]
 
@@ -595,7 +595,7 @@ router.get('/sendXMS_multi', function(req, res, next) {
             ReceiverName: '수신자명', // 수신자명
             Subject: '메시지 제목1', // 메시지 제목
             Contents: '문자 메시지 내용1', // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
-            interOPRefKey: '20220629-XMS001'
+            interOPRefKey: '20220629-XMS001' // 파트너 지정키, 수신자 구별용 메모
         },
         {
             Sender: '', // 발신번호
@@ -605,7 +605,7 @@ router.get('/sendXMS_multi', function(req, res, next) {
             Subject: '메시지 제목2', // 메시지 제목
             // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
             Contents: '단/장문 자동인식 문자전송 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ',
-            interOPRefKey: '20220629-XMS001'
+            interOPRefKey: '20220629-XMS001' // 파트너 지정키, 수신자 구별용 메모
         }
     ]
 

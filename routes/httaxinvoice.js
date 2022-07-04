@@ -351,7 +351,10 @@ router.get('/getPopUpURL', function(req, res, next) {
     // 국세청승인번호
     var NTSConfirmNum = '202101074100020300000ecd';
 
-    htTaxinvoiceService.getPopUpURL(testCorpNum, NTSConfirmNum,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    htTaxinvoiceService.getPopUpURL(testCorpNum, NTSConfirmNum, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -380,7 +383,10 @@ router.get('/getPrintURL', function(req, res, next) {
     // 국세청승인번호
     var NTSConfirmNum = '202101074100020300000ecd';
 
-    htTaxinvoiceService.getPrintURL(testCorpNum, NTSConfirmNum,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    htTaxinvoiceService.getPrintURL(testCorpNum, NTSConfirmNum, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -406,7 +412,10 @@ router.get('/getCertificatePopUpURL', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    htTaxinvoiceService.getCertificatePopUpURL(testCorpNum,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    htTaxinvoiceService.getCertificatePopUpURL(testCorpNum, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -594,7 +603,10 @@ router.get('/getFlatRatePopUpURL', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    htTaxinvoiceService.getFlatRatePopUpURL(testCorpNum,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    htTaxinvoiceService.getFlatRatePopUpURL(testCorpNum, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,

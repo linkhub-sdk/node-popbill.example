@@ -563,9 +563,9 @@ router.get('/sendFTS_one', function(req, res, next) {
     // 대체문자 유형(altSendType)이 "A"일 경우, 대체문자로 전송할 내용 (최대 2000byte)
     // └ 팝빌이 메시지 길이에 따라 단문(90byte 이하) 또는 장문(90byte 초과)으로 전송처리
     var altContent = '친구톡 대체 문자입니다.\n\n' +
-    'altSendType을 A로 지정하게 될 경우 해당 내용의 문자가 전송됩니다.\n' +
-    'altSendType을 C로 지정하게 되면 content에 작성했던 내용 그대로 전송됩니다.\n' +
-    '대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.';
+        'altSendType을 A로 지정하게 될 경우 해당 내용의 문자가 전송됩니다.\n' +
+        'altSendType을 C로 지정하게 되면 content에 작성했던 내용 그대로 전송됩니다.\n' +
+        '대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 알림톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
@@ -736,9 +736,9 @@ router.get('/sendFTS_same', function(req, res, next) {
     // 대체문자 유형(altSendType)이 "A"일 경우, 대체문자로 전송할 내용 (최대 2000byte)
     // └ 팝빌이 메시지 길이에 따라 단문(90byte 이하) 또는 장문(90byte 초과)으로 전송처리
     var altContent = '친구톡 대체 문자입니다.\n\n' +
-    'altSendType을 A로 지정하게 될 경우 해당 내용의 문자가 전송됩니다.\n' +
-    'altSendType을 C로 지정하게 되면 content에 작성했던 내용 그대로 전송됩니다.\n' +
-    '대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.';
+        'altSendType을 A로 지정하게 될 경우 해당 내용의 문자가 전송됩니다.\n' +
+        'altSendType을 C로 지정하게 되면 content에 작성했던 내용 그대로 전송됩니다.\n' +
+        '대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 친구톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
@@ -823,9 +823,9 @@ router.get('/sendFMS_one', function(req, res, next) {
     // 대체문자 유형(altSendType)이 "A"일 경우, 대체문자로 전송할 내용 (최대 2000byte)
     // └ 팝빌이 메시지 길이에 따라 단문(90byte 이하) 또는 장문(90byte 초과)으로 전송처리
     var altContent = '친구톡 대체 문자입니다.\n\n' +
-    'altSendType을 A로 지정하게 될 경우 해당 내용의 문자가 전송됩니다.\n' +
-    'altSendType을 C로 지정하게 되면 content에 작성했던 내용 그대로 전송됩니다.\n' +
-    '대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.';
+        'altSendType을 A로 지정하게 될 경우 해당 내용의 문자가 전송됩니다.\n' +
+        'altSendType을 C로 지정하게 되면 content에 작성했던 내용 그대로 전송됩니다.\n' +
+        '대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 친구톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
@@ -931,7 +931,7 @@ router.get('/sendFMS_multi', function(req, res, next) {
         rcv: '', //수신번호
         rcvnm: 'popbill', //수신자명
         msg: '친구톡 이미지 입니다_0', //친구톡 내용 (최대 400자)
-        altsjt: '친구톡 이미지 대체문자제목0',  // 대체문자 제목
+        altsjt: '친구톡 이미지 대체문자제목0', // 대체문자 제목
         altmsg: '친구톡 대체 문자_0', //대체문자 내용 (최대 2000byte)
         interOPRefKey: '20220629-01' // 파트너 지정키, 수신자 구별용 메모
     });
@@ -1017,9 +1017,9 @@ router.get('/sendFMS_same', function(req, res, next) {
     // 대체문자 유형(altSendType)이 "A"일 경우, 대체문자로 전송할 내용 (최대 2000byte)
     // └ 팝빌이 메시지 길이에 따라 단문(90byte 이하) 또는 장문(90byte 초과)으로 전송처리
     var altContent = '친구톡 대체 문자입니다.\n\n' +
-    'altSendType을 A로 지정하게 될 경우 해당 내용의 문자가 전송됩니다.\n' +
-    'altSendType을 C로 지정하게 되면 content에 작성했던 내용 그대로 전송됩니다.\n' +
-    '대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.';
+        'altSendType을 A로 지정하게 될 경우 해당 내용의 문자가 전송됩니다.\n' +
+        'altSendType을 C로 지정하게 되면 content에 작성했던 내용 그대로 전송됩니다.\n' +
+        '대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 친구톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송

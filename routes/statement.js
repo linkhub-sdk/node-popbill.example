@@ -61,17 +61,10 @@ router.get('/checkMgtKeyInUse', function(req, res, next) {
 
     statementService.checkMgtKeyInUse(testCorpNum, itemCode, mgtKey,
         function(result) {
-            if (result) {
-                res.render('result', {
-                    path: req.path,
-                    result: '사용중'
-                });
-            } else {
-                res.render('result', {
-                    path: req.path,
-                    result: '미사용중'
-                });
-            }
+            res.render('result', {
+                path: req.path,
+                result: '사용중'
+            });
         },
         function(Error) {
             res.render('response', {
@@ -1004,7 +997,10 @@ router.get('/getURL', function(req, res, next) {
     // SBOX(매출문서함), TBOX(임시문서함)
     var TOGO = 'SBOX';
 
-    statementService.getURL(testCorpNum, TOGO,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    statementService.getURL(testCorpNum, TOGO, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -1036,7 +1032,10 @@ router.get('/getPopUpURL', function(req, res, next) {
     // 문서번호
     var mgtKey = '20220629-001';
 
-    statementService.getPopUpURL(testCorpNum, itemCode, mgtKey,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    statementService.getPopUpURL(testCorpNum, itemCode, mgtKey, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -1068,7 +1067,10 @@ router.get('/getViewURL', function(req, res, next) {
     // 문서번호
     var mgtKey = '20220629-001';
 
-    statementService.getViewURL(testCorpNum, itemCode, mgtKey,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    statementService.getViewURL(testCorpNum, itemCode, mgtKey, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -1100,7 +1102,10 @@ router.get('/getPrintURL', function(req, res, next) {
     // 문서번호
     var mgtKey = '20220629-001';
 
-    statementService.getPrintURL(testCorpNum, itemCode, mgtKey,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    statementService.getPrintURL(testCorpNum, itemCode, mgtKey, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -1132,7 +1137,10 @@ router.get('/getEPrintURL', function(req, res, next) {
     // 문서번호
     var mgtKey = '20220629-001';
 
-    statementService.getEPrintURL(testCorpNum, itemCode, mgtKey,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    statementService.getEPrintURL(testCorpNum, itemCode, mgtKey, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -1164,7 +1172,10 @@ router.get('/getMassPrintURL', function(req, res, next) {
     // 문서번호 배열, 최대 100건
     var mgtKeyList = ['20220629-001', '20220629-002'];
 
-    statementService.getMassPrintURL(testCorpNum, itemCode, mgtKeyList,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    statementService.getMassPrintURL(testCorpNum, itemCode, mgtKeyList, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,
@@ -1196,7 +1207,10 @@ router.get('/getMailURL', function(req, res, next) {
     // 문서번호
     var mgtKey = '20220629-001';
 
-    statementService.getMailURL(testCorpNum, itemCode, mgtKey,
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    statementService.getMailURL(testCorpNum, itemCode, mgtKey, testUserID,
         function(url) {
             res.render('result', {
                 path: req.path,

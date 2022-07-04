@@ -137,6 +137,7 @@ router.get('/sendFAX', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 발신번호
+    // - 팝빌에 등록되지 않은 번호를 입력하는 경우 '원발신번호'로 팩스 전송됨
     var senderNum = '';
 
     // 발신자명
@@ -194,6 +195,7 @@ router.get('/sendFAX_multi', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 발신번호
+    // - 팝빌에 등록되지 않은 번호를 입력하는 경우 '원발신번호'로 팩스 전송됨
     var senderNum = '';
 
     // 발신자명
@@ -206,12 +208,12 @@ router.get('/sendFAX_multi', function(req, res, next) {
     var Receivers = [{
             receiveName: '수신자명1', // 수신자명
             receiveNum: '', // 수신팩스번호
-            interOPRefKey: '20220629-FAX001'
+            interOPRefKey: '20220629-FAX001' // 파트너 지정키, 수신자 구별용 메모
         },
         {
             receiveName: '수신자명2',
             receiveNum: '',
-            interOPRefKey: '20220629-FAX002'
+            interOPRefKey: '20220629-FAX002' // 파트너 지정키, 수신자 구별용 메모
         }
     ];
 
@@ -258,6 +260,7 @@ router.get('/sendFAXBinary', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 발신번호
+    // - 팝빌에 등록되지 않은 번호를 입력하는 경우 '원발신번호'로 팩스 전송됨
     var senderNum = '';
 
     // 발신자명
@@ -427,12 +430,12 @@ router.get('/resendFAX_multi', function(req, res, next) {
     var Receivers = [{
             receiveName: '수신자명1', // 수신자명
             receiveNum: '', // 수신팩스번호
-            interOPRefKey: '20220629-FAX003'
+            interOPRefKey: '20220629-FAX003' // 파트너 지정키, 수신자 구별용 메모
         },
         {
             receiveName: '수신자명2',
             receiveNum: '',
-            interOPRefKey: '20220629-FAX004'
+            interOPRefKey: '20220629-FAX004' // 파트너 지정키, 수신자 구별용 메모
         }
     ]
 
@@ -550,12 +553,12 @@ router.get('/resendFAXRN_multi', function(req, res, next) {
     var Receivers = [{
             receiveName: '수신자명1', // 수신자명
             receiveNum: '', // 수신팩스번호
-            interOPRefKey: '20220629-FAX005'
+            interOPRefKey: '20220629-FAX005' // 파트너 지정키, 수신자 구별용 메모
         },
         {
             receiveName: '수신자명2',
             receiveNum: '',
-            interOPRefKey: '20220629-FAX006'
+            interOPRefKey: '20220629-FAX006' // 파트너 지정키, 수신자 구별용 메모
         }
     ]
     // 수신자정보를 기존전송정보와 동일하게 재전송하는 경우 아래코드 적용
