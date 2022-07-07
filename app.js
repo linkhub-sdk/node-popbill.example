@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 
+// popbill configuration
+var config = require('./config');
+
 // Router handler
 var taxinvoice = require('./routes/taxinvoice');
 var statement = require('./routes/statement');
