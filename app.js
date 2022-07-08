@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 
 // popbill configuration
-var config = require('./config');
+var popbill = require('./config/popbill.js');
 
 // Router handler
 var taxinvoice = require('./routes/taxinvoice');
