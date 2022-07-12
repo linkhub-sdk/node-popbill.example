@@ -767,7 +767,7 @@ router.get('/search', function(req, res, next) {
 
     messageService.search(testCorpNum, SDate, EDate, State, Item, ReserveYN, SenderYN, Order, Page, PerPage, Qstring,
         function(result) {
-            res.render('Message/Search', {
+            res.render('Message/search', {
                 path: req.path,
                 result: result
             });
