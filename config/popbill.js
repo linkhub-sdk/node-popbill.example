@@ -23,7 +23,7 @@ popbill.config({
     // 로컬서버 시간 사용 여부 true(기본값) - 사용, false(미사용)
     UseLocalTimeYN: true,
 
-    // 실패에 대한 콜백 함수를 작성하지 않고 에러 발생시 동작하게 되는 handler.
+    // function 타입이 아닌 error 를 파라미터로 넣고 API 요청에 대한 응답이 실패할 경우 동작하게 되는 handler.
     defaultErrorHandler: function(Error) {
         console.log('Error Occur : [' + Error.code + '] ' + Error.message);
     }
