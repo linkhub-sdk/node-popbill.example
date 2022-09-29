@@ -18,6 +18,7 @@ var fax = require('./routes/fax');
 var htTaxinvoice = require('./routes/httaxinvoice');
 var htCashbill = require('./routes/htcashbill');
 var closedown = require('./routes/closedown');
+var bizInfoCheck = require('./routes/bizinfocheck');
 var easyfinbank = require('./routes/easyfinbank');
 var accountCheck = require('./routes/accountCheck');
 
@@ -47,6 +48,7 @@ app.use('/FaxService', fax);
 app.use('/HTTaxinvoiceService', htTaxinvoice);
 app.use('/HTCashbillService', htCashbill);
 app.use('/ClosedownService', closedown);
+app.use('/BizInfoCheckService', bizInfoCheck);
 app.use('/EasyFinBankService', easyfinbank);
 app.use('/AccountCheckService', accountCheck);
 
