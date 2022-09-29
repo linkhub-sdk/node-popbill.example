@@ -8,7 +8,7 @@ var popbill = require('popbill');
 var bizInfoCheckService = popbill.BizInfoCheckService();
 
 /*
- * CloseDown API Index 목록
+ * BizInfoCheck API Index 목록
  */
 router.get('/', function(req, res, next) {
     res.render('BizInfoCheck/index', {});
@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 
 /*
  * 사업자번호 1건에 대한 기업정보정보를 확인합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#CheckBizInfo
+ * - https://docs.popbill.com/bizinfocheck/node/api#CheckBizInfo
  */
 router.get('/checkBizInfo', function(req, res, next) {
 
@@ -53,7 +53,7 @@ router.get('/checkBizInfo', function(req, res, next) {
 
 /*
  * 연동회원의 잔여포인트를 확인합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#GetBalance
+ * - https://docs.popbill.com/bizinfocheck/node/api#GetBalance
  */
 router.get('/getBalance', function(req, res, next) {
 
@@ -79,7 +79,7 @@ router.get('/getBalance', function(req, res, next) {
 /*
  * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#GetChargeURL
+ * - https://docs.popbill.com/bizinfocheck/node/api#GetChargeURL
  */
 router.get('/getChargeURL', function(req, res, next) {
 
@@ -108,7 +108,7 @@ router.get('/getChargeURL', function(req, res, next) {
 /*
  * 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#GetPaymentURL
+ * - https://docs.popbill.com/bizinfocheck/node/api#GetPaymentURL
  */
 router.get('/getPaymentURL', function(req, res, next) {
 
@@ -137,7 +137,7 @@ router.get('/getPaymentURL', function(req, res, next) {
 /*
  * 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#GetUseHistoryURL
+ * - https://docs.popbill.com/bizinfocheck/node/api#GetUseHistoryURL
  */
 router.get('/getUseHistoryURL', function(req, res, next) {
 
@@ -165,7 +165,7 @@ router.get('/getUseHistoryURL', function(req, res, next) {
 
 /*
  * 파트너의 잔여포인트를 확인합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#GetPartnerBalance
+ * - https://docs.popbill.com/bizinfocheck/node/api#GetPartnerBalance
  */
 router.get('/getPartnerBalance', function(req, res, next) {
 
@@ -191,7 +191,7 @@ router.get('/getPartnerBalance', function(req, res, next) {
 /*
  * 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#GetPartnerURL
+ * - https://docs.popbill.com/bizinfocheck/node/api#GetPartnerURL
  */
 router.get('/getPartnerURL', function(req, res, next) {
 
@@ -219,7 +219,7 @@ router.get('/getPartnerURL', function(req, res, next) {
 
 /*
  * 기업정보 조회시 과금되는 포인트 단가를 확인합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#GetUnitCost
+ * - https://docs.popbill.com/bizinfocheck/node/api#GetUnitCost
  */
 router.get('/getUnitCost', function(req, res, next) {
 
@@ -244,7 +244,7 @@ router.get('/getUnitCost', function(req, res, next) {
 
 /*
  * 기업정보조회 API 서비스 과금정보를 확인합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#GetChargeInfo
+ * - https://docs.popbill.com/bizinfocheck/node/api#GetChargeInfo
  */
 router.get('/getChargeInfo', function(req, res, next) {
 
@@ -269,7 +269,7 @@ router.get('/getChargeInfo', function(req, res, next) {
 
 /*
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#CheckIsMember
+ * - https://docs.popbill.com/bizinfocheck/node/api#CheckIsMember
  */
 router.get('/checkIsMember', function(req, res, next) {
 
@@ -294,7 +294,7 @@ router.get('/checkIsMember', function(req, res, next) {
 
 /*
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#CheckID
+ * - https://docs.popbill.com/bizinfocheck/node/api#CheckID
  */
 router.get('/checkID', function(req, res, next) {
 
@@ -320,7 +320,7 @@ router.get('/checkID', function(req, res, next) {
 
 /*
  * 사용자를 연동회원으로 가입처리합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#JoinMember
+ * - https://docs.popbill.com/bizinfocheck/node/api#JoinMember
  */
 router.get('/joinMember', function(req, res, next) {
 
@@ -385,7 +385,7 @@ router.get('/joinMember', function(req, res, next) {
 /*
  * 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#GetAccessURL
+ * - https://docs.popbill.com/bizinfocheck/node/api#GetAccessURL
  */
 router.get('/getAccessURL', function(req, res, next) {
 
@@ -413,7 +413,7 @@ router.get('/getAccessURL', function(req, res, next) {
 
 /*
  * 연동회원의 회사정보를 확인합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#GetCorpInfo
+ * - https://docs.popbill.com/bizinfocheck/node/api#GetCorpInfo
  */
 router.get('/getCorpInfo', function(req, res, next) {
 
@@ -438,7 +438,7 @@ router.get('/getCorpInfo', function(req, res, next) {
 
 /*
  * 연동회원의 회사정보를 수정합니다
- * - https://docs.popbill.com/bizInfoCheck/node/api#UpdateCorpInfo
+ * - https://docs.popbill.com/bizinfocheck/node/api#UpdateCorpInfo
  */
 router.get('/updateCorpInfo', function(req, res, next) {
 
@@ -484,7 +484,7 @@ router.get('/updateCorpInfo', function(req, res, next) {
 
 /*
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#RegistContact
+ * - https://docs.popbill.com/bizinfocheck/node/api#RegistContact
  */
 router.get('/registContact', function(req, res, next) {
 
@@ -533,7 +533,7 @@ router.get('/registContact', function(req, res, next) {
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#GetContactInfo
+ * - https://docs.popbill.com/bizinfocheck/node/api#GetContactInfo
  */
 router.get('/getContactInfo', function(req, res, next) {
 
@@ -561,7 +561,7 @@ router.get('/getContactInfo', function(req, res, next) {
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#ListContact
+ * - https://docs.popbill.com/bizinfocheck/node/api#ListContact
  */
 router.get('/listContact', function(req, res, next) {
 
@@ -586,7 +586,7 @@ router.get('/listContact', function(req, res, next) {
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
- * - https://docs.popbill.com/bizInfoCheck/node/api#UpdateContact
+ * - https://docs.popbill.com/bizinfocheck/node/api#UpdateContact
  */
 router.get('/updateContact', function(req, res, next) {
 
