@@ -2,7 +2,7 @@
  * 팝빌 API Node.js SDK Example
  *
  * Node.js SDK 연동환경 설정방법 안내 : https://docs.popbill.com/taxinvoice/tutorial/node
- * 업데이트 일자 : 2022-09-29
+ * 업데이트 일자 : 2022-10-28
  * 연동기술지원 연락처 : 1600-9854
  * 연동기술지원 이메일 : code@linkhubcorp.com
  *

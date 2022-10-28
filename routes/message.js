@@ -660,6 +660,76 @@ router.get('/cancelReserveRN', function(req, res, next) {
 });
 
 /*
+ * 팝빌에서 반환받은 접수번호와 수신번호를 통해 예약접수된 문자 메시지 전송을 취소합니다. (예약시간 10분 전까지 가능)
+ * - https://docs.popbill.com/message/node/api#CancelReservebyRCV
+ */
+router.get('/cancelReservebyRCV', function(req, res, next) {
+
+    // 팝빌회원 사업자번호
+    var testCorpNum = '1234567890';
+    
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    // 문자전송 접수번호
+    var receiptNum = '';
+
+    // 문자전송 수신번호
+    var receiveNum = '';
+
+    messageService.cancelReservebyRCV(testCorpNum, receiptNum, receiveNum, testUserID,
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+});
+
+/*
+ * 파트너가 할당한 전송요청 번호와 수신번호를 통해 예약접수된 문자 전송을 취소합니다. (예약시간 10분 전까지 가능)
+ * - https://docs.popbill.com/message/node/api#CancelReserveRNbyRCV
+ */
+router.get('/cancelReserveRNbyRCV', function(req, res, next) {
+
+    // 팝빌회원 사업자번호
+    var testCorpNum = '1234567890';
+    
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
+
+    // 문자전송 요청번호
+    var requestNum = '';
+
+    // 문자전송 수신번호
+    var receiveNum = '';
+
+    messageService.cancelReserveRNbyRCV(testCorpNum, requestNum, receiveNum, testUserID,
+        function(result) {
+            res.render('response', {
+                path: req.path,
+                code: result.code,
+                message: result.message
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+});
+
+/*
  * 팝빌에서 반환받은 접수번호를 통해 문자 전송상태 및 결과를 확인합니다.
  * - https://docs.popbill.com/message/node/api#GetMessages
  */
