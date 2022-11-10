@@ -47,7 +47,6 @@ router.get('/checkMgtKeyInUse', function(req, res, next) {
 /*
  * 작성된 현금영수증 데이터를 팝빌에 저장과 동시에 발행하여 "발행완료" 상태로 처리합니다.
  * - 현금영수증 국세청 전송 정책 : https://docs.popbill.com/cashbill/ntsSendPolicy?lang=node
- * - "발행완료"된 현금영수증은 국세청 전송 이전에 발행취소(CancelIssue API) 함수로 국세청 신고 대상에서 제외할 수 있습니다.
  * - https://docs.popbill.com/cashbill/node/api#RegistIssue
  */
 router.get('/registIssue', function(req, res, next) {
@@ -315,41 +314,8 @@ router.get('/getBulkResult', function(req, res, next) {
 });
 
 /*
- * 국세청 전송 이전 "발행완료" 상태의 현금영수증을 "발행취소"하고 국세청 신고 대상에서 제외합니다.
- * - 삭제(Delete API) 함수를 호출하여 "발행취소" 상태의 현금영수증을 삭제하면, 문서번호 재사용이 가능합니다.
- * - https://docs.popbill.com/cashbill/node/api#CancelIssue
- */
-router.get('/cancelIssue', function(req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 문서번호
-    var mgtKey = '20220629-001';
-
-    // 메모
-    var memo = '발행취소 메모';
-
-    cashbillService.cancelIssue(testCorpNum, mgtKey, memo,
-        function(result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function(Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
-
-/*
  * 삭제 가능한 상태의 현금영수증을 삭제합니다.
- * - 삭제 가능한 상태: "임시저장", "발행취소", "전송실패"
+ * - 삭제 가능한 상태: "전송실패"
  * - 현금영수증을 삭제하면 사용된 문서번호(mgtKey)를 재사용할 수 있습니다.
  * - https://docs.popbill.com/cashbill/node/api#Delete
  */
@@ -382,7 +348,6 @@ router.get('/delete', function(req, res, next) {
  * 취소 현금영수증 데이터를 팝빌에 저장과 동시에 발행하여 "발행완료" 상태로 처리합니다.
  * - 취소 현금영수증의 금액은 원본 금액을 넘을 수 없습니다.
  * - 현금영수증 국세청 전송 정책 [https://docs.popbill.com/cashbill/ntsSendPolicy?lang=node]
- * - "발행완료"된 취소 현금영수증은 국세청 전송 이전에 발행취소(cancelIssue API) 함수로 국세청 신고 대상에서 제외할 수 있습니다.
  * - 취소 현금영수증 발행 시 구매자 메일주소로 발행 안내 베일이 전송되니 유의하시기 바랍니다.
  * - https://docs.popbill.com/cashbill/node/api#RevokeRegistIssue
  */
@@ -425,7 +390,6 @@ router.get('/revokeRegistIssue', function(req, res, next) {
  * 작성된 (부분)취소 현금영수증 데이터를 팝빌에 저장과 동시에 발행하여 "발행완료" 상태로 처리합니다.
  * - 취소 현금영수증의 금액은 원본 금액을 넘을 수 없습니다.
  * - 현금영수증 국세청 전송 정책 [https://docs.popbill.com/cashbill/ntsSendPolicy?lang=node]
- * - "발행완료"된 취소 현금영수증은 국세청 전송 이전에 발행취소(cancelIssue API) 함수로 국세청 신고 대상에서 제외할 수 있습니다.
  * - 취소 현금영수증 발행 시 구매자 메일주소로 발행 안내 베일이 전송되니 유의하시기 바랍니다.
  * - https://docs.popbill.com/cashbill/node/api#RevokeRegistIssue
  */
@@ -612,7 +576,7 @@ router.get('/search', function(req, res, next) {
 
     // 상태코드 배열 (2,3번째 자리에 와일드카드(*) 사용 가능)
     // - 미입력시 전체조회
-    var State = ['1**', '3**', '4**'];
+    var State = ['3**'];
 
     // 문서형태 배열 ("N" , "C" 중 선택, 다중 선택 가능)
     // - N = 일반 현금영수증 , C = 취소 현금영수증
@@ -1795,248 +1759,5 @@ router.get('/register', function(req, res, next) {
         });
 });
 
-/*
- * 1건의 현금영수증을 [수정]합니다.
- * - [임시저장] 상태의 현금영수증만 수정할 수 있습니다.
- */
-router.get('/update', function(req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20220629-002';
-
-    // 현금영수증 항목
-    var cashbill = {
-
-        // 문서번호
-        mgtKey: MgtKey,
-
-        // 문서형태, (승인거래, 취소거래) 중 기재
-        tradeType: '승인거래',
-
-        // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
-        // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
-        // orgConfirmNum : '',
-
-        // 과세형태 (과세, 비과세) 중 기재
-        taxationType: '과세',
-
-        // 거래구분 (소득공제용, 지출증빙용) 중 기재
-        tradeUsage: '소득공제용',
-
-        // 거래유형 (일반, 도서공연, 대중교통) 중 기재
-        tradeOpt: '일반',
-
-        // 거래처 식별번호, 거래유형에 따라 작성
-        // 소득공제용 - 주민등록/휴대폰/카드번호 기재가능
-        // 지출증빙용 - 사업자번호/주민등록/휴대폰/카드번호 기재가능
-        identityNum: '01011112222',
-
-        // 가맹점 사업자번호
-        franchiseCorpNum: testCorpNum,
-
-        // 가맹점 종사업장 식별번호
-        franchiseTaxRegID: '',
-
-        // 가맹점 상호
-        franchiseCorpName: '가맹점 상호_수정',
-
-        // 가맹점 대표자성명
-        franchiseCEOName: '가맹점 대표자 성명',
-
-        // 가맹점 주소
-        franchiseAddr: '가맹점 주소',
-
-        // 가맹점 연락처
-        franchiseTEL: '01012341234',
-
-        // 공급가액
-        supplyCost: '15000',
-
-        // 세액
-        tax: '5000',
-
-        // 봉사료
-        serviceFee: '0',
-
-        // 거래금액 (공급가액 + 세액 + 봉사료)
-        totalAmount: '20000',
-
-        // 고객명
-        customerName: '고객명',
-
-        // 상품명
-        itemName: '상품명',
-
-        // 주문번호
-        orderNumber: '주문번호',
-
-        // 고객 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
-        // 실제 거래처의 메일주소가 기재되지 않도록 주의
-        email: 'test@test.com',
-
-        // 고객 핸드폰번호
-        hp: '010111222',
-
-        // 고객 팩스번호
-        fax: '000111222',
-
-        // 발행시 알림문자 전송여부
-        // 문자전송시 포인트가 차감되며 전송실패시 환불처리됨.
-        smssendYN: false,
-    };
-
-    cashbillService.update(testCorpNum, MgtKey, cashbill,
-        function(result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function(Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
-
-/*
- * 1건의 [임시저장] 현금영수증을 [발행]합니다.
- * - 현금영수증 국세청 전송 정책 : https://docs.popbill.com/cashbill/ntsSendPolicy?lang=node
- */
-router.get('/issue', function(req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 문서번호
-    var mgtKey = '20220629-002';
-
-    // 메모
-    var memo = '발행메모';
-
-    cashbillService.issue(testCorpNum, mgtKey, memo,
-        function(result) {
-            res.render('Cashbill/IssueResponse', {
-                path: req.path,
-                code: result.code,
-                message: result.message,
-                confirmNum: result.confirmNum,
-                tradeDate: result.tradeDate
-            });
-        },
-        function(Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
-
-/*
- * 1건의 취소현금영수증을 [임시저장]합니다.
- * - [임시저장] 상태의 현금영수증은 발행(Issue API)을 호출해야만 국세청에 전송됩니다.
- */
-router.get('/revokeRegister', function(req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20220629-005';
-
-    // [취소 현금영수증 발행시 필수] 원본 현금영수증 국세청 승인번호
-    // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
-    orgConfirmNum = 'TB0000012';
-
-    // [취소 현금영수증 발행시 필수] 원본 현금영수증 거래일자
-    // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    orgTradeDate = '20220628';
-
-    cashbillService.revokeRegister(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate,
-        function(result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function(Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
-
-/*
- * 1건의 (부분)취소현금영수증을 [임시저장]합니다.
- * - [임시저장] 상태의 현금영수증은 발행(Issue API)을 호출해야만 국세청에 전송됩니다.
- */
-router.get('/revokeRegister_part', function(req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20220629-006';
-
-    // 원본 현금영수증 국세청 승인번호
-    // 국세청 승인번호는 GetInfo API의 ConfirmNum 항목으로 확인할 수 있습니다.
-    var orgConfirmNum = 'TB0000012';
-
-    // 원본 현금영수증 거래일자
-    // 원본 현금영수증 거래일자는 GetInfo API의 TradeDate 항목으로 확인할 수 있습니다.
-    var orgTradeDate = '20220628';
-
-    // 안내문자 전송여부
-    var smssendYN = false;
-
-    // 부분취소여부, true-부분취소, false-전체취소
-    var isPartCancel = true;
-
-    // 취소사유, 1-거래취소, 2-오류발급취소, 3-기타
-    var cancelType = 1;
-
-    // [취소] 공급가액
-    var supplyCost = "6000";
-
-    // [취소] 세액
-    var tax = "600";
-
-    // [취소] 봉사료
-    var serviceFee = "0";
-
-    // [취소] 합계금액
-    var totalAmount = "6600";
-
-    cashbillService.revokeRegister(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN, testUserID,
-        isPartCancel, cancelType, supplyCost, tax, serviceFee, totalAmount,
-        function(result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function(Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
 
 module.exports = router;
