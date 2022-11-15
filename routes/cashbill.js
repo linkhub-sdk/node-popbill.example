@@ -145,7 +145,7 @@ router.get('/registIssue', function(req, res, next) {
 
         // 거래일시, 날짜(yyyyMMddHHmmss)
         // 당일, 전일만 가능 미입력시 기본값 발행일시 처리
-        tradeDT: "20221110000000",
+        tradeDT: "",
     };
 
     cashbillService.registIssue(testCorpNum, cashbill, stateMemo, testUserID, emailSubject,
@@ -269,7 +269,7 @@ router.get('/bulkSubmit', function(req, res, next) {
             
             // 거래일시, 날짜(yyyyMMddHHmmss)
             // 당일, 전일만 가능 미입력시 기본값 발행일시 처리
-            tradeDT: "20221110000000",
+            tradeDT: "",
         };
 
         cashbillList.push(cashbill);
@@ -465,7 +465,7 @@ router.get('/revokeRegistIssue_part', function(req, res, next) {
 
     // 거래일시, 날짜(yyyyMMddHHmmss)
     // 당일, 전일만 가능 미입력시 기본값 발행일시 처리
-    var tradeDT = "20221110000000";
+    var tradeDT = "";
 
     cashbillService.revokeRegistIssue(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN, memo, testUserID,
         isPartCancel, cancelType, supplyCost, tax, serviceFee, totalAmount, emailSubject, tradeDT,
