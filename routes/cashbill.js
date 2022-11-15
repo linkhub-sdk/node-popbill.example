@@ -58,7 +58,7 @@ router.get('/registIssue', function(req, res, next) {
     var testUserID = 'testkorea';
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20220629-001';
+    var MgtKey = '20221110-node-101';
 
     // 현금영수증 상태메모
     var stateMemo = '발행메모';
@@ -142,6 +142,10 @@ router.get('/registIssue', function(req, res, next) {
         // 발행시 알림문자 전송여부
         // 문자전송시 포인트가 차감되며 전송실패시 환불처리됨.
         smssendYN: false,
+
+        // 거래일시, 날짜(yyyyMMddHHmmss)
+        // 당일, 전일만 가능 미입력시 기본값 발행일시 처리
+        tradeDT: "20221110000000",
     };
 
     cashbillService.registIssue(testCorpNum, cashbill, stateMemo, testUserID, emailSubject,
@@ -151,7 +155,8 @@ router.get('/registIssue', function(req, res, next) {
                 code: result.code,
                 message: result.message,
                 confirmNum: result.confirmNum,
-                tradeDate: result.tradeDate
+                tradeDate: result.tradeDate,
+                tradeDT: result.tradeDT
             });
         },
         function(Error) {
@@ -172,12 +177,12 @@ router.get('/bulkSubmit', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 제출 아이디
-    var submitID = 'NODEBULK01';
+    var submitID = '20221110_NODE_BULK02';
 
     // 현금영수증 객체정보 목록
     var cashbillList = [];
 
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 5; i++) {
         // 현금영수증 항목
         var cashbill = {
 
@@ -261,6 +266,10 @@ router.get('/bulkSubmit', function(req, res, next) {
             // 발행시 알림문자 전송여부
             // 문자전송시 포인트가 차감되며 전송실패시 환불처리됨.
             smssendYN: false,
+            
+            // 거래일시, 날짜(yyyyMMddHHmmss)
+            // 당일, 전일만 가능 미입력시 기본값 발행일시 처리
+            tradeDT: "20221110000000",
         };
 
         cashbillList.push(cashbill);
@@ -295,7 +304,7 @@ router.get('/getBulkResult', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 초대량 발행 접수시 기재한 제출아이디
-    var submitID = 'NODEBULK01';
+    var submitID = '20221110_NODE_BULK02';
 
     cashbillService.getBulkResult(testCorpNum, submitID,
         function(result) {
@@ -357,15 +366,15 @@ router.get('/revokeRegistIssue', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20220629-003';
+    var mgtKey = '20221110-003';
 
     // 원본 현금영수증 국세청 승인번호
     // 취소 현금영수증 작성시 필수
-    var orgConfirmNum = 'TB0000012';
+    var orgConfirmNum = 'TB0000178';
 
     // 원본 현금영수증 거래일자
     // 취소 현금영수증 작성시 필수
-    var orgTradeDate = '20220628';
+    var orgTradeDate = '20221109';
 
     cashbillService.revokeRegistIssue(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate,
         function(result) {
@@ -374,7 +383,8 @@ router.get('/revokeRegistIssue', function(req, res, next) {
                 code: result.code,
                 message: result.message,
                 confirmNum: result.confirmNum,
-                tradeDate: result.tradeDate
+                tradeDate: result.tradeDate,
+                tradeDT: result.tradeDT
             });
         },
         function(Error) {
@@ -399,15 +409,15 @@ router.get('/revokeRegistIssue_part', function(req, res, next) {
     var testCorpNum = '1234567890';
 
     // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var mgtKey = '20220629-004';
+    var mgtKey = '20221110-004';
 
     // 원본 현금영수증 국세청 승인번호
     // 취소 현금영수증 작성시 필수
-    var orgConfirmNum = 'TB0000012';
+    var orgConfirmNum = 'TB0000178';
 
     // 원본 현금영수증 거래일자
     // 취소 현금영수증 작성시 필수
-    var orgTradeDate = '20220628';
+    var orgTradeDate = '20221109';
 
     // 현금영수증 발행시 알림문자 전송여부 : true / false 중 택 1
     // └ true = 전송, false = 미전송
@@ -416,6 +426,9 @@ router.get('/revokeRegistIssue_part', function(req, res, next) {
 
     // 현금영수증 상태 이력을 관리하기 위한 메모
     var memo = '부분취소발행 메모';
+    
+    // 팝빌회원 아이디
+    var testUserID = 'testkorea';
 
     // 현금영수증 취소유형 : true / false 중 택 1
     // └ true = 부분 취소, false = 전체 취소
@@ -447,15 +460,23 @@ router.get('/revokeRegistIssue_part', function(req, res, next) {
     // - 현금영수증 취소유형이 false 인 경우 미입력
     var totalAmount = "7700";
 
-    cashbillService.revokeRegistIssue(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN, memo,
-        isPartCancel, cancelType, supplyCost, tax, serviceFee, totalAmount,
+    // 안내메일 제목, 공백처리시 기본양식으로 전송
+    var emailSubject = "";
+
+    // 거래일시, 날짜(yyyyMMddHHmmss)
+    // 당일, 전일만 가능 미입력시 기본값 발행일시 처리
+    var tradeDT = "20221110000000";
+
+    cashbillService.revokeRegistIssue(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN, memo, testUserID,
+        isPartCancel, cancelType, supplyCost, tax, serviceFee, totalAmount, emailSubject, tradeDT,
         function(result) {
             res.render('Cashbill/IssueResponse', {
                 path: req.path,
                 code: result.code,
                 message: result.message,
                 confirmNum: result.confirmNum,
-                tradeDate: result.tradeDate
+                tradeDate: result.tradeDate,
+                tradeDT: result.tradeDT
             });
         },
         function(Error) {
@@ -1649,115 +1670,5 @@ router.get('/updateContact', function(req, res, next) {
             });
         });
 });
-
-
-
-/*
- * 1건의 현금영수증을 [임시저장]합니다.
- * - [임시저장] 상태의 현금영수증은 발행(Issue API)을 호출해야만 국세청에 전송됩니다.
- */
-router.get('/register', function(req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 문서번호, 최대 24자리, 영문, 숫자 '-', '_'를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = '20220629-002';
-
-    // 현금영수증 항목
-    var cashbill = {
-
-        // 문서번호
-        mgtKey: MgtKey,
-
-        // 문서형태, (승인거래, 취소거래) 중 기재
-        tradeType: '승인거래',
-
-        // 과세형태 (과세, 비과세) 중 기재
-        taxationType: '과세',
-
-        // 거래구분 (소득공제용, 지출증빙용) 중 기재
-        tradeUsage: '소득공제용',
-
-        // 거래유형 (일반, 도서공연, 대중교통) 중 기재
-        tradeOpt: '일반',
-
-        // 거래처 식별번호, 거래유형에 따라 작성
-        // 소득공제용 - 주민등록/휴대폰/카드번호 기재가능
-        // 지출증빙용 - 사업자번호/주민등록/휴대폰/카드번호 기재가능
-        identityNum: '01011112222',
-
-        // 가맹점 사업자번호
-        franchiseCorpNum: testCorpNum,
-
-        // 가맹점 종사업장 식별번호
-        franchiseTaxRegID: '',
-
-        // 가맹점 상호
-        franchiseCorpName: '가맹점 상호',
-
-        // 가맹점 대표자성명
-        franchiseCEOName: '가맹점 대표자 성명',
-
-        // 가맹점 주소
-        franchiseAddr: '가맹점 주소',
-
-        // 가맹점 연락처
-        franchiseTEL: '01012341234',
-
-        // 공급가액
-        supplyCost: '15000',
-
-        // 세액
-        tax: '5000',
-
-        // 봉사료
-        serviceFee: '0',
-
-        // 거래금액 (공급가액 + 세액 + 봉사료)
-        totalAmount: '20000',
-
-        // 고객명
-        customerName: '고객명',
-
-        // 상품명
-        itemName: '상품명',
-
-        // 주문번호
-        orderNumber: '주문번호',
-
-        // 고객 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
-        // 실제 거래처의 메일주소가 기재되지 않도록 주의
-        email: 'test@test.com',
-
-        // 고객 핸드폰번호
-        hp: '010111222',
-
-        // 고객 팩스번호
-        fax: '000111222',
-
-        // 발행시 알림문자 전송여부
-        // 문자전송시 포인트가 차감되며 전송실패시 환불처리됨.
-        smssendYN: false,
-    };
-
-    cashbillService.register(testCorpNum, cashbill,
-        function(result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function(Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
-
 
 module.exports = router;
