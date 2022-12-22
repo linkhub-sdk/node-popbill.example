@@ -667,7 +667,7 @@ router.get('/cancelReservebyRCV', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
-    
+
     // 팝빌회원 아이디
     var testUserID = 'testkorea';
 
@@ -702,7 +702,7 @@ router.get('/cancelReserveRNbyRCV', function(req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
-    
+
     // 팝빌회원 아이디
     var testUserID = 'testkorea';
 
@@ -1508,6 +1508,31 @@ router.get('/getStates', function(req, res, next) {
     messageService.getStates(testCorpNum, reciptNumList,
         function(result) {
             res.render('Message/GetStates', {
+                path: req.path,
+                result: result
+            });
+        },
+        function(Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+});
+
+/*
+ * 파트너의 잔여포인트를 확인합니다.
+ * - https://docs.popbill.com/message/node/api#CheckAutoDenyNumber
+ */
+router.get('/checkAutoDenyNumber', function(req, res, next) {
+
+    // 팝빌회원 사업자번호, '-' 제외 10자리
+    var testCorpNum = '1234567890';
+
+    messageService.checkAutoDenyNumber(testCorpNum,
+        function(result) {
+            res.render('Message/AutoDenyNumber', {
                 path: req.path,
                 result: result
             });
