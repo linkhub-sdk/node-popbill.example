@@ -1522,7 +1522,7 @@ router.get('/getStates', function(req, res, next) {
 });
 
 /*
- * 파트너의 잔여포인트를 확인합니다.
+ * 팝빌회원에 등록된 080 수신거부 번호 정보를 확인합니다.
  * - https://docs.popbill.com/message/node/api#CheckAutoDenyNumber
  */
 router.get('/checkAutoDenyNumber', function(req, res, next) {
