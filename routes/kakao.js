@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 /*
  * 카카오톡 채널을 등록하고 내역을 확인하는 카카오톡 채널 관리 페이지 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/kakao/node/api#GetPlusFriendMgtURL
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/channel#GetPlusFriendMgtURL
  */
 router.get('/getPlusFriendMgtURL', function(req, res, next) {
 
@@ -45,7 +45,7 @@ router.get('/getPlusFriendMgtURL', function(req, res, next) {
 
 /*
  * 팝빌에 등록한 연동회원의 카카오톡 채널 목록을 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#ListPlusFriendID
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/channel#ListPlusFriendID
  */
 router.get('/listPlusFriendID', function(req, res, next) {
 
@@ -71,7 +71,7 @@ router.get('/listPlusFriendID', function(req, res, next) {
 /*
  * 카카오톡 발신번호 등록여부를 확인합니다.
  * - 발신번호 상태가 '승인'인 경우에만 리턴값 'Response'의 변수 'code'가 1로 반환됩니다.
- * - https://docs.popbill.com/kakao/node/api#CheckSenderNumber
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/sendnum#CheckSenderNumber
  */
 router.get('/checkSenderNumber', function(req, res, next) {
 
@@ -101,7 +101,7 @@ router.get('/checkSenderNumber', function(req, res, next) {
 /*
  * 발신번호를 등록하고 내역을 확인하는 카카오톡 발신번호 관리 페이지 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/kakao/node/api#GetSenderNumberMgtURL
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/sendnum#GetSenderNumberMgtURL
  */
 router.get('/getSenderNumberMgtURL', function(req, res, next) {
 
@@ -129,7 +129,7 @@ router.get('/getSenderNumberMgtURL', function(req, res, next) {
 
 /*
  * 팝빌에 등록한 연동회원의 카카오톡 발신번호 목록을 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#GetSenderNumberList
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/sendnum#GetSenderNumberList
  */
 router.get('/getSenderNumberList', function(req, res, next) {
 
@@ -155,7 +155,7 @@ router.get('/getSenderNumberList', function(req, res, next) {
 /*
  * 알림톡 템플릿을 신청하고 승인심사 결과를 확인하며 등록 내역을 확인하는 알림톡 템플릿 관리 페이지 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/kakao/node/api#GetATSTemplateMgtURL
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/template#GetATSTemplateMgtURL
  */
 router.get('/getATSTemplateMgtURL', function(req, res, next) {
 
@@ -183,7 +183,7 @@ router.get('/getATSTemplateMgtURL', function(req, res, next) {
 
 /*
  * 승인된 알림톡 템플릿 정보를 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#GetATSTemplate
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/template#GetATSTemplate
  */
 router.get('/getATSTemplate', function(req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
@@ -210,7 +210,7 @@ router.get('/getATSTemplate', function(req, res, next) {
 
 /*
  * 승인된 알림톡 템플릿 목록을 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#ListATSTemplate
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/template#ListATSTemplate
  */
 router.get('/listATSTemplate', function(req, res, next) {
 
@@ -237,7 +237,7 @@ router.get('/listATSTemplate', function(req, res, next) {
  * 승인된 템플릿의 내용을 작성하여 1건의 알림톡 전송을 팝빌에 접수합니다.
  * - 사전에 승인된 템플릿의 내용과 알림톡 전송내용(content)이 다를 경우 전송실패 처리됩니다.
  * - 전송실패 시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
- * - https://docs.popbill.com/kakao/node/api#SendATS_one
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendATSOne
  */
 router.get('/sendATS_one', function(req, res, next) {
 
@@ -323,7 +323,7 @@ router.get('/sendATS_one', function(req, res, next) {
  * 승인된 템플릿의 내용을 작성하여 다수건의 알림톡 전송을 팝빌에 접수하며, 수신자 별로 개별 내용을 전송합니다. (최대 1,000건)
  * - 사전에 승인된 템플릿의 내용과 알림톡 전송내용(content)이 다를 경우 전송실패 처리됩니다.
  * - 전송실패 시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
- * - https://docs.popbill.com/kakao/node/api#SendATS_multi
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendATSMulti
  */
 router.get('/sendATS_multi', function(req, res, next) {
 
@@ -421,7 +421,7 @@ router.get('/sendATS_multi', function(req, res, next) {
  * 승인된 템플릿 내용을 작성하여 다수건의 알림톡 전송을 팝빌에 접수하며, 모든 수신자에게 동일 내용을 전송합니다. (최대 1,000건)
  * - 사전에 승인된 템플릿의 내용과 알림톡 전송내용(content)이 다를 경우 전송실패 처리됩니다.
  * - 전송실패시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
- * - https://docs.popbill.com/kakao/node/api#SendATS_same
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendATSSame
  */
 router.get('/sendATS_same', function(req, res, next) {
 
@@ -511,7 +511,7 @@ router.get('/sendATS_same', function(req, res, next) {
  * 텍스트로 구성된 1건의 친구톡 전송을 팝빌에 접수합니다.
  * - 친구톡의 경우 야간 전송은 제한됩니다. (20:00 ~ 익일 08:00)
  * - 전송실패시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
- * - https://docs.popbill.com/kakao/node/api#SendFTS_one
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendFTSOne
  */
 router.get('/sendFTS_one', function(req, res, next) {
 
@@ -592,7 +592,7 @@ router.get('/sendFTS_one', function(req, res, next) {
  * 텍스트로 구성된 다수건의 친구톡 전송을 팝빌에 접수하며, 수신자 별로 개별 내용을 전송합니다. (최대 1,000건)
  * - 친구톡의 경우 야간 전송은 제한됩니다. (20:00 ~ 익일 08:00)
  * - 전송실패시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
- * - https://docs.popbill.com/kakao/node/api#SendFTS_multi
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendFTSMulti
  */
 router.get('/sendFTS_multi', function(req, res, next) {
 
@@ -684,7 +684,7 @@ router.get('/sendFTS_multi', function(req, res, next) {
  * 텍스트로 구성된 다수건의 친구톡 전송을 팝빌에 접수하며, 모든 수신자에게 동일 내용을 전송합니다. (최대 1,000건)
  * - 친구톡의 경우 야간 전송은 제한됩니다. (20:00 ~ 익일 08:00)
  * - 전송실패시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
- * - https://docs.popbill.com/kakao/node/api#SendFTS_same
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendFTSSame
  */
 router.get('/sendFTS_same', function(req, res, next) {
 
@@ -771,7 +771,7 @@ router.get('/sendFTS_same', function(req, res, next) {
  * - 친구톡의 경우 야간 전송은 제한됩니다. (20:00 ~ 익일 08:00)
  * - 전송실패시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
  * - 대체문자의 경우, 포토문자(MMS) 형식은 지원하고 있지 않습니다.
- * - https://docs.popbill.com/kakao/node/api#SendFMS_one
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendFMSOne
  */
 router.get('/sendFMS_one', function(req, res, next) {
 
@@ -862,7 +862,7 @@ router.get('/sendFMS_one', function(req, res, next) {
  * - 친구톡의 경우 야간 전송은 제한됩니다. (20:00 ~ 익일 08:00)
  * - 전송실패시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
  * - 대체문자의 경우, 포토문자(MMS) 형식은 지원하고 있지 않습니다.
- * - https://docs.popbill.com/kakao/node/api#SendFMS_multi
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendFMSMulti
  */
 router.get('/sendFMS_multi', function(req, res, next) {
 
@@ -965,7 +965,7 @@ router.get('/sendFMS_multi', function(req, res, next) {
  * - 친구톡의 경우 야간 전송은 제한됩니다. (20:00 ~ 익일 08:00)
  * - 전송실패시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
  * - 대체문자의 경우, 포토문자(MMS) 형식은 지원하고 있지 않습니다.
- * - https://docs.popbill.com/kakao/node/api#SendFMS_same
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendFMSSame
  */
 router.get('/sendFMS_same', function(req, res, next) {
 
@@ -1058,7 +1058,7 @@ router.get('/sendFMS_same', function(req, res, next) {
 
 /*
  * 팝빌에서 반환받은 접수번호를 통해 예약접수된 카카오톡을 전송 취소합니다. (예약시간 10분 전까지 가능)
- * - https://docs.popbill.com/kakao/node/api#CancelReserve
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#CancelReserve
  */
 router.get('/cancelReserve', function(req, res, next) {
 
@@ -1090,7 +1090,7 @@ router.get('/cancelReserve', function(req, res, next) {
 
 /*
  * 파트너가 할당한 전송요청 번호를 통해 예약접수된 카카오톡을 전송 취소합니다. (예약시간 10분 전까지 가능)
- * - https://docs.popbill.com/kakao/node/api#CancelReserveRN
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#CancelReserveRN
  */
 router.get('/cancelReserveRN', function(req, res, next) {
 
@@ -1122,7 +1122,7 @@ router.get('/cancelReserveRN', function(req, res, next) {
 
 /*
  * 팝빌에서 반환받은 접수번호를 통해 알림톡/친구톡 전송상태 및 결과를 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#GetMessages
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/info#GetMessages
  */
 router.get('/getMessages', function(req, res, next) {
 
@@ -1153,7 +1153,7 @@ router.get('/getMessages', function(req, res, next) {
 
 /*
  * 파트너가 할당한 전송요청 번호를 통해 알림톡/친구톡 전송상태 및 결과를 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#GetMessagesRN
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/info#GetMessagesRN
  */
 router.get('/getMessagesRN', function(req, res, next) {
 
@@ -1185,7 +1185,7 @@ router.get('/getMessagesRN', function(req, res, next) {
 /*
  * 검색조건에 해당하는 카카오톡 전송내역을 조회합니다. (조회기간 단위 : 최대 2개월)
  * 카카오톡 접수일시로부터 6개월 이내 접수건만 조회할 수 있습니다.
- * - https://docs.popbill.com/kakao/node/api#Search
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/info#Search
  */
 router.get('/search', function(req, res, next) {
 
@@ -1254,7 +1254,7 @@ router.get('/search', function(req, res, next) {
 /*
  * 팝빌 사이트와 동일한 카카오톡 전송내역을 확인하는 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/kakao/node/api#GetSentListURL
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/info#GetSentListURL
  */
 router.get('/getSentListURL', function(req, res, next) {
 
@@ -1282,7 +1282,7 @@ router.get('/getSentListURL', function(req, res, next) {
 
 /*
  * 연동회원의 잔여포인트를 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#GetBalance
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetBalance
  */
 router.get('/getBalance', function(req, res, next) {
 
@@ -1308,7 +1308,7 @@ router.get('/getBalance', function(req, res, next) {
 /*
  * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/kakao/node/api#GetChargeURL
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetChargeURL
  */
 router.get('/getChargeURL', function(req, res, next) {
 
@@ -1337,7 +1337,7 @@ router.get('/getChargeURL', function(req, res, next) {
 /*
  * 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/kakao/node/api#GetPaymentURL
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetPaymentURL
  */
 router.get('/getPaymentURL', function(req, res, next) {
 
@@ -1366,7 +1366,7 @@ router.get('/getPaymentURL', function(req, res, next) {
 /*
  * 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/kakao/node/api#GetUseHistoryURL
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetUseHistoryURL
  */
 router.get('/getUseHistoryURL', function(req, res, next) {
 
@@ -1394,7 +1394,7 @@ router.get('/getUseHistoryURL', function(req, res, next) {
 
 /*
  * 파트너의 잔여포인트를 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#GetPartnerBalance
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetPartnerBalance
  */
 router.get('/getPartnerBalance', function(req, res, next) {
 
@@ -1420,7 +1420,7 @@ router.get('/getPartnerBalance', function(req, res, next) {
 /*
  * 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/kakao/node/api#GetPartnerURL
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetPartnerURL
  */
 router.get('/getPartnerURL', function(req, res, next) {
 
@@ -1448,7 +1448,7 @@ router.get('/getPartnerURL', function(req, res, next) {
 
 /*
  * 카카오톡(알림톡) 전송시 과금되는 포인트 단가를 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#GetUnitCost
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetUnitCost
  */
 router.get('/getUnitCost', function(req, res, next) {
 
@@ -1475,7 +1475,7 @@ router.get('/getUnitCost', function(req, res, next) {
 
 /*
  * 팝빌 카카오톡 API 서비스 과금정보를 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#GetChargeInfo
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetChargeInfo
  */
 router.get('/getChargeInfo', function(req, res, next) {
 
@@ -1503,7 +1503,7 @@ router.get('/getChargeInfo', function(req, res, next) {
 
 /*
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#CheckIsMember
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/member#CheckIsMember
  */
 router.get('/checkIsMember', function(req, res, next) {
 
@@ -1528,7 +1528,7 @@ router.get('/checkIsMember', function(req, res, next) {
 
 /*
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#CheckID
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/member#CheckID
  */
 router.get('/checkID', function(req, res, next) {
 
@@ -1554,7 +1554,7 @@ router.get('/checkID', function(req, res, next) {
 
 /*
  * 사용자를 연동회원으로 가입처리합니다.
- * - https://docs.popbill.com/kakao/node/api#JoinMember
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/member#JoinMember
  */
 router.get('/joinMember', function(req, res, next) {
 
@@ -1619,7 +1619,7 @@ router.get('/joinMember', function(req, res, next) {
 /*
  * 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/kakao/node/api#GetAccessURL
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/member#GetAccessURL
  */
 router.get('/getAccessURL', function(req, res, next) {
 
@@ -1647,7 +1647,7 @@ router.get('/getAccessURL', function(req, res, next) {
 
 /*
  * 연동회원의 회사정보를 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#GetCorpInfo
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/member#GetCorpInfo
  */
 router.get('/getCorpInfo', function(req, res, next) {
 
@@ -1672,7 +1672,7 @@ router.get('/getCorpInfo', function(req, res, next) {
 
 /*
  * 연동회원의 회사정보를 수정합니다
- * - https://docs.popbill.com/kakao/node/api#UpdateCorpInfo
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/member#UpdateCorpInfo
  */
 router.get('/updateCorpInfo', function(req, res, next) {
 
@@ -1718,7 +1718,7 @@ router.get('/updateCorpInfo', function(req, res, next) {
 
 /*
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
- * - https://docs.popbill.com/kakao/node/api#RegistContact
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/member#RegistContact
  */
 router.get('/registContact', function(req, res, next) {
 
@@ -1767,7 +1767,7 @@ router.get('/registContact', function(req, res, next) {
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#GetContactInfo
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/member#GetContactInfo
  */
 router.get('/getContactInfo', function(req, res, next) {
 
@@ -1795,7 +1795,7 @@ router.get('/getContactInfo', function(req, res, next) {
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
- * - https://docs.popbill.com/kakao/node/api#ListContact
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/member#ListContact
  */
 router.get('/listContact', function(req, res, next) {
 
@@ -1820,7 +1820,7 @@ router.get('/listContact', function(req, res, next) {
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
- * - https://docs.popbill.com/kakao/node/api#UpdateContact
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/member#UpdateContact
  */
 router.get('/updateContact', function(req, res, next) {
 

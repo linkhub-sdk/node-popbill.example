@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 
 /*
  * 계좌조회 서비스를 이용할 계좌를 팝빌에 등록합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#RegistBankAccount
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#RegistBankAccount
  */
 router.get('/registBankAccount', function(req, res, next) {
 
@@ -86,7 +86,7 @@ router.get('/registBankAccount', function(req, res, next) {
 
 /*
  * 팝빌에 등록된 계좌정보를 수정합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#UpdateBankAccount
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#UpdateBankAccount
  */
 router.get('/updateBankAccount', function(req, res, next) {
 
@@ -143,7 +143,7 @@ router.get('/updateBankAccount', function(req, res, next) {
 
 /*
  * 팝빌에 등록된 계좌 정보를 확인합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetBankAccountInfo
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#GetBankAccountInfo
  */
 router.get('/getBankAccountInfo', function(req, res, next) {
 
@@ -177,7 +177,7 @@ router.get('/getBankAccountInfo', function(req, res, next) {
 
 /*
  * 팝빌에 등록된 은행계좌 목록을 반환합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#ListBankAccount
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#ListBankAccount
  */
 router.get('/listBankAccount', function(req, res, next) {
 
@@ -203,7 +203,7 @@ router.get('/listBankAccount', function(req, res, next) {
 /*
  * 계좌 등록, 수정 및 삭제할 수 있는 계좌 관리 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetBankAccountMgtURL
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#GetBankAccountMgtURL
  */
 router.get('/getBankAccountMgtURL', function(req, res, next) {
 
@@ -231,7 +231,7 @@ router.get('/getBankAccountMgtURL', function(req, res, next) {
 
 /*
  * 계좌의 정액제 해지를 요청합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#CloseBankAccount
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#CloseBankAccount
  */
 router.get('/closeBankAccount', function(req, res, next) {
 
@@ -272,7 +272,7 @@ router.get('/closeBankAccount', function(req, res, next) {
 
 /*
  * 신청한 정액제 해지요청을 취소합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#RevokeCloseBankAccount
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#RevokeCloseBankAccount
  */
 router.get('/revokeCloseBankAccount', function(req, res, next) {
 
@@ -309,7 +309,7 @@ router.get('/revokeCloseBankAccount', function(req, res, next) {
  * 등록된 계좌를 삭제합니다.
  * - 정액제가 아닌 종량제 이용 시에만 등록된 계좌를 삭제할 수 있습니다.
  * - 정액제 이용 시 정액제 해지요청(CloseBankAccount API) 함수를 사용하여 정액제를 해제할 수 있습니다.
- * - https://docs.popbill.com/easyfinbank/node/api#DeleteBankAccount
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#DeleteBankAccount
  */
 router.get('/deleteBankAccount', function(req, res, next) {
 
@@ -346,7 +346,7 @@ router.get('/deleteBankAccount', function(req, res, next) {
  * 계좌 거래내역을 확인하기 위해 팝빌에 수집요청을 합니다. (조회기간 단위 : 최대 1개월)
  * - 조회일로부터 최대 3개월 이전 내역까지 조회할 수 있습니다.
  * - 반환 받은 작업아이디는 함수 호출 시점부터 1시간 동안 유효합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#RequestJob
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/job#RequestJob
  */
 router.get('/requestJob', function(req, res, next) {
 
@@ -389,7 +389,7 @@ router.get('/requestJob', function(req, res, next) {
  *   거래 내역 조회(Search) 또는 거래 요약 정보 조회(Summary) 를 해야합니다.
  * - 작업 상태(jobState)가 3(완료)이지만 수집 결과 코드(errorCode)가 1(수집성공)이 아닌 경우에는
  *   오류메시지(errorReason)로 수집 실패에 대한 원인을 파악할 수 있습니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetJobState
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/job#GetJobState
  */
 router.get('/getJobState', function(req, res, next) {
 
@@ -418,7 +418,7 @@ router.get('/getJobState', function(req, res, next) {
 /*
  * 수집 요청(RequestJob API) 함수를 통해 반환 받은 작업아이디의 목록을 확인합니다.
  * - 수집 요청 후 1시간이 경과한 수집 요청건은 상태정보가 반환되지 않습니다.
- * - https://docs.popbill.com/easyfinbank/node/api#ListActiveJob
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/job#ListActiveJob
  */
 router.get('/listActiveJob', function(req, res, next) {
 
@@ -443,7 +443,7 @@ router.get('/listActiveJob', function(req, res, next) {
 
 /*
  * 수집 상태 확인(GetJobState API) 함수를 통해 상태 정보가 확인된 작업아이디를 활용하여 계좌 거래 내역을 조회합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#Search
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/search#Search
  */
 router.get('/search', function(req, res, next) {
 
@@ -492,7 +492,7 @@ router.get('/search', function(req, res, next) {
 /*
  * 수집 상태 확인(GetJobState API) 함수를 통해 상태 정보가 확인된 작업아이디를 활용하여 계좌 거래내역의 요약 정보를 조회합니다.
  * - 요약 정보 : 입·출 금액 합계, 입·출 거래 건수
- * - https://docs.popbill.com/easyfinbank/node/api#Summary
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/search#Summary
  */
 router.get('/summary', function(req, res, next) {
 
@@ -531,7 +531,7 @@ router.get('/summary', function(req, res, next) {
 
 /*
  * 한 건의 거래 내역에 메모를 저장합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#SaveMemo
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/search#SaveMemo
  */
 router.get('/saveMemo', function(req, res, next) {
 
@@ -565,7 +565,7 @@ router.get('/saveMemo', function(req, res, next) {
 /*
  * 계좌조회 정액제 서비스 신청 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetFlatRatePopUpURL
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetFlatRatePopUpURL
  */
 router.get('/getFlatRatePopUpURL', function(req, res, next) {
 
@@ -593,7 +593,7 @@ router.get('/getFlatRatePopUpURL', function(req, res, next) {
 
 /*
  * 계좌조회 정액제 서비스 상태를 확인합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetFlatRateState
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetFlatRateState
  */
 router.get('/getFlatRateState', function(req, res, next) {
 
@@ -624,7 +624,7 @@ router.get('/getFlatRateState', function(req, res, next) {
 
 /*
  * 연동회원의 잔여포인트를 확인합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetBalance
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetBalance
  */
 router.get('/getBalance', function(req, res, next) {
 
@@ -649,7 +649,7 @@ router.get('/getBalance', function(req, res, next) {
 
 /*
  * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetChargeURL
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetChargeURL
  */
 router.get('/getChargeURL', function(req, res, next) {
 
@@ -678,7 +678,7 @@ router.get('/getChargeURL', function(req, res, next) {
 /*
  * 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetPaymentURL
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetPaymentURL
  */
 router.get('/getPaymentURL', function(req, res, next) {
 
@@ -707,7 +707,7 @@ router.get('/getPaymentURL', function(req, res, next) {
 /*
  * 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetUseHistoryURL
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetUseHistoryURL
  */
 router.get('/getUseHistoryURL', function(req, res, next) {
 
@@ -735,7 +735,7 @@ router.get('/getUseHistoryURL', function(req, res, next) {
 
 /*
  * 파트너의 잔여포인트를 확인합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetPartnerBalance
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetPartnerBalance
  */
 router.get('/getPartnerBalance', function(req, res, next) {
 
@@ -761,7 +761,7 @@ router.get('/getPartnerBalance', function(req, res, next) {
 /*
  * 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetPartnerURL
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetPartnerURL
  */
 router.get('/getPartnerURL', function(req, res, next) {
 
@@ -789,7 +789,7 @@ router.get('/getPartnerURL', function(req, res, next) {
 
 /*
  * 팝빌 계좌조회 API 서비스 과금정보를 확인합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetChargeInfo
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetChargeInfo
  */
 router.get('/getChargeInfo', function(req, res, next) {
 
@@ -814,7 +814,7 @@ router.get('/getChargeInfo', function(req, res, next) {
 
 /*
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#CheckIsMember
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/member#CheckIsMember
  */
 router.get('/checkIsMember', function(req, res, next) {
 
@@ -840,7 +840,7 @@ router.get('/checkIsMember', function(req, res, next) {
 
 /*
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#CheckID
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/member#CheckID
  */
 router.get('/checkID', function(req, res, next) {
 
@@ -866,7 +866,7 @@ router.get('/checkID', function(req, res, next) {
 
 /*
  * 사용자를 연동회원으로 가입처리합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#JoinMember
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/member#JoinMember
  */
 router.get('/joinMember', function(req, res, next) {
 
@@ -931,7 +931,7 @@ router.get('/joinMember', function(req, res, next) {
 /*
  * 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetAccessURL
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/member#GetAccessURL
  */
 router.get('/getAccessURL', function(req, res, next) {
 
@@ -959,7 +959,7 @@ router.get('/getAccessURL', function(req, res, next) {
 
 /*
  * 연동회원의 회사정보를 확인합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetCorpInfo
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/member#GetCorpInfo
  */
 router.get('/getCorpInfo', function(req, res, next) {
 
@@ -984,7 +984,7 @@ router.get('/getCorpInfo', function(req, res, next) {
 
 /*
  * 연동회원의 회사정보를 수정합니다
- * - https://docs.popbill.com/easyfinbank/node/api#UpdateCorpInfo
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/member#UpdateCorpInfo
  */
 router.get('/updateCorpInfo', function(req, res, next) {
 
@@ -1030,7 +1030,7 @@ router.get('/updateCorpInfo', function(req, res, next) {
 
 /*
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#RegistContact
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/member#RegistContact
  */
 router.get('/registContact', function(req, res, next) {
 
@@ -1079,7 +1079,7 @@ router.get('/registContact', function(req, res, next) {
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#GetContactInfo
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/member#GetContactInfo
  */
 router.get('/getContactInfo', function(req, res, next) {
 
@@ -1107,7 +1107,7 @@ router.get('/getContactInfo', function(req, res, next) {
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#ListContact
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/member#ListContact
  */
 router.get('/listContact', function(req, res, next) {
 
@@ -1132,7 +1132,7 @@ router.get('/listContact', function(req, res, next) {
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
- * - https://docs.popbill.com/easyfinbank/node/api#UpdateContact
+ * - https://developers.popbill.com/reference/easyfinbank/node/api/member#UpdateContact
  */
 router.get('/updateContact', function(req, res, next) {
 
