@@ -50,7 +50,7 @@ router.get('/checkMgtKeyInUse', function(req, res, next) {
 
 /*
  * 작성된 세금계산서 데이터를 팝빌에 저장과 동시에 발행(전자서명)하여 "발행완료" 상태로 처리합니다.
- * - 세금계산서 국세청 전송 정책 [https://developers.popbill.com/guide/taxinvoice/node]/introduction/policy-of-send-to-nts
+ * - 세금계산서 국세청 전송 정책 [https://developers.popbill.com/guide/taxinvoice/node/introduction/policy-of-send-to-nts]
  * - "발행완료"된 전자세금계산서는 국세청 전송 이전에 발행취소(CancelIssue API) 함수로 국세청 신고 대상에서 제외할 수 있습니다.
  * - 임시저장(Register API) 함수와 발행(Issue API) 함수를 한 번의 프로세스로 처리합니다.
  * - 세금계산서 발행을 위해서 공급자의 인증서가 팝빌 인증서버에 사전등록 되어야 합니다.
@@ -264,7 +264,7 @@ router.get('/registIssue', function(req, res, next) {
          *                         수정세금계산서 기재정보
          * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
          * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/reference/node/$2/introduction/modified-taxinvoice
+         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
          **************************************************************************/
 
         // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
@@ -549,7 +549,7 @@ router.get('/bulkSubmit', function(req, res, next) {
              *                         수정세금계산서 기재정보
              * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
              * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-             * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/reference/node/$2/introduction/modified-taxinvoice
+             * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
              **************************************************************************/
 
             // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
@@ -867,7 +867,7 @@ router.get('/register', function(req, res, next) {
          *                         수정세금계산서 기재정보
          * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
          * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/reference/node/$2/introduction/modified-taxinvoice
+         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
          **************************************************************************/
 
         // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
@@ -1149,7 +1149,7 @@ router.get('/update', function(req, res, next) {
          *                         수정세금계산서 기재정보
          * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
          * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/reference/node/$2/introduction/modified-taxinvoice
+         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
          **************************************************************************/
 
         // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
@@ -1211,7 +1211,7 @@ router.get('/update', function(req, res, next) {
 
 /*
  * "임시저장" 또는 "(역)발행대기" 상태의 세금계산서를 발행(전자서명)하며, "발행완료" 상태로 처리합니다.
- * - 세금계산서 국세청 전송정책 [https://developers.popbill.com/guide/taxinvoice/node]/introduction/policy-of-send-to-nts
+ * - 세금계산서 국세청 전송정책 [https://developers.popbill.com/guide/taxinvoice/node/introduction/policy-of-send-to-nts]
  * - "발행완료" 된 전자세금계산서는 국세청 전송 이전에 발행취소(CancelIssue API) 함수로 국세청 신고 대상에서 제외할 수 있습니다.
  * - 세금계산서 발행을 위해서 공급자의 인증서가 팝빌 인증서버에 사전등록 되어야 합니다.
  *   └ 위수탁발행의 경우, 수탁자의 인증서 등록이 필요합니다.
@@ -1520,7 +1520,7 @@ router.get('/registRequest', function(req, res, next) {
          *                         수정세금계산서 기재정보
          * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
          * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/reference/node/$2/introduction/modified-taxinvoice
+         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
          **************************************************************************/
 
         // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
@@ -1740,7 +1740,7 @@ router.get('/sendToNTS', function(req, res, next) {
 /*
  * 세금계산서 1건의 상태 및 요약정보를 확인합니다.
  * 리턴값 'TaxinvoiceInfo'의 변수 'stateCode'를 통해 세금계산서의 상태코드를 확인합니다.
- * 세금계산서 상태코드 [https://developers.popbill.com/reference/taxinvoice/node]/response-code#state-code
+ * 세금계산서 상태코드 [https://developers.popbill.com/reference/taxinvoice/node/response-code#state-code]
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetInfo
  */
 router.get('/getInfo', function(req, res, next) {
@@ -1773,7 +1773,7 @@ router.get('/getInfo', function(req, res, next) {
 /*
  * 다수건의 세금계산서 상태 및 요약 정보를 확인합니다. (1회 호출 시 최대 1,000건 확인 가능)
  * 리턴값 'TaxinvoiceInfo'의 변수 'stateCode'를 통해 세금계산서의 상태코드를 확인합니다.
- * 세금계산서 상태코드 [https://developers.popbill.com/reference/taxinvoice/node]/response-code#state-code
+ * 세금계산서 상태코드 [https://developers.popbill.com/reference/taxinvoice/node/response-code#state-code]
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetInfos
  */
 router.get('/getInfos', function(req, res, next) {
@@ -2823,7 +2823,7 @@ router.get('/updateEmailConfig', function(req, res, next) {
 
 /*
  * 연동회원의 국세청 전송 옵션 설정 상태를 확인합니다.
- * - 팝빌 국세청 전송 정책 [https://developers.popbill.com/guide/taxinvoice/node]/introduction/policy-of-send-to-nts
+ * - 팝빌 국세청 전송 정책 [https://developers.popbill.com/guide/taxinvoice/node/introduction/policy-of-send-to-nts]
  * - 국세청 전송 옵션 설정은 팝빌 사이트 [전자세금계산서] > [환경설정] > [세금계산서 관리] 메뉴에서 설정할 수 있으며, API로 설정은 불가능 합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#GetSendToNTSConfig
  */

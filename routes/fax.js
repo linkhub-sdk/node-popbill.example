@@ -159,7 +159,7 @@ router.get('/sendFAX', function(req, res, next) {
 
 /*
  * 동일한 팩스파일을 다수의 수신자에게 전송하기 위해 팝빌에 접수합니다. (최대 전송파일 개수 : 20개) (최대 1,000건)
- * - https://developers.popbill.com/reference/fax/node/api/send#sendFAXSame
+ * - https://developers.popbill.com/reference/fax/node/api/send#SendFAXSame
  */
 router.get('/sendFAX_multi', function(req, res, next) {
 

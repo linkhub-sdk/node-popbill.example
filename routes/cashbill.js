@@ -356,7 +356,7 @@ router.get('/delete', function(req, res, next) {
 /*
  * 취소 현금영수증 데이터를 팝빌에 저장과 동시에 발행하여 "발행완료" 상태로 처리합니다.
  * - 취소 현금영수증의 금액은 원본 금액을 넘을 수 없습니다.
- * - 현금영수증 국세청 전송 정책 [https://developers.popbill.com/guide/cashbill/node]/introduction/policy-of-send-to-nts
+ * - 현금영수증 국세청 전송 정책 [https://developers.popbill.com/guide/cashbill/node/introduction/policy-of-send-to-nts]
  * - 취소 현금영수증 발행 시 구매자 메일주소로 발행 안내 베일이 전송되니 유의하시기 바랍니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/issue#RevokeRegistIssue
  */
@@ -399,7 +399,7 @@ router.get('/revokeRegistIssue', function(req, res, next) {
 /*
  * 작성된 (부분)취소 현금영수증 데이터를 팝빌에 저장과 동시에 발행하여 "발행완료" 상태로 처리합니다.
  * - 취소 현금영수증의 금액은 원본 금액을 넘을 수 없습니다.
- * - 현금영수증 국세청 전송 정책 [https://developers.popbill.com/guide/cashbill/node]/introduction/policy-of-send-to-nts
+ * - 현금영수증 국세청 전송 정책 [https://developers.popbill.com/guide/cashbill/node/introduction/policy-of-send-to-nts]
  * - 취소 현금영수증 발행 시 구매자 메일주소로 발행 안내 베일이 전송되니 유의하시기 바랍니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/issue#RevokeRegistIssue
  */
@@ -491,7 +491,7 @@ router.get('/revokeRegistIssue_part', function(req, res, next) {
 /*
  * 현금영수증 1건의 상태 및 요약정보를 확인합니다.
  * - 리턴값 'CashbillInfo'의 변수 'stateCode'를 통해 현금영수증의 상태코드를 확인합니다.
- * - 현금영수증 상태코드 [https://developers.popbill.com/reference/cashbill/node]/response-code#state-code
+ * - 현금영수증 상태코드 [https://developers.popbill.com/reference/cashbill/node/response-code#state-code]
  * - https://developers.popbill.com/reference/cashbill/node/api/info#GetInfo
  */
 router.get('/getInfo', function(req, res, next) {
@@ -521,7 +521,7 @@ router.get('/getInfo', function(req, res, next) {
 /*
  * 다수건의 현금영수증 상태 및 요약 정보를 확인합니다. (1회 호출 시 최대 1,000건 확인 가능)
  * - 리턴값 'CashbillInfo'의 변수 'stateCode'를 통해 현금영수증의 상태코드를 확인합니다.
- * - 현금영수증 상태코드 [https://developers.popbill.com/reference/cashbill/node]/response-code#state-code
+ * - 현금영수증 상태코드 [https://developers.popbill.com/reference/cashbill/node/response-code#state-code]
  * - https://developers.popbill.com/reference/cashbill/node/api/info#GetInfos
  */
 router.get('/getInfos', function(req, res, next) {
