@@ -250,6 +250,7 @@ router.get('/sendATS_one', function(req, res, next) {
     var templateCode = '022040000005';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
+    // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
     var snd = '';
 
     // 알림톡 내용 (최대 1000자)
@@ -345,6 +346,7 @@ router.get('/sendATS_multi', function(req, res, next) {
     content += 'support@linkhub.co.kr';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
+    // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
     var snd = '';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
@@ -442,6 +444,7 @@ router.get('/sendATS_same', function(req, res, next) {
     content += 'support@linkhub.co.kr';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
+    // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
     var snd = '';
 
     // 대체문자 제목
@@ -522,6 +525,7 @@ router.get('/sendFTS_one', function(req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
+    // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
     var snd = '';
 
     // 친구톡 내용 (최대 1000자)
@@ -603,6 +607,7 @@ router.get('/sendFTS_multi', function(req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
+    // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
     var snd = '';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
@@ -695,6 +700,7 @@ router.get('/sendFTS_same', function(req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
+    // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
     var snd = '';
 
     // 친구톡 내용 (최대 1000자)
@@ -782,6 +788,7 @@ router.get('/sendFMS_one', function(req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
+    // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
     var snd = '';
 
     // 친구톡 내용 (최대 400자)
@@ -873,6 +880,7 @@ router.get('/sendFMS_multi', function(req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
+    // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
     var snd = '';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
@@ -976,6 +984,7 @@ router.get('/sendFMS_same', function(req, res, next) {
     var plusFriendID = '@팝빌';
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
+    // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
     var snd = '';
 
     // 친구톡 내용 (최대 400자)
