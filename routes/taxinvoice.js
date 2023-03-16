@@ -11,7 +11,7 @@ var taxinvoiceService = popbill.TaxinvoiceService();
 /*
  * Taxinvoice API Index 목록
  */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     res.render('Taxinvoice/index', {});
 });
 
@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
  * - 문서번호는 최대 24자리 영문 대소문자, 숫자, 특수문자('-','_')로 구성 합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#CheckMgtKeyInUse
  */
-router.get('/checkMgtKeyInUse', function(req, res, next) {
+router.get('/checkMgtKeyInUse', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -33,13 +33,13 @@ router.get('/checkMgtKeyInUse', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     taxinvoiceService.checkMgtKeyInUse(testCorpNum, keyType, mgtKey,
-        function(result) {
+        function (result) {
             res.render('result', {
                 path: req.path,
                 result: '사용중'
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -57,7 +57,7 @@ router.get('/checkMgtKeyInUse', function(req, res, next) {
  *   └ 위수탁발행의 경우, 수탁자의 인증서 등록이 필요합니다
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#RegistIssue
  */
-router.get('/registIssue', function(req, res, next) {
+router.get('/registIssue', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -236,27 +236,27 @@ router.get('/registIssue', function(req, res, next) {
          **************************************************************************/
 
         detailList: [{
-                serialNum: 1, // 일련번호, 1부터 순차기재
-                purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
-                itemName: '품명1',
-                spec: '규격',
-                qty: '1', // 수량, 소수점 2자리까지 기재 가능
-                unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
-                supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                remark: '비고'
-            },
-            {
-                serialNum: 2, // 일련번호, 1부터 순차기재
-                purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
-                itemName: '품명2',
-                spec: '규격',
-                qty: '1', // 수량, 소수점 2자리까지 기재 가능
-                unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
-                supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                remark: '비고'
-            }
+            serialNum: 1, // 일련번호, 1부터 순차기재
+            purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
+            itemName: '품명1',
+            spec: '규격',
+            qty: '1', // 수량, 소수점 2자리까지 기재 가능
+            unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
+            supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            remark: '비고'
+        },
+        {
+            serialNum: 2, // 일련번호, 1부터 순차기재
+            purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
+            itemName: '품명2',
+            spec: '규격',
+            qty: '1', // 수량, 소수점 2자리까지 기재 가능
+            unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
+            supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            remark: '비고'
+        }
         ],
 
 
@@ -281,34 +281,34 @@ router.get('/registIssue', function(req, res, next) {
 
         // 추가담당자 정보
         addContactList: [{
-                // 일련번호, 1부터 순차기재
-                serialNum: 1,
+            // 일련번호, 1부터 순차기재
+            serialNum: 1,
 
-                // 담당자명
-                contactName: '담당자 성명',
+            // 담당자명
+            contactName: '담당자 성명',
 
-                // 담당자 메일
-                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
-                // 실제 거래처의 메일주소가 기재되지 않도록 주의
-                email: ''
-            },
-            {
-                // 일련번호, 1부터 순차기재
-                serialNum: 2,
+            // 담당자 메일
+            // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+            // 실제 거래처의 메일주소가 기재되지 않도록 주의
+            email: ''
+        },
+        {
+            // 일련번호, 1부터 순차기재
+            serialNum: 2,
 
-                // 담당자명
-                contactName: '담당자 성명 2',
+            // 담당자명
+            contactName: '담당자 성명 2',
 
-                // 담당자 메일
-                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
-                // 실제 거래처의 메일주소가 기재되지 않도록 주의
-                email: ''
-            }
+            // 담당자 메일
+            // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+            // 실제 거래처의 메일주소가 기재되지 않도록 주의
+            email: ''
+        }
         ]
     };
 
     taxinvoiceService.registIssue(testCorpNum, Taxinvoice,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
@@ -316,7 +316,7 @@ router.get('/registIssue', function(req, res, next) {
                 ntsConfirmNum: result.ntsConfirmNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -329,7 +329,7 @@ router.get('/registIssue', function(req, res, next) {
  * 최대 100건의 세금계산서 발행을 한번의 요청으로 접수합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#BulkSubmit
  */
-router.get('/bulkSubmit', function(req, res, next) {
+router.get('/bulkSubmit', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
@@ -522,27 +522,27 @@ router.get('/bulkSubmit', function(req, res, next) {
              **************************************************************************/
 
             detailList: [{
-                    serialNum: 1, // 일련번호, 1부터 순차기재
-                    purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
-                    itemName: '품명1',
-                    spec: '규격',
-                    qty: '1', // 수량, 소수점 2자리까지 기재 가능
-                    unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
-                    supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                    tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                    remark: '비고'
-                },
-                {
-                    serialNum: 2, // 일련번호, 1부터 순차기재
-                    purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
-                    itemName: '품명2',
-                    spec: '규격',
-                    qty: '1', // 수량, 소수점 2자리까지 기재 가능
-                    unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
-                    supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                    tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                    remark: '비고'
-                }
+                serialNum: 1, // 일련번호, 1부터 순차기재
+                purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
+                itemName: '품명1',
+                spec: '규격',
+                qty: '1', // 수량, 소수점 2자리까지 기재 가능
+                unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
+                supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+                tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+                remark: '비고'
+            },
+            {
+                serialNum: 2, // 일련번호, 1부터 순차기재
+                purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
+                itemName: '품명2',
+                spec: '규격',
+                qty: '1', // 수량, 소수점 2자리까지 기재 가능
+                unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
+                supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+                tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+                remark: '비고'
+            }
             ],
 
             /************************************************************************
@@ -566,36 +566,36 @@ router.get('/bulkSubmit', function(req, res, next) {
 
             // 추가담당자 정보
             addContactList: [{
-                    // 일련번호, 1부터 순차기재
-                    serialNum: 1,
+                // 일련번호, 1부터 순차기재
+                serialNum: 1,
 
-                    // 담당자명
-                    contactName: '담당자 성명',
+                // 담당자명
+                contactName: '담당자 성명',
 
-                    // 담당자 메일
-                    // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
-                    // 실제 거래처의 메일주소가 기재되지 않도록 주의
-                    email: ''
-                },
-                {
-                    // 일련번호, 1부터 순차기재
-                    serialNum: 2,
+                // 담당자 메일
+                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 실제 거래처의 메일주소가 기재되지 않도록 주의
+                email: ''
+            },
+            {
+                // 일련번호, 1부터 순차기재
+                serialNum: 2,
 
-                    // 담당자명
-                    contactName: '담당자 성명 2',
+                // 담당자명
+                contactName: '담당자 성명 2',
 
-                    // 담당자 메일
-                    // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
-                    // 실제 거래처의 메일주소가 기재되지 않도록 주의
-                    email: ''
-                }
+                // 담당자 메일
+                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 실제 거래처의 메일주소가 기재되지 않도록 주의
+                email: ''
+            }
             ]
         };
         // 세금계산서 객체 목록에 추가
         taxinvoiceList.push(Taxinvoice);
     }
     taxinvoiceService.bulkSubmit(testCorpNum, submitID, taxinvoiceList, forceIssue,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
@@ -603,7 +603,7 @@ router.get('/bulkSubmit', function(req, res, next) {
                 receiptID: result.receiptID
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -617,7 +617,7 @@ router.get('/bulkSubmit', function(req, res, next) {
  * - 개별 세금계산서 처리상태는 접수상태(txState)가 완료(2) 시 반환됩니다
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#GetBulkResult
  */
-router.get('/getBulkResult', function(req, res, next) {
+router.get('/getBulkResult', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -626,13 +626,13 @@ router.get('/getBulkResult', function(req, res, next) {
     var submitID = '20220629-NODE';
 
     taxinvoiceService.getBulkResult(testCorpNum, submitID,
-        function(result) {
+        function (result) {
             res.render('Taxinvoice/BulkResult', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -652,7 +652,7 @@ router.get('/getBulkResult', function(req, res, next) {
  * - 임시저장된 세금계산서는 팝빌 사이트 '임시문서함'에서 확인 가능합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#Register
  */
-router.get('/register', function(req, res, next) {
+router.get('/register', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -839,27 +839,27 @@ router.get('/register', function(req, res, next) {
          **************************************************************************/
 
         detailList: [{
-                serialNum: 1, // 일련번호, 1부터 순차기재
-                purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
-                itemName: '품명1',
-                spec: '규격',
-                qty: '1', // 수량, 소수점 2자리까지 기재 가능
-                unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
-                supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                remark: '비고'
-            },
-            {
-                serialNum: 2, // 일련번호, 1부터 순차기재
-                purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
-                itemName: '품명2',
-                spec: '규격',
-                qty: '1', // 수량, 소수점 2자리까지 기재 가능
-                unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
-                supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                remark: '비고'
-            }
+            serialNum: 1, // 일련번호, 1부터 순차기재
+            purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
+            itemName: '품명1',
+            spec: '규격',
+            qty: '1', // 수량, 소수점 2자리까지 기재 가능
+            unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
+            supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            remark: '비고'
+        },
+        {
+            serialNum: 2, // 일련번호, 1부터 순차기재
+            purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
+            itemName: '품명2',
+            spec: '규격',
+            qty: '1', // 수량, 소수점 2자리까지 기재 가능
+            unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
+            supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            remark: '비고'
+        }
         ],
 
 
@@ -884,41 +884,41 @@ router.get('/register', function(req, res, next) {
 
         // 추가담당자 정보
         addContactList: [{
-                // 일련번호, 1부터 순차기재
-                serialNum: 1,
+            // 일련번호, 1부터 순차기재
+            serialNum: 1,
 
-                // 담당자명
-                contactName: '담당자 성명',
+            // 담당자명
+            contactName: '담당자 성명',
 
-                // 담당자 메일
-                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
-                // 실제 거래처의 메일주소가 기재되지 않도록 주의
-                email: ''
-            },
-            {
-                // 일련번호, 1부터 순차기재
-                serialNum: 2,
+            // 담당자 메일
+            // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+            // 실제 거래처의 메일주소가 기재되지 않도록 주의
+            email: ''
+        },
+        {
+            // 일련번호, 1부터 순차기재
+            serialNum: 2,
 
-                // 담당자명
-                contactName: '담당자 성명 2',
+            // 담당자명
+            contactName: '담당자 성명 2',
 
-                // 담당자 메일
-                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
-                // 실제 거래처의 메일주소가 기재되지 않도록 주의
-                email: ''
-            }
+            // 담당자 메일
+            // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+            // 실제 거래처의 메일주소가 기재되지 않도록 주의
+            email: ''
+        }
         ]
     };
 
     taxinvoiceService.register(testCorpNum, Taxinvoice,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -931,7 +931,7 @@ router.get('/register', function(req, res, next) {
  * "임시저장" 상태의 세금계산서를 수정합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#Update
  */
-router.get('/update', function(req, res, next) {
+router.get('/update', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1121,27 +1121,27 @@ router.get('/update', function(req, res, next) {
          **************************************************************************/
 
         detailList: [{
-                serialNum: 1, // 일련번호, 1부터 순차기재
-                purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
-                itemName: '품명1',
-                spec: '규격',
-                qty: '1', // 수량, 소수점 2자리까지 기재 가능
-                unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
-                supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                remark: '비고'
-            },
-            {
-                serialNum: 2, // 일련번호, 1부터 순차기재
-                purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
-                itemName: '품명2',
-                spec: '규격',
-                qty: '1', // 수량, 소수점 2자리까지 기재 가능
-                unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
-                supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                remark: '비고'
-            }
+            serialNum: 1, // 일련번호, 1부터 순차기재
+            purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
+            itemName: '품명1',
+            spec: '규격',
+            qty: '1', // 수량, 소수점 2자리까지 기재 가능
+            unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
+            supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            remark: '비고'
+        },
+        {
+            serialNum: 2, // 일련번호, 1부터 순차기재
+            purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
+            itemName: '품명2',
+            spec: '규격',
+            qty: '1', // 수량, 소수점 2자리까지 기재 가능
+            unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
+            supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            remark: '비고'
+        }
         ],
 
 
@@ -1166,41 +1166,41 @@ router.get('/update', function(req, res, next) {
 
         // 추가담당자 정보
         addContactList: [{
-                // 일련번호, 1부터 순차기재
-                serialNum: 1,
+            // 일련번호, 1부터 순차기재
+            serialNum: 1,
 
-                // 담당자명
-                contactName: '담당자 성명',
+            // 담당자명
+            contactName: '담당자 성명',
 
-                // 담당자 메일
-                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
-                // 실제 거래처의 메일주소가 기재되지 않도록 주의
-                email: ''
-            },
-            {
-                // 일련번호, 1부터 순차기재
-                serialNum: 2,
+            // 담당자 메일
+            // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+            // 실제 거래처의 메일주소가 기재되지 않도록 주의
+            email: ''
+        },
+        {
+            // 일련번호, 1부터 순차기재
+            serialNum: 2,
 
-                // 담당자명
-                contactName: '담당자 성명 2',
+            // 담당자명
+            contactName: '담당자 성명 2',
 
-                // 담당자 메일
-                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
-                // 실제 거래처의 메일주소가 기재되지 않도록 주의
-                email: ''
-            }
+            // 담당자 메일
+            // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+            // 실제 거래처의 메일주소가 기재되지 않도록 주의
+            email: ''
+        }
         ]
     };
 
     taxinvoiceService.update(testCorpNum, keyType, mgtKey, Taxinvoice,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1218,7 +1218,7 @@ router.get('/update', function(req, res, next) {
  * - 세금계산서 발행 시 공급받는자에게 발행 메일이 발송됩니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#Issue
  */
-router.get('/issue', function(req, res, next) {
+router.get('/issue', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1247,7 +1247,7 @@ router.get('/issue', function(req, res, next) {
     var forceIssue = false;
 
     taxinvoiceService.issue(testCorpNum, keyType, mgtKey, memo, emailSubject, forceIssue, testUserID,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
@@ -1255,7 +1255,7 @@ router.get('/issue', function(req, res, next) {
                 ntsConfirmNum: result.ntsConfirmNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1269,7 +1269,7 @@ router.get('/issue', function(req, res, next) {
  * - Delete(삭제)함수를 호출하여 "발행취소" 상태의 전자세금계산서를 삭제하면, 문서번호 재사용이 가능합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#CancelIssue
  */
-router.get('/cancelIssue', function(req, res, next) {
+router.get('/cancelIssue', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1284,14 +1284,14 @@ router.get('/cancelIssue', function(req, res, next) {
     var memo = '발행취소 메모';
 
     taxinvoiceService.cancelIssue(testCorpNum, keyType, mgtKey, memo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1308,7 +1308,7 @@ router.get('/cancelIssue', function(req, res, next) {
  * - 임시저장(Register API) 함수와 역발행 요청(Request API) 함수를 한 번의 프로세스로 처리합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#RegistRequest
  */
-router.get('/registRequest', function(req, res, next) {
+router.get('/registRequest', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1492,27 +1492,27 @@ router.get('/registRequest', function(req, res, next) {
          **************************************************************************/
 
         detailList: [{
-                serialNum: 1, // 일련번호, 1부터 순차기재
-                purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
-                itemName: '품명1',
-                spec: '규격',
-                qty: '1', // 수량, 소수점 2자리까지 기재 가능
-                unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
-                supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                remark: '비고'
-            },
-            {
-                serialNum: 2, // 일련번호, 1부터 순차기재
-                purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
-                itemName: '품명2',
-                spec: '규격',
-                qty: '1', // 수량, 소수점 2자리까지 기재 가능
-                unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
-                supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
-                remark: '비고'
-            }
+            serialNum: 1, // 일련번호, 1부터 순차기재
+            purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
+            itemName: '품명1',
+            spec: '규격',
+            qty: '1', // 수량, 소수점 2자리까지 기재 가능
+            unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
+            supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            remark: '비고'
+        },
+        {
+            serialNum: 2, // 일련번호, 1부터 순차기재
+            purchaseDT: '20220629', // 거래일자, 형식 : yyyyMMdd
+            itemName: '품명2',
+            spec: '규격',
+            qty: '1', // 수량, 소수점 2자리까지 기재 가능
+            unitCost: '5000', // 단가, 소수점 2자리까지 기재 가능
+            supplyCost: '5000', // 공급가액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            tax: '500', // 세액, 소수점 기재불가, 원단위 이하는 절사하여 표현
+            remark: '비고'
+        }
         ],
 
 
@@ -1541,14 +1541,14 @@ router.get('/registRequest', function(req, res, next) {
     var memo = '즉시요청 메모';
 
     taxinvoiceService.registRequest(testCorpNum, Taxinvoice, memo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1566,7 +1566,7 @@ router.get('/registRequest', function(req, res, next) {
  * - 공급자가 역발행 세금계산서 발행시 포인트가 과금됩니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#Request
  */
-router.get('/request', function(req, res, next) {
+router.get('/request', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1581,14 +1581,14 @@ router.get('/request', function(req, res, next) {
     var memo = '역발행요청 메모';
 
     taxinvoiceService.request(testCorpNum, keyType, mgtKey, memo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1603,7 +1603,7 @@ router.get('/request', function(req, res, next) {
  * - [취소]한 세금계산서의 문서번호를 재사용하기 위해서는 삭제 (Delete API) 함수를 호출해야 합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#CancelRequest
  */
-router.get('/cancelRequest', function(req, res, next) {
+router.get('/cancelRequest', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1618,14 +1618,14 @@ router.get('/cancelRequest', function(req, res, next) {
     var memo = '역발행요청 취소 메모';
 
     taxinvoiceService.cancelRequest(testCorpNum, keyType, mgtKey, memo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1638,7 +1638,7 @@ router.get('/cancelRequest', function(req, res, next) {
  * 공급자가 공급받는자에게 역발행 요청 받은 세금계산서의 발행을 거부합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#Refuse
  */
-router.get('/refuse', function(req, res, next) {
+router.get('/refuse', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1653,14 +1653,14 @@ router.get('/refuse', function(req, res, next) {
     var memo = '역발행요청 거부 메모';
 
     taxinvoiceService.refuse(testCorpNum, keyType, mgtKey, memo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1675,7 +1675,7 @@ router.get('/refuse', function(req, res, next) {
  * - 세금계산서를 삭제해야만 문서번호(mgtKey)를 재사용할 수 있습니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#Delete
  */
-router.get('/delete', function(req, res, next) {
+router.get('/delete', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1687,14 +1687,14 @@ router.get('/delete', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     taxinvoiceService.delete(testCorpNum, keyType, mgtKey,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1709,7 +1709,7 @@ router.get('/delete', function(req, res, next) {
  * - 익일전송시 전송일이 법정공휴일인 경우 다음 영업일에 전송됩니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#SendToNTS
  */
-router.get('/sendToNTS', function(req, res, next) {
+router.get('/sendToNTS', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1721,14 +1721,14 @@ router.get('/sendToNTS', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     taxinvoiceService.sendToNTS(testCorpNum, keyType, mgtKey,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1743,7 +1743,7 @@ router.get('/sendToNTS', function(req, res, next) {
  * 세금계산서 상태코드 [https://developers.popbill.com/reference/taxinvoice/node/response-code#state-code]
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetInfo
  */
-router.get('/getInfo', function(req, res, next) {
+router.get('/getInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1755,13 +1755,13 @@ router.get('/getInfo', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     taxinvoiceService.getInfo(testCorpNum, keyType, mgtKey,
-        function(result) {
+        function (result) {
             res.render('Taxinvoice/TaxinvoiceInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1776,7 +1776,7 @@ router.get('/getInfo', function(req, res, next) {
  * 세금계산서 상태코드 [https://developers.popbill.com/reference/taxinvoice/node/response-code#state-code]
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetInfos
  */
-router.get('/getInfos', function(req, res, next) {
+router.get('/getInfos', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1788,13 +1788,13 @@ router.get('/getInfos', function(req, res, next) {
     var mgtKeyList = ['20220629-001', '20220629-002'];
 
     taxinvoiceService.getInfos(testCorpNum, keyType, mgtKeyList,
-        function(result) {
+        function (result) {
             res.render('Taxinvoice/TaxinvoiceInfos', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1807,7 +1807,7 @@ router.get('/getInfos', function(req, res, next) {
  * 세금계산서 1건의 상세정보를 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetDetailInfo
  */
-router.get('/getDetailInfo', function(req, res, next) {
+router.get('/getDetailInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1819,13 +1819,13 @@ router.get('/getDetailInfo', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     taxinvoiceService.getDetailInfo(testCorpNum, keyType, mgtKey,
-        function(result) {
+        function (result) {
             res.render('Taxinvoice/TaxinvoiceDetail', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1838,7 +1838,7 @@ router.get('/getDetailInfo', function(req, res, next) {
  * 세금계산서 1건의 상세정보를 XML로 반환합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetXML
  */
-router.get('/getXML', function(req, res, next) {
+router.get('/getXML', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1850,13 +1850,13 @@ router.get('/getXML', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     taxinvoiceService.getXML(testCorpNum, keyType, mgtKey,
-        function(result) {
+        function (result) {
             res.render('Taxinvoice/TaxinvoiceXML', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1869,7 +1869,7 @@ router.get('/getXML', function(req, res, next) {
  * 검색조건에 해당하는 세금계산서를 조회합니다. (조회기간 단위 : 최대 6개월)
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#Search
  */
-router.get('/search', function(req, res, next) {
+router.get('/search', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1961,13 +1961,13 @@ router.get('/search', function(req, res, next) {
     taxinvoiceService.search(testCorpNum, keyType, DType, SDate, EDate, State, Type, TaxType,
         LateOnly, Order, Page, PerPage, TaxRegIDType, TaxRegIDYN, TaxRegID, QString, InterOPYN,
         testUserID, IssueType, RegType, CloseDownState, MgtKey,
-        function(result) {
+        function (result) {
             res.render('Taxinvoice/Search', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1980,7 +1980,7 @@ router.get('/search', function(req, res, next) {
  * 세금계산서의 상태에 대한 변경이력을 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetLogs
  */
-router.get('/getLogs', function(req, res, next) {
+router.get('/getLogs', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1992,13 +1992,13 @@ router.get('/getLogs', function(req, res, next) {
     var mgtKey = '20220629-01';
 
     taxinvoiceService.getLogs(testCorpNum, keyType, mgtKey,
-        function(result) {
+        function (result) {
             res.render('Taxinvoice/TaxinvoiceLogs', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2012,25 +2012,25 @@ router.get('/getLogs', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetURL
  */
-router.get('/getURL', function(req, res, next) {
+router.get('/getURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
-    // TBOX : 임시문서함 , SBOX : 매출문서함 , PBOX : 매입문서함 , WRITE : 매출작성
+    // TBOX : 임시 문서함 , SWBOX : 매출 발행 대기함 , SBOX : 매출 문서함 , PWBOX : 매입 발행 대기함 , PBOX : 매입 문서함 , WRITE : 정발행 작성
     var TOGO = 'TBOX';
 
     // 팝빌회원 아이디
     var testUserID = 'testkorea';
 
     taxinvoiceService.getURL(testCorpNum, TOGO, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2044,7 +2044,7 @@ router.get('/getURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetPopUpURL
  */
-router.get('/getPopUpURL', function(req, res, next) {
+router.get('/getPopUpURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2059,13 +2059,13 @@ router.get('/getPopUpURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getPopUpURL(testCorpNum, keyType, mgtKey, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2079,7 +2079,7 @@ router.get('/getPopUpURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetViewURL
  */
-router.get('/getViewURL', function(req, res, next) {
+router.get('/getViewURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2094,13 +2094,13 @@ router.get('/getViewURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getViewURL(testCorpNum, keyType, mgtKey, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2114,7 +2114,7 @@ router.get('/getViewURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetPrintURL
  */
-router.get('/getPrintURL', function(req, res, next) {
+router.get('/getPrintURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2129,13 +2129,13 @@ router.get('/getPrintURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getPrintURL(testCorpNum, keyType, mgtKey, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2149,7 +2149,7 @@ router.get('/getPrintURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetOldPrintURL
  */
-router.get('/getOldPrintURL', function(req, res, next) {
+router.get('/getOldPrintURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2164,13 +2164,13 @@ router.get('/getOldPrintURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getOldPrintURL(testCorpNum, keyType, mgtKey, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2184,7 +2184,7 @@ router.get('/getOldPrintURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetEPrintURL
  */
-router.get('/getEPrintURL', function(req, res, next) {
+router.get('/getEPrintURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2199,13 +2199,13 @@ router.get('/getEPrintURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getEPrintURL(testCorpNum, keyType, mgtKey, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2219,7 +2219,7 @@ router.get('/getEPrintURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetMassPrintURL
  */
-router.get('/getMassPrintURL', function(req, res, next) {
+router.get('/getMassPrintURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2234,13 +2234,13 @@ router.get('/getMassPrintURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getMassPrintURL(testCorpNum, keyType, mgtKeyList, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2254,7 +2254,7 @@ router.get('/getMassPrintURL', function(req, res, next) {
  * - 함수 호출로 반환 받은 URL에는 유효시간이 없습니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetMailURL
  */
-router.get('/getMailURL', function(req, res, next) {
+router.get('/getMailURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2269,13 +2269,13 @@ router.get('/getMailURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getMailURL(testCorpNum, keyType, mgtKey, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2289,7 +2289,7 @@ router.get('/getMailURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * -  https://developers.popbill.com/reference/taxinvoice/node/api/view#GetPDFURL
  */
-router.get('/getPDFURL', function(req, res, next) {
+router.get('/getPDFURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2304,13 +2304,13 @@ router.get('/getPDFURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getPDFURL(testCorpNum, keyType, mgtKey, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2324,7 +2324,7 @@ router.get('/getPDFURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/member#GetAccessURL
  */
-router.get('/getAccessURL', function(req, res, next) {
+router.get('/getAccessURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2333,13 +2333,13 @@ router.get('/getAccessURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getAccessURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2353,7 +2353,7 @@ router.get('/getAccessURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#GetSealURL
  */
-router.get('/getSealURL', function(req, res, next) {
+router.get('/getSealURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2362,13 +2362,13 @@ router.get('/getSealURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getSealURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2381,7 +2381,7 @@ router.get('/getSealURL', function(req, res, next) {
  * "임시저장" 상태의 세금계산서에 1개의 파일을 첨부합니다. (최대 5개)
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#AttachFile
  */
-router.get('/attachFile', function(req, res, next) {
+router.get('/attachFile', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2399,14 +2399,14 @@ router.get('/attachFile', function(req, res, next) {
     var fileName = FilePaths[0].replace(/^.*[\\\/]/, '');
 
     taxinvoiceService.attachFile(testCorpNum, keyType, mgtKey, fileName, FilePaths,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2420,7 +2420,7 @@ router.get('/attachFile', function(req, res, next) {
  * - 파일을 식별하는 파일아이디는 첨부파일 목록(GetFiles API) 의 응답항목 중 파일아이디(AttachedFile) 값을 통해 확인할 수 있습니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#DeleteFile
  */
-router.get('/deleteFile', function(req, res, next) {
+router.get('/deleteFile', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2435,14 +2435,14 @@ router.get('/deleteFile', function(req, res, next) {
     var fileID = '';
 
     taxinvoiceService.deleteFile(testCorpNum, keyType, mgtKey, fileID,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2455,7 +2455,7 @@ router.get('/deleteFile', function(req, res, next) {
  * 세금계산서에 첨부된 파일목록을 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#GetFiles
  */
-router.get('/getFiles', function(req, res, next) {
+router.get('/getFiles', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2467,13 +2467,13 @@ router.get('/getFiles', function(req, res, next) {
     var mgtKey = '20220629-002';
 
     taxinvoiceService.getFiles(testCorpNum, keyType, mgtKey,
-        function(result) {
+        function (result) {
             res.render('Taxinvoice/AttachedFile', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2486,7 +2486,7 @@ router.get('/getFiles', function(req, res, next) {
  * 세금계산서와 관련된 안내 메일을 재전송 합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#SendEmail
  */
-router.get('/sendEmail', function(req, res, next) {
+router.get('/sendEmail', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2503,14 +2503,14 @@ router.get('/sendEmail', function(req, res, next) {
     var receiver = '';
 
     taxinvoiceService.sendEmail(testCorpNum, keyType, mgtKey, receiver,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2525,7 +2525,7 @@ router.get('/sendEmail', function(req, res, next) {
  * - 함수 호출시 포인트가 과금됩니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#SendSMS
  */
-router.get('/sendSMS', function(req, res, next) {
+router.get('/sendSMS', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2546,14 +2546,14 @@ router.get('/sendSMS', function(req, res, next) {
     var contents = '팝빌 전자세금계산서 문자전송';
 
     taxinvoiceService.sendSMS(testCorpNum, keyType, mgtKey, senderNum, receiverNum, contents,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2568,7 +2568,7 @@ router.get('/sendSMS', function(req, res, next) {
  * - 함수 호출시 포인트가 과금됩니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#SendFAX
  */
-router.get('/sendFAX', function(req, res, next) {
+router.get('/sendFAX', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2586,14 +2586,14 @@ router.get('/sendFAX', function(req, res, next) {
     var receiverNum = '';
 
     taxinvoiceService.sendFAX(testCorpNum, keyType, mgtKey, senderNum, receiverNum,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2606,7 +2606,7 @@ router.get('/sendFAX', function(req, res, next) {
  * 팝빌 전자명세서 API를 통해 발행한 전자명세서를 세금계산서에 첨부합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#AttachStatement
  */
-router.get('/attachStatement', function(req, res, next) {
+router.get('/attachStatement', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2624,14 +2624,14 @@ router.get('/attachStatement', function(req, res, next) {
     var subMgtKey = '20220629-001';
 
     taxinvoiceService.attachStatement(testCorpNum, keyType, mgtKey, subItemCode, subMgtKey,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2644,7 +2644,7 @@ router.get('/attachStatement', function(req, res, next) {
  * 세금계산서에 첨부된 전자명세서를 해제합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#DetachStatement
  */
-router.get('/detachStatement', function(req, res, next) {
+router.get('/detachStatement', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2662,14 +2662,14 @@ router.get('/detachStatement', function(req, res, next) {
     var subMgtKey = '20220629-001';
 
     taxinvoiceService.detachStatement(testCorpNum, keyType, mgtKey, subItemCode, subMgtKey,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2682,19 +2682,19 @@ router.get('/detachStatement', function(req, res, next) {
  * 전자세금계산서 유통사업자의 메일 목록을 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#GetEmailPublicKeys
  */
-router.get('/getEmailPublicKeys', function(req, res, next) {
+router.get('/getEmailPublicKeys', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     taxinvoiceService.getEmailPublicKeys(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Taxinvoice/EmailPublicKeys', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2707,7 +2707,7 @@ router.get('/getEmailPublicKeys', function(req, res, next) {
  * 팝빌 사이트를 통해 발행하여 문서번호가 부여되지 않은 세금계산서에 문서번호를 할당합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#AssignMgtKey
  */
-router.get('/assignMgtKey', function(req, res, next) {
+router.get('/assignMgtKey', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2722,14 +2722,14 @@ router.get('/assignMgtKey', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     taxinvoiceService.assignMgtKey(testCorpNum, keyType, itemKey, mgtKey,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2742,19 +2742,19 @@ router.get('/assignMgtKey', function(req, res, next) {
  * 세금계산서 관련 메일 항목에 대한 발송설정을 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#ListEmailConfig
  */
-router.get('/listEmailConfig', function(req, res, next) {
+router.get('/listEmailConfig', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     taxinvoiceService.listEmailConfig(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Taxinvoice/ListEmailConfig', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2793,7 +2793,7 @@ router.get('/listEmailConfig', function(req, res, next) {
  * [정기발송]
  * ETC_CERT_EXPIRATION : 팝빌에 등록된 인증서의 만료예정을 안내하는 메일입니다.
  */
-router.get('/updateEmailConfig', function(req, res, next) {
+router.get('/updateEmailConfig', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2805,14 +2805,14 @@ router.get('/updateEmailConfig', function(req, res, next) {
     var sendYN = true;
 
     taxinvoiceService.updateEmailConfig(testCorpNum, emailType, sendYN,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2827,19 +2827,19 @@ router.get('/updateEmailConfig', function(req, res, next) {
  * - 국세청 전송 옵션 설정은 팝빌 사이트 [전자세금계산서] > [환경설정] > [세금계산서 관리] 메뉴에서 설정할 수 있으며, API로 설정은 불가능 합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#GetSendToNTSConfig
  */
-router.get('/getSendToNTSConfig', function(req, res, next) {
+router.get('/getSendToNTSConfig', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     taxinvoiceService.getSendToNTSConfig(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Taxinvoice/SendToNTSConfig', {
                 path: req.path,
                 sendToNTSConfig: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2854,7 +2854,7 @@ router.get('/getSendToNTSConfig', function(req, res, next) {
  * - 인증서 갱신/재발급/비밀번호 변경한 경우, 변경된 인증서를 팝빌 인증서버에 재등록 해야합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/cert#GetTaxCertURL
  */
-router.get('/getTaxCertURL', function(req, res, next) {
+router.get('/getTaxCertURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2863,13 +2863,13 @@ router.get('/getTaxCertURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getTaxCertURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2882,19 +2882,19 @@ router.get('/getTaxCertURL', function(req, res, next) {
  * 팝빌 인증서버에 등록된 인증서의 만료일을 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/cert#GetCertificateExpireDate
  */
-router.get('/getCertificateExpireDate', function(req, res, next) {
+router.get('/getCertificateExpireDate', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     taxinvoiceService.getCertificateExpireDate(testCorpNum,
-        function(expireDate) {
+        function (expireDate) {
             res.render('result', {
                 path: req.path,
                 result: expireDate
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2907,20 +2907,20 @@ router.get('/getCertificateExpireDate', function(req, res, next) {
  * 팝빌 인증서버에 등록된 인증서의 유효성을 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/cert#CheckCertValidation
  */
-router.get('/checkCertValidation', function(req, res, next) {
+router.get('/checkCertValidation', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     taxinvoiceService.checkCertValidation(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2933,19 +2933,19 @@ router.get('/checkCertValidation', function(req, res, next) {
  * 팝빌 인증서버에 등록된 공동인증서의 정보를 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/cert#GetTaxCertInfo
  */
-router.get('/getTaxCertInfo', function(req, res, next) {
+router.get('/getTaxCertInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     taxinvoiceService.getTaxCertInfo(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Taxinvoice/TaxinvoiceCertificate', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2958,19 +2958,19 @@ router.get('/getTaxCertInfo', function(req, res, next) {
  * 연동회원의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetBalance
  */
-router.get('/getBalance', function(req, res, next) {
+router.get('/getBalance', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     taxinvoiceService.getBalance(testCorpNum,
-        function(remainPoint) {
+        function (remainPoint) {
             res.render('result', {
                 path: req.path,
                 result: remainPoint
             })
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -2984,7 +2984,7 @@ router.get('/getBalance', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetChargeURL
  */
-router.get('/getChargeURL', function(req, res, next) {
+router.get('/getChargeURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -2993,13 +2993,13 @@ router.get('/getChargeURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getChargeURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3013,7 +3013,7 @@ router.get('/getChargeURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetPaymentURL
  */
-router.get('/getPaymentURL', function(req, res, next) {
+router.get('/getPaymentURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -3022,13 +3022,13 @@ router.get('/getPaymentURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getPaymentURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3042,7 +3042,7 @@ router.get('/getPaymentURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetUseHistoryURL
  */
-router.get('/getUseHistoryURL', function(req, res, next) {
+router.get('/getUseHistoryURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -3051,13 +3051,13 @@ router.get('/getUseHistoryURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     taxinvoiceService.getUseHistoryURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3070,19 +3070,19 @@ router.get('/getUseHistoryURL', function(req, res, next) {
  * 파트너의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetPartnerBalance
  */
-router.get('/getPartnerBalance', function(req, res, next) {
+router.get('/getPartnerBalance', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     taxinvoiceService.getPartnerBalance(testCorpNum,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3096,7 +3096,7 @@ router.get('/getPartnerBalance', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetPartnerURL
  */
-router.get('/getPartnerURL', function(req, res, next) {
+router.get('/getPartnerURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -3105,13 +3105,13 @@ router.get('/getPartnerURL', function(req, res, next) {
     var TOGO = 'CHRG';
 
     taxinvoiceService.getPartnerURL(testCorpNum, TOGO,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3124,19 +3124,19 @@ router.get('/getPartnerURL', function(req, res, next) {
  * 전자세금계산서 발행단가를 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetUnitCost
  */
-router.get('/getUnitCost', function(req, res, next) {
+router.get('/getUnitCost', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     taxinvoiceService.getUnitCost(testCorpNum,
-        function(unitCost) {
+        function (unitCost) {
             res.render('result', {
                 path: req.path,
                 result: unitCost
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3149,19 +3149,19 @@ router.get('/getUnitCost', function(req, res, next) {
  * 팝빌 전자세금계산서 API 서비스 과금정보를 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetChargeInfo
  */
-router.get('/getChargeInfo', function(req, res, next) {
+router.get('/getChargeInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     taxinvoiceService.getChargeInfo(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Base/getChargeInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3174,20 +3174,20 @@ router.get('/getChargeInfo', function(req, res, next) {
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/member#CheckIsMember
  */
-router.get('/checkIsMember', function(req, res, next) {
+router.get('/checkIsMember', function (req, res, next) {
 
     // 조회할 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     taxinvoiceService.checkIsMember(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3200,20 +3200,20 @@ router.get('/checkIsMember', function(req, res, next) {
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/member#CheckID
  */
-router.get('/checkID', function(req, res, next) {
+router.get('/checkID', function (req, res, next) {
 
     // 조회할 아이디
     var testID = 'testkorea';
 
     taxinvoiceService.checkID(testID,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3226,7 +3226,7 @@ router.get('/checkID', function(req, res, next) {
  * 사용자를 연동회원으로 가입처리합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/member#JoinMember
  */
-router.get('/joinMember', function(req, res, next) {
+router.get('/joinMember', function (req, res, next) {
 
     // 회원정보
     var joinInfo = {
@@ -3270,14 +3270,14 @@ router.get('/joinMember', function(req, res, next) {
     };
 
     taxinvoiceService.joinMember(joinInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3290,19 +3290,19 @@ router.get('/joinMember', function(req, res, next) {
  * 연동회원의 회사정보를 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/member#GetCorpInfo
  */
-router.get('/getCorpInfo', function(req, res, next) {
+router.get('/getCorpInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     taxinvoiceService.getCorpInfo(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Base/getCorpInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3315,7 +3315,7 @@ router.get('/getCorpInfo', function(req, res, next) {
  * 연동회원의 회사정보를 수정합니다
  * - https://developers.popbill.com/reference/taxinvoice/node/api/member#UpdateCorpInfo
  */
-router.get('/updateCorpInfo', function(req, res, next) {
+router.get('/updateCorpInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -3340,14 +3340,14 @@ router.get('/updateCorpInfo', function(req, res, next) {
     };
 
     taxinvoiceService.updateCorpInfo(testCorpNum, corpInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3360,7 +3360,7 @@ router.get('/updateCorpInfo', function(req, res, next) {
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/member#RegistContact
  */
-router.get('/registContact', function(req, res, next) {
+router.get('/registContact', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -3388,14 +3388,14 @@ router.get('/registContact', function(req, res, next) {
     };
 
     taxinvoiceService.registContact(testCorpNum, contactInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3408,7 +3408,7 @@ router.get('/registContact', function(req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/member#UpdateContact
  */
-router.get('/updateContact', function(req, res, next) {
+router.get('/updateContact', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -3436,14 +3436,14 @@ router.get('/updateContact', function(req, res, next) {
     };
 
     taxinvoiceService.updateContact(testCorpNum, testUserID, contactInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3456,7 +3456,7 @@ router.get('/updateContact', function(req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/member#GetContactInfo
  */
-router.get('/getContactInfo', function(req, res, next) {
+router.get('/getContactInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -3465,13 +3465,13 @@ router.get('/getContactInfo', function(req, res, next) {
     var contactID = 'checkContactID';
 
     taxinvoiceService.getContactInfo(testCorpNum, contactID,
-        function(result) {
+        function (result) {
             res.render('Base/getContactInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3484,19 +3484,19 @@ router.get('/getContactInfo', function(req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/member#ListContact
  */
-router.get('/listContact', function(req, res, next) {
+router.get('/listContact', function (req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
 
     taxinvoiceService.listContact(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Base/listContact', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -3505,5 +3505,204 @@ router.get('/listContact', function(req, res, next) {
         });
 });
 
+
+/**
+ * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
+ * - https://developers.popbill.com/reference/taxinvoice/node/api/point#PaymentRequest
+ */
+router.get('/paymentRequest', function (req, res, next) {
+    // 팝빌회원 사업자 번호
+    var CorpNUm = ""
+    // 담당자명
+    var SettlerName = ""
+    // 담당자 이메일
+    var SettlerEmail = ""
+    // 담당자 휴대폰
+    var NotifyHP = ""
+    // 입금자명
+    var PaymentName = ""
+    // 결제금액
+    var SettleCost = ""
+
+    // 입금신청 객체 정보
+    var PaymentForm = {
+        settlerName: SettlerName,
+        settlerEmail: SettlerEmail,
+        notifyHP: NotifyHP,
+        paymentName: PaymentName,
+        settleCost: SettleCost,
+    }
+    // 팝빌회원 아이디
+    var UserID = ""
+
+    taxinvoiceService.paymentRequest(CorpNUm, PaymentForm, UserID,
+        function (result) {
+            res.render('Base/paymentResponse', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
+ * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetSettleResult
+ */
+router.get('/getSettleResult', function (req, res, next) {
+    // 팝빌회원 사업자 번호
+    var CorpNum = ""
+    // 정산코드 - PaymentRequest 호출시 반환되는 값
+    var SettleCode = ""
+    // 팝빌회원 아이디
+    var UserID = ""
+
+    taxinvoiceService.getBulkResult(CorpNum, SettleCode, UserID,
+        function (result) {
+            res.render('Base/paymentHistory', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원의 포인트 결제내역을 확인합니다.
+ * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetPaymentHistory
+ */
+router.get('/getPaymentHistory', function (req, res, next) {
+    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
+    var CorpNum = ""
+    // 조회 기간의 시작일자 (형식 : yyyyMMdd)
+    var SDate = "20230101"
+    // 조회 기간의 종료일자 (형식 : yyyyMMdd)
+    var EDate = "20230107"
+    // 목록 페이지번호 (기본값 1)
+    var Page = 1
+    // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+    var PerPage = 500
+    // 팝빌회원 아이디
+    var UserID = ""
+
+    taxinvoiceService.getPaymentHistory(CorpNum, SDate, EDate, Page, PerPage, UserID,
+        function (result) {
+            res.render('Base/paymentHistoryResult', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원의 포인트 사용내역을 확인합니다.
+ * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetUseHistory
+ */
+router.get('/getUseHistory', function (req, res, next) {
+    var CorpNum = ""
+    var SDate = ""
+    var EDate = ""
+    var Page = 1
+    var PerPage = 500
+    var Order = ""
+    var UserID = ""
+
+
+    taxinvoiceService.getUseHistory(CorpNum, SDate, EDate, Page, PerPage, Order, UserID,
+        function (result) {
+            res.render('Base/useHistoryResult', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원 포인트를 환불 신청합니다.
+ * - https://developers.popbill.com/reference/taxinvoice/node/api/point#Refund
+ */
+router.get('/refund', function (req, res, next) {
+    var CorpNum = ""
+    var RefundForm = {
+        contactName: "",
+        tel: "",
+        requestPoint: "",
+        accountBank: "",
+        accountNum: "",
+        accountName: "",
+        reason: "",
+    }
+    var UserID = ""
+
+    taxinvoiceService.refund(CorpNum, RefundForm, UserID,
+        function (result) {
+            res.render('response', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+
+
+/**
+ * 연동회원의 포인트 환불신청내역을 확인합니다.
+ * https://developers.popbill.com/reference/taxinvoice/node/api/point#GetRefundHistory
+ */
+router.get('/getRefundHistory', function (req, res, next) {
+
+    var CorpNum = ""
+    var Page = 1
+    var PerPage = 500
+    var UserID = ""
+
+    taxinvoiceService.getRefundHistory(CorpNum, Page, PerPage, UserID,
+        function (result) {
+            res.render('Base/RefundHistoryResult', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
 
 module.exports = router;

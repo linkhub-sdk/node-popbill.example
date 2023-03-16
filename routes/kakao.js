@@ -10,7 +10,7 @@ var kakaoService = popbill.KakaoService();
 /*
  * Kakao API Index 목록
  */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     res.render('Kakao/index', {});
 });
 
@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/channel#GetPlusFriendMgtURL
  */
-router.get('/getPlusFriendMgtURL', function(req, res, next) {
+router.get('/getPlusFriendMgtURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -28,13 +28,13 @@ router.get('/getPlusFriendMgtURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     kakaoService.getPlusFriendMgtURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -47,19 +47,19 @@ router.get('/getPlusFriendMgtURL', function(req, res, next) {
  * 팝빌에 등록한 연동회원의 카카오톡 채널 목록을 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/channel#ListPlusFriendID
  */
-router.get('/listPlusFriendID', function(req, res, next) {
+router.get('/listPlusFriendID', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     kakaoService.listPlusFriendID(testCorpNum,
-        function(response) {
+        function (response) {
             res.render('Kakao/listPlusFriendID', {
                 path: req.path,
                 result: response
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -73,7 +73,7 @@ router.get('/listPlusFriendID', function(req, res, next) {
  * - 발신번호 상태가 '승인'인 경우에만 리턴값 'Response'의 변수 'code'가 1로 반환됩니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/sendnum#CheckSenderNumber
  */
-router.get('/checkSenderNumber', function(req, res, next) {
+router.get('/checkSenderNumber', function (req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -82,14 +82,14 @@ router.get('/checkSenderNumber', function(req, res, next) {
     var senderNumber = '';
 
     kakaoService.checkSenderNumber(testCorpNum, senderNumber,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -103,7 +103,7 @@ router.get('/checkSenderNumber', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/sendnum#GetSenderNumberMgtURL
  */
-router.get('/getSenderNumberMgtURL', function(req, res, next) {
+router.get('/getSenderNumberMgtURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -112,13 +112,13 @@ router.get('/getSenderNumberMgtURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     kakaoService.getSenderNumberMgtURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -131,19 +131,19 @@ router.get('/getSenderNumberMgtURL', function(req, res, next) {
  * 팝빌에 등록한 연동회원의 카카오톡 발신번호 목록을 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/sendnum#GetSenderNumberList
  */
-router.get('/getSenderNumberList', function(req, res, next) {
+router.get('/getSenderNumberList', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     kakaoService.getSenderNumberList(testCorpNum,
-        function(response) {
+        function (response) {
             res.render('Kakao/getSenderNumberList', {
                 path: req.path,
                 result: response
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -157,7 +157,7 @@ router.get('/getSenderNumberList', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/template#GetATSTemplateMgtURL
  */
-router.get('/getATSTemplateMgtURL', function(req, res, next) {
+router.get('/getATSTemplateMgtURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -166,13 +166,13 @@ router.get('/getATSTemplateMgtURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     kakaoService.getATSTemplateMgtURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -185,7 +185,7 @@ router.get('/getATSTemplateMgtURL', function(req, res, next) {
  * 승인된 알림톡 템플릿 정보를 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/template#GetATSTemplate
  */
-router.get('/getATSTemplate', function(req, res, next) {
+router.get('/getATSTemplate', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
@@ -193,13 +193,13 @@ router.get('/getATSTemplate', function(req, res, next) {
     var templateCode = '022040000374';
 
     kakaoService.getATSTemplate(testCorpNum, templateCode,
-        function(response) {
+        function (response) {
             res.render('Kakao/getATSTemplate', {
                 path: req.path,
                 result: response
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -212,19 +212,19 @@ router.get('/getATSTemplate', function(req, res, next) {
  * 승인된 알림톡 템플릿 목록을 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/template#ListATSTemplate
  */
-router.get('/listATSTemplate', function(req, res, next) {
+router.get('/listATSTemplate', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     kakaoService.listATSTemplate(testCorpNum,
-        function(response) {
+        function (response) {
             res.render('Kakao/listATSTemplate', {
                 path: req.path,
                 result: response
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -239,7 +239,7 @@ router.get('/listATSTemplate', function(req, res, next) {
  * - 전송실패 시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendATSOne
  */
-router.get('/sendATS_one', function(req, res, next) {
+router.get('/sendATS_one', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -305,13 +305,13 @@ router.get('/sendATS_one', function(req, res, next) {
     // ];
 
     kakaoService.sendATS_one(testCorpNum, templateCode, snd, content, altSubject, altContent, altSendType, sndDT, receiver, receiverName, UserID, requestNum, btns,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
                 receiptNum: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -326,7 +326,7 @@ router.get('/sendATS_one', function(req, res, next) {
  * - 전송실패 시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendATSMulti
  */
-router.get('/sendATS_multi', function(req, res, next) {
+router.get('/sendATS_multi', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -404,13 +404,13 @@ router.get('/sendATS_multi', function(req, res, next) {
     // ];
 
     kakaoService.sendATS_multi(testCorpNum, templateCode, snd, altSendType, sndDT, msgs, UserID, requestNum, btns,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
                 receiptNum: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -425,7 +425,7 @@ router.get('/sendATS_multi', function(req, res, next) {
  * - 전송실패시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendATSSame
  */
-router.get('/sendATS_same', function(req, res, next) {
+router.get('/sendATS_same', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -464,13 +464,13 @@ router.get('/sendATS_same', function(req, res, next) {
 
     // [배열] 알림톡 전송정보 (최대 1000개)
     var msgs = [{
-            rcv: '', //수신번호
-            rcvnm: 'popbill' //수신자명
-        },
-        {
-            rcv: '',
-            rcvnm: 'linkhub'
-        }
+        rcv: '', //수신번호
+        rcvnm: 'popbill' //수신자명
+    },
+    {
+        rcv: '',
+        rcvnm: 'linkhub'
+    }
     ];
 
     // 팝빌회원 아이디
@@ -495,13 +495,13 @@ router.get('/sendATS_same', function(req, res, next) {
     // ];
 
     kakaoService.sendATS_same(testCorpNum, templateCode, snd, content, altSubject, altContent, altSendType, sndDT, msgs, UserID, requestNum, btns,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
                 receiptNum: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -516,7 +516,7 @@ router.get('/sendATS_same', function(req, res, next) {
  * - 전송실패시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendFTSOne
  */
-router.get('/sendFTS_one', function(req, res, next) {
+router.get('/sendFTS_one', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -577,13 +577,13 @@ router.get('/sendFTS_one', function(req, res, next) {
     var requestNum = "";
 
     kakaoService.sendFTS_one(testCorpNum, plusFriendID, snd, content, altSubject, altContent, altSendType, sndDT, receiver, receiverName, adsYN, btns, UserID, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
                 receiptNum: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -598,7 +598,7 @@ router.get('/sendFTS_one', function(req, res, next) {
  * - 전송실패시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendFTSMulti
  */
-router.get('/sendFTS_multi', function(req, res, next) {
+router.get('/sendFTS_multi', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -670,13 +670,13 @@ router.get('/sendFTS_multi', function(req, res, next) {
     var requestNum = "";
 
     kakaoService.sendFTS_multi(testCorpNum, plusFriendID, snd, altSendType, sndDT, adsYN, msgs, btns, UserID, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
                 receiptNum: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -691,7 +691,7 @@ router.get('/sendFTS_multi', function(req, res, next) {
  * - 전송실패시 사전에 지정한 변수 'altSendType' 값으로 대체문자를 전송할 수 있고, 이 경우 문자(SMS/LMS) 요금이 과금됩니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendFTSSame
  */
-router.get('/sendFTS_same', function(req, res, next) {
+router.get('/sendFTS_same', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -731,13 +731,13 @@ router.get('/sendFTS_same', function(req, res, next) {
 
     // [배열] 친구톡 전송정보 (최대 1000개)
     var msgs = [{
-            rcv: '', //수신번호
-            rcvnm: 'popbill' //수신자명
-        },
-        {
-            rcv: '',
-            rcvnm: 'linkhub'
-        }
+        rcv: '', //수신번호
+        rcvnm: 'popbill' //수신자명
+    },
+    {
+        rcv: '',
+        rcvnm: 'linkhub'
+    }
     ];
 
     // [배열] 버튼 목록 (최대 5개)
@@ -757,13 +757,13 @@ router.get('/sendFTS_same', function(req, res, next) {
     var requestNum = "";
 
     kakaoService.sendFTS_same(testCorpNum, plusFriendID, snd, content, altSubject, altContent, altSendType, sndDT, adsYN, msgs, btns, UserID, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
                 receiptNum: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -779,7 +779,7 @@ router.get('/sendFTS_same', function(req, res, next) {
  * - 대체문자의 경우, 포토문자(MMS) 형식은 지원하고 있지 않습니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendFMSOne
  */
-router.get('/sendFMS_one', function(req, res, next) {
+router.get('/sendFMS_one', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -849,13 +849,13 @@ router.get('/sendFMS_one', function(req, res, next) {
     var requestNum = "";
 
     kakaoService.sendFMS_one(testCorpNum, plusFriendID, snd, content, altSubject, altContent, altSendType, sndDT, receiver, receiverName, adsYN, imageURL, filePath, btns, UserID, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
                 receiptNum: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -871,7 +871,7 @@ router.get('/sendFMS_one', function(req, res, next) {
  * - 대체문자의 경우, 포토문자(MMS) 형식은 지원하고 있지 않습니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendFMSMulti
  */
-router.get('/sendFMS_multi', function(req, res, next) {
+router.get('/sendFMS_multi', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -953,13 +953,13 @@ router.get('/sendFMS_multi', function(req, res, next) {
     var requestNum = "";
 
     kakaoService.sendFMS_multi(testCorpNum, plusFriendID, snd, altSendType, sndDT, adsYN, imageURL, filePath, msgs, btns, UserID, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
                 receiptNum: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -975,7 +975,7 @@ router.get('/sendFMS_multi', function(req, res, next) {
  * - 대체문자의 경우, 포토문자(MMS) 형식은 지원하고 있지 않습니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/send#SendFMSSame
  */
-router.get('/sendFMS_same', function(req, res, next) {
+router.get('/sendFMS_same', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1024,13 +1024,13 @@ router.get('/sendFMS_same', function(req, res, next) {
 
     // [배열] 친구톡 전송정보 (최대 1000개)
     var msgs = [{
-            rcv: '', //수신번호
-            rcvnm: 'popbill' //수신자명
-        },
-        {
-            rcv: '',
-            rcvnm: 'linkhub'
-        }
+        rcv: '', //수신번호
+        rcvnm: 'popbill' //수신자명
+    },
+    {
+        rcv: '',
+        rcvnm: 'linkhub'
+    }
     ];
 
     // [배열] 버튼 목록 (최대 5개)
@@ -1050,13 +1050,13 @@ router.get('/sendFMS_same', function(req, res, next) {
     var requestNum = "";
 
     kakaoService.sendFMS_same(testCorpNum, plusFriendID, snd, content, altSubject, altContent, altSendType, sndDT, adsYN, imageURL, filePath, msgs, btns, UserID, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
                 receiptNum: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1069,7 +1069,7 @@ router.get('/sendFMS_same', function(req, res, next) {
  * 팝빌에서 반환받은 접수번호를 통해 예약접수된 카카오톡을 전송 취소합니다. (예약시간 10분 전까지 가능)
  * - https://developers.popbill.com/reference/kakaotalk/node/api/send#CancelReserve
  */
-router.get('/cancelReserve', function(req, res, next) {
+router.get('/cancelReserve', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1081,14 +1081,14 @@ router.get('/cancelReserve', function(req, res, next) {
     var UserID = 'testkorea';
 
     kakaoService.cancelReserve(testCorpNum, receiptNum,
-        function(response) {
+        function (response) {
             res.render('response', {
                 path: req.path,
                 code: response.code,
                 message: response.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1101,7 +1101,7 @@ router.get('/cancelReserve', function(req, res, next) {
  * 파트너가 할당한 전송요청 번호를 통해 예약접수된 카카오톡을 전송 취소합니다. (예약시간 10분 전까지 가능)
  * - https://developers.popbill.com/reference/kakaotalk/node/api/send#CancelReserveRN
  */
-router.get('/cancelReserveRN', function(req, res, next) {
+router.get('/cancelReserveRN', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1113,14 +1113,14 @@ router.get('/cancelReserveRN', function(req, res, next) {
     var UserID = 'testkorea';
 
     kakaoService.cancelReserveRN(testCorpNum, requestNum,
-        function(response) {
+        function (response) {
             res.render('response', {
                 path: req.path,
                 code: response.code,
                 message: response.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1133,7 +1133,7 @@ router.get('/cancelReserveRN', function(req, res, next) {
  * 팝빌에서 반환받은 접수번호를 통해 알림톡/친구톡 전송상태 및 결과를 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/info#GetMessages
  */
-router.get('/getMessages', function(req, res, next) {
+router.get('/getMessages', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1145,13 +1145,13 @@ router.get('/getMessages', function(req, res, next) {
     var UserID = 'testkorea';
 
     kakaoService.getMessages(testCorpNum, receiptNum,
-        function(response) {
+        function (response) {
             res.render('Kakao/getMessages', {
                 path: req.path,
                 result: response
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1164,7 +1164,7 @@ router.get('/getMessages', function(req, res, next) {
  * 파트너가 할당한 전송요청 번호를 통해 알림톡/친구톡 전송상태 및 결과를 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/info#GetMessagesRN
  */
-router.get('/getMessagesRN', function(req, res, next) {
+router.get('/getMessagesRN', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1176,13 +1176,13 @@ router.get('/getMessagesRN', function(req, res, next) {
     var UserID = 'testkorea';
 
     kakaoService.getMessagesRN(testCorpNum, requestNum,
-        function(response) {
+        function (response) {
             res.render('Kakao/getMessages', {
                 path: req.path,
                 result: response
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1196,7 +1196,7 @@ router.get('/getMessagesRN', function(req, res, next) {
  * 카카오톡 접수일시로부터 6개월 이내 접수건만 조회할 수 있습니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/info#Search
  */
-router.get('/search', function(req, res, next) {
+router.get('/search', function (req, res, next) {
 
     // 팝빌회원 사업자 번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1245,13 +1245,13 @@ router.get('/search', function(req, res, next) {
     var UserID = 'testkorea';
 
     kakaoService.search(testCorpNum, sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order, QString, UserID,
-        function(response) {
+        function (response) {
             res.render('Kakao/search', {
                 path: req.path,
                 result: response
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1265,7 +1265,7 @@ router.get('/search', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/info#GetSentListURL
  */
-router.get('/getSentListURL', function(req, res, next) {
+router.get('/getSentListURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1274,13 +1274,13 @@ router.get('/getSentListURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     kakaoService.getSentListURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1293,19 +1293,19 @@ router.get('/getSentListURL', function(req, res, next) {
  * 연동회원의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetBalance
  */
-router.get('/getBalance', function(req, res, next) {
+router.get('/getBalance', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     kakaoService.getBalance(testCorpNum,
-        function(remainPoint) {
+        function (remainPoint) {
             res.render('result', {
                 path: req.path,
                 result: remainPoint
             })
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1319,7 +1319,7 @@ router.get('/getBalance', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetChargeURL
  */
-router.get('/getChargeURL', function(req, res, next) {
+router.get('/getChargeURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1328,13 +1328,13 @@ router.get('/getChargeURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     kakaoService.getChargeURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1348,7 +1348,7 @@ router.get('/getChargeURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetPaymentURL
  */
-router.get('/getPaymentURL', function(req, res, next) {
+router.get('/getPaymentURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1357,13 +1357,13 @@ router.get('/getPaymentURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     kakaoService.getPaymentURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1377,7 +1377,7 @@ router.get('/getPaymentURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetUseHistoryURL
  */
-router.get('/getUseHistoryURL', function(req, res, next) {
+router.get('/getUseHistoryURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1386,13 +1386,13 @@ router.get('/getUseHistoryURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     kakaoService.getUseHistoryURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1405,19 +1405,19 @@ router.get('/getUseHistoryURL', function(req, res, next) {
  * 파트너의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetPartnerBalance
  */
-router.get('/getPartnerBalance', function(req, res, next) {
+router.get('/getPartnerBalance', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     kakaoService.getPartnerBalance(testCorpNum,
-        function(remainPoint) {
+        function (remainPoint) {
             res.render('result', {
                 path: req.path,
                 result: remainPoint
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1431,7 +1431,7 @@ router.get('/getPartnerBalance', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetPartnerURL
  */
-router.get('/getPartnerURL', function(req, res, next) {
+router.get('/getPartnerURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1440,13 +1440,13 @@ router.get('/getPartnerURL', function(req, res, next) {
     var TOGO = 'CHRG';
 
     kakaoService.getPartnerURL(testCorpNum, TOGO,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1459,7 +1459,7 @@ router.get('/getPartnerURL', function(req, res, next) {
  * 카카오톡(알림톡) 전송시 과금되는 포인트 단가를 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetUnitCost
  */
-router.get('/getUnitCost', function(req, res, next) {
+router.get('/getUnitCost', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1467,13 +1467,13 @@ router.get('/getUnitCost', function(req, res, next) {
     var kakaoType = popbill.KakaoType.ATS;
 
     kakaoService.getUnitCost(testCorpNum, kakaoType,
-        function(unitCost) {
+        function (unitCost) {
             res.render('result', {
                 path: req.path,
                 result: unitCost
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1486,7 +1486,7 @@ router.get('/getUnitCost', function(req, res, next) {
  * 팝빌 카카오톡 API 서비스 과금정보를 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetChargeInfo
  */
-router.get('/getChargeInfo', function(req, res, next) {
+router.get('/getChargeInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1495,13 +1495,13 @@ router.get('/getChargeInfo', function(req, res, next) {
     var kakaoType = popbill.KakaoType.ATS;
 
     kakaoService.getChargeInfo(testCorpNum, kakaoType,
-        function(result) {
+        function (result) {
             res.render('Base/getChargeInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1514,20 +1514,20 @@ router.get('/getChargeInfo', function(req, res, next) {
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/member#CheckIsMember
  */
-router.get('/checkIsMember', function(req, res, next) {
+router.get('/checkIsMember', function (req, res, next) {
 
     //조회할 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     kakaoService.checkIsMember(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 code: Error.code,
                 message: Error.message
@@ -1539,20 +1539,20 @@ router.get('/checkIsMember', function(req, res, next) {
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/member#CheckID
  */
-router.get('/checkID', function(req, res, next) {
+router.get('/checkID', function (req, res, next) {
 
     // 조회할 아이디
     var testID = 'testkorea';
 
     kakaoService.checkID(testID,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1565,7 +1565,7 @@ router.get('/checkID', function(req, res, next) {
  * 사용자를 연동회원으로 가입처리합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/member#JoinMember
  */
-router.get('/joinMember', function(req, res, next) {
+router.get('/joinMember', function (req, res, next) {
 
     // 회원정보
     var joinInfo = {
@@ -1609,14 +1609,14 @@ router.get('/joinMember', function(req, res, next) {
     };
 
     kakaoService.joinMember(joinInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1630,7 +1630,7 @@ router.get('/joinMember', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/member#GetAccessURL
  */
-router.get('/getAccessURL', function(req, res, next) {
+router.get('/getAccessURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1639,13 +1639,13 @@ router.get('/getAccessURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     kakaoService.getAccessURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1658,19 +1658,19 @@ router.get('/getAccessURL', function(req, res, next) {
  * 연동회원의 회사정보를 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/member#GetCorpInfo
  */
-router.get('/getCorpInfo', function(req, res, next) {
+router.get('/getCorpInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     kakaoService.getCorpInfo(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Base/getCorpInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1683,7 +1683,7 @@ router.get('/getCorpInfo', function(req, res, next) {
  * 연동회원의 회사정보를 수정합니다
  * - https://developers.popbill.com/reference/kakaotalk/node/api/member#UpdateCorpInfo
  */
-router.get('/updateCorpInfo', function(req, res, next) {
+router.get('/updateCorpInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1709,14 +1709,14 @@ router.get('/updateCorpInfo', function(req, res, next) {
     };
 
     kakaoService.updateCorpInfo(testCorpNum, corpInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1729,7 +1729,7 @@ router.get('/updateCorpInfo', function(req, res, next) {
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/member#RegistContact
  */
-router.get('/registContact', function(req, res, next) {
+router.get('/registContact', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1758,14 +1758,14 @@ router.get('/registContact', function(req, res, next) {
     };
 
     kakaoService.registContact(testCorpNum, contactInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1778,7 +1778,7 @@ router.get('/registContact', function(req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/member#GetContactInfo
  */
-router.get('/getContactInfo', function(req, res, next) {
+router.get('/getContactInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1787,13 +1787,13 @@ router.get('/getContactInfo', function(req, res, next) {
     var contactID = 'checkContactID';
 
     kakaoService.getContactInfo(testCorpNum, contactID,
-        function(result) {
+        function (result) {
             res.render('Base/getContactInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1806,19 +1806,19 @@ router.get('/getContactInfo', function(req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/member#ListContact
  */
-router.get('/listContact', function(req, res, next) {
+router.get('/listContact', function (req, res, next) {
 
     // 조회할 아이디
     var testCorpNum = '1234567890';
 
     kakaoService.listContact(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Base/listContact', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1831,7 +1831,7 @@ router.get('/listContact', function(req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://developers.popbill.com/reference/kakaotalk/node/api/member#UpdateContact
  */
-router.get('/updateContact', function(req, res, next) {
+router.get('/updateContact', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1860,14 +1860,14 @@ router.get('/updateContact', function(req, res, next) {
     };
 
     kakaoService.updateContact(testCorpNum, testUserID, contactInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1875,5 +1875,246 @@ router.get('/updateContact', function(req, res, next) {
             });
         });
 });
+
+
+router.get("/CancelReservebyRCV", function (req, res, next) {
+    var CorpNum = ""
+    var receiptNum = ""
+    var receiveNum = ""
+    var UserID = ""
+
+    kakaoService.cancelReservebyRCV(CorpNum, receiptNum, receiveNum, UserID,
+        function (result) {
+            res.render("response", { path: req.path, result: result })
+        },
+        function (error) {
+            res.render("response", { path: req.path, code: error.code, message: error.message })
+        })
+});
+
+router.get("/CancelReserveRNByRCV", function (req, res, next) {
+    var CorpNum = ""
+    var requestNum = ""
+    var receiveNum = ""
+    var UserID = ""
+
+    kakaoService.cancelReserveRNByRCV(CorpNum, requestNum, receiveNum, UserID,
+        function (result) {
+            res.render('response', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        }
+    )
+},
+);
+
+/**
+ * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#PaymentRequest
+ */
+router.get('/paymentRequest', function (req, res, next) {
+    // 팝빌회원 사업자 번호
+    var CorpNUm = ""
+    // 담당자명
+    var SettlerName = ""
+    // 담당자 이메일
+    var SettlerEmail = ""
+    // 담당자 휴대폰
+    var NotifyHP = ""
+    // 입금자명
+    var PaymentName = ""
+    // 결제금액
+    var SettleCost = ""
+
+    // 입금신청 객체 정보
+    var PaymentForm = {
+        settlerName: SettlerName,
+        settlerEmail: SettlerEmail,
+        notifyHP: NotifyHP,
+        paymentName: PaymentName,
+        settleCost: SettleCost,
+    }
+    // 팝빌회원 아이디
+    var UserID = ""
+
+    kakaoService.paymentRequest(CorpNUm, PaymentForm, UserID,
+        function (result) {
+            res.render('Base/paymentResponse', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetSettleResult
+ */
+router.get('/getSettleResult', function (req, res, next) {
+    // 팝빌회원 사업자 번호
+    var CorpNum = ""
+    // 정산코드 - PaymentRequest 호출시 반환되는 값
+    var SettleCode = ""
+    // 팝빌회원 아이디
+    var UserID = ""
+
+    kakaoService.getBulkResult(CorpNum, SettleCode, UserID,
+        function (result) {
+            res.render('Base/paymentHistory', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원의 포인트 결제내역을 확인합니다.
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetPaymentHistory
+ */
+router.get('/getPaymentHistory', function (req, res, next) {
+    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
+    var CorpNum = ""
+    // 조회 기간의 시작일자 (형식 : yyyyMMdd)
+    var SDate = "20230101"
+    // 조회 기간의 종료일자 (형식 : yyyyMMdd)
+    var EDate = "20230107"
+    // 목록 페이지번호 (기본값 1)
+    var Page = 1
+    // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+    var PerPage = 500
+    // 팝빌회원 아이디
+    var UserID = ""
+
+    kakaoService.getPaymentHistory(CorpNum, SDate, EDate, Page, PerPage, UserID,
+        function (result) {
+            res.render('Base/paymentHistoryResult', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원의 포인트 사용내역을 확인합니다.
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#GetUseHistory
+ */
+router.get('/getUseHistory', function (req, res, next) {
+    var CorpNum = ""
+    var SDate = ""
+    var EDate = ""
+    var Page = 1
+    var PerPage = 500
+    var Order = ""
+    var UserID = ""
+
+
+    kakaoService.getUseHistory(CorpNum, SDate, EDate, Page, PerPage, Order, UserID,
+        function (result) {
+            res.render('Base/useHistoryResult', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원 포인트를 환불 신청합니다.
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/point#Refund
+ */
+router.get('/refund', function (req, res, next) {
+    var CorpNum = ""
+    var RefundForm = {
+        contactName: "",
+        tel: "",
+        requestPoint: "",
+        accountBank: "",
+        accountNum: "",
+        accountName: "",
+        reason: "",
+    }
+    var UserID = ""
+
+    kakaoService.refund(CorpNum, RefundForm, UserID,
+        function (result) {
+            res.render('response', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+
+
+/**
+ * 연동회원의 포인트 환불신청내역을 확인합니다.
+ * https://developers.popbill.com/reference/kakaotalk/node/api/point#GetRefundHistory
+ */
+router.get('/getRefundHistory', function (req, res, next) {
+
+    var CorpNum = ""
+    var Page = 1
+    var PerPage = 500
+    var UserID = ""
+
+    kakaoService.getRefundHistory(CorpNum, Page, PerPage, UserID,
+        function (result) {
+            res.render('Base/RefundHistoryResult', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+
 
 module.exports = router;

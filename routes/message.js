@@ -10,7 +10,7 @@ var messageService = popbill.MessageService();
 /*
  * Message API Index 목록
  */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     res.render('Message/index', {});
 });
 
@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
  * - 발신번호 상태가 '승인'인 경우에만 리턴값 'Response'의 변수 'code'가 1로 반환됩니다.
  * - https://developers.popbill.com/reference/sms/node/api/sendnum#CheckSenderNumber
  */
-router.get('/checkSenderNumber', function(req, res, next) {
+router.get('/checkSenderNumber', function (req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -28,14 +28,14 @@ router.get('/checkSenderNumber', function(req, res, next) {
     var senderNumber = '';
 
     messageService.checkSenderNumber(testCorpNum, senderNumber,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -49,7 +49,7 @@ router.get('/checkSenderNumber', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/sms/node/api/sendnum#GetSenderNumberMgtURL
  */
-router.get('/getSenderNumberMgtURL', function(req, res, next) {
+router.get('/getSenderNumberMgtURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -58,13 +58,13 @@ router.get('/getSenderNumberMgtURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     messageService.getSenderNumberMgtURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -77,19 +77,19 @@ router.get('/getSenderNumberMgtURL', function(req, res, next) {
  * 팝빌에 등록한 연동회원의 문자 발신번호 목록을 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/sendnum#GetSenderNumberList
  */
-router.get('/getSenderNumberList', function(req, res, next) {
+router.get('/getSenderNumberList', function (req, res, next) {
 
     // 조회할 아이디
     var testCorpNum = '1234567890';
 
     messageService.getSenderNumberList(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Message/SenderNumberList', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -102,7 +102,7 @@ router.get('/getSenderNumberList', function(req, res, next) {
  * 최대 90byte의 단문(SMS) 메시지 1건 전송을 팝빌에 접수합니다.
  * - https://developers.popbill.com/reference/sms/node/api/send#SendSMSOne
  */
-router.get('/sendSMS', function(req, res, next) {
+router.get('/sendSMS', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -136,13 +136,13 @@ router.get('/sendSMS', function(req, res, next) {
     var requestNum = "";
 
     messageService.sendSMS(testCorpNum, sendNum, receiveNum, receiveName, contents, reserveDT, adsYN, sendName, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('result', {
                 path: req.path,
                 result: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -156,7 +156,7 @@ router.get('/sendSMS', function(req, res, next) {
  * - 모든 수신자에게 동일한 내용을 전송하거나(동보전송), 수신자마다 개별 내용을 전송할 수 있습니다(대량전송).
  * - https://developers.popbill.com/reference/sms/node/api/send#SendSMSAll
  */
-router.get('/sendSMS_multi', function(req, res, next) {
+router.get('/sendSMS_multi', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -177,23 +177,23 @@ router.get('/sendSMS_multi', function(req, res, next) {
 
     // 개별전송정보 배열, 최대 1000건
     var Messages = [{
-            Sender: '', // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
-            SenderName: '발신자명', // 발신자명
-            Receiver: '', // 수신번호
-            ReceiverName: '수신자명1', // 수신자명
-            Contents: '문자 메시지 내용1', // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
-            // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
-            interOPRefKey: '20220629-SMS001' // 파트너 지정키, 수신자 구별용 메모
-        },
-        {
-            Sender: '', // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
-            SenderName: '발신자명', // 발신자명
-            Receiver: '', // 수신번호
-            ReceiverName: '수신자명2', // 수신자명
-            Contents: '문자 메시지 내용2', // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
-            // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
-            interOPRefKey: '20220629-SMS002' // 파트너 지정키, 수신자 구별용 메모
-        }
+        Sender: '', // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
+        SenderName: '발신자명', // 발신자명
+        Receiver: '', // 수신번호
+        ReceiverName: '수신자명1', // 수신자명
+        Contents: '문자 메시지 내용1', // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
+        // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
+        interOPRefKey: '20220629-SMS001' // 파트너 지정키, 수신자 구별용 메모
+    },
+    {
+        Sender: '', // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
+        SenderName: '발신자명', // 발신자명
+        Receiver: '', // 수신번호
+        ReceiverName: '수신자명2', // 수신자명
+        Contents: '문자 메시지 내용2', // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
+        // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
+        interOPRefKey: '20220629-SMS002' // 파트너 지정키, 수신자 구별용 메모
+    }
     ]
 
     // 전송요청번호
@@ -202,13 +202,13 @@ router.get('/sendSMS_multi', function(req, res, next) {
     var requestNum = "";
 
     messageService.sendSMS_multi(testCorpNum, sendNum, contents, Messages, reserveDT, adsYN, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('result', {
                 path: req.path,
                 result: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -221,7 +221,7 @@ router.get('/sendSMS_multi', function(req, res, next) {
  * 최대 2,000byte의 장문(LMS) 메시지 1건 전송을 팝빌에 접수합니다.
  * - https://developers.popbill.com/reference/sms/node/api/send#SendLMSOne
  */
-router.get('/sendLMS', function(req, res, next) {
+router.get('/sendLMS', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -258,13 +258,13 @@ router.get('/sendLMS', function(req, res, next) {
     var requestNum = "";
 
     messageService.sendLMS(testCorpNum, sendNum, receiveNum, receiveName, subject, contents, reserveDT, adsYN, sendName, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('result', {
                 path: req.path,
                 result: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -278,7 +278,7 @@ router.get('/sendLMS', function(req, res, next) {
  * - 모든 수신자에게 동일한 내용을 전송하거나(동보전송), 수신자마다 개별 내용을 전송할 수 있습니다(대량전송).
  * - https://developers.popbill.com/reference/sms/node/api/send#SendLMSAll
  */
-router.get('/sendLMS_multi', function(req, res, next) {
+router.get('/sendLMS_multi', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -302,24 +302,24 @@ router.get('/sendLMS_multi', function(req, res, next) {
 
     // 개별전송정보 배열, 최대 1000건
     var Messages = [{
-            Sender: '', // 발신번호, 개별전송정보 배열에 발신자번호(Sender) 항목이 없는 경우 동보전송 발신번호로 전송
-            SenderName: '발신자명1', // 발신자명
-            Receiver: '', // 수신번호
-            ReceiverName: '수신자명1', // 수신자명
-            Subject: '메시지 제목1', // 메시지 제목
-            Contents: '문자 메시지 내용1', // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송,
-            // 개벌전송정보 배열에 메시지내용(Contents)항목 없는경우 동보전송 메시지내용로 전송
-            interOPRefKey: '20220629-LMS001' // 파트너 지정키, 수신자 구별용 메모
-        },
-        {
-            Sender: '', // 발신번호
-            SenderName: '발신자명2', // 발신자명
-            Receiver: '', // 수신번호
-            ReceiverName: '수신자명2', // 수신자명
-            Subject: '메시지 제목2', // 메시지 제목, 2000Byte 초과시 길이가 조정되어 전송
-            Contents: '문자 메시지 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ', // 메시지 내용
-            interOPRefKey: '20220629-LMS002' // 파트너 지정키, 수신자 구별용 메모
-        }
+        Sender: '', // 발신번호, 개별전송정보 배열에 발신자번호(Sender) 항목이 없는 경우 동보전송 발신번호로 전송
+        SenderName: '발신자명1', // 발신자명
+        Receiver: '', // 수신번호
+        ReceiverName: '수신자명1', // 수신자명
+        Subject: '메시지 제목1', // 메시지 제목
+        Contents: '문자 메시지 내용1', // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송,
+        // 개벌전송정보 배열에 메시지내용(Contents)항목 없는경우 동보전송 메시지내용로 전송
+        interOPRefKey: '20220629-LMS001' // 파트너 지정키, 수신자 구별용 메모
+    },
+    {
+        Sender: '', // 발신번호
+        SenderName: '발신자명2', // 발신자명
+        Receiver: '', // 수신번호
+        ReceiverName: '수신자명2', // 수신자명
+        Subject: '메시지 제목2', // 메시지 제목, 2000Byte 초과시 길이가 조정되어 전송
+        Contents: '문자 메시지 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ', // 메시지 내용
+        interOPRefKey: '20220629-LMS002' // 파트너 지정키, 수신자 구별용 메모
+    }
     ]
 
     // 전송요청번호
@@ -328,13 +328,13 @@ router.get('/sendLMS_multi', function(req, res, next) {
     var requestNum = "";
 
     messageService.sendLMS_multi(testCorpNum, sendNum, subject, contents, Messages, reserveDT, adsYN, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('result', {
                 path: req.path,
                 result: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -348,7 +348,7 @@ router.get('/sendLMS_multi', function(req, res, next) {
  * - 이미지 파일 포맷/규격 : 최대 300Kbyte(JPEG, JPG), 가로/세로 1,000px 이하 권장
  * - https://developers.popbill.com/reference/sms/node/api/send#SendMMSOne
  */
-router.get('/sendMMS', function(req, res, next) {
+router.get('/sendMMS', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -385,13 +385,13 @@ router.get('/sendMMS', function(req, res, next) {
     var requestNum = "";
 
     messageService.sendMMS(testCorpNum, sendNum, receiveNum, receiveName, subject, contents, filePaths, reserveDT, adsYN, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('result', {
                 path: req.path,
                 result: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -406,7 +406,7 @@ router.get('/sendMMS', function(req, res, next) {
  * - 이미지 파일 포맷/규격 : 최대 300Kbyte(JPEG), 가로/세로 1,000px 이하 권장
  * - https://developers.popbill.com/reference/sms/node/api/send#SendMMSAll
  */
-router.get('/sendMMS_multi', function(req, res, next) {
+router.get('/sendMMS_multi', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -433,23 +433,23 @@ router.get('/sendMMS_multi', function(req, res, next) {
 
     // 개별전송정보, 최대 1000건
     var Messages = [{
-            Sender: '', // 발신번호
-            SenderName: '발신자명', // 발신자명
-            Receiver: '', // 수신번호
-            ReceiverName: '수신자명',
-            Subject: 'MMS 테스트 제목1',
-            Contents: 'MMS 전송 테스트 내용1', // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
-            interOPRefKey: '20220629-MMS001' // 파트너 지정키, 수신자 구별용 메모
-        },
-        {
-            Sender: '', // 발신번호
-            SenderName: '발신자명', // 발신자명
-            Receiver: '', // 수신번호
-            ReceiverName: '수신자명',
-            Subject: 'MMS 테스트 제목2',
-            Contents: 'MMS 전송 테스트 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만 무궁화 삼천리 화려강산 ', // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
-            interOPRefKey: '20220629-MMS001' // 파트너 지정키, 수신자 구별용 메모
-        }
+        Sender: '', // 발신번호
+        SenderName: '발신자명', // 발신자명
+        Receiver: '', // 수신번호
+        ReceiverName: '수신자명',
+        Subject: 'MMS 테스트 제목1',
+        Contents: 'MMS 전송 테스트 내용1', // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
+        interOPRefKey: '20220629-MMS001' // 파트너 지정키, 수신자 구별용 메모
+    },
+    {
+        Sender: '', // 발신번호
+        SenderName: '발신자명', // 발신자명
+        Receiver: '', // 수신번호
+        ReceiverName: '수신자명',
+        Subject: 'MMS 테스트 제목2',
+        Contents: 'MMS 전송 테스트 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만 무궁화 삼천리 화려강산 ', // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
+        interOPRefKey: '20220629-MMS001' // 파트너 지정키, 수신자 구별용 메모
+    }
     ]
 
     // 전송요청번호
@@ -458,13 +458,13 @@ router.get('/sendMMS_multi', function(req, res, next) {
     var requestNum = "";
 
     messageService.sendMMS_multi(testCorpNum, senderNum, subject, contents, Messages, filePaths, reserveDT, adsYN, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('result', {
                 path: req.path,
                 result: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -478,7 +478,7 @@ router.get('/sendMMS_multi', function(req, res, next) {
  * - 단문(SMS) = 90byte 이하의 메시지, 장문(LMS) = 2000byte 이하의 메시지.
  * - https://developers.popbill.com/reference/sms/node/api/send#SendXMSOne
  */
-router.get('/sendXMS', function(req, res, next) {
+router.get('/sendXMS', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -515,13 +515,13 @@ router.get('/sendXMS', function(req, res, next) {
     var requestNum = "";
 
     messageService.sendXMS(testCorpNum, sendNum, receiveNum, receiveName, subject, contents, reserveDT, adsYN, sendName, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('result', {
                 path: req.path,
                 result: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -536,7 +536,7 @@ router.get('/sendXMS', function(req, res, next) {
  * - 단문(SMS) = 90byte 이하의 메시지, 장문(LMS) = 2000byte 이하의 메시지.
  * - https://developers.popbill.com/reference/sms/node/api/send#SendXMSAll
  */
-router.get('/sendXMS_multi', function(req, res, next) {
+router.get('/sendXMS_multi', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -560,24 +560,24 @@ router.get('/sendXMS_multi', function(req, res, next) {
 
     // 개별전송정보 배열, 최대 1000건
     var Messages = [{
-            Sender: '', // 발신번호
-            SenderName: '발신자명', // 발신자명
-            Receiver: '', // 수신번호
-            ReceiverName: '수신자명', // 수신자명
-            Subject: '메시지 제목1', // 메시지 제목
-            Contents: '문자 메시지 내용1', // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
-            interOPRefKey: '20220629-XMS001' // 파트너 지정키, 수신자 구별용 메모
-        },
-        {
-            Sender: '', // 발신번호
-            SenderName: '발신자명', // 발신자명
-            Receiver: '', // 수신번호
-            ReceiverName: '수신자명', // 수신자명
-            Subject: '메시지 제목2', // 메시지 제목
-            // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
-            Contents: '단/장문 자동인식 문자전송 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ',
-            interOPRefKey: '20220629-XMS001' // 파트너 지정키, 수신자 구별용 메모
-        }
+        Sender: '', // 발신번호
+        SenderName: '발신자명', // 발신자명
+        Receiver: '', // 수신번호
+        ReceiverName: '수신자명', // 수신자명
+        Subject: '메시지 제목1', // 메시지 제목
+        Contents: '문자 메시지 내용1', // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
+        interOPRefKey: '20220629-XMS001' // 파트너 지정키, 수신자 구별용 메모
+    },
+    {
+        Sender: '', // 발신번호
+        SenderName: '발신자명', // 발신자명
+        Receiver: '', // 수신번호
+        ReceiverName: '수신자명', // 수신자명
+        Subject: '메시지 제목2', // 메시지 제목
+        // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
+        Contents: '단/장문 자동인식 문자전송 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ',
+        interOPRefKey: '20220629-XMS001' // 파트너 지정키, 수신자 구별용 메모
+    }
     ]
 
     // 전송요청번호
@@ -586,13 +586,13 @@ router.get('/sendXMS_multi', function(req, res, next) {
     var requestNum = "";
 
     messageService.sendXMS_multi(testCorpNum, sendNum, subject, contents, Messages, reserveDT, adsYN, requestNum,
-        function(receiptNum) {
+        function (receiptNum) {
             res.render('result', {
                 path: req.path,
                 result: receiptNum
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -605,7 +605,7 @@ router.get('/sendXMS_multi', function(req, res, next) {
  * 팝빌에서 반환받은 접수번호를 통해 예약접수된 문자 메시지 전송을 취소합니다. (예약시간 10분 전까지 가능)
  * - https://developers.popbill.com/reference/sms/node/api/send#CancelReserve
  */
-router.get('/cancelReserve', function(req, res, next) {
+router.get('/cancelReserve', function (req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -614,14 +614,14 @@ router.get('/cancelReserve', function(req, res, next) {
     var receiptNum = '021010911000000010';
 
     messageService.cancelReserve(testCorpNum, receiptNum,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -634,7 +634,7 @@ router.get('/cancelReserve', function(req, res, next) {
  * 파트너가 할당한 전송요청 번호를 통해 예약접수된 문자 전송을 취소합니다. (예약시간 10분 전까지 가능)
  * - https://developers.popbill.com/reference/sms/node/api/send#CancelReserveRN
  */
-router.get('/cancelReserveRN', function(req, res, next) {
+router.get('/cancelReserveRN', function (req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -643,14 +643,14 @@ router.get('/cancelReserveRN', function(req, res, next) {
     var requestNum = '';
 
     messageService.cancelReserveRN(testCorpNum, requestNum,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -663,7 +663,7 @@ router.get('/cancelReserveRN', function(req, res, next) {
  * 팝빌에서 반환받은 접수번호와 수신번호를 통해 예약접수된 문자 메시지 전송을 취소합니다. (예약시간 10분 전까지 가능)
  * - https://developers.popbill.com/reference/sms/node/api/send#CancelReservebyRCV
  */
-router.get('/cancelReservebyRCV', function(req, res, next) {
+router.get('/cancelReservebyRCV', function (req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -678,14 +678,14 @@ router.get('/cancelReservebyRCV', function(req, res, next) {
     var receiveNum = '';
 
     messageService.cancelReservebyRCV(testCorpNum, receiptNum, receiveNum, testUserID,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -698,7 +698,7 @@ router.get('/cancelReservebyRCV', function(req, res, next) {
  * 파트너가 할당한 전송요청 번호와 수신번호를 통해 예약접수된 문자 전송을 취소합니다. (예약시간 10분 전까지 가능)
  * - https://developers.popbill.com/reference/sms/node/api/send#CancelReserveRNbyRCV
  */
-router.get('/cancelReserveRNbyRCV', function(req, res, next) {
+router.get('/cancelReserveRNbyRCV', function (req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -713,14 +713,14 @@ router.get('/cancelReserveRNbyRCV', function(req, res, next) {
     var receiveNum = '';
 
     messageService.cancelReserveRNbyRCV(testCorpNum, requestNum, receiveNum, testUserID,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -733,7 +733,7 @@ router.get('/cancelReserveRNbyRCV', function(req, res, next) {
  * 팝빌에서 반환받은 접수번호를 통해 문자 전송상태 및 결과를 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/info#GetMessages
  */
-router.get('/getMessages', function(req, res, next) {
+router.get('/getMessages', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -742,13 +742,13 @@ router.get('/getMessages', function(req, res, next) {
     var receiptNum = '022070115000000018';
 
     messageService.getMessages(testCorpNum, receiptNum,
-        function(result) {
+        function (result) {
             res.render('Message/SentMessage', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -761,7 +761,7 @@ router.get('/getMessages', function(req, res, next) {
  * 파트너가 할당한 전송요청 번호를 통해 문자 전송상태 및 결과를 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/info#GetMessagesRN
  */
-router.get('/getMessagesRN', function(req, res, next) {
+router.get('/getMessagesRN', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -770,13 +770,13 @@ router.get('/getMessagesRN', function(req, res, next) {
     var requestNum = '';
 
     messageService.getMessagesRN(testCorpNum, requestNum,
-        function(result) {
+        function (result) {
             res.render('Message/SentMessage', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -790,7 +790,7 @@ router.get('/getMessagesRN', function(req, res, next) {
  * - 문자 접수일시로부터 6개월 이내 접수건만 조회할 수 있습니다.
  * - https://developers.popbill.com/reference/sms/node/api/info#Search
  */
-router.get('/search', function(req, res, next) {
+router.get('/search', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -836,13 +836,13 @@ router.get('/search', function(req, res, next) {
     var Qstring = "";
 
     messageService.search(testCorpNum, SDate, EDate, State, Item, ReserveYN, SenderYN, Order, Page, PerPage, Qstring,
-        function(result) {
+        function (result) {
             res.render('Message/search', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -856,7 +856,7 @@ router.get('/search', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/sms/node/api/info#GetSentListURL
  */
-router.get('/getSentListURL', function(req, res, next) {
+router.get('/getSentListURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -865,13 +865,13 @@ router.get('/getSentListURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     messageService.getSentListURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -884,19 +884,19 @@ router.get('/getSentListURL', function(req, res, next) {
  * 전용 080 번호에 등록된 수신거부 목록을 반환합니다.
  * - https://developers.popbill.com/reference/sms/node/api/info#GetAutoDenyList
  */
-router.get('/getAutoDenyList', function(req, res, next) {
+router.get('/getAutoDenyList', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     messageService.getAutoDenyList(testCorpNum,
-        function(response) {
+        function (response) {
             res.render('Message/AutoDenyList', {
                 path: req.path,
                 result: response
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -909,19 +909,19 @@ router.get('/getAutoDenyList', function(req, res, next) {
  * 연동회원의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/point#GetBalance
  */
-router.get('/getBalance', function(req, res, next) {
+router.get('/getBalance', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     messageService.getBalance(testCorpNum,
-        function(remainPoint) {
+        function (remainPoint) {
             res.render('result', {
                 path: req.path,
                 result: remainPoint
             })
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -935,7 +935,7 @@ router.get('/getBalance', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/sms/node/api/point#GetChargeURL
  */
-router.get('/getChargeURL', function(req, res, next) {
+router.get('/getChargeURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -944,13 +944,13 @@ router.get('/getChargeURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     messageService.getChargeURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -964,7 +964,7 @@ router.get('/getChargeURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/sms/node/api/point#GetPaymentURL
  */
-router.get('/getPaymentURL', function(req, res, next) {
+router.get('/getPaymentURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -973,13 +973,13 @@ router.get('/getPaymentURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     messageService.getPaymentURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -993,7 +993,7 @@ router.get('/getPaymentURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/sms/node/api/point#GetUseHistoryURL
  */
-router.get('/getUseHistoryURL', function(req, res, next) {
+router.get('/getUseHistoryURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1002,13 +1002,13 @@ router.get('/getUseHistoryURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     messageService.getUseHistoryURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1021,19 +1021,19 @@ router.get('/getUseHistoryURL', function(req, res, next) {
  * 파트너의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/point#GetPartnerBalance
  */
-router.get('/getPartnerBalance', function(req, res, next) {
+router.get('/getPartnerBalance', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     messageService.getPartnerBalance(testCorpNum,
-        function(remainPoint) {
+        function (remainPoint) {
             res.render('result', {
                 path: req.path,
                 result: remainPoint
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1047,7 +1047,7 @@ router.get('/getPartnerBalance', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/sms/node/api/point#GetPartnerURL
  */
-router.get('/getPartnerURL', function(req, res, next) {
+router.get('/getPartnerURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1056,13 +1056,13 @@ router.get('/getPartnerURL', function(req, res, next) {
     var TOGO = 'CHRG';
 
     messageService.getPartnerURL(testCorpNum, TOGO,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1075,7 +1075,7 @@ router.get('/getPartnerURL', function(req, res, next) {
  * 문자 전송시 과금되는 포인트 단가를 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/point#GetUnitCost
  */
-router.get('/getUnitCost', function(req, res, next) {
+router.get('/getUnitCost', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1084,13 +1084,13 @@ router.get('/getUnitCost', function(req, res, next) {
     var messageType = popbill.MessageType.LMS;
 
     messageService.getUnitCost(testCorpNum, messageType,
-        function(unitCost) {
+        function (unitCost) {
             res.render('result', {
                 path: req.path,
                 result: unitCost
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1103,7 +1103,7 @@ router.get('/getUnitCost', function(req, res, next) {
  * 팝빌 문자 API 서비스 과금정보를 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/point#GetChargeInfo
  */
-router.get('/getChargeInfo', function(req, res, next) {
+router.get('/getChargeInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1112,13 +1112,13 @@ router.get('/getChargeInfo', function(req, res, next) {
     var messageType = popbill.MessageType.SMS;
 
     messageService.getChargeInfo(testCorpNum, messageType,
-        function(result) {
+        function (result) {
             res.render('Base/getChargeInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1131,20 +1131,20 @@ router.get('/getChargeInfo', function(req, res, next) {
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/member#CheckIsMember
  */
-router.get('/checkIsMember', function(req, res, next) {
+router.get('/checkIsMember', function (req, res, next) {
 
     // 조회할 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     messageService.checkIsMember(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 code: Error.code,
                 message: Error.message
@@ -1156,20 +1156,20 @@ router.get('/checkIsMember', function(req, res, next) {
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/member#CheckID
  */
-router.get('/checkID', function(req, res, next) {
+router.get('/checkID', function (req, res, next) {
 
     // 조회할 아이디
     var testID = 'testkorea';
 
     messageService.checkID(testID,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1182,7 +1182,7 @@ router.get('/checkID', function(req, res, next) {
  * 사용자를 연동회원으로 가입처리합니다.
  * - https://developers.popbill.com/reference/sms/node/api/member#JoinMember
  */
-router.get('/joinMember', function(req, res, next) {
+router.get('/joinMember', function (req, res, next) {
 
     // 회원정보
     var joinInfo = {
@@ -1226,14 +1226,14 @@ router.get('/joinMember', function(req, res, next) {
     };
 
     messageService.joinMember(joinInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1247,7 +1247,7 @@ router.get('/joinMember', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/sms/node/api/member#GetAccessURL
  */
-router.get('/getAccessURL', function(req, res, next) {
+router.get('/getAccessURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1256,13 +1256,13 @@ router.get('/getAccessURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     messageService.getAccessURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1275,7 +1275,7 @@ router.get('/getAccessURL', function(req, res, next) {
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://developers.popbill.com/reference/sms/node/api/member#RegistContact
  */
-router.get('/registContact', function(req, res, next) {
+router.get('/registContact', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1304,14 +1304,14 @@ router.get('/registContact', function(req, res, next) {
     };
 
     messageService.registContact(testCorpNum, contactInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1324,7 +1324,7 @@ router.get('/registContact', function(req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/member#GetContactInfo
  */
-router.get('/getContactInfo', function(req, res, next) {
+router.get('/getContactInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1333,13 +1333,13 @@ router.get('/getContactInfo', function(req, res, next) {
     var contactID = 'checkContactID';
 
     messageService.getContactInfo(testCorpNum, contactID,
-        function(result) {
+        function (result) {
             res.render('Base/getContactInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1352,19 +1352,19 @@ router.get('/getContactInfo', function(req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/member#ListContact
  */
-router.get('/listContact', function(req, res, next) {
+router.get('/listContact', function (req, res, next) {
 
     // 조회할 아이디
     var testCorpNum = '1234567890';
 
     messageService.listContact(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Base/listContact', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1377,7 +1377,7 @@ router.get('/listContact', function(req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://developers.popbill.com/reference/sms/node/api/member#UpdateContact
  */
-router.get('/updateContact', function(req, res, next) {
+router.get('/updateContact', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1406,14 +1406,14 @@ router.get('/updateContact', function(req, res, next) {
     };
 
     messageService.updateContact(testCorpNum, testUserID, contactInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1426,19 +1426,19 @@ router.get('/updateContact', function(req, res, next) {
  * 연동회원의 회사정보를 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/member#GetCorpInfo
  */
-router.get('/getCorpInfo', function(req, res, next) {
+router.get('/getCorpInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     messageService.getCorpInfo(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Base/getCorpInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1451,7 +1451,7 @@ router.get('/getCorpInfo', function(req, res, next) {
  * 연동회원의 회사정보를 수정합니다
  * - https://developers.popbill.com/reference/sms/node/api/member#UpdateCorpInfo
  */
-router.get('/updateCorpInfo', function(req, res, next) {
+router.get('/updateCorpInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1477,42 +1477,14 @@ router.get('/updateCorpInfo', function(req, res, next) {
     };
 
     messageService.updateCorpInfo(testCorpNum, corpInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
-
-
-/*
- * 문자전송에 대한 전송결과 요약정보를 확인합니다.
- */
-router.get('/getStates', function(req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 문자전송 접수번호 배열 ,최대 1000건
-    var reciptNumList = ['021041717000000018', '021041717000000019'];
-
-    messageService.getStates(testCorpNum, reciptNumList,
-        function(result) {
-            res.render('Message/GetStates', {
-                path: req.path,
-                result: result
-            });
-        },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1525,19 +1497,19 @@ router.get('/getStates', function(req, res, next) {
  * 팝빌회원에 등록된 080 수신거부 번호 정보를 확인합니다.
  * - https://developers.popbill.com/reference/sms/node/api/info#CheckAutoDenyNumber
  */
-router.get('/checkAutoDenyNumber', function(req, res, next) {
+router.get('/checkAutoDenyNumber', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     messageService.checkAutoDenyNumber(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Message/AutoDenyNumber', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1545,5 +1517,206 @@ router.get('/checkAutoDenyNumber', function(req, res, next) {
             });
         });
 });
+
+/**
+ * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
+ * - https://developers.popbill.com/reference/sms/node/api/point#PaymentRequest
+ */
+router.get('/paymentRequest', function (req, res, next) {
+    // 팝빌회원 사업자 번호
+    var CorpNUm = ""
+    // 담당자명
+    var SettlerName = ""
+    // 담당자 이메일
+    var SettlerEmail = ""
+    // 담당자 휴대폰
+    var NotifyHP = ""
+    // 입금자명
+    var PaymentName = ""
+    // 결제금액
+    var SettleCost = ""
+
+    // 입금신청 객체 정보
+    var PaymentForm = {
+        settlerName: SettlerName,
+        settlerEmail: SettlerEmail,
+        notifyHP: NotifyHP,
+        paymentName: PaymentName,
+        settleCost: SettleCost,
+    }
+    // 팝빌회원 아이디
+    var UserID = ""
+
+    messageService.paymentRequest(CorpNUm, PaymentForm, UserID,
+        function (result) {
+            res.render('Base/paymentResponse', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
+ * - https://developers.popbill.com/reference/sms/node/api/point#GetSettleResult
+ */
+router.get('/getSettleResult', function (req, res, next) {
+    // 팝빌회원 사업자 번호
+    var CorpNum = ""
+    // 정산코드 - PaymentRequest 호출시 반환되는 값
+    var SettleCode = ""
+    // 팝빌회원 아이디
+    var UserID = ""
+
+    messageService.getBulkResult(CorpNum, SettleCode, UserID,
+        function (result) {
+            res.render('Base/paymentHistory', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원의 포인트 결제내역을 확인합니다.
+ * - https://developers.popbill.com/reference/sms/node/api/point#GetPaymentHistory
+ */
+router.get('/getPaymentHistory', function (req, res, next) {
+    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
+    var CorpNum = ""
+    // 조회 기간의 시작일자 (형식 : yyyyMMdd)
+    var SDate = "20230101"
+    // 조회 기간의 종료일자 (형식 : yyyyMMdd)
+    var EDate = "20230107"
+    // 목록 페이지번호 (기본값 1)
+    var Page = 1
+    // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+    var PerPage = 500
+    // 팝빌회원 아이디
+    var UserID = ""
+
+    messageService.getPaymentHistory(CorpNum, SDate, EDate, Page, PerPage, UserID,
+        function (result) {
+            res.render('Base/paymentHistoryResult', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원의 포인트 사용내역을 확인합니다.
+ * - https://developers.popbill.com/reference/sms/node/api/point#GetUseHistory
+ */
+router.get('/getUseHistory', function (req, res, next) {
+    var CorpNum = ""
+    var SDate = ""
+    var EDate = ""
+    var Page = 1
+    var PerPage = 500
+    var Order = ""
+    var UserID = ""
+
+
+    messageService.getUseHistory(CorpNum, SDate, EDate, Page, PerPage, Order, UserID,
+        function (result) {
+            res.render('Base/useHistoryResult', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원 포인트를 환불 신청합니다.
+ * - https://developers.popbill.com/reference/sms/node/api/point#Refund
+ */
+router.get('/refund', function (req, res, next) {
+    var CorpNum = ""
+    var RefundForm = {
+        contactName: "",
+        tel: "",
+        requestPoint: "",
+        accountBank: "",
+        accountNum: "",
+        accountName: "",
+        reason: "",
+    }
+    var UserID = ""
+
+    messageService.refund(CorpNum, RefundForm, UserID,
+        function (result) {
+            res.render('response', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+
+
+/**
+ * 연동회원의 포인트 환불신청내역을 확인합니다.
+ * https://developers.popbill.com/reference/sms/node/api/point#GetRefundHistory
+ */
+router.get('/getRefundHistory', function (req, res, next) {
+
+    var CorpNum = ""
+    var Page = 1
+    var PerPage = 500
+    var UserID = ""
+
+    messageService.getRefundHistory(CorpNum, Page, PerPage, UserID,
+        function (result) {
+            res.render('Base/RefundHistoryResult', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+
 
 module.exports = router;

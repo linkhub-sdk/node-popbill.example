@@ -11,7 +11,7 @@ var cashbillService = popbill.CashbillService();
 /*
  * Cashbill API Index 목록
  */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     res.render('Cashbill/index', {});
 });
 
@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
  * - 이미 사용 중인 문서번호는 중복 사용이 불가하며 현금영수증이 삭제된 경우에만 문서번호의 재사용이 가능합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/info#CheckMgtKeyInUse
  */
-router.get('/checkMgtKeyInUse', function(req, res, next) {
+router.get('/checkMgtKeyInUse', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -29,13 +29,13 @@ router.get('/checkMgtKeyInUse', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     cashbillService.checkMgtKeyInUse(testCorpNum, mgtKey,
-        function(result) {
+        function (result) {
             res.render('result', {
                 path: req.path,
                 result: '사용중'
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -49,7 +49,7 @@ router.get('/checkMgtKeyInUse', function(req, res, next) {
  * - 현금영수증 국세청 전송 정책 : https://developers.popbill.com/guide/cashbill/node/introduction/policy-of-send-to-nts
  * - https://developers.popbill.com/reference/cashbill/node/api/issue#RegistIssue
  */
-router.get('/registIssue', function(req, res, next) {
+router.get('/registIssue', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -149,7 +149,7 @@ router.get('/registIssue', function(req, res, next) {
     };
 
     cashbillService.registIssue(testCorpNum, cashbill, stateMemo, testUserID, emailSubject,
-        function(result) {
+        function (result) {
             res.render('Cashbill/IssueResponse', {
                 path: req.path,
                 code: result.code,
@@ -159,7 +159,7 @@ router.get('/registIssue', function(req, res, next) {
                 tradeDT: result.tradeDT
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -172,7 +172,7 @@ router.get('/registIssue', function(req, res, next) {
  * 최대 100건의 현금영수증 발행을 한번의 요청으로 접수합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/issue#BulkSubmit
  */
-router.get('/bulkSubmit', function(req, res, next) {
+router.get('/bulkSubmit', function (req, res, next) {
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
@@ -266,7 +266,7 @@ router.get('/bulkSubmit', function(req, res, next) {
             // 발행시 알림문자 전송여부
             // 문자전송시 포인트가 차감되며 전송실패시 환불처리됨.
             smssendYN: false,
-            
+
             // 거래일시, 날짜(yyyyMMddHHmmss)
             // 당일, 전일만 가능 미입력시 기본값 발행일시 처리
             tradeDT: "",
@@ -276,7 +276,7 @@ router.get('/bulkSubmit', function(req, res, next) {
     }
 
     cashbillService.bulkSubmit(testCorpNum, submitID, cashbillList,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
@@ -284,7 +284,7 @@ router.get('/bulkSubmit', function(req, res, next) {
                 receiptID: result.receiptID
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -298,7 +298,7 @@ router.get('/bulkSubmit', function(req, res, next) {
  * - 개별 현금영수증 처리상태는 접수상태(txState)가 완료(2) 시 반환됩니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/issue#GetBulkResult
  */
-router.get('/getBulkResult', function(req, res, next) {
+router.get('/getBulkResult', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -307,13 +307,13 @@ router.get('/getBulkResult', function(req, res, next) {
     var submitID = '20221110_NODE_BULK02';
 
     cashbillService.getBulkResult(testCorpNum, submitID,
-        function(result) {
+        function (result) {
             res.render('Cashbill/BulkResult', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -328,7 +328,7 @@ router.get('/getBulkResult', function(req, res, next) {
  * - 현금영수증을 삭제하면 사용된 문서번호(mgtKey)를 재사용할 수 있습니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/issue#Delete
  */
-router.get('/delete', function(req, res, next) {
+router.get('/delete', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -337,14 +337,14 @@ router.get('/delete', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     cashbillService.delete(testCorpNum, mgtKey,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -360,7 +360,7 @@ router.get('/delete', function(req, res, next) {
  * - 취소 현금영수증 발행 시 구매자 메일주소로 발행 안내 베일이 전송되니 유의하시기 바랍니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/issue#RevokeRegistIssue
  */
-router.get('/revokeRegistIssue', function(req, res, next) {
+router.get('/revokeRegistIssue', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -377,7 +377,7 @@ router.get('/revokeRegistIssue', function(req, res, next) {
     var orgTradeDate = '20221109';
 
     cashbillService.revokeRegistIssue(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate,
-        function(result) {
+        function (result) {
             res.render('Cashbill/IssueResponse', {
                 path: req.path,
                 code: result.code,
@@ -387,7 +387,7 @@ router.get('/revokeRegistIssue', function(req, res, next) {
                 tradeDT: result.tradeDT
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -403,7 +403,7 @@ router.get('/revokeRegistIssue', function(req, res, next) {
  * - 취소 현금영수증 발행 시 구매자 메일주소로 발행 안내 베일이 전송되니 유의하시기 바랍니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/issue#RevokeRegistIssue
  */
-router.get('/revokeRegistIssue_part', function(req, res, next) {
+router.get('/revokeRegistIssue_part', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -426,7 +426,7 @@ router.get('/revokeRegistIssue_part', function(req, res, next) {
 
     // 현금영수증 상태 이력을 관리하기 위한 메모
     var memo = '부분취소발행 메모';
-    
+
     // 팝빌회원 아이디
     var testUserID = 'testkorea';
 
@@ -469,7 +469,7 @@ router.get('/revokeRegistIssue_part', function(req, res, next) {
 
     cashbillService.revokeRegistIssue(testCorpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN, memo, testUserID,
         isPartCancel, cancelType, supplyCost, tax, serviceFee, totalAmount, emailSubject, tradeDT,
-        function(result) {
+        function (result) {
             res.render('Cashbill/IssueResponse', {
                 path: req.path,
                 code: result.code,
@@ -479,7 +479,7 @@ router.get('/revokeRegistIssue_part', function(req, res, next) {
                 tradeDT: result.tradeDT
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -494,7 +494,7 @@ router.get('/revokeRegistIssue_part', function(req, res, next) {
  * - 현금영수증 상태코드 [https://developers.popbill.com/reference/cashbill/node/response-code#state-code]
  * - https://developers.popbill.com/reference/cashbill/node/api/info#GetInfo
  */
-router.get('/getInfo', function(req, res, next) {
+router.get('/getInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -503,13 +503,13 @@ router.get('/getInfo', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     cashbillService.getInfo(testCorpNum, mgtKey,
-        function(result) {
+        function (result) {
             res.render('Cashbill/CashbillInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -524,7 +524,7 @@ router.get('/getInfo', function(req, res, next) {
  * - 현금영수증 상태코드 [https://developers.popbill.com/reference/cashbill/node/response-code#state-code]
  * - https://developers.popbill.com/reference/cashbill/node/api/info#GetInfos
  */
-router.get('/getInfos', function(req, res, next) {
+router.get('/getInfos', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -533,13 +533,13 @@ router.get('/getInfos', function(req, res, next) {
     var mgtKeyList = ['20220629-001', '20220629-002'];
 
     cashbillService.getInfos(testCorpNum, mgtKeyList,
-        function(result) {
+        function (result) {
             res.render('Cashbill/CashbillInfos', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -552,7 +552,7 @@ router.get('/getInfos', function(req, res, next) {
  * 현금영수증 1건의 상세정보를 확인합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/info#GetDetailInfo
  */
-router.get('/getDetailInfo', function(req, res, next) {
+router.get('/getDetailInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -561,13 +561,13 @@ router.get('/getDetailInfo', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     cashbillService.getDetailInfo(testCorpNum, mgtKey,
-        function(result) {
+        function (result) {
             res.render('Cashbill/CashbillDetail', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -580,7 +580,7 @@ router.get('/getDetailInfo', function(req, res, next) {
  * 검색조건에 해당하는 현금영수증을 조회합니다. (조회기간 단위 : 최대 6개월)
  * - https://developers.popbill.com/reference/cashbill/node/api/info#Search
  */
-router.get('/search', function(req, res, next) {
+router.get('/search', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -638,13 +638,13 @@ router.get('/search', function(req, res, next) {
 
     cashbillService.search(testCorpNum, DType, SDate, EDate, State, TradeType,
         TradeUsage, TradeOpt, TaxationType, QString, Order, Page, PerPage, FranchiseTaxRegID,
-        function(result) {
+        function (result) {
             res.render('Cashbill/Search', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -658,7 +658,7 @@ router.get('/search', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/info#GetURL
  */
-router.get('/getURL', function(req, res, next) {
+router.get('/getURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -668,13 +668,13 @@ router.get('/getURL', function(req, res, next) {
     var TOGO = 'PBOX';
 
     cashbillService.getURL(testCorpNum, TOGO,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -688,7 +688,7 @@ router.get('/getURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/view#GetPopUpURL
  */
-router.get('/getPopUpURL', function(req, res, next) {
+router.get('/getPopUpURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -697,13 +697,13 @@ router.get('/getPopUpURL', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     cashbillService.getPopUpURL(testCorpNum, mgtKey,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -717,7 +717,7 @@ router.get('/getPopUpURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/view#GetViewURL
  */
-router.get('/getViewURL', function(req, res, next) {
+router.get('/getViewURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -726,13 +726,13 @@ router.get('/getViewURL', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     cashbillService.getViewURL(testCorpNum, mgtKey,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -746,7 +746,7 @@ router.get('/getViewURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/view#GetPrintURL
  */
-router.get('/getPrintURL', function(req, res, next) {
+router.get('/getPrintURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -755,13 +755,13 @@ router.get('/getPrintURL', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     cashbillService.getPrintURL(testCorpNum, mgtKey,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -775,7 +775,7 @@ router.get('/getPrintURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/view#GetMassPrintURL
  */
-router.get('/getMassPrintURL', function(req, res, next) {
+router.get('/getMassPrintURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -784,13 +784,13 @@ router.get('/getMassPrintURL', function(req, res, next) {
     var mgtKeyList = ['20220629-001', '20220629-002'];
 
     cashbillService.getMassPrintURL(testCorpNum, mgtKeyList,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -804,7 +804,7 @@ router.get('/getMassPrintURL', function(req, res, next) {
  * - 함수 호출로 반환 받은 URL에는 유효시간이 없습니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/view#GetMailURL
  */
-router.get('/getMailURL', function(req, res, next) {
+router.get('/getMailURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -813,13 +813,13 @@ router.get('/getMailURL', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     cashbillService.getMailURL(testCorpNum, mgtKey,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -833,7 +833,7 @@ router.get('/getMailURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/view#GetPDFURL
  */
-router.get('/getPDFURL', function(req, res, next) {
+router.get('/getPDFURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -842,13 +842,13 @@ router.get('/getPDFURL', function(req, res, next) {
     var mgtKey = '20220629-001';
 
     cashbillService.getPDFURL(testCorpNum, mgtKey,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -862,7 +862,7 @@ router.get('/getPDFURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/member#GetAccessURL
  */
-router.get('/getAccessURL', function(req, res, next) {
+router.get('/getAccessURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -871,13 +871,13 @@ router.get('/getAccessURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     cashbillService.getAccessURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -890,7 +890,7 @@ router.get('/getAccessURL', function(req, res, next) {
  * 현금영수증과 관련된 안내 메일을 재전송 합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/etc#SendEmail
  */
-router.get('/sendEmail', function(req, res, next) {
+router.get('/sendEmail', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -904,14 +904,14 @@ router.get('/sendEmail', function(req, res, next) {
     var receiver = '';
 
     cashbillService.sendEmail(testCorpNum, mgtKey, receiver,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -926,7 +926,7 @@ router.get('/sendEmail', function(req, res, next) {
  * - 알림문자 전송시 포인트가 차감됩니다. (전송실패시 환불처리)
  * - https://developers.popbill.com/reference/cashbill/node/api/etc#SendSMS
  */
-router.get('/sendSMS', function(req, res, next) {
+router.get('/sendSMS', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -944,14 +944,14 @@ router.get('/sendSMS', function(req, res, next) {
     var contents = '현금영수증 API 문자전송 테스트'
 
     cashbillService.sendSMS(testCorpNum, mgtKey, senderNum, receiverNum, contents,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -965,7 +965,7 @@ router.get('/sendSMS', function(req, res, next) {
  * - 팩스 전송 요청시 포인트가 차감됩니다. (전송실패시 환불처리)
  * - https://developers.popbill.com/reference/cashbill/node/api/etc#SendFAX
  */
-router.get('/sendFAX', function(req, res, next) {
+router.get('/sendFAX', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -980,14 +980,14 @@ router.get('/sendFAX', function(req, res, next) {
     var receiverNum = '';
 
     cashbillService.sendFAX(testCorpNum, mgtKey, senderNum, receiverNum,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1000,7 +1000,7 @@ router.get('/sendFAX', function(req, res, next) {
  * 팝빌 사이트를 통해 발행하여 문서번호가 부여되지 않은 현금영수증에 문서번호를 할당합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/etc#AssignMgtKey
  */
-router.get('/assignMgtKey', function(req, res, next) {
+router.get('/assignMgtKey', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1013,14 +1013,14 @@ router.get('/assignMgtKey', function(req, res, next) {
     var mgtKey = '20220629-007';
 
     cashbillService.assignMgtKey(testCorpNum, itemKey, mgtKey,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1033,19 +1033,19 @@ router.get('/assignMgtKey', function(req, res, next) {
  * 현금영수증 관련 메일 항목에 대한 발송설정을 확인합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/etc#ListEmailConfig
  */
-router.get('/listEmailConfig', function(req, res, next) {
+router.get('/listEmailConfig', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     cashbillService.listEmailConfig(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Cashbill/ListEmailConfig', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1062,7 +1062,7 @@ router.get('/listEmailConfig', function(req, res, next) {
  * CSH_ISSUE : 고객에게 현금영수증이 발행 되었음을 알려주는 메일 입니다.
  * CSH_CANCEL : 고객에게 현금영수증이 발행취소 되었음을 알려주는 메일 입니다.
  */
-router.get('/updateEmailConfig', function(req, res, next) {
+router.get('/updateEmailConfig', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1074,14 +1074,14 @@ router.get('/updateEmailConfig', function(req, res, next) {
     var sendYN = true;
 
     cashbillService.updateEmailConfig(testCorpNum, emailType, sendYN,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1094,19 +1094,19 @@ router.get('/updateEmailConfig', function(req, res, next) {
  * 연동회원의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/point#GetBalance
  */
-router.get('/getBalance', function(req, res, next) {
+router.get('/getBalance', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     cashbillService.getBalance(testCorpNum,
-        function(remainPoint) {
+        function (remainPoint) {
             res.render('result', {
                 path: req.path,
                 result: remainPoint
             })
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1120,7 +1120,7 @@ router.get('/getBalance', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/point#GetChargeURL
  */
-router.get('/getChargeURL', function(req, res, next) {
+router.get('/getChargeURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1129,13 +1129,13 @@ router.get('/getChargeURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     cashbillService.getChargeURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1149,7 +1149,7 @@ router.get('/getChargeURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/point#GetPaymentURL
  */
-router.get('/getPaymentURL', function(req, res, next) {
+router.get('/getPaymentURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1158,13 +1158,13 @@ router.get('/getPaymentURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     cashbillService.getPaymentURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1178,7 +1178,7 @@ router.get('/getPaymentURL', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/point#GetUseHistoryURL
  */
-router.get('/getUseHistoryURL', function(req, res, next) {
+router.get('/getUseHistoryURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1187,13 +1187,13 @@ router.get('/getUseHistoryURL', function(req, res, next) {
     var testUserID = 'testkorea';
 
     cashbillService.getUseHistoryURL(testCorpNum, testUserID,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1206,19 +1206,19 @@ router.get('/getUseHistoryURL', function(req, res, next) {
  * 파트너의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/point#GetPartnerBalance
  */
-router.get('/getPartnerBalance', function(req, res, next) {
+router.get('/getPartnerBalance', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     cashbillService.getPartnerBalance(testCorpNum,
-        function(remainPoint) {
+        function (remainPoint) {
             res.render('result', {
                 path: req.path,
                 result: remainPoint
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1232,7 +1232,7 @@ router.get('/getPartnerBalance', function(req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/point#GetPartnerURL
  */
-router.get('/getPartnerURL', function(req, res, next) {
+router.get('/getPartnerURL', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1241,13 +1241,13 @@ router.get('/getPartnerURL', function(req, res, next) {
     var TOGO = 'CHRG';
 
     cashbillService.getPartnerURL(testCorpNum, TOGO,
-        function(url) {
+        function (url) {
             res.render('result', {
                 path: req.path,
                 result: url
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1260,19 +1260,19 @@ router.get('/getPartnerURL', function(req, res, next) {
  * 현금영수증 발행시 과금되는 포인트 단가를 확인합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/point#GetUnitCost
  */
-router.get('/getUnitCost', function(req, res, next) {
+router.get('/getUnitCost', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     cashbillService.getUnitCost(testCorpNum,
-        function(unitCost) {
+        function (unitCost) {
             res.render('result', {
                 path: req.path,
                 result: unitCost
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1285,19 +1285,19 @@ router.get('/getUnitCost', function(req, res, next) {
  * 팝빌 현금영수증 API 서비스 과금정보를 확인합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/point#GetChargeInfo
  */
-router.get('/getChargeInfo', function(req, res, next) {
+router.get('/getChargeInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     cashbillService.getChargeInfo(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Base/getChargeInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1310,20 +1310,20 @@ router.get('/getChargeInfo', function(req, res, next) {
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/member#CheckIsMember
  */
-router.get('/checkIsMember', function(req, res, next) {
+router.get('/checkIsMember', function (req, res, next) {
 
     // 조회할 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     cashbillService.checkIsMember(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 code: Error.code,
                 message: Error.message
@@ -1335,20 +1335,20 @@ router.get('/checkIsMember', function(req, res, next) {
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/member#CheckID
  */
-router.get('/checkID', function(req, res, next) {
+router.get('/checkID', function (req, res, next) {
 
     // 조회할 아이디
     var testID = 'testkorea';
 
     cashbillService.checkID(testID,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1361,7 +1361,7 @@ router.get('/checkID', function(req, res, next) {
  * 사용자를 연동회원으로 가입처리합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/member#JoinMember
  */
-router.get('/joinMember', function(req, res, next) {
+router.get('/joinMember', function (req, res, next) {
 
     // 회원정보
     var joinInfo = {
@@ -1405,14 +1405,14 @@ router.get('/joinMember', function(req, res, next) {
     };
 
     cashbillService.joinMember(joinInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1425,19 +1425,19 @@ router.get('/joinMember', function(req, res, next) {
  * 연동회원의 회사정보를 확인합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/member#GetCorpInfo
  */
-router.get('/getCorpInfo', function(req, res, next) {
+router.get('/getCorpInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
 
     cashbillService.getCorpInfo(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Base/getCorpInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1450,7 +1450,7 @@ router.get('/getCorpInfo', function(req, res, next) {
  * 연동회원의 회사정보를 수정합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/member#UpdateCorpInfo
  */
-router.get('/updateCorpInfo', function(req, res, next) {
+router.get('/updateCorpInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1476,14 +1476,14 @@ router.get('/updateCorpInfo', function(req, res, next) {
     };
 
     cashbillService.updateCorpInfo(testCorpNum, corpInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1496,7 +1496,7 @@ router.get('/updateCorpInfo', function(req, res, next) {
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/member#RegistContact
  */
-router.get('/registContact', function(req, res, next) {
+router.get('/registContact', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1525,14 +1525,14 @@ router.get('/registContact', function(req, res, next) {
     };
 
     cashbillService.registContact(testCorpNum, contactInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1545,7 +1545,7 @@ router.get('/registContact', function(req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/member#GetContactInfo
  */
-router.get('/getContactInfo', function(req, res, next) {
+router.get('/getContactInfo', function (req, res, next) {
 
     // 팝빌회원 사업자번호
     var testCorpNum = '1234567890';
@@ -1554,13 +1554,13 @@ router.get('/getContactInfo', function(req, res, next) {
     var contactID = 'checkContactID';
 
     cashbillService.getContactInfo(testCorpNum, contactID,
-        function(result) {
+        function (result) {
             res.render('Base/getContactInfo', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1573,19 +1573,19 @@ router.get('/getContactInfo', function(req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/member#ListContact
  */
-router.get('/listContact', function(req, res, next) {
+router.get('/listContact', function (req, res, next) {
 
     // 조회할 아이디
     var testCorpNum = '1234567890';
 
     cashbillService.listContact(testCorpNum,
-        function(result) {
+        function (result) {
             res.render('Base/listContact', {
                 path: req.path,
                 result: result
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1598,7 +1598,7 @@ router.get('/listContact', function(req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/member#UpdateContact
  */
-router.get('/updateContact', function(req, res, next) {
+router.get('/updateContact', function (req, res, next) {
 
     // 팝빌회원 사업자번호, '-' 제외 10자리
     var testCorpNum = '1234567890';
@@ -1627,14 +1627,14 @@ router.get('/updateContact', function(req, res, next) {
     };
 
     cashbillService.updateContact(testCorpNum, testUserID, contactInfo,
-        function(result) {
+        function (result) {
             res.render('response', {
                 path: req.path,
                 code: result.code,
                 message: result.message
             });
         },
-        function(Error) {
+        function (Error) {
             res.render('response', {
                 path: req.path,
                 code: Error.code,
@@ -1642,5 +1642,204 @@ router.get('/updateContact', function(req, res, next) {
             });
         });
 });
+
+/**
+ * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
+ * - https://developers.popbill.com/reference/cashbill/node/api/point#PaymentRequest
+ */
+router.get('/paymentRequest', function (req, res, next) {
+    // 팝빌회원 사업자 번호
+    var CorpNUm = ""
+    // 담당자명
+    var SettlerName = ""
+    // 담당자 이메일
+    var SettlerEmail = ""
+    // 담당자 휴대폰
+    var NotifyHP = ""
+    // 입금자명
+    var PaymentName = ""
+    // 결제금액
+    var SettleCost = ""
+
+    // 입금신청 객체 정보
+    var PaymentForm = {
+        settlerName: SettlerName,
+        settlerEmail: SettlerEmail,
+        notifyHP: NotifyHP,
+        paymentName: PaymentName,
+        settleCost: SettleCost,
+    }
+    // 팝빌회원 아이디
+    var UserID = ""
+
+    cashbillService.paymentRequest(CorpNUm, PaymentForm, UserID,
+        function (result) {
+            res.render('Base/paymentResponse', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
+ * - https://developers.popbill.com/reference/cashbill/node/api/point#GetSettleResult
+ */
+router.get('/getSettleResult', function (req, res, next) {
+    // 팝빌회원 사업자 번호
+    var CorpNum = ""
+    // 정산코드 - PaymentRequest 호출시 반환되는 값
+    var SettleCode = ""
+    // 팝빌회원 아이디
+    var UserID = ""
+
+    cashbillService.getBulkResult(CorpNum, SettleCode, UserID,
+        function (result) {
+            res.render('Base/paymentHistory', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원의 포인트 결제내역을 확인합니다.
+ * - https://developers.popbill.com/reference/cashbill/node/api/point#GetPaymentHistory
+ */
+router.get('/getPaymentHistory', function (req, res, next) {
+    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
+    var CorpNum = ""
+    // 조회 기간의 시작일자 (형식 : yyyyMMdd)
+    var SDate = "20230101"
+    // 조회 기간의 종료일자 (형식 : yyyyMMdd)
+    var EDate = "20230107"
+    // 목록 페이지번호 (기본값 1)
+    var Page = 1
+    // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+    var PerPage = 500
+    // 팝빌회원 아이디
+    var UserID = ""
+
+    cashbillService.getPaymentHistory(CorpNum, SDate, EDate, Page, PerPage, UserID,
+        function (result) {
+            res.render('Base/paymentHistoryResult', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원의 포인트 사용내역을 확인합니다.
+ * - https://developers.popbill.com/reference/cashbill/node/api/point#GetUseHistory
+ */
+router.get('/getUseHistory', function (req, res, next) {
+    var CorpNum = ""
+    var SDate = ""
+    var EDate = ""
+    var Page = 1
+    var PerPage = 500
+    var Order = ""
+    var UserID = ""
+
+
+    cashbillService.getUseHistory(CorpNum, SDate, EDate, Page, PerPage, Order, UserID,
+        function (result) {
+            res.render('Base/useHistoryResult', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+/**
+ * 연동회원 포인트를 환불 신청합니다.
+ * - https://developers.popbill.com/reference/cashbill/node/api/point#Refund
+ */
+router.get('/refund', function (req, res, next) {
+    var CorpNum = ""
+    var RefundForm = {
+        contactName: "",
+        tel: "",
+        requestPoint: "",
+        accountBank: "",
+        accountNum: "",
+        accountName: "",
+        reason: "",
+    }
+    var UserID = ""
+
+    cashbillService.refund(CorpNum, RefundForm, UserID,
+        function (result) {
+            res.render('response', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
+
+
+
+/**
+ * 연동회원의 포인트 환불신청내역을 확인합니다.
+ * https://developers.popbill.com/reference/cashbill/node/api/point#GetRefundHistory
+ */
+router.get('/getRefundHistory', function (req, res, next) {
+
+    var CorpNum = ""
+    var Page = 1
+    var PerPage = 500
+    var UserID = ""
+
+    cashbillService.getRefundHistory(CorpNum, Page, PerPage, UserID,
+        function (result) {
+            res.render('Base/RefundHistoryResult', {
+                path: req.path,
+                result: result
+            });
+        },
+        function (Error) {
+            res.render('response', {
+                path: req.path,
+                code: Error.code,
+                message: Error.message
+            });
+        });
+})
 
 module.exports = router;
