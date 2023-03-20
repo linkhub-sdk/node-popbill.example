@@ -251,7 +251,7 @@ router.get('/sendATS_one', function (req, res, next) {
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var snd = '';
+    var Sender = '';
 
     // 알림톡 내용 (최대 1000자)
     var content = '[ 팝빌 ]\n';
@@ -304,7 +304,7 @@ router.get('/sendATS_one', function (req, res, next) {
     //     }
     // ];
 
-    kakaoService.sendATS_one(testCorpNum, templateCode, snd, content, altSubject, altContent, altSendType, sndDT, receiver, receiverName, UserID, requestNum, btns,
+    kakaoService.sendATS_one(testCorpNum, templateCode, Sender, content, altSubject, altContent, altSendType, sndDT, receiver, receiverName, UserID, requestNum, btns,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -347,7 +347,7 @@ router.get('/sendATS_multi', function (req, res, next) {
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var snd = '';
+    var Sender = '';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 알림톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
@@ -403,7 +403,7 @@ router.get('/sendATS_multi', function (req, res, next) {
     //     }
     // ];
 
-    kakaoService.sendATS_multi(testCorpNum, templateCode, snd, altSendType, sndDT, msgs, UserID, requestNum, btns,
+    kakaoService.sendATS_multi(testCorpNum, templateCode, Sender, altSendType, sndDT, msgs, UserID, requestNum, btns,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -445,7 +445,7 @@ router.get('/sendATS_same', function (req, res, next) {
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var snd = '';
+    var Sender = '';
 
     // 대체문자 제목
     // - 메시지 길이(90byte)에 따라 장문(LMS)인 경우에만 적용.
@@ -494,7 +494,7 @@ router.get('/sendATS_same', function (req, res, next) {
     //     }
     // ];
 
-    kakaoService.sendATS_same(testCorpNum, templateCode, snd, content, altSubject, altContent, altSendType, sndDT, msgs, UserID, requestNum, btns,
+    kakaoService.sendATS_same(testCorpNum, templateCode, Sender, content, altSubject, altContent, altSendType, sndDT, msgs, UserID, requestNum, btns,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -526,7 +526,7 @@ router.get('/sendFTS_one', function (req, res, next) {
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var snd = '';
+    var Sender = '';
 
     // 친구톡 내용 (최대 1000자)
     var content = '친구톡 내용.';
@@ -576,7 +576,7 @@ router.get('/sendFTS_one', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    kakaoService.sendFTS_one(testCorpNum, plusFriendID, snd, content, altSubject, altContent, altSendType, sndDT, receiver, receiverName, adsYN, btns, UserID, requestNum,
+    kakaoService.sendFTS_one(testCorpNum, plusFriendID, Sender, content, altSubject, altContent, altSendType, sndDT, receiver, receiverName, adsYN, btns, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -608,7 +608,7 @@ router.get('/sendFTS_multi', function (req, res, next) {
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var snd = '';
+    var Sender = '';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 친구톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
@@ -669,7 +669,7 @@ router.get('/sendFTS_multi', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    kakaoService.sendFTS_multi(testCorpNum, plusFriendID, snd, altSendType, sndDT, adsYN, msgs, btns, UserID, requestNum,
+    kakaoService.sendFTS_multi(testCorpNum, plusFriendID, Sender, altSendType, sndDT, adsYN, msgs, btns, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -701,7 +701,7 @@ router.get('/sendFTS_same', function (req, res, next) {
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var snd = '';
+    var Sender = '';
 
     // 친구톡 내용 (최대 1000자)
     var content = '친구톡 내용.';
@@ -756,7 +756,7 @@ router.get('/sendFTS_same', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    kakaoService.sendFTS_same(testCorpNum, plusFriendID, snd, content, altSubject, altContent, altSendType, sndDT, adsYN, msgs, btns, UserID, requestNum,
+    kakaoService.sendFTS_same(testCorpNum, plusFriendID, Sender, content, altSubject, altContent, altSendType, sndDT, adsYN, msgs, btns, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -789,7 +789,7 @@ router.get('/sendFMS_one', function (req, res, next) {
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var snd = '';
+    var Sender = '';
 
     // 친구톡 내용 (최대 400자)
     var content = '친구톡 내용.';
@@ -848,7 +848,7 @@ router.get('/sendFMS_one', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    kakaoService.sendFMS_one(testCorpNum, plusFriendID, snd, content, altSubject, altContent, altSendType, sndDT, receiver, receiverName, adsYN, imageURL, filePath, btns, UserID, requestNum,
+    kakaoService.sendFMS_one(testCorpNum, plusFriendID, Sender, content, altSubject, altContent, altSendType, sndDT, receiver, receiverName, adsYN, imageURL, filePath, btns, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -881,7 +881,7 @@ router.get('/sendFMS_multi', function (req, res, next) {
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var snd = '';
+    var Sender = '';
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
     // null = 미전송, C = 친구톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
@@ -952,7 +952,7 @@ router.get('/sendFMS_multi', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    kakaoService.sendFMS_multi(testCorpNum, plusFriendID, snd, altSendType, sndDT, adsYN, imageURL, filePath, msgs, btns, UserID, requestNum,
+    kakaoService.sendFMS_multi(testCorpNum, plusFriendID, Sender, altSendType, sndDT, adsYN, imageURL, filePath, msgs, btns, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -985,7 +985,7 @@ router.get('/sendFMS_same', function (req, res, next) {
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var snd = '';
+    var Sender = '';
 
     // 친구톡 내용 (최대 400자)
     var content = '친구톡 내용.';
@@ -1049,7 +1049,7 @@ router.get('/sendFMS_same', function (req, res, next) {
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "";
 
-    kakaoService.sendFMS_same(testCorpNum, plusFriendID, snd, content, altSubject, altContent, altSendType, sndDT, adsYN, imageURL, filePath, msgs, btns, UserID, requestNum,
+    kakaoService.sendFMS_same(testCorpNum, plusFriendID, Sender, content, altSubject, altContent, altSendType, sndDT, adsYN, imageURL, filePath, msgs, btns, UserID, requestNum,
         function (receiptNum) {
             res.render('Kakao/receiptNum', {
                 path: req.path,
@@ -1877,7 +1877,7 @@ router.get('/updateContact', function (req, res, next) {
 });
 
 
-router.get("/CancelReservebyRCV", function (req, res, next) {
+router.get("/cancelReservebyRCV", function (req, res, next) {
     var CorpNum = ""
     var receiptNum = ""
     var receiveNum = ""
@@ -1892,13 +1892,13 @@ router.get("/CancelReservebyRCV", function (req, res, next) {
         })
 });
 
-router.get("/CancelReserveRNByRCV", function (req, res, next) {
+router.get("/cancelReserveRNbyRCV", function (req, res, next) {
     var CorpNum = ""
     var requestNum = ""
     var receiveNum = ""
     var UserID = ""
 
-    kakaoService.cancelReserveRNByRCV(CorpNum, requestNum, receiveNum, UserID,
+    kakaoService.cancelReserveRNbyRCV(CorpNum, requestNum, receiveNum, UserID,
         function (result) {
             res.render('response', {
                 path: req.path,
