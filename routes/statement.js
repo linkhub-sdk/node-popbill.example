@@ -682,11 +682,13 @@ router.get('/issue', function (req, res, next) {
     // 문서번호
     var mgtKey = '20220629-002';
 
+    // 전자명세서 발행 안내메일 제목
     var EmailSubject = ""
 
     // 메모
     var memo = '발행메모';
 
+    // 팝빌 회원 아이디
     var UserID = ""
 
     statementService.issue(testCorpNum, itemCode, mgtKey, memo, EmailSubject, UserID,

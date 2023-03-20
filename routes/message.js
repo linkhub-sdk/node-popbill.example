@@ -1538,11 +1538,11 @@ router.get('/paymentRequest', function (req, res, next) {
 
     // 입금신청 객체 정보
     var PaymentForm = {
-        settlerName: SettlerName,
-        settlerEmail: SettlerEmail,
-        notifyHP: NotifyHP,
-        paymentName: PaymentName,
-        settleCost: SettleCost,
+        settlerName: SettlerName,// 담당자명
+        settlerEmail: SettlerEmail,// 담당자 이메일
+        notifyHP: NotifyHP,// 담당자 휴대폰
+        paymentName: PaymentName,// 입금자명
+        settleCost: SettleCost,// 결제금액
     }
     // 팝빌회원 아이디
     var UserID = ""
