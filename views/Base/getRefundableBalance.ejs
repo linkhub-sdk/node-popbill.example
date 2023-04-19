@@ -8,13 +8,12 @@
 
     <body>
         <div id="content">
-            <p class="heading1">Response</p>
+            <p class="heading1">GetRefundableBalance</p>
             <br/>
             <fieldset class="fieldset1">
-                <legend><%= path %></legend>
+                <legend>조회 결과</legend>
                 <ul>
-                    <li>smsdenyNumber (080 수신거부번호) : <%= result.smsdenyNumber %></li>
-                    <li>regDT (등록일시) : <%= result.regDT %></li>
+                    <li>refundableBalance (환불 가능 포인트) : <%= refundableBalance %></li>
                 </ul>
             </fieldset>
         </div>
