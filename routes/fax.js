@@ -1,7 +1,7 @@
-var express = require('express');
+var express = require( 'express' );
 var router = express.Router();
-var popbill = require('popbill');
-var https = require('https');
+var popbill = require( 'popbill' );
+var https = require( 'https' );
 
 /*
  * 팩스 API 모듈 초기화
@@ -11,313 +11,317 @@ var faxService = popbill.FaxService();
 /*
  * Fax API Index 목록
  */
-router.get('/', function (req, res, next) {
-    res.render('Fax/index', {});
-});
+router.get( '/', function ( req, res, next ) {
+	res.render( 'Fax/index', {} );
+} );
 
 /*
  * 팩스 발신번호 등록여부를 확인합니다.
  * - 발신번호 상태가 '승인'인 경우에만 리턴값 'Response'의 변수 'code'가 1로 반환됩니다.
  * - https://developers.popbill.com/reference/fax/node/api/sendnum#CheckSenderNumber
  */
-router.get('/checkSenderNumber', function (req, res, next) {
-
-    // 팝빌회원 사업자번호
-    var testCorpNum = '1234567890';
-
-    // 확인할 발신번호
-    var senderNumber = '';
-
-    faxService.checkSenderNumber(testCorpNum, senderNumber,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/checkSenderNumber', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호
+	var testCorpNum = '1234567890';
+	
+	// 확인할 발신번호
+	var senderNumber = '';
+	
+	faxService.checkSenderNumber( testCorpNum, senderNumber,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 발신번호를 등록하고 내역을 확인하는 팩스 발신번호 관리 페이지 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/sendnum#GetSenderNumberMgtURL
  */
-router.get('/getSenderNumberMgtURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    faxService.getSenderNumberMgtURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getSenderNumberMgtURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	faxService.getSenderNumberMgtURL( testCorpNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팝빌에 등록한 연동회원의 팩스 발신번호 목록을 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/sendnum#GetSenderNumberList
  */
-router.get('/getSenderNumberList', function (req, res, next) {
-
-    // 조회할 아이디
-    var testCorpNum = '1234567890';
-
-    faxService.getSenderNumberList(testCorpNum,
-        function (result) {
-            res.render('Fax/SenderNumberList', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getSenderNumberList', function ( req, res, next ) {
+	
+	// 조회할 아이디
+	var testCorpNum = '1234567890';
+	
+	faxService.getSenderNumberList( testCorpNum,
+		function ( result ) {
+			res.render( 'Fax/SenderNumberList', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팩스 1건을 전송합니다. (최대 전송파일 개수: 20개)
  * - https://developers.popbill.com/reference/fax/node/api/send#SendFAX
  */
-router.get('/sendFAX', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 발신번호
-    // - 팝빌에 등록되지 않은 번호를 입력하는 경우 '원발신번호'로 팩스 전송됨
-    var senderNum = '';
-
-    // 발신자명
-    var senderName = '발신자명';
-
-    // 광고팩스 전송여부 , true / false 중 택 1
-    // └ true = 광고 , false = 일반
-    // └ 미입력 시 기본값 false 처리
-    var adsYN = false;
-
-    // 수신팩스번호
-    var receiveNum = '';
-
-    // 수신자명
-    var receiveName = '수신자명';
-
-    // 파일경로 배열, 전송개수 촤대 20개
-    var filePaths = ['test.jpg'];
-
-    // 팩스제목
-    var title = '팩스전송';
-
-    // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-    var reserveDT = '';
-
-    // 전송요청번호
-    // 팝빌이 접수 단위를 식별할 수 있도록 파트너가 부여하는 식별번호.
-    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "";
-
-    faxService.sendFax(testCorpNum, senderNum, receiveNum, receiveName, filePaths, reserveDT,
-        senderName, adsYN, title, requestNum,
-        function (receiptNum) {
-            res.render('result', {
-                path: req.path,
-                result: receiptNum
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/sendFAX', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 발신번호
+	// - 팝빌에 등록되지 않은 번호를 입력하는 경우 '원발신번호'로 팩스 전송됨
+	var senderNum = '';
+	
+	// 발신자명
+	var senderName = '발신자명';
+	
+	// 광고팩스 전송여부 , true / false 중 택 1
+	// └ true = 광고 , false = 일반
+	// └ 미입력 시 기본값 false 처리
+	var adsYN = false;
+	
+	// 수신팩스번호
+	var receiveNum = '';
+	
+	// 수신자명
+	var receiveName = '수신자명';
+	
+	// 파일경로 배열, 전송개수 촤대 20개
+	var filePaths = [ 'test.jpg' ];
+	
+	// 팩스제목
+	var title = '팩스전송';
+	
+	// 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
+	var reserveDT = '';
+	
+	// 전송요청번호
+	// 팝빌이 접수 단위를 식별할 수 있도록 파트너가 부여하는 식별번호.
+	// 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+	var requestNum = '';
+	
+	faxService.sendFax( testCorpNum, senderNum, receiveNum, receiveName, filePaths, reserveDT,
+		senderName, adsYN, title, requestNum,
+		function ( receiptNum ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: receiptNum,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 동일한 팩스파일을 다수의 수신자에게 전송하기 위해 팝빌에 접수합니다. (최대 전송파일 개수 : 20개) (최대 1,000건)
  * - https://developers.popbill.com/reference/fax/node/api/send#SendFAXSame
  */
-router.get('/sendFAX_multi', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 발신번호
-    // - 팝빌에 등록되지 않은 번호를 입력하는 경우 '원발신번호'로 팩스 전송됨
-    var senderNum = '';
-
-    // 발신자명
-    var senderName = '발신자명';
-
-    // 파일경로 배열, 전송개수 촤대 20개
-    var filePaths = ['test.jpg', 'test.jpg'];
-
-    // 수신자정보 배열, 최대 1000건
-    var Receivers = [{
-        receiveName: '수신자명1', // 수신자명
-        receiveNum: '', // 수신팩스번호
-        interOPRefKey: '20220629-FAX001' // 파트너 지정키, 수신자 구별용 메모
-    },
-    {
-        receiveName: '수신자명2',
-        receiveNum: '',
-        interOPRefKey: '20220629-FAX002' // 파트너 지정키, 수신자 구별용 메모
-    }
-    ];
-
-    // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
-    var reserveDT = '';
-
-    // 광고팩스 전송여부 , true / false 중 택 1
-    // └ true = 광고 , false = 일반
-    // └ 미입력 시 기본값 false 처리
-    var adsYN = false;
-
-    // 팩스제목
-    var title = '팩스대량전송';
-
-    // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "";
-
-    faxService.sendFax(testCorpNum, senderNum, Receivers, "", filePaths, reserveDT, senderName,
-        adsYN, title, requestNum,
-        function (receiptNum) {
-            res.render('result', {
-                path: req.path,
-                result: receiptNum
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/sendFAX_multi', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 발신번호
+	// - 팝빌에 등록되지 않은 번호를 입력하는 경우 '원발신번호'로 팩스 전송됨
+	var senderNum = '';
+	
+	// 발신자명
+	var senderName = '발신자명';
+	
+	// 파일경로 배열, 전송개수 촤대 20개
+	var filePaths = [
+		'test.jpg',
+		'test.jpg',
+	];
+	
+	// 수신자정보 배열, 최대 1000건
+	var Receivers = [
+		{
+			receiveName  : '수신자명1', // 수신자명
+			receiveNum   : '', // 수신팩스번호
+			interOPRefKey: '20220629-FAX001', // 파트너 지정키, 수신자 구별용 메모
+		},
+		{
+			receiveName  : '수신자명2',
+			receiveNum   : '',
+			interOPRefKey: '20220629-FAX002', // 파트너 지정키, 수신자 구별용 메모
+		},
+	];
+	
+	// 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
+	var reserveDT = '';
+	
+	// 광고팩스 전송여부 , true / false 중 택 1
+	// └ true = 광고 , false = 일반
+	// └ 미입력 시 기본값 false 처리
+	var adsYN = false;
+	
+	// 팩스제목
+	var title = '팩스대량전송';
+	
+	// 전송요청번호
+	// 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+	// 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+	var requestNum = '';
+	
+	faxService.sendFax( testCorpNum, senderNum, Receivers, '', filePaths, reserveDT, senderName,
+		adsYN, title, requestNum,
+		function ( receiptNum ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: receiptNum,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 전송할 파일의 바이너리 데이터를 팩스 1건 전송합니다. (최대 전송파일 개수: 20개)
  * - https://developers.popbill.com/reference/fax/node/api/send#SendFaxBinary
  */
-router.get('/sendFAXBinary', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 발신번호
-    // - 팝빌에 등록되지 않은 번호를 입력하는 경우 '원발신번호'로 팩스 전송됨
-    var senderNum = '';
-
-    // 발신자명
-    var senderName = '발신자명';
-
-    // 광고팩스 전송여부 , true / false 중 택 1
-    // └ true = 광고 , false = 일반
-    // └ 미입력 시 기본값 false 처리
-    var adsYN = false;
-
-    // 수신팩스번호
-    var receiveNum = '';
-
-    // 수신자명
-    var receiveName = '수신자명';
-
-    // 팩스제목
-    var title = '팩스전송';
-
-    // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
-    var reserveDT = '';
-
-    // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "";
-
-    var targeturl = "";
-
-    https.get(targeturl, function (response) {
-        var data = [];
-        response.on('data', function (chunk) {
-            data.push(chunk);
-        }).on('end', function () {
-
-            if (response.statusCode == 200) {
-                var binary = Buffer.concat(data);
-
-                // Binary 파일정보 배열, 전송개수 촤대 20개
-                var BinaryFiles = []
-                BinaryFiles.push({
-                    // 파일명
-                    fileName: '20210801_01.jpg',
-                    // 파일데이터
-                    fileData: binary
-                });
-
-                BinaryFiles.push({
-                    fileName: '20210801_01.jpg',
-                    fileData: binary
-                });
-
-                faxService.sendFaxBinary(testCorpNum, senderNum, receiveNum, receiveName, BinaryFiles,
-                    reserveDT, senderName, adsYN, title, requestNum,
-                    function (receiptNum) {
-                        res.render('result', {
-                            path: req.path,
-                            result: receiptNum
-                        });
-                    },
-                    function (Error) {
-                        res.render('response', {
-                            path: req.path,
-                            code: Error.code,
-                            message: Error.message
-                        });
-                    });
-
-            } else {
-                res.render('response', {
-                    path: req.path,
-                    code: -99999999,
-                    message: response.statusCode
-                });
-            }
-
-        })
-    }).on('error', function (err) {
-        res.render('response', {
-            path: req.path,
-            code: -99999999,
-            message: err.message
-        });
-    });
-});
+router.get( '/sendFAXBinary', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 발신번호
+	// - 팝빌에 등록되지 않은 번호를 입력하는 경우 '원발신번호'로 팩스 전송됨
+	var senderNum = '';
+	
+	// 발신자명
+	var senderName = '발신자명';
+	
+	// 광고팩스 전송여부 , true / false 중 택 1
+	// └ true = 광고 , false = 일반
+	// └ 미입력 시 기본값 false 처리
+	var adsYN = false;
+	
+	// 수신팩스번호
+	var receiveNum = '';
+	
+	// 수신자명
+	var receiveName = '수신자명';
+	
+	// 팩스제목
+	var title = '팩스전송';
+	
+	// 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
+	var reserveDT = '';
+	
+	// 전송요청번호
+	// 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+	// 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+	var requestNum = '';
+	
+	var targeturl = '';
+	
+	https.get( targeturl, function ( response ) {
+		var data = [];
+		response.on( 'data', function ( chunk ) {
+			data.push( chunk );
+		} ).on( 'end', function () {
+			
+			if( response.statusCode == 200 ) {
+				var binary = Buffer.concat( data );
+				
+				// Binary 파일정보 배열, 전송개수 촤대 20개
+				var BinaryFiles = [];
+				BinaryFiles.push( {
+					// 파일명
+					fileName: '20210801_01.jpg',
+					// 파일데이터
+					fileData: binary,
+				} );
+				
+				BinaryFiles.push( {
+					fileName: '20210801_01.jpg',
+					fileData: binary,
+				} );
+				
+				faxService.sendFaxBinary( testCorpNum, senderNum, receiveNum, receiveName, BinaryFiles,
+					reserveDT, senderName, adsYN, title, requestNum,
+					function ( receiptNum ) {
+						res.render( 'result', {
+							path  : req.path,
+							result: receiptNum,
+						} );
+					},
+					function ( Error ) {
+						res.render( 'response', {
+							path   : req.path,
+							code   : Error.code,
+							message: Error.message,
+						} );
+					} );
+				
+			} else {
+				res.render( 'response', {
+					path   : req.path,
+					code   : -99999999,
+					message: response.statusCode,
+				} );
+			}
+			
+		} );
+	} ).on( 'error', function ( err ) {
+		res.render( 'response', {
+			path   : req.path,
+			code   : -99999999,
+			message: err.message,
+		} );
+	} );
+} );
 
 /*
  * 팝빌에서 반환받은 접수번호를 통해 팩스 1건을 재전송합니다.
@@ -326,56 +330,56 @@ router.get('/sendFAXBinary', function (req, res, next) {
  * - 변환실패 사유로 전송실패한 팩스 접수건은 재전송이 불가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/send#ResendFAX
  */
-router.get('/resendFAX', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팩스 접수번호
-    var receiptNum = '021032511132400001';
-
-    // 발신번호, 공백처리시 기존전송정보로 재전송
-    var senderNum = '';
-
-    // 발신자명, 공백처리시 기존전송정보로 재전송
-    var senderName = '발신자명';
-
-    // 수신번호, 공백처리시 기존전송정보로 재전송
-    var receiveNum = '';
-
-    // 수신자명, 공백처리시 기존전송정보로 재전송
-    var receiveName = '';
-
-    // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
-    var reserveDT = '';
-
-    // 팩스제목
-    var title = '팩스재전송';
-
-    // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "";
-
-    // 팝빌회원 아이디
-    var userID = "testkorea";
-
-    faxService.resendFax(testCorpNum, receiptNum, senderNum, senderName, receiveNum, receiveName,
-        reserveDT, title, requestNum,
-        function (receiptNum) {
-            res.render('result', {
-                path: req.path,
-                result: receiptNum
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/resendFAX', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팩스 접수번호
+	var receiptNum = '021032511132400001';
+	
+	// 발신번호, 공백처리시 기존전송정보로 재전송
+	var senderNum = '';
+	
+	// 발신자명, 공백처리시 기존전송정보로 재전송
+	var senderName = '발신자명';
+	
+	// 수신번호, 공백처리시 기존전송정보로 재전송
+	var receiveNum = '';
+	
+	// 수신자명, 공백처리시 기존전송정보로 재전송
+	var receiveName = '';
+	
+	// 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
+	var reserveDT = '';
+	
+	// 팩스제목
+	var title = '팩스재전송';
+	
+	// 전송요청번호
+	// 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+	// 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+	var requestNum = '';
+	
+	// 팝빌회원 아이디
+	var userID = 'testkorea';
+	
+	faxService.resendFax( testCorpNum, receiptNum, senderNum, senderName, receiveNum, receiveName,
+		reserveDT, title, requestNum,
+		function ( receiptNum ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: receiptNum,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 동일한 팩스파일을 다수의 수신자에게 전송하기 위해 팝빌에 접수합니다. (최대 전송파일 개수: 20개) (최대 1,000건)
@@ -384,63 +388,64 @@ router.get('/resendFAX', function (req, res, next) {
  * - 변환실패 사유로 전송실패한 팩스 접수건은 재전송이 불가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/send#ResendFAXSame
  */
-router.get('/resendFAX_multi', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팩스 접수번호
-    var receiptNum = '022070116355600001';
-
-    // 발신번호, 공백처리시 기존전송정보로 재전송
-    var senderNum = '';
-
-    // 발신자명, 공백처리시 기존전송정보로 재전송
-    var senderName = '';
-
-    //수신자정보 배열, 최대 1000건
-    var Receivers = [{
-        receiveName: '수신자명1', // 수신자명
-        receiveNum: '', // 수신팩스번호
-        interOPRefKey: '20220629-FAX003' // 파트너 지정키, 수신자 구별용 메모
-    },
-    {
-        receiveName: '수신자명2',
-        receiveNum: '',
-        interOPRefKey: '20220629-FAX004' // 파트너 지정키, 수신자 구별용 메모
-    }
-    ]
-
-    // 수신자정보를 기존전송정보와 동일하게 재전송하는 경우 아래코드 적용
-    //var Receivers = null;
-
-    // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
-    var reserveDT = '';
-
-    // 팩스제목
-    var title = '팩스재전송 대량 전송';
-
-    // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var reqeustNum = '';
-
-    faxService.resendFax(testCorpNum, receiptNum, senderNum, senderName, Receivers, "", reserveDT,
-        title, reqeustNum,
-        function (receiptNum) {
-            res.render('result', {
-                path: req.path,
-                result: receiptNum
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/resendFAX_multi', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팩스 접수번호
+	var receiptNum = '022070116355600001';
+	
+	// 발신번호, 공백처리시 기존전송정보로 재전송
+	var senderNum = '';
+	
+	// 발신자명, 공백처리시 기존전송정보로 재전송
+	var senderName = '';
+	
+	//수신자정보 배열, 최대 1000건
+	var Receivers = [
+		{
+			receiveName  : '수신자명1', // 수신자명
+			receiveNum   : '', // 수신팩스번호
+			interOPRefKey: '20220629-FAX003', // 파트너 지정키, 수신자 구별용 메모
+		},
+		{
+			receiveName  : '수신자명2',
+			receiveNum   : '',
+			interOPRefKey: '20220629-FAX004', // 파트너 지정키, 수신자 구별용 메모
+		},
+	];
+	
+	// 수신자정보를 기존전송정보와 동일하게 재전송하는 경우 아래코드 적용
+	//var Receivers = null;
+	
+	// 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
+	var reserveDT = '';
+	
+	// 팩스제목
+	var title = '팩스재전송 대량 전송';
+	
+	// 전송요청번호
+	// 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+	// 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+	var reqeustNum = '';
+	
+	faxService.resendFax( testCorpNum, receiptNum, senderNum, senderName, Receivers, '', reserveDT,
+		title, reqeustNum,
+		function ( receiptNum ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: receiptNum,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 파트너가 할당한 전송요청 번호를 통해 팩스 1건을 재전송합니다.
@@ -449,56 +454,56 @@ router.get('/resendFAX_multi', function (req, res, next) {
  * - 변환실패 사유로 전송실패한 팩스 접수건은 재전송이 불가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/send#ResendFAXRN
  */
-router.get('/resendFAXRN', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 원본 팩스 전송시 할당한 전송요청번호(requestNum)
-    var orgRequestNum = '';
-
-    // 발신번호, 공백처리시 기존전송정보로 재전송
-    var senderNum = '';
-
-    // 발신자명, 공백처리시 기존전송정보로 재전송
-    var senderName = '';
-
-    // 수신번호, 공백처리시 기존전송정보로 재전송
-    var receiveNum = '';
-
-    // 수신자명, 공백처리시 기존전송정보로 재전송
-    var receiveName = '';
-
-    // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
-    var reserveDT = '';
-
-    // 팩스제목
-    var title = '팩스재전송 (요청번호할당)';
-
-    // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var reqeustNum = '';
-
-    // 팝빌회원 아이디
-    var userID = "testkorea";
-
-    faxService.resendFaxRN(testCorpNum, orgRequestNum, senderNum, senderName, receiveNum, receiveName,
-        reserveDT, title, reqeustNum,
-        function (receiptNum) {
-            res.render('result', {
-                path: req.path,
-                result: receiptNum
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/resendFAXRN', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 원본 팩스 전송시 할당한 전송요청번호(requestNum)
+	var orgRequestNum = '';
+	
+	// 발신번호, 공백처리시 기존전송정보로 재전송
+	var senderNum = '';
+	
+	// 발신자명, 공백처리시 기존전송정보로 재전송
+	var senderName = '';
+	
+	// 수신번호, 공백처리시 기존전송정보로 재전송
+	var receiveNum = '';
+	
+	// 수신자명, 공백처리시 기존전송정보로 재전송
+	var receiveName = '';
+	
+	// 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
+	var reserveDT = '';
+	
+	// 팩스제목
+	var title = '팩스재전송 (요청번호할당)';
+	
+	// 전송요청번호
+	// 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+	// 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+	var reqeustNum = '';
+	
+	// 팝빌회원 아이디
+	var userID = 'testkorea';
+	
+	faxService.resendFaxRN( testCorpNum, orgRequestNum, senderNum, senderName, receiveNum, receiveName,
+		reserveDT, title, reqeustNum,
+		function ( receiptNum ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: receiptNum,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 파트너가 할당한 전송요청 번호를 통해 다수건의 팩스를 재전송합니다. (최대 전송파일 개수: 20개) (최대 1,000건)
@@ -507,1089 +512,1184 @@ router.get('/resendFAXRN', function (req, res, next) {
  * - 변환실패 사유로 전송실패한 팩스 접수건은 재전송이 불가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/send#ResendFAXRNSame
  */
-router.get('/resendFAXRN_multi', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 원본 팩스 전송시 할당한 전송요청번호(requestNum)
-    var orgRequestNum = '';
-
-    // 발신번호, 공백처리시 기존전송정보로 재전송
-    var senderNum = '';
-
-    // 발신자명, 공백처리시 기존전송정보로 재전송
-    var senderName = '';
-
-    //수신자정보 배열, 최대 1000건
-    var Receivers = [{
-        receiveName: '수신자명1', // 수신자명
-        receiveNum: '', // 수신팩스번호
-        interOPRefKey: '20220629-FAX005' // 파트너 지정키, 수신자 구별용 메모
-    },
-    {
-        receiveName: '수신자명2',
-        receiveNum: '',
-        interOPRefKey: '20220629-FAX006' // 파트너 지정키, 수신자 구별용 메모
-    }
-    ]
-    // 수신자정보를 기존전송정보와 동일하게 재전송하는 경우 아래코드 적용
-    //var Receivers = null;
-
-    // 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
-    var reserveDT = '';
-
-    // 팩스제목
-    var title = '팩스재전송 대량 전송 (요청번호할당)';
-
-    // 팩스 접수번호
-    var reqeustNum = '';
-
-    // 팝빌회원 아이디
-    var userID = "testkorea";
-
-    faxService.resendFaxRN(testCorpNum, orgRequestNum, senderNum, senderName, Receivers, "",
-        reserveDT, title, reqeustNum,
-        function (receiptNum) {
-            res.render('result', {
-                path: req.path,
-                result: receiptNum
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/resendFAXRN_multi', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 원본 팩스 전송시 할당한 전송요청번호(requestNum)
+	var orgRequestNum = '';
+	
+	// 발신번호, 공백처리시 기존전송정보로 재전송
+	var senderNum = '';
+	
+	// 발신자명, 공백처리시 기존전송정보로 재전송
+	var senderName = '';
+	
+	//수신자정보 배열, 최대 1000건
+	var Receivers = [
+		{
+			receiveName  : '수신자명1', // 수신자명
+			receiveNum   : '', // 수신팩스번호
+			interOPRefKey: '20220629-FAX005', // 파트너 지정키, 수신자 구별용 메모
+		},
+		{
+			receiveName  : '수신자명2',
+			receiveNum   : '',
+			interOPRefKey: '20220629-FAX006', // 파트너 지정키, 수신자 구별용 메모
+		},
+	];
+	// 수신자정보를 기존전송정보와 동일하게 재전송하는 경우 아래코드 적용
+	//var Receivers = null;
+	
+	// 예약전송일시 날짜형식(yyyyMMddHHmmss), 미기재시 즉시전송
+	var reserveDT = '';
+	
+	// 팩스제목
+	var title = '팩스재전송 대량 전송 (요청번호할당)';
+	
+	// 팩스 접수번호
+	var reqeustNum = '';
+	
+	// 팝빌회원 아이디
+	var userID = 'testkorea';
+	
+	faxService.resendFaxRN( testCorpNum, orgRequestNum, senderNum, senderName, Receivers, '',
+		reserveDT, title, reqeustNum,
+		function ( receiptNum ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: receiptNum,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팝빌에서 반환받은 접수번호를 통해 예약접수된 팩스 전송을 취소합니다. (예약시간 10분 전까지 가능)
  * - https://developers.popbill.com/reference/fax/node/api/send#CancelReserve
  */
-router.get('/cancelReserve', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팩스전송 접수번호
-    var receiptNum = '018092811330600001';
-
-    faxService.cancelReserve(testCorpNum, receiptNum,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/cancelReserve', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팩스전송 접수번호
+	var receiptNum = '018092811330600001';
+	
+	faxService.cancelReserve( testCorpNum, receiptNum,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 파트너가 할당한 전송요청 번호를 통해 예약접수된 팩스 전송을 취소합니다. (예약시간 10분 전까지 가능)
  * - https://developers.popbill.com/reference/fax/node/api/send#CancelReserveRN
  */
-router.get('/cancelReserveRN', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팩스전송 요청번호
-    var requestNum = '';
-
-    faxService.cancelReserveRN(testCorpNum, requestNum,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/cancelReserveRN', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팩스전송 요청번호
+	var requestNum = '';
+	
+	faxService.cancelReserveRN( testCorpNum, requestNum,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팝빌에서 반환 받은 접수번호를 통해 팩스 전송상태 및 결과를 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/info#GetFaxResult
  */
-router.get('/getFaxResult', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팩스전송 접수번호
-    var receiptNum = '022070116363600001';
-
-    faxService.getFaxResult(testCorpNum, receiptNum,
-        function (result) {
-            res.render('Fax/FaxResult', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getFaxResult', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팩스전송 접수번호
+	var receiptNum = '022070116363600001';
+	
+	faxService.getFaxResult( testCorpNum, receiptNum,
+		function ( result ) {
+			res.render( 'Fax/FaxResult', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 파트너가 할당한 전송요청 번호를 통해 팩스 전송상태 및 결과를 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/info#GetFaxResultRN
  */
-router.get('/getFaxResultRN', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팩스전송 요청번호
-    var requestNum = '';
-
-    faxService.getFaxResultRN(testCorpNum, requestNum,
-        function (result) {
-            res.render('Fax/FaxResult', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getFaxResultRN', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팩스전송 요청번호
+	var requestNum = '';
+	
+	faxService.getFaxResultRN( testCorpNum, requestNum,
+		function ( result ) {
+			res.render( 'Fax/FaxResult', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 검색조건에 해당하는 팩스 전송내역 목록을 조회합니다. (조회기간 단위 : 최대 2개월)
  * - 팩스 접수일시로부터 2개월 이내 접수건만 조회할 수 있습니다.
  * - https://developers.popbill.com/reference/fax/node/api/info#Search
  */
-router.get('/search', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 시작일자, 날짜형식(yyyyMMdd)
-    var SDate = '20220601';
-
-    // 종료일자, 날짜형식(yyyyMMdd)
-    var EDate = '20220629';
-
-    // 전송상태 배열 ("1" , "2" , "3" , "4" 중 선택, 다중 선택 가능)
-    // └ 1 = 대기 , 2 = 성공 , 3 = 실패 , 4 = 취소
-    // - 미입력 시 전체조회
-    var State = [1, 2, 3, 4];
-
-    // 예약여부 (false , true 중 택 1)
-    // └ false = 전체조회, true = 예약전송건 조회
-    // - 미입력시 기본값 false 처리
-    var ReserveYN = false;
-
-    // 개인조회 여부 (false , true 중 택 1)
-    // false = 접수한 팩스 전체 조회 (관리자권한)
-    // true = 해당 담당자 계정으로 접수한 팩스만 조회 (개인권한)
-    // 미입력시 기본값 false 처리
-    var SenderOnly = false;
-
-    // 정렬방향, D-내림차순, A-오름차순
-    var Order = 'D';
-
-    // 페이지 번호
-    var Page = 1;
-
-    // 페이지당 검색개수, 최대 1000건
-    var PerPage = 10;
-
-    // 조회하고자 하는 발신자명 또는 수신자명
-    // - 미입력시 전체조회
-    var QString = '';
-
-    faxService.search(testCorpNum, SDate, EDate, State, ReserveYN, SenderOnly, Order, Page, PerPage, QString,
-        function (result) {
-            res.render('Fax/Search', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/search', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 시작일자, 날짜형식(yyyyMMdd)
+	var SDate = '20220601';
+	
+	// 종료일자, 날짜형식(yyyyMMdd)
+	var EDate = '20220629';
+	
+	// 전송상태 배열 ("1" , "2" , "3" , "4" 중 선택, 다중 선택 가능)
+	// └ 1 = 대기 , 2 = 성공 , 3 = 실패 , 4 = 취소
+	// - 미입력 시 전체조회
+	var State = [
+		1,
+		2,
+		3,
+		4,
+	];
+	
+	// 예약여부 (false , true 중 택 1)
+	// └ false = 전체조회, true = 예약전송건 조회
+	// - 미입력시 기본값 false 처리
+	var ReserveYN = false;
+	
+	// 개인조회 여부 (false , true 중 택 1)
+	// false = 접수한 팩스 전체 조회 (관리자권한)
+	// true = 해당 담당자 계정으로 접수한 팩스만 조회 (개인권한)
+	// 미입력시 기본값 false 처리
+	var SenderOnly = false;
+	
+	// 정렬방향, D-내림차순, A-오름차순
+	var Order = 'D';
+	
+	// 페이지 번호
+	var Page = 1;
+	
+	// 페이지당 검색개수, 최대 1000건
+	var PerPage = 10;
+	
+	// 조회하고자 하는 발신자명 또는 수신자명
+	// - 미입력시 전체조회
+	var QString = '';
+	
+	faxService.search( testCorpNum, SDate, EDate, State, ReserveYN, SenderOnly, Order, Page, PerPage, QString,
+		function ( result ) {
+			res.render( 'Fax/Search', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팝빌 사이트와 동일한 팩스 전송내역 확인 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/info#GetSentListURL
  */
-router.get('/getSentListURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    faxService.getSentListURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getSentListURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	faxService.getSentListURL( testCorpNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팩스 미리보기 팝업 URL을 반환하며, 팩스전송을 위한 TIF 포맷 변환 완료 후 호출 할 수 있습니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/info#GetPreviewURL
  */
-router.get('/getPreviewURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팩스 접수번호
-    var receiptNum = '018091015373100001';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    faxService.getPreviewURL(testCorpNum, receiptNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getPreviewURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팩스 접수번호
+	var receiptNum = '018091015373100001';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	faxService.getPreviewURL( testCorpNum, receiptNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#GetBalance
  */
-router.get('/getBalance', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    faxService.getBalance(testCorpNum,
-        function (remainPoint) {
-            res.render('result', {
-                path: req.path,
-                result: remainPoint
-            })
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getBalance', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	faxService.getBalance( testCorpNum,
+		function ( remainPoint ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: remainPoint,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#GetChargeURL
  */
-router.get('/getChargeURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    faxService.getChargeURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getChargeURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	faxService.getChargeURL( testCorpNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#GetPaymentURL
  */
-router.get('/getPaymentURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    faxService.getPaymentURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getPaymentURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	faxService.getPaymentURL( testCorpNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#GetUseHistoryURL
  */
-router.get('/getUseHistoryURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    faxService.getUseHistoryURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getUseHistoryURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	faxService.getUseHistoryURL( testCorpNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 파트너의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#GetPartnerBalance
  */
-router.get('/getPartnerBalance', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    faxService.getPartnerBalance(testCorpNum,
-        function (remainPoint) {
-            res.render('result', {
-                path: req.path,
-                result: remainPoint
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getPartnerBalance', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	faxService.getPartnerBalance( testCorpNum,
+		function ( remainPoint ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: remainPoint,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#GetPartnerURL
  */
-router.get('/getPartnerURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // CHRG(포인트충전)
-    var TOGO = 'CHRG';
-
-    faxService.getPartnerURL(testCorpNum, TOGO,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getPartnerURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// CHRG(포인트충전)
+	var TOGO = 'CHRG';
+	
+	faxService.getPartnerURL( testCorpNum, TOGO,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팩스 전송시 과금되는 포인트 단가를 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#GetUnitCost
  */
-router.get('/getUnitCost', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 수신번호 유형, 일반 / 지능 중 택 1
-    var receiveNumType = '지능';
-
-    faxService.getUnitCost(testCorpNum, receiveNumType,
-        function (unitCost) {
-            res.render('result', {
-                path: req.path,
-                result: unitCost
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getUnitCost', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 수신번호 유형, 일반 / 지능 중 택 1
+	var receiveNumType = '지능';
+	
+	faxService.getUnitCost( testCorpNum, receiveNumType,
+		function ( unitCost ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: unitCost,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팝빌 팩스 API 서비스 과금정보를 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#GetChargeInfo
  */
-router.get('/getChargeInfo', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 수신번호 유형, 일반 / 지능 중 택 1
-    var receiveNumType = '지능';
-
-    // 팝빌회원 아이디
-    var userID = 'testkorea';
-
-    faxService.getChargeInfo(testCorpNum, receiveNumType, userID,
-        function (result) {
-            res.render('Base/getChargeInfo', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getChargeInfo', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 수신번호 유형, 일반 / 지능 중 택 1
+	var receiveNumType = '지능';
+	
+	// 팝빌회원 아이디
+	// 팝빌 회원 아이디
+	var UserID = 'testkorea';
+	
+	faxService.getChargeInfo( testCorpNum, receiveNumType, userID,
+		function ( result ) {
+			res.render( 'Base/getChargeInfo', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/member#CheckIsMember
  */
-router.get('/checkIsMember', function (req, res, next) {
-
-    // 조회할 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    faxService.checkIsMember(testCorpNum,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/checkIsMember', function ( req, res, next ) {
+	
+	// 조회할 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	faxService.checkIsMember( testCorpNum,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/member#CheckID
  */
-router.get('/checkID', function (req, res, next) {
-
-    // 조회할 아이디
-    var testID = 'testkorea';
-
-    faxService.checkID(testID,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/checkID', function ( req, res, next ) {
+	
+	// 조회할 아이디
+	var testID = 'testkorea';
+	
+	faxService.checkID( testID,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 사용자를 연동회원으로 가입처리합니다.
  * - https://developers.popbill.com/reference/fax/node/api/member#JoinMember
  */
-router.get('/joinMember', function (req, res, next) {
-
-    // 회원정보
-    var joinInfo = {
-
-        // 회원 아이디 (6자 이상 50자 미만)
-        ID: 'userid',
-
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
-        Password: 'asdf8536!@#',
-
-        // 링크아이디
-        LinkID: faxService._config.LinkID,
-
-        // 사업자번호, '-' 제외 10자리
-        CorpNum: '1234567890',
-
-        // 대표자명 (최대 100자)
-        CEOName: '대표자성명',
-
-        // 상호 (최대 200자)
-        CorpName: '테스트상호',
-
-        // 주소 (최대 300자)
-        Addr: '주소',
-
-        // 업태 (최대 100자)
-        BizType: '업태',
-
-        // 종목 (최대 100자)
-        BizClass: '업종',
-
-        // 담당자 성명 (최대 100자)
-        ContactName: '담당자 성명',
-
-        // 담당자 이메일 (최대 20자)
-        ContactEmail: '',
-
-        // 담당자 연락처 (최대 20자)
-        ContactTEL: ''
-
-    };
-
-    faxService.joinMember(joinInfo,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/joinMember', function ( req, res, next ) {
+	
+	// 회원정보
+	var joinInfo = {
+		
+		// 회원 아이디 (6자 이상 50자 미만)
+		ID: 'userid',
+		
+		// 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+		Password: 'asdf8536!@#',
+		
+		// 링크아이디
+		LinkID: faxService._config.LinkID,
+		
+		// 사업자번호, '-' 제외 10자리
+		CorpNum: '1234567890',
+		
+		// 대표자명 (최대 100자)
+		CEOName: '대표자성명',
+		
+		// 상호 (최대 200자)
+		CorpName: '테스트상호',
+		
+		// 주소 (최대 300자)
+		Addr: '주소',
+		
+		// 업태 (최대 100자)
+		BizType: '업태',
+		
+		// 종목 (최대 100자)
+		BizClass: '업종',
+		
+		// 담당자 성명 (최대 100자)
+		ContactName: '담당자 성명',
+		
+		// 담당자 이메일 (최대 20자)
+		ContactEmail: '',
+		
+		// 담당자 연락처 (최대 20자)
+		ContactTEL: '',
+		
+	};
+	
+	faxService.joinMember( joinInfo,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/member#GetAccessURL
  */
-router.get('/getAccessURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    faxService.getAccessURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getAccessURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	faxService.getAccessURL( testCorpNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원의 회사정보를 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/member#GetCorpInfo
  */
-router.get('/getCorpInfo', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    faxService.getCorpInfo(testCorpNum,
-        function (result) {
-            res.render('Base/getCorpInfo', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getCorpInfo', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	faxService.getCorpInfo( testCorpNum,
+		function ( result ) {
+			res.render( 'Base/getCorpInfo', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원의 회사정보를 수정합니다
  * - https://developers.popbill.com/reference/fax/node/api/member#UpdateCorpInfo
  */
-router.get('/updateCorpInfo', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 회사정보
-    var corpInfo = {
-
-        // 대표자명 (최대 100자)
-        ceoname: "대표자성명_nodejs",
-
-        // 상호 (최대 200자)
-        corpName: "업체명_nodejs",
-
-        // 주소 (최대 300자)
-        addr: "서구 천변좌로_nodejs",
-
-        // 업태 (최대 100자)
-        bizType: "업태_nodejs",
-
-        // 종목 (최대 100자)
-        bizClass: "종목_nodejs"
-
-    };
-
-    faxService.updateCorpInfo(testCorpNum, corpInfo,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/updateCorpInfo', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 회사정보
+	var corpInfo = {
+		
+		// 대표자명 (최대 100자)
+		ceoname: '대표자성명_nodejs',
+		
+		// 상호 (최대 200자)
+		corpName: '업체명_nodejs',
+		
+		// 주소 (최대 300자)
+		addr: '서구 천변좌로_nodejs',
+		
+		// 업태 (최대 100자)
+		bizType: '업태_nodejs',
+		
+		// 종목 (최대 100자)
+		bizClass: '종목_nodejs',
+		
+	};
+	
+	faxService.updateCorpInfo( testCorpNum, corpInfo,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://developers.popbill.com/reference/fax/node/api/member#RegistContact
  */
-router.get('/registContact', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 담당자 정보
-    var contactInfo = {
-
-        // 아이디 (6자 이상 50자 미만)
-        id: 'testkorea03033',
-
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
-        Password: 'asdf8536!@#',
-
-        // 담당자명 (최대 100자)
-        personName: '담당자명0309',
-
-        // 연락처 (최대 20자)
-        tel: '',
-
-        // 이메일 (최대 100자)
-        email: '',
-
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
-        searchRole: 3
-
-    };
-
-    faxService.registContact(testCorpNum, contactInfo,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/registContact', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 담당자 정보
+	var contactInfo = {
+		
+		// 아이디 (6자 이상 50자 미만)
+		id: 'testkorea03033',
+		
+		// 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+		Password: 'asdf8536!@#',
+		
+		// 담당자명 (최대 100자)
+		personName: '담당자명0309',
+		
+		// 연락처 (최대 20자)
+		tel: '010-1234-1234',
+		
+		// 이메일 (최대 100자)
+		email: 'test@email.com',
+		
+		// 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+		searchRole: 3,
+		
+	};
+	
+	faxService.registContact( testCorpNum, contactInfo,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/member#GetContactInfo
  */
-router.get('/getContactInfo', function (req, res, next) {
-
-    // 팝빌회원 사업자번호
-    var testCorpNum = '1234567890';
-
-    // 확인할 담당자 아이디
-    var contactID = 'checkContactID';
-
-    faxService.getContactInfo(testCorpNum, contactID,
-        function (result) {
-            res.render('Base/getContactInfo', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getContactInfo', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호
+	var testCorpNum = '1234567890';
+	
+	// 확인할 담당자 아이디
+	var contactID = 'checkContactID';
+	
+	faxService.getContactInfo( testCorpNum, contactID,
+		function ( result ) {
+			res.render( 'Base/getContactInfo', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/member#ListContact
  */
-router.get('/listContact', function (req, res, next) {
-
-    // 조회할 아이디
-    var testCorpNum = '1234567890';
-
-    faxService.listContact(testCorpNum,
-        function (result) {
-            res.render('Base/listContact', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/listContact', function ( req, res, next ) {
+	
+	// 조회할 아이디
+	var testCorpNum = '1234567890';
+	
+	faxService.listContact( testCorpNum,
+		function ( result ) {
+			res.render( 'Base/listContact', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://developers.popbill.com/reference/fax/node/api/member#UpdateContact
  */
-router.get('/updateContact', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-
-    // 담당자 정보 항목
-    var contactInfo = {
-
-        // 담당자 아이디
-        id: testUserID,
-
-        // 담당자명 (최대 100자)
-        personName: '담당자명0309',
-
-        // 연락처 (최대 20자)
-        tel: '',
-
-        // 이메일 (최대 100자)
-        email: '',
-
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
-        searchRole: 3
-
-    };
-
-    faxService.updateContact(testCorpNum, testUserID, contactInfo,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/updateContact', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	// 담당자 정보 항목
+	var contactInfo = {
+		
+		// 담당자 아이디
+		id: testUserID,
+		
+		// 담당자명 (최대 100자)
+		personName: '담당자명0309',
+		
+		// 연락처 (최대 20자)
+		tel: '010-1234-1234',
+		
+		// 이메일 (최대 100자)
+		email: 'test@email.com',
+		
+		// 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+		searchRole: 3,
+		
+	};
+	
+	faxService.updateContact( testCorpNum, testUserID, contactInfo,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /**
  * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#PaymentRequest
  */
-router.get('/paymentRequest', function (req, res, next) {
-    // 팝빌회원 사업자 번호
-    var CorpNUm = ""
-    // 담당자명
-    var SettlerName = ""
-    // 담당자 이메일
-    var SettlerEmail = ""
-    // 담당자 휴대폰
-    var NotifyHP = ""
-    // 입금자명
-    var PaymentName = ""
-    // 결제금액
-    var SettleCost = ""
-
-    // 입금신청 객체 정보
-    var PaymentForm = {
-        settlerName: SettlerName,
-        settlerEmail: SettlerEmail,
-        notifyHP: NotifyHP,
-        paymentName: PaymentName,
-        settleCost: SettleCost,
-    }
-    // 팝빌회원 아이디
-    var UserID = ""
-
-    faxService.paymentRequest(CorpNUm, PaymentForm, UserID,
-        function (result) {
-            res.render('Base/paymentResponse', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-})
+router.get( '/paymentRequest', function ( req, res, next ) {
+	// 팝빌회원 사업자 번호
+	var CorpNum = '1234567890';
+	// 담당자명
+	var SettlerName = '';
+	// 담당자 이메일
+	var SettlerEmail = '';
+	// 담당자 휴대폰
+	var NotifyHP = '';
+	// 입금자명
+	var PaymentName = '';
+	// 결제금액
+	var SettleCost = '';
+	
+	// 입금신청 객체 정보
+	var PaymentForm = {
+		settlerName : SettlerName,
+		settlerEmail: SettlerEmail,
+		notifyHP    : NotifyHP,
+		paymentName : PaymentName,
+		settleCost  : SettleCost,
+	};
+	// 팝빌회원 아이디
+	var UserID = 'testkorea';
+	
+	faxService.paymentRequest( CorpNUm, PaymentForm, UserID,
+		function ( result ) {
+			res.render( 'Base/paymentResponse', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /**
  * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#GetSettleResult
  */
-router.get('/getSettleResult', function (req, res, next) {
-    // 팝빌회원 사업자 번호
-    var CorpNum = ""
-    // 정산코드 - PaymentRequest 호출시 반환되는 값
-    var SettleCode = ""
-    // 팝빌회원 아이디
-    var UserID = ""
-
-    faxService.getBulkResult(CorpNum, SettleCode, UserID,
-        function (result) {
-            res.render('Base/paymentHistory', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-})
+router.get( '/getSettleResult', function ( req, res, next ) {
+	// 팝빌회원 사업자 번호
+	var CorpNum = '1234567890';
+	// 정산코드 - PaymentRequest 호출시 반환되는 값
+	var SettleCode = '';
+	// 팝빌회원 아이디
+	var UserID = 'testkorea';
+	
+	faxService.getBulkResult( CorpNum, SettleCode, UserID,
+		function ( result ) {
+			res.render( 'Base/paymentHistory', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /**
  * 연동회원의 포인트 결제내역을 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#GetPaymentHistory
  */
-router.get('/getPaymentHistory', function (req, res, next) {
-    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
-    var CorpNum = ""
-    // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230101"
-    // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230107"
-    // 목록 페이지번호 (기본값 1)
-    var Page = 1
-    // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
-    var PerPage = 500
-    // 팝빌회원 아이디
-    var UserID = ""
-
-    faxService.getPaymentHistory(CorpNum, SDate, EDate, Page, PerPage, UserID,
-        function (result) {
-            res.render('Base/paymentHistoryResult', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-})
+router.get( '/getPaymentHistory', function ( req, res, next ) {
+	// 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
+	var CorpNum = '1234567890';
+	// 조회 기간의 시작일자 (형식 : yyyyMMdd)
+	var SDate = '20230101';
+	// 조회 기간의 종료일자 (형식 : yyyyMMdd)
+	var EDate = '20230107';
+	// 목록 페이지번호 (기본값 1)
+	var Page = 1;
+	// 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+	var PerPage = 500;
+	// 팝빌회원 아이디
+	var UserID = 'testkorea';
+	
+	faxService.getPaymentHistory( CorpNum, SDate, EDate, Page, PerPage, UserID,
+		function ( result ) {
+			res.render( 'Base/paymentHistoryResult', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /**
  * 연동회원의 포인트 사용내역을 확인합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#GetUseHistory
  */
-router.get('/getUseHistory', function (req, res, next) {
-    var CorpNum = ""
-    var SDate = ""
-    var EDate = ""
-    var Page = 1
-    var PerPage = 500
-    var Order = ""
-    var UserID = ""
-
-
-    faxService.getUseHistory(CorpNum, SDate, EDate, Page, PerPage, Order, UserID,
-        function (result) {
-            res.render('Base/useHistoryResult', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-})
+router.get( '/getUseHistory', function ( req, res, next ) {
+	var CorpNum = '1234567890';
+	var SDate = '';
+	var EDate = '';
+	var Page = 1;
+	var PerPage = 500;
+	var Order = '';
+	var UserID = 'testkorea';
+	
+	faxService.getUseHistory( CorpNum, SDate, EDate, Page, PerPage, Order, UserID,
+		function ( result ) {
+			res.render( 'Base/useHistoryResult', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /**
  * 연동회원 포인트를 환불 신청합니다.
  * - https://developers.popbill.com/reference/fax/node/api/point#Refund
  */
-router.get('/refund', function (req, res, next) {
-    var CorpNum = ""
-    var RefundForm = {
-        contactName: "",
-        tel: "",
-        requestPoint: "",
-        accountBank: "",
-        accountNum: "",
-        accountName: "",
-        reason: "",
-    }
-    var UserID = ""
-
-    faxService.refund(CorpNum, RefundForm, UserID,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-})
-
-
+router.get( '/refund', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var CorpNum = '1234567890';
+	
+	// 환불신청 객체정보
+	var RefundForm = {
+		
+		// 담당자명
+		contactName: '환불_담당자',
+		
+		// 담당자 연락처
+		tel: '010-1234-1234',
+		
+		// 환불 신청 포인트
+		requestPoint: '1000',
+		
+		// 은행명
+		accountBank: '국민',
+		
+		// 계좌번호
+		accountNum: '123123123-123',
+		
+		// 예금주명
+		accountName: '환불_예금주',
+		
+		// 환불 사유
+		reason: '환불사유',
+	};
+	
+	// 팝빌 회원 아이디
+	var UserID = 'testkorea';
+	
+	faxService.refund( CorpNum, RefundForm, UserID,
+		function ( result ) {
+			res.render( 'response', {
+				path      : req.path,
+				code      : result.code,
+				message   : result.message,
+				refundCode: result.refundCode,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /**
  * 연동회원의 포인트 환불신청내역을 확인합니다.
  * https://developers.popbill.com/reference/fax/node/api/point#GetRefundHistory
  */
-router.get('/getRefundHistory', function (req, res, next) {
+router.get( '/getRefundHistory', function ( req, res, next ) {
+	
+	var CorpNum = '1234567890';
+	var Page = 1;
+	var PerPage = 500;
+	var UserID = 'testkorea';
+	
+	faxService.getRefundHistory( CorpNum, Page, PerPage, UserID,
+		function ( result ) {
+			res.render( 'Base/RefundHistoryResult', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
-    var CorpNum = ""
-    var Page = 1
-    var PerPage = 500
-    var UserID = ""
+/**
+ * 회원 탈퇴를 합니다.
+ * https://developers.popbill.com/reference/fax/node/api/point#QuitMember
+ */
+router.get( '/quitMember', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var CorpNum = '123456789';
+	
+	// 탈퇴 사유
+	var QuitReason = '탈퇴 사유';
+	
+	// 팝빌 회원 아이디
+	var UserID = 'testkorea';
+	
+	faxService.QuitMember( CorpNum, QuitReason, UserID, function ( result ) {
+		res.render( 'response', {
+			path: req.path, code: result.code, message: result.message,
+		} );
+	}, function ( Error ) {
+		res.render( 'response', { path: req.path, code: Error.code, message: Error.message } );
+	} );
+} );
 
-    faxService.getRefundHistory(CorpNum, Page, PerPage, UserID,
-        function (result) {
-            res.render('Base/RefundHistoryResult', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-})
+/**
+ * 환불 가능한 포인트를 조회합니다.
+ * https://developers.popbill.com/reference/fax/node/api/point#GetRefundableBalance
+ */
+router.get( '/getRefundableBalance', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var CorpNum = '123456789';
+	
+	// 팝빌 회원 아이디
+	var UserID = 'testkorea';
+	
+	faxService.GetRefundableBalance( CorpNum, UserID, function ( result ) {
+		res.render( 'Base/getRefundableBalance', {
+			path: req.path, refundableBalance: result.refundableBalance,
+		} );
+	}, function ( Error ) {
+		res.render( 'response', { path: req.path, code: Error.code, message: Error.message } );
+	} );
+} );
+
+/**
+ * 환불 신청의 상태를 확인합니다.
+ * https://developers.popbill.com/reference/fax/node/api/point#GetRefundInfo
+ */
+router.get( '/getRefundInfo', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var CorpNum = '123456789';
+	
+	// 환불 코드
+	var RefundCode = '023040000017';
+	
+	// 팝빌 회원 아이디
+	var UserID = 'testkorea';
+	
+	faxService.GetRefundInfo( CorpNum, RefundCode, UserID, function ( result ) {
+		res.render( 'Base/getRefundInfo', {
+			path  : req.path,
+			result: result,
+		} );
+	}, function ( Error ) {
+		res.render( 'response', { path: req.path, code: Error.code, message: Error.message } );
+	} );
+} );
 
 module.exports = router;

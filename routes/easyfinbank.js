@@ -1,6 +1,6 @@
-var express = require('express');
+var express = require( 'express' );
 var router = express.Router();
-var popbill = require('popbill');
+var popbill = require( 'popbill' );
 
 /*
  * 계좌조회 API 모듈 초기화
@@ -10,300 +10,300 @@ var easyFinBankService = popbill.EasyFinBankService();
 /*
  * EasyFinBank API Index 목록
  */
-router.get('/', function (req, res, next) {
-    res.render('EasyFinBank/index', {});
-});
+router.get( '/', function ( req, res, next ) {
+	res.render( 'EasyFinBank/index', {} );
+} );
 
 /*
  * 계좌조회 서비스를 이용할 계좌를 팝빌에 등록합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#RegistBankAccount
  */
-router.get('/registBankAccount', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 계좌정보
-    var bankAccountInfo = {
-
-        // 기관코드
-        // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
-        // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
-        // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
-        BankCode: '',
-
-        // 계좌번호, 하이픈('-') 제외
-        AccountNumber: '',
-
-        // 계좌비밀번호
-        AccountPWD: '',
-
-        // 계좌유형, "법인" 또는 "개인" 입력
-        AccountType: '',
-
-        // 예금주 식별정보 (‘-‘ 제외)
-        // 계좌유형이 "법인"인 경우 : 사업자번호(10자리)
-        // 계좌유형이 "개인"인 경우 : 예금주 생년월일 (6자리-YYMMDD)
-        IdentityNumber: '',
-
-        // 계좌 별칭
-        AccountName: '',
-
-        // 인터넷뱅킹 아이디 (국민은행 필수)
-        BankID: '',
-
-        // 조회전용 계정 아이디 (대구은행, 신협, 신한은행 필수)
-        FastID: '',
-
-        // 조회전용 계정 비밀번호 (대구은행, 신협, 신한은행 필수
-        FastPWD: '',
-
-        // 정액제 이용할 개월수, 1~12 입력가능
-        // - 미입력시 기본값 1개월 처리
-        // - 파트너 과금방식의 경우 입력값에 관계없이 1개월 처리
-        UsePeriod: '1',
-
-        // 메모
-        Memo: ''
-    };
-
-    easyFinBankService.registBankAccount(testCorpNum, bankAccountInfo,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/registBankAccount', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 계좌정보
+	var bankAccountInfo = {
+		
+		// 기관코드
+		// 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
+		// SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
+		// 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
+		BankCode: '',
+		
+		// 계좌번호, 하이픈('-') 제외
+		AccountNumber: '',
+		
+		// 계좌비밀번호
+		AccountPWD: '',
+		
+		// 계좌유형, "법인" 또는 "개인" 입력
+		AccountType: '',
+		
+		// 예금주 식별정보 (‘-‘ 제외)
+		// 계좌유형이 "법인"인 경우 : 사업자번호(10자리)
+		// 계좌유형이 "개인"인 경우 : 예금주 생년월일 (6자리-YYMMDD)
+		IdentityNumber: '',
+		
+		// 계좌 별칭
+		AccountName: '',
+		
+		// 인터넷뱅킹 아이디 (국민은행 필수)
+		BankID: '',
+		
+		// 조회전용 계정 아이디 (대구은행, 신협, 신한은행 필수)
+		FastID: '',
+		
+		// 조회전용 계정 비밀번호 (대구은행, 신협, 신한은행 필수
+		FastPWD: '',
+		
+		// 정액제 이용할 개월수, 1~12 입력가능
+		// - 미입력시 기본값 1개월 처리
+		// - 파트너 과금방식의 경우 입력값에 관계없이 1개월 처리
+		UsePeriod: '1',
+		
+		// 메모
+		Memo: '',
+	};
+	
+	easyFinBankService.registBankAccount( testCorpNum, bankAccountInfo,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팝빌에 등록된 계좌정보를 수정합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#UpdateBankAccount
  */
-router.get('/updateBankAccount', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 계좌정보
-    var bankAccountInfo = {
-
-        // 기관코드
-        // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
-        // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
-        // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
-        BankCode: '',
-
-        // 계좌번호, 하이픈('-') 제외
-        AccountNumber: '',
-
-        // 계좌비밀번호
-        AccountPWD: '',
-
-        // 계좌 별칭
-        AccountName: '',
-
-        // 인터넷뱅킹 아이디 (국민은행 필수)
-        BankID: '',
-
-        // 조회전용 계정 아이디 (대구은행, 신협, 신한은행 필수)
-        FastID: '',
-
-        // 조회전용 계정 비밀번호 (대구은행, 신협, 신한은행 필수
-        FastPWD: '',
-
-        // 메모
-        Memo: ''
-    };
-
-    easyFinBankService.updateBankAccount(testCorpNum, bankAccountInfo,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/updateBankAccount', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 계좌정보
+	var bankAccountInfo = {
+		
+		// 기관코드
+		// 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
+		// SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
+		// 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
+		BankCode: '',
+		
+		// 계좌번호, 하이픈('-') 제외
+		AccountNumber: '',
+		
+		// 계좌비밀번호
+		AccountPWD: '',
+		
+		// 계좌 별칭
+		AccountName: '',
+		
+		// 인터넷뱅킹 아이디 (국민은행 필수)
+		BankID: '',
+		
+		// 조회전용 계정 아이디 (대구은행, 신협, 신한은행 필수)
+		FastID: '',
+		
+		// 조회전용 계정 비밀번호 (대구은행, 신협, 신한은행 필수
+		FastPWD: '',
+		
+		// 메모
+		Memo: '',
+	};
+	
+	easyFinBankService.updateBankAccount( testCorpNum, bankAccountInfo,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팝빌에 등록된 계좌 정보를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#GetBankAccountInfo
  */
-router.get('/getBankAccountInfo', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 기관코드
-    // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
-    // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
-    // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
-    var bankCode = "";
-
-    // 계좌번호, 하이픈('-') 제외
-    var accountNumber = "";
-
-    easyFinBankService.getBankAccountInfo(testCorpNum, bankCode, accountNumber,
-        function (result) {
-            res.render('EasyFinBank/getBankAccountInfo', {
-                path: req.path,
-                info: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getBankAccountInfo', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 기관코드
+	// 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
+	// SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
+	// 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
+	var bankCode = '';
+	
+	// 계좌번호, 하이픈('-') 제외
+	var accountNumber = '';
+	
+	easyFinBankService.getBankAccountInfo( testCorpNum, bankCode, accountNumber,
+		function ( result ) {
+			res.render( 'EasyFinBank/getBankAccountInfo', {
+				path: req.path,
+				info: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팝빌에 등록된 은행계좌 목록을 반환합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#ListBankAccount
  */
-router.get('/listBankAccount', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    easyFinBankService.listBankAccount(testCorpNum,
-        function (response) {
-            res.render('EasyFinBank/listBankAccount', {
-                path: req.path,
-                result: response
-            })
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/listBankAccount', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	easyFinBankService.listBankAccount( testCorpNum,
+		function ( response ) {
+			res.render( 'EasyFinBank/listBankAccount', {
+				path  : req.path,
+				result: response,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 계좌 등록, 수정 및 삭제할 수 있는 계좌 관리 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#GetBankAccountMgtURL
  */
-router.get('/getBankAccountMgtURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    easyFinBankService.getBankAccountMgtURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getBankAccountMgtURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	easyFinBankService.getBankAccountMgtURL( testCorpNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 계좌의 정액제 해지를 요청합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#CloseBankAccount
  */
-router.get('/closeBankAccount', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 기관코드
-    // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
-    // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
-    // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
-    var bankCode = "";
-
-    // 계좌번호, 하이픈('-') 제외
-    var accountNumber = "";
-
-    // 해지유형, "일반", "중도" 중 택 1
-    // 일반(일반해지) – 이용중인 정액제 기간 만료 후 해지
-    // 중도(중도해지) – 해지 요청일 기준으로 정지되고 팝빌 담당자가 승인시 해지
-    // └ 중도일 경우, 정액제 잔여기간은 일할로 계산되어 포인트 환불 (무료 이용기간 중 해지하면 전액 환불)
-    var closeType = "중도"
-
-    easyFinBankService.closeBankAccount(testCorpNum, bankCode, accountNumber, closeType,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/closeBankAccount', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 기관코드
+	// 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
+	// SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
+	// 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
+	var bankCode = '';
+	
+	// 계좌번호, 하이픈('-') 제외
+	var accountNumber = '';
+	
+	// 해지유형, "일반", "중도" 중 택 1
+	// 일반(일반해지) – 이용중인 정액제 기간 만료 후 해지
+	// 중도(중도해지) – 해지 요청일 기준으로 정지되고 팝빌 담당자가 승인시 해지
+	// └ 중도일 경우, 정액제 잔여기간은 일할로 계산되어 포인트 환불 (무료 이용기간 중 해지하면 전액 환불)
+	var closeType = '중도';
+	
+	easyFinBankService.closeBankAccount( testCorpNum, bankCode, accountNumber, closeType,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 신청한 정액제 해지요청을 취소합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#RevokeCloseBankAccount
  */
-router.get('/revokeCloseBankAccount', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 기관코드
-    // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
-    // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
-    // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
-    var bankCode = "";
-
-    // 계좌번호, 하이픈('-') 제외
-    var accountNumber = "";
-
-    easyFinBankService.revokeCloseBankAccount(testCorpNum, bankCode, accountNumber,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/revokeCloseBankAccount', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 기관코드
+	// 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
+	// SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
+	// 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
+	var bankCode = '';
+	
+	// 계좌번호, 하이픈('-') 제외
+	var accountNumber = '';
+	
+	easyFinBankService.revokeCloseBankAccount( testCorpNum, bankCode, accountNumber,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 등록된 계좌를 삭제합니다.
@@ -311,36 +311,36 @@ router.get('/revokeCloseBankAccount', function (req, res, next) {
  * - 정액제 이용 시 정액제 해지요청(CloseBankAccount API) 함수를 사용하여 정액제를 해제할 수 있습니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#DeleteBankAccount
  */
-router.get('/deleteBankAccount', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 기관코드
-    // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
-    // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
-    // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
-    var bankCode = "";
-
-    // 계좌번호, 하이픈('-') 제외
-    var accountNumber = "";
-
-    easyFinBankService.deleteBankAccount(testCorpNum, bankCode, accountNumber,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/deleteBankAccount', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 기관코드
+	// 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
+	// SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
+	// 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
+	var bankCode = '';
+	
+	// 계좌번호, 하이픈('-') 제외
+	var accountNumber = '';
+	
+	easyFinBankService.deleteBankAccount( testCorpNum, bankCode, accountNumber,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 계좌 거래내역을 확인하기 위해 팝빌에 수집요청을 합니다. (조회기간 단위 : 최대 1개월)
@@ -348,38 +348,38 @@ router.get('/deleteBankAccount', function (req, res, next) {
  * - 반환 받은 작업아이디는 함수 호출 시점부터 1시간 동안 유효합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/job#RequestJob
  */
-router.get('/requestJob', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 기관코드
-    var bankCode = '';
-
-    // 계좌번호,  하이픈('-') 제외
-    var accountNumber = '';
-
-    // 시작일자, 날짜형식(yyyyMMdd)
-    var SDate = '20220601';
-
-    // 종료일자, 날짜형식(yyyyMMdd)
-    var EDate = '20220629';
-
-    easyFinBankService.requestJob(testCorpNum, bankCode, accountNumber, SDate, EDate,
-        function (jobID) {
-            res.render('result', {
-                path: req.path,
-                result: jobID
-            })
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/requestJob', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 기관코드
+	var bankCode = '';
+	
+	// 계좌번호,  하이픈('-') 제외
+	var accountNumber = '';
+	
+	// 시작일자, 날짜형식(yyyyMMdd)
+	var SDate = '20220601';
+	
+	// 종료일자, 날짜형식(yyyyMMdd)
+	var EDate = '20220629';
+	
+	easyFinBankService.requestJob( testCorpNum, bankCode, accountNumber, SDate, EDate,
+		function ( jobID ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: jobID,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 수집 요청(RequestJob API) 함수를 통해 반환 받은 작업 아이디의 상태를 확인합니다.
@@ -391,991 +391,1086 @@ router.get('/requestJob', function (req, res, next) {
  *   오류메시지(errorReason)로 수집 실패에 대한 원인을 파악할 수 있습니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/job#GetJobState
  */
-router.get('/getJobState', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 수집 요청(requestJob API)시 반환반은 작업아이디(jobID)
-    var jobID = '021123110000000001';
-
-    easyFinBankService.getJobState(testCorpNum, jobID,
-        function (response) {
-            res.render('EasyFinBank/jobState', {
-                path: req.path,
-                result: response
-            })
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getJobState', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 수집 요청(requestJob API)시 반환반은 작업아이디(jobID)
+	var jobID = '021123110000000001';
+	
+	easyFinBankService.getJobState( testCorpNum, jobID,
+		function ( response ) {
+			res.render( 'EasyFinBank/jobState', {
+				path  : req.path,
+				result: response,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 수집 요청(RequestJob API) 함수를 통해 반환 받은 작업아이디의 목록을 확인합니다.
  * - 수집 요청 후 1시간이 경과한 수집 요청건은 상태정보가 반환되지 않습니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/job#ListActiveJob
  */
-router.get('/listActiveJob', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    easyFinBankService.listActiveJob(testCorpNum,
-        function (response) {
-            res.render('EasyFinBank/listActiveJob', {
-                path: req.path,
-                result: response
-            })
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/listActiveJob', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	easyFinBankService.listActiveJob( testCorpNum,
+		function ( response ) {
+			res.render( 'EasyFinBank/listActiveJob', {
+				path  : req.path,
+				result: response,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 수집 상태 확인(GetJobState API) 함수를 통해 상태 정보가 확인된 작업아이디를 활용하여 계좌 거래 내역을 조회합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/search#Search
  */
-router.get('/search', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 수집 요청(RequestJob API) 함수 호출시 반환받은 작업아이디
-    var jobID = '021072414000000001';
-
-    // 거래유형 배열 ("I" 와 "O" 중 선택, 다중 선택 가능)
-    // └ I = 입금 , O = 출금
-    // - 미입력 시 전체조회
-    var tradeType = ['I', 'O'];
-
-    // "입·출금액" / "메모" / "비고" 중 검색하고자 하는 값 입력
-    // - 메모 = 거래내역 메모저장(SaveMemo API) 함수를 사용하여 저장한 값
-    // - 비고 = EasyFinBankSearchDetail의 remark1, remark2, remark3 값
-    // - 미입력시 전체조회
-    var searchString = '';
-
-    // 페이지번호
-    var page = 1;
-
-    // 페이지당 검색개수
-    var perPage = 10;
-
-    // 정렬방향, D-내림차순, A-오름차순
-    var order = 'D';
-
-    easyFinBankService.search(testCorpNum, jobID, tradeType, searchString, page, perPage, order,
-        function (response) {
-            res.render('EasyFinBank/search', {
-                path: req.path,
-                result: response
-            })
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/search', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 수집 요청(RequestJob API) 함수 호출시 반환받은 작업아이디
+	var jobID = '021072414000000001';
+	
+	// 거래유형 배열 ("I" 와 "O" 중 선택, 다중 선택 가능)
+	// └ I = 입금 , O = 출금
+	// - 미입력 시 전체조회
+	var tradeType = [
+		'I',
+		'O',
+	];
+	
+	// "입·출금액" / "메모" / "비고" 중 검색하고자 하는 값 입력
+	// - 메모 = 거래내역 메모저장(SaveMemo API) 함수를 사용하여 저장한 값
+	// - 비고 = EasyFinBankSearchDetail의 remark1, remark2, remark3 값
+	// - 미입력시 전체조회
+	var searchString = '';
+	
+	// 페이지번호
+	var page = 1;
+	
+	// 페이지당 검색개수
+	var perPage = 10;
+	
+	// 정렬방향, D-내림차순, A-오름차순
+	var order = 'D';
+	
+	easyFinBankService.search( testCorpNum, jobID, tradeType, searchString, page, perPage, order,
+		function ( response ) {
+			res.render( 'EasyFinBank/search', {
+				path  : req.path,
+				result: response,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 수집 상태 확인(GetJobState API) 함수를 통해 상태 정보가 확인된 작업아이디를 활용하여 계좌 거래내역의 요약 정보를 조회합니다.
  * - 요약 정보 : 입·출 금액 합계, 입·출 거래 건수
  * - https://developers.popbill.com/reference/easyfinbank/node/api/search#Summary
  */
-router.get('/summary', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 수집 요청(requestJob API)시 반환반은 작업아이디(jobID)
-    var jobID = '021123110000000004';
-
-    // 거래유형 배열 ("I" 와 "O" 중 선택, 다중 선택 가능)
-    // └ I = 입금 , O = 출금
-    // - 미입력 시 전체조회
-    var tradeType = ['I', 'O'];
-
-    // "입·출금액" / "메모" / "비고" 중 검색하고자 하는 값 입력
-    // - 메모 = 거래내역 메모저장(SaveMemo API) 함수를 사용하여 저장한 값
-    // - 비고 = EasyFinBankSearchDetail의 remark1, remark2, remark3 값
-    // - 미입력시 전체조회
-    var searchString = '';
-
-    easyFinBankService.summary(testCorpNum, jobID, tradeType, searchString,
-        function (response) {
-            res.render('EasyFinBank/summary', {
-                path: req.path,
-                result: response
-            })
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/summary', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 수집 요청(requestJob API)시 반환반은 작업아이디(jobID)
+	var jobID = '021123110000000004';
+	
+	// 거래유형 배열 ("I" 와 "O" 중 선택, 다중 선택 가능)
+	// └ I = 입금 , O = 출금
+	// - 미입력 시 전체조회
+	var tradeType = [
+		'I',
+		'O',
+	];
+	
+	// "입·출금액" / "메모" / "비고" 중 검색하고자 하는 값 입력
+	// - 메모 = 거래내역 메모저장(SaveMemo API) 함수를 사용하여 저장한 값
+	// - 비고 = EasyFinBankSearchDetail의 remark1, remark2, remark3 값
+	// - 미입력시 전체조회
+	var searchString = '';
+	
+	easyFinBankService.summary( testCorpNum, jobID, tradeType, searchString,
+		function ( response ) {
+			res.render( 'EasyFinBank/summary', {
+				path  : req.path,
+				result: response,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 한 건의 거래 내역에 메모를 저장합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/search#SaveMemo
  */
-router.get('/saveMemo', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 메모를 저장할 거래내역 아이디
-    // └ 거래내역 조회(Search API) 함수의 반환 값 중 'tid'를 통해 확인 가능
-    var tid = '';
-
-    // 메모
-    var memo = 'memo-nodejs';
-
-    easyFinBankService.saveMemo(testCorpNum, tid, memo,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/saveMemo', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 메모를 저장할 거래내역 아이디
+	// └ 거래내역 조회(Search API) 함수의 반환 값 중 'tid'를 통해 확인 가능
+	var tid = '';
+	
+	// 메모
+	var memo = 'memo-nodejs';
+	
+	easyFinBankService.saveMemo( testCorpNum, tid, memo,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 계좌조회 정액제 서비스 신청 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetFlatRatePopUpURL
  */
-router.get('/getFlatRatePopUpURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    easyFinBankService.getFlatRatePopUpURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getFlatRatePopUpURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	easyFinBankService.getFlatRatePopUpURL( testCorpNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 계좌조회 정액제 서비스 상태를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetFlatRateState
  */
-router.get('/getFlatRateState', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 기관코드
-    var bankCode = '';
-
-    // 계좌번호, 하이픈('-') 제외
-    var accountNumber = '';
-
-    easyFinBankService.getFlatRateState(testCorpNum, bankCode, accountNumber,
-        function (response) {
-            res.render('EasyFinBank/flatRateState', {
-                path: req.path,
-                result: response
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getFlatRateState', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 기관코드
+	var bankCode = '';
+	
+	// 계좌번호, 하이픈('-') 제외
+	var accountNumber = '';
+	
+	easyFinBankService.getFlatRateState( testCorpNum, bankCode, accountNumber,
+		function ( response ) {
+			res.render( 'EasyFinBank/flatRateState', {
+				path  : req.path,
+				result: response,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetBalance
  */
-router.get('/getBalance', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    easyFinBankService.getBalance(testCorpNum,
-        function (remainPoint) {
-            res.render('result', {
-                path: req.path,
-                result: remainPoint
-            })
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getBalance', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	easyFinBankService.getBalance( testCorpNum,
+		function ( remainPoint ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: remainPoint,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetChargeURL
  */
-router.get('/getChargeURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    easyFinBankService.getChargeURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getChargeURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	easyFinBankService.getChargeURL( testCorpNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetPaymentURL
  */
-router.get('/getPaymentURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    easyFinBankService.getPaymentURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getPaymentURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	easyFinBankService.getPaymentURL( testCorpNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetUseHistoryURL
  */
-router.get('/getUseHistoryURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    easyFinBankService.getUseHistoryURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getUseHistoryURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	easyFinBankService.getUseHistoryURL( testCorpNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 파트너의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetPartnerBalance
  */
-router.get('/getPartnerBalance', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    easyFinBankService.getPartnerBalance(testCorpNum,
-        function (remainPoint) {
-            res.render('result', {
-                path: req.path,
-                result: remainPoint
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getPartnerBalance', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	easyFinBankService.getPartnerBalance( testCorpNum,
+		function ( remainPoint ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: remainPoint,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetPartnerURL
  */
-router.get('/getPartnerURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // CHRG(포인트충전)
-    var TOGO = 'CHRG';
-
-    easyFinBankService.getPartnerURL(testCorpNum, TOGO,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getPartnerURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// CHRG(포인트충전)
+	var TOGO = 'CHRG';
+	
+	easyFinBankService.getPartnerURL( testCorpNum, TOGO,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팝빌 계좌조회 API 서비스 과금정보를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetChargeInfo
  */
-router.get('/getChargeInfo', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    easyFinBankService.getChargeInfo(testCorpNum,
-        function (result) {
-            res.render('Base/getChargeInfo', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getChargeInfo', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	easyFinBankService.getChargeInfo( testCorpNum,
+		function ( result ) {
+			res.render( 'Base/getChargeInfo', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#CheckIsMember
  */
-router.get('/checkIsMember', function (req, res, next) {
-
-    // 조회할 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    easyFinBankService.checkIsMember(testCorpNum,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/checkIsMember', function ( req, res, next ) {
+	
+	// 조회할 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	easyFinBankService.checkIsMember( testCorpNum,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#CheckID
  */
-router.get('/checkID', function (req, res, next) {
-
-    // 조회할 아이디
-    var testID = 'testkorea';
-
-    easyFinBankService.checkID(testID,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/checkID', function ( req, res, next ) {
+	
+	// 조회할 아이디
+	var testID = 'testkorea';
+	
+	easyFinBankService.checkID( testID,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 사용자를 연동회원으로 가입처리합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#JoinMember
  */
-router.get('/joinMember', function (req, res, next) {
-
-    // 회원정보
-    var joinInfo = {
-
-        // 회원 아이디 (6자 이상 50자 미만)
-        ID: 'userid',
-
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
-        Password: 'asdf8536!@#',
-
-        // 링크아이디
-        LinkID: easyFinBankService._config.LinkID,
-
-        // 사업자번호, '-' 제외 10자리
-        CorpNum: '1234567890',
-
-        // 대표자명 (최대 100자)
-        CEOName: '대표자성명',
-
-        // 상호 (최대 200자)
-        CorpName: '테스트상호',
-
-        // 주소 (최대 300자)
-        Addr: '주소',
-
-        // 업태 (최대 100자)
-        BizType: '업태',
-
-        // 종목 (최대 100자)
-        BizClass: '업종',
-
-        // 담당자 성명 (최대 100자)
-        ContactName: '담당자 성명',
-
-        // 담당자 이메일 (최대 20자)
-        ContactEmail: '',
-
-        // 담당자 연락처 (최대 20자)
-        ContactTEL: ''
-
-    };
-
-    easyFinBankService.joinMember(joinInfo,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/joinMember', function ( req, res, next ) {
+	
+	// 회원정보
+	var joinInfo = {
+		
+		// 회원 아이디 (6자 이상 50자 미만)
+		ID: 'userid',
+		
+		// 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+		Password: 'asdf8536!@#',
+		
+		// 링크아이디
+		LinkID: easyFinBankService._config.LinkID,
+		
+		// 사업자번호, '-' 제외 10자리
+		CorpNum: '1234567890',
+		
+		// 대표자명 (최대 100자)
+		CEOName: '대표자성명',
+		
+		// 상호 (최대 200자)
+		CorpName: '테스트상호',
+		
+		// 주소 (최대 300자)
+		Addr: '주소',
+		
+		// 업태 (최대 100자)
+		BizType: '업태',
+		
+		// 종목 (최대 100자)
+		BizClass: '업종',
+		
+		// 담당자 성명 (최대 100자)
+		ContactName: '담당자 성명',
+		
+		// 담당자 이메일 (최대 20자)
+		ContactEmail: '',
+		
+		// 담당자 연락처 (최대 20자)
+		ContactTEL: '',
+		
+	};
+	
+	easyFinBankService.joinMember( joinInfo,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#GetAccessURL
  */
-router.get('/getAccessURL', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    easyFinBankService.getAccessURL(testCorpNum, testUserID,
-        function (url) {
-            res.render('result', {
-                path: req.path,
-                result: url
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getAccessURL', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	easyFinBankService.getAccessURL( testCorpNum, testUserID,
+		function ( url ) {
+			res.render( 'result', {
+				path  : req.path,
+				result: url,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원의 회사정보를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#GetCorpInfo
  */
-router.get('/getCorpInfo', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    easyFinBankService.getCorpInfo(testCorpNum,
-        function (result) {
-            res.render('Base/getCorpInfo', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getCorpInfo', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	easyFinBankService.getCorpInfo( testCorpNum,
+		function ( result ) {
+			res.render( 'Base/getCorpInfo', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원의 회사정보를 수정합니다
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#UpdateCorpInfo
  */
-router.get('/updateCorpInfo', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 회사정보
-    var corpInfo = {
-
-        // 대표자명 (최대 100자)
-        ceoname: "대표자성명_nodejs",
-
-        // 상호 (최대 200자)
-        corpName: "업체명_nodejs",
-
-        // 주소 (최대 300자)
-        addr: "서구 천변좌로_nodejs",
-
-        // 업태 (최대 100자)
-        bizType: "업태_nodejs",
-
-        // 종목 (최대 100자)
-        bizClass: "종목_nodejs"
-
-    };
-
-    easyFinBankService.updateCorpInfo(testCorpNum, corpInfo,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/updateCorpInfo', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 회사정보
+	var corpInfo = {
+		
+		// 대표자명 (최대 100자)
+		ceoname: '대표자성명_nodejs',
+		
+		// 상호 (최대 200자)
+		corpName: '업체명_nodejs',
+		
+		// 주소 (최대 300자)
+		addr: '서구 천변좌로_nodejs',
+		
+		// 업태 (최대 100자)
+		bizType: '업태_nodejs',
+		
+		// 종목 (최대 100자)
+		bizClass: '종목_nodejs',
+		
+	};
+	
+	easyFinBankService.updateCorpInfo( testCorpNum, corpInfo,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#RegistContact
  */
-router.get('/registContact', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 담당자 정보
-    var contactInfo = {
-
-        // 아이디 (6자 이상 50자 미만)
-        id: 'testkorea03033',
-
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
-        Password: 'asdf8536!@#',
-
-        // 담당자명 (최대 100자)
-        personName: '담당자명0309',
-
-        // 연락처 (최대 20자)
-        tel: '',
-
-        // 이메일 (최대 100자)
-        email: '',
-
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
-        searchRole: 3
-
-    };
-
-    easyFinBankService.registContact(testCorpNum, contactInfo,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/registContact', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 담당자 정보
+	var contactInfo = {
+		
+		// 아이디 (6자 이상 50자 미만)
+		id: 'testkorea03033',
+		
+		// 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+		Password: 'asdf8536!@#',
+		
+		// 담당자명 (최대 100자)
+		personName: '담당자명0309',
+		
+		// 연락처 (최대 20자)
+		tel: '010-1234-1234',
+		
+		// 이메일 (최대 100자)
+		email: 'test@email.com',
+		
+		// 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+		searchRole: 3,
+		
+	};
+	
+	easyFinBankService.registContact( testCorpNum, contactInfo,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#GetContactInfo
  */
-router.get('/getContactInfo', function (req, res, next) {
-
-    // 팝빌회원 사업자번호
-    var testCorpNum = '1234567890';
-
-    // 확인할 담당자 아이디
-    var contactID = 'checkContactID';
-
-    easyFinBankService.getContactInfo(testCorpNum, contactID,
-        function (result) {
-            res.render('Base/getContactInfo', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/getContactInfo', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호
+	var testCorpNum = '1234567890';
+	
+	// 확인할 담당자 아이디
+	var contactID = 'checkContactID';
+	
+	easyFinBankService.getContactInfo( testCorpNum, contactID,
+		function ( result ) {
+			res.render( 'Base/getContactInfo', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#ListContact
  */
-router.get('/listContact', function (req, res, next) {
-
-    // 조회할 아이디
-    var testCorpNum = '1234567890';
-
-    easyFinBankService.listContact(testCorpNum,
-        function (result) {
-            res.render('Base/listContact', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/listContact', function ( req, res, next ) {
+	
+	// 조회할 아이디
+	var testCorpNum = '1234567890';
+	
+	easyFinBankService.listContact( testCorpNum,
+		function ( result ) {
+			res.render( 'Base/listContact', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /*
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#UpdateContact
  */
-router.get('/updateContact', function (req, res, next) {
-
-    // 팝빌회원 사업자번호, '-' 제외 10자리
-    var testCorpNum = '1234567890';
-
-    // 팝빌회원 아이디
-    var testUserID = 'testkorea';
-
-    // 담당자 정보 항목
-    var contactInfo = {
-
-        // 담당자 아이디
-        id: testUserID,
-
-        // 담당자명 (최대 100자)
-        personName: '담당자명0309',
-
-        // 연락처 (최대 20자)
-        tel: '',
-
-        // 이메일 (최대 100자)
-        email: '',
-
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
-        searchRole: 3
-
-    };
-
-    easyFinBankService.updateContact(testCorpNum, testUserID, contactInfo,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                code: result.code,
-                message: result.message
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-});
+router.get( '/updateContact', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var testCorpNum = '1234567890';
+	
+	// 팝빌회원 아이디
+	var testUserID = 'testkorea';
+	
+	// 담당자 정보 항목
+	var contactInfo = {
+		
+		// 담당자 아이디
+		id: testUserID,
+		
+		// 담당자명 (최대 100자)
+		personName: '담당자명0309',
+		
+		// 연락처 (최대 20자)
+		tel: '010-1234-1234',
+		
+		// 이메일 (최대 100자)
+		email: 'test@email.com',
+		
+		// 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+		searchRole: 3,
+		
+	};
+	
+	easyFinBankService.updateContact( testCorpNum, testUserID, contactInfo,
+		function ( result ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : result.code,
+				message: result.message,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /**
  * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#PaymentRequest
  */
-router.get('/paymentRequest', function (req, res, next) {
-    // 팝빌회원 사업자 번호
-    var CorpNUm = ""
-    // 담당자명
-    var SettlerName = ""
-    // 담당자 이메일
-    var SettlerEmail = ""
-    // 담당자 휴대폰
-    var NotifyHP = ""
-    // 입금자명
-    var PaymentName = ""
-    // 결제금액
-    var SettleCost = ""
-
-    // 입금신청 객체 정보
-    var PaymentForm = {
-        settlerName: SettlerName,
-        settlerEmail: SettlerEmail,
-        notifyHP: NotifyHP,
-        paymentName: PaymentName,
-        settleCost: SettleCost,
-    }
-    // 팝빌회원 아이디
-    var UserID = ""
-
-    easyFinBankService.paymentRequest(CorpNUm, PaymentForm, UserID,
-        function (result) {
-            res.render('Base/paymentResponse', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-})
+router.get( '/paymentRequest', function ( req, res, next ) {
+	// 팝빌회원 사업자 번호
+	var CorpNum = '1234567890';
+	// 담당자명
+	var SettlerName = '';
+	// 담당자 이메일
+	var SettlerEmail = '';
+	// 담당자 휴대폰
+	var NotifyHP = '';
+	// 입금자명
+	var PaymentName = '';
+	// 결제금액
+	var SettleCost = '';
+	
+	// 입금신청 객체 정보
+	var PaymentForm = {
+		settlerName : SettlerName,
+		settlerEmail: SettlerEmail,
+		notifyHP    : NotifyHP,
+		paymentName : PaymentName,
+		settleCost  : SettleCost,
+	};
+	// 팝빌회원 아이디
+	var UserID = 'testkorea';
+	
+	easyFinBankService.paymentRequest( CorpNUm, PaymentForm, UserID,
+		function ( result ) {
+			res.render( 'Base/paymentResponse', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /**
  * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetSettleResult
  */
-router.get('/getSettleResult', function (req, res, next) {
-    // 팝빌회원 사업자 번호
-    var CorpNum = ""
-    // 정산코드 - PaymentRequest 호출시 반환되는 값
-    var SettleCode = ""
-    // 팝빌회원 아이디
-    var UserID = ""
-
-    easyFinBankService.getBulkResult(CorpNum, SettleCode, UserID,
-        function (result) {
-            res.render('Base/paymentHistory', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-})
+router.get( '/getSettleResult', function ( req, res, next ) {
+	// 팝빌회원 사업자 번호
+	var CorpNum = '1234567890';
+	// 정산코드 - PaymentRequest 호출시 반환되는 값
+	var SettleCode = '';
+	// 팝빌회원 아이디
+	var UserID = 'testkorea';
+	
+	easyFinBankService.getBulkResult( CorpNum, SettleCode, UserID,
+		function ( result ) {
+			res.render( 'Base/paymentHistory', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /**
  * 연동회원의 포인트 결제내역을 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetPaymentHistory
  */
-router.get('/getPaymentHistory', function (req, res, next) {
-    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
-    var CorpNum = ""
-    // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230101"
-    // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230107"
-    // 목록 페이지번호 (기본값 1)
-    var Page = 1
-    // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
-    var PerPage = 500
-    // 팝빌회원 아이디
-    var UserID = ""
-
-    easyFinBankService.getPaymentHistory(CorpNum, SDate, EDate, Page, PerPage, UserID,
-        function (result) {
-            res.render('Base/paymentHistoryResult', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-})
+router.get( '/getPaymentHistory', function ( req, res, next ) {
+	// 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
+	var CorpNum = '1234567890';
+	// 조회 기간의 시작일자 (형식 : yyyyMMdd)
+	var SDate = '20230101';
+	// 조회 기간의 종료일자 (형식 : yyyyMMdd)
+	var EDate = '20230107';
+	// 목록 페이지번호 (기본값 1)
+	var Page = 1;
+	// 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+	var PerPage = 500;
+	// 팝빌회원 아이디
+	var UserID = 'testkorea';
+	
+	easyFinBankService.getPaymentHistory( CorpNum, SDate, EDate, Page, PerPage, UserID,
+		function ( result ) {
+			res.render( 'Base/paymentHistoryResult', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /**
  * 연동회원의 포인트 사용내역을 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetUseHistory
  */
-router.get('/getUseHistory', function (req, res, next) {
-    var CorpNum = ""
-    var SDate = ""
-    var EDate = ""
-    var Page = 1
-    var PerPage = 500
-    var Order = ""
-    var UserID = ""
-
-
-    easyFinBankService.getUseHistory(CorpNum, SDate, EDate, Page, PerPage, Order, UserID,
-        function (result) {
-            res.render('Base/useHistoryResult', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-})
+router.get( '/getUseHistory', function ( req, res, next ) {
+	var CorpNum = '1234567890';
+	var SDate = '';
+	var EDate = '';
+	var Page = 1;
+	var PerPage = 500;
+	var Order = '';
+	var UserID = 'testkorea';
+	
+	easyFinBankService.getUseHistory( CorpNum, SDate, EDate, Page, PerPage, Order, UserID,
+		function ( result ) {
+			res.render( 'Base/useHistoryResult', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /**
  * 연동회원 포인트를 환불 신청합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#Refund
  */
-router.get('/refund', function (req, res, next) {
-    var CorpNum = ""
-    var RefundForm = {
-        contactName: "",
-        tel: "",
-        requestPoint: "",
-        accountBank: "",
-        accountNum: "",
-        accountName: "",
-        reason: "",
-    }
-    var UserID = ""
-
-    easyFinBankService.refund(CorpNum, RefundForm, UserID,
-        function (result) {
-            res.render('response', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-})
-
-
+router.get( '/refund', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var CorpNum = '1234567890';
+	
+	// 환불신청 객체정보
+	var RefundForm = {
+		
+		// 담당자명
+		contactName: '환불_담당자',
+		
+		// 담당자 연락처
+		tel: '010-1234-1234',
+		
+		// 환불 신청 포인트
+		requestPoint: '1000',
+		
+		// 은행명
+		accountBank: '국민',
+		
+		// 계좌번호
+		accountNum: '123123123-123',
+		
+		// 예금주명
+		accountName: '환불_예금주',
+		
+		// 환불 사유
+		reason: '환불사유',
+	};
+	
+	// 팝빌 회원 아이디
+	var UserID = 'testkorea';
+	
+	easyFinBankService.refund( CorpNum, RefundForm, UserID,
+		function ( result ) {
+			res.render( 'response', {
+				path      : req.path,
+				code      : result.code,
+				message   : result.message,
+				refundCode: result.refundCode,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
 /**
  * 연동회원의 포인트 환불신청내역을 확인합니다.
  * https://developers.popbill.com/reference/easyfinbank/node/api/point#GetRefundHistory
  */
-router.get('/getRefundHistory', function (req, res, next) {
+router.get( '/getRefundHistory', function ( req, res, next ) {
+	
+	var CorpNum = '1234567890';
+	var Page = 1;
+	var PerPage = 500;
+	var UserID = 'testkorea';
+	
+	easyFinBankService.getRefundHistory( CorpNum, Page, PerPage, UserID,
+		function ( result ) {
+			res.render( 'Base/RefundHistoryResult', {
+				path  : req.path,
+				result: result,
+			} );
+		},
+		function ( Error ) {
+			res.render( 'response', {
+				path   : req.path,
+				code   : Error.code,
+				message: Error.message,
+			} );
+		} );
+} );
 
-    var CorpNum = ""
-    var Page = 1
-    var PerPage = 500
-    var UserID = ""
+/**
+ * 회원 탈퇴를 합니다.
+ * https://developers.popbill.com/reference/easyfinbank/node/api/point#QuitMember
+ */
+router.get( '/quitMember', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var CorpNum = '123456789';
+	
+	// 탈퇴 사유
+	var QuitReason = '탈퇴 사유';
+	
+	// 팝빌 회원 아이디
+	var UserID = 'testkorea';
+	
+	easyFinBankService.QuitMember( CorpNum, QuitReason, UserID, function ( result ) {
+		res.render( 'response', {
+			path: req.path, code: result.code, message: result.message,
+		} );
+	}, function ( Error ) {
+		res.render( 'response', { path: req.path, code: Error.code, message: Error.message } );
+	} );
+} );
 
-    easyFinBankService.getRefundHistory(CorpNum, Page, PerPage, UserID,
-        function (result) {
-            res.render('Base/RefundHistoryResult', {
-                path: req.path,
-                result: result
-            });
-        },
-        function (Error) {
-            res.render('response', {
-                path: req.path,
-                code: Error.code,
-                message: Error.message
-            });
-        });
-})
+/**
+ * 환불 가능한 포인트를 조회합니다.
+ * https://developers.popbill.com/reference/easyfinbank/node/api/point#GetRefundableBalance
+ */
+router.get( '/getRefundableBalance', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var CorpNum = '123456789';
+	
+	// 팝빌 회원 아이디
+	var UserID = 'testkorea';
+	
+	easyFinBankService.GetRefundableBalance( CorpNum, UserID, function ( result ) {
+		res.render( 'Base/getRefundableBalance', {
+			path: req.path, refundableBalance: result.refundableBalance,
+		} );
+	}, function ( Error ) {
+		res.render( 'response', { path: req.path, code: Error.code, message: Error.message } );
+	} );
+} );
+
+/**
+ * 환불 신청의 상태를 확인합니다.
+ * https://developers.popbill.com/reference/easyfinbank/node/api/point#GetRefundInfo
+ */
+router.get( '/getRefundInfo', function ( req, res, next ) {
+	
+	// 팝빌회원 사업자번호, '-' 제외 10자리
+	var CorpNum = '123456789';
+	
+	// 환불 코드
+	var RefundCode = '023040000017';
+	
+	// 팝빌 회원 아이디
+	var UserID = 'testkorea';
+	
+	easyFinBankService.GetRefundInfo( CorpNum, RefundCode, UserID, function ( result ) {
+		res.render( 'Base/getRefundInfo', {
+			path  : req.path,
+			result: result,
+		} );
+	}, function ( Error ) {
+		res.render( 'response', { path: req.path, code: Error.code, message: Error.message } );
+	} );
+} );
 
 module.exports = router;
