@@ -18,7 +18,7 @@ router.get("/", function (req, res, next) {
  * 계좌조회 서비스를 이용할 계좌를 팝빌에 등록합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#RegistBankAccount
  */
-router.get("/registBankAccount", function (req, res, next) {
+router.get("/RegistBankAccount", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -89,7 +89,7 @@ router.get("/registBankAccount", function (req, res, next) {
  * 팝빌에 등록된 계좌정보를 수정합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#UpdateBankAccount
  */
-router.get("/updateBankAccount", function (req, res, next) {
+router.get("/UpdateBankAccount", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -147,7 +147,7 @@ router.get("/updateBankAccount", function (req, res, next) {
  * 팝빌에 등록된 계좌 정보를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#GetBankAccountInfo
  */
-router.get("/getBankAccountInfo", function (req, res, next) {
+router.get("/GetBankAccountInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -184,7 +184,7 @@ router.get("/getBankAccountInfo", function (req, res, next) {
  * 팝빌에 등록된 은행계좌 목록을 반환합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#ListBankAccount
  */
-router.get("/listBankAccount", function (req, res, next) {
+router.get("/ListBankAccount", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -211,7 +211,7 @@ router.get("/listBankAccount", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#GetBankAccountMgtURL
  */
-router.get("/getBankAccountMgtURL", function (req, res, next) {
+router.get("/GetBankAccountMgtURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -241,7 +241,7 @@ router.get("/getBankAccountMgtURL", function (req, res, next) {
  * 계좌의 정액제 해지를 요청합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#CloseBankAccount
  */
-router.get("/closeBankAccount", function (req, res, next) {
+router.get("/CloseBankAccount", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -286,7 +286,7 @@ router.get("/closeBankAccount", function (req, res, next) {
  * 신청한 정액제 해지요청을 취소합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#RevokeCloseBankAccount
  */
-router.get("/revokeCloseBankAccount", function (req, res, next) {
+router.get("/RevokeCloseBankAccount", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -326,7 +326,7 @@ router.get("/revokeCloseBankAccount", function (req, res, next) {
  * - 정액제 이용 시 정액제 해지요청(CloseBankAccount API) 함수를 사용하여 정액제를 해제할 수 있습니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#DeleteBankAccount
  */
-router.get("/deleteBankAccount", function (req, res, next) {
+router.get("/DeleteBankAccount", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -366,7 +366,7 @@ router.get("/deleteBankAccount", function (req, res, next) {
  * - 반환 받은 작업아이디는 함수 호출 시점부터 1시간 동안 유효합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/job#RequestJob
  */
-router.get("/requestJob", function (req, res, next) {
+router.get("/RequestJob", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -414,7 +414,7 @@ router.get("/requestJob", function (req, res, next) {
  *   오류메시지(errorReason)로 수집 실패에 대한 원인을 파악할 수 있습니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/job#GetJobState
  */
-router.get("/getJobState", function (req, res, next) {
+router.get("/GetJobState", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -445,7 +445,7 @@ router.get("/getJobState", function (req, res, next) {
  * - 수집 요청 후 1시간이 경과한 수집 요청건은 상태정보가 반환되지 않습니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/job#ListActiveJob
  */
-router.get("/listActiveJob", function (req, res, next) {
+router.get("/ListActiveJob", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -471,7 +471,7 @@ router.get("/listActiveJob", function (req, res, next) {
  * 수집 상태 확인(GetJobState API) 함수를 통해 상태 정보가 확인된 작업아이디를 활용하여 계좌 거래 내역을 조회합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/search#Search
  */
-router.get("/search", function (req, res, next) {
+router.get("/Search", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -527,7 +527,7 @@ router.get("/search", function (req, res, next) {
  * - 요약 정보 : 입·출 금액 합계, 입·출 거래 건수
  * - https://developers.popbill.com/reference/easyfinbank/node/api/search#Summary
  */
-router.get("/summary", function (req, res, next) {
+router.get("/Summary", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -570,7 +570,7 @@ router.get("/summary", function (req, res, next) {
  * 한 건의 거래 내역에 메모를 저장합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/search#SaveMemo
  */
-router.get("/saveMemo", function (req, res, next) {
+router.get("/SaveMemo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -607,7 +607,7 @@ router.get("/saveMemo", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetFlatRatePopUpURL
  */
-router.get("/getFlatRatePopUpURL", function (req, res, next) {
+router.get("/GetFlatRatePopUpURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -637,7 +637,7 @@ router.get("/getFlatRatePopUpURL", function (req, res, next) {
  * 계좌조회 정액제 서비스 상태를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetFlatRateState
  */
-router.get("/getFlatRateState", function (req, res, next) {
+router.get("/GetFlatRateState", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -671,7 +671,7 @@ router.get("/getFlatRateState", function (req, res, next) {
  * 연동회원의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetBalance
  */
-router.get("/getBalance", function (req, res, next) {
+router.get("/GetBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -697,7 +697,7 @@ router.get("/getBalance", function (req, res, next) {
  * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetChargeURL
  */
-router.get("/getChargeURL", function (req, res, next) {
+router.get("/GetChargeURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -728,7 +728,7 @@ router.get("/getChargeURL", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetPaymentURL
  */
-router.get("/getPaymentURL", function (req, res, next) {
+router.get("/GetPaymentURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -759,7 +759,7 @@ router.get("/getPaymentURL", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetUseHistoryURL
  */
-router.get("/getUseHistoryURL", function (req, res, next) {
+router.get("/GetUseHistoryURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -789,7 +789,7 @@ router.get("/getUseHistoryURL", function (req, res, next) {
  * 파트너의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetPartnerBalance
  */
-router.get("/getPartnerBalance", function (req, res, next) {
+router.get("/GetPartnerBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -816,7 +816,7 @@ router.get("/getPartnerBalance", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetPartnerURL
  */
-router.get("/getPartnerURL", function (req, res, next) {
+router.get("/GetPartnerURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -846,7 +846,7 @@ router.get("/getPartnerURL", function (req, res, next) {
  * 팝빌 계좌조회 API 서비스 과금정보를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetChargeInfo
  */
-router.get("/getChargeInfo", function (req, res, next) {
+router.get("/GetChargeInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -872,7 +872,7 @@ router.get("/getChargeInfo", function (req, res, next) {
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#CheckIsMember
  */
-router.get("/checkIsMember", function (req, res, next) {
+router.get("/CheckIsMember", function (req, res, next) {
   // 조회할 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -899,7 +899,7 @@ router.get("/checkIsMember", function (req, res, next) {
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#CheckID
  */
-router.get("/checkID", function (req, res, next) {
+router.get("/CheckID", function (req, res, next) {
   // 조회할 아이디
   var testID = "testkorea";
 
@@ -926,7 +926,7 @@ router.get("/checkID", function (req, res, next) {
  * 사용자를 연동회원으로 가입처리합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#JoinMember
  */
-router.get("/joinMember", function (req, res, next) {
+router.get("/JoinMember", function (req, res, next) {
   // 회원정보
   var joinInfo = {
     // 회원 아이디 (6자 이상 50자 미만)
@@ -990,7 +990,7 @@ router.get("/joinMember", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#GetAccessURL
  */
-router.get("/getAccessURL", function (req, res, next) {
+router.get("/GetAccessURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1020,7 +1020,7 @@ router.get("/getAccessURL", function (req, res, next) {
  * 연동회원의 회사정보를 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#GetCorpInfo
  */
-router.get("/getCorpInfo", function (req, res, next) {
+router.get("/GetCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1046,7 +1046,7 @@ router.get("/getCorpInfo", function (req, res, next) {
  * 연동회원의 회사정보를 수정합니다
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#UpdateCorpInfo
  */
-router.get("/updateCorpInfo", function (req, res, next) {
+router.get("/UpdateCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1092,7 +1092,7 @@ router.get("/updateCorpInfo", function (req, res, next) {
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#RegistContact
  */
-router.get("/registContact", function (req, res, next) {
+router.get("/RegistContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1141,7 +1141,7 @@ router.get("/registContact", function (req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#GetContactInfo
  */
-router.get("/getContactInfo", function (req, res, next) {
+router.get("/GetContactInfo", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1171,7 +1171,7 @@ router.get("/getContactInfo", function (req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#ListContact
  */
-router.get("/listContact", function (req, res, next) {
+router.get("/ListContact", function (req, res, next) {
   // 조회할 아이디
   var CorpNum = "1234567890";
 
@@ -1197,7 +1197,7 @@ router.get("/listContact", function (req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#UpdateContact
  */
-router.get("/updateContact", function (req, res, next) {
+router.get("/UpdateContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1247,7 +1247,7 @@ router.get("/updateContact", function (req, res, next) {
  * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#PaymentRequest
  */
-router.get("/paymentRequest", function (req, res, next) {
+router.get("/PaymentRequest", function (req, res, next) {
   // 팝빌회원 사업자 번호
   var CorpNum = "1234567890";
   // 담당자명
@@ -1296,7 +1296,7 @@ router.get("/paymentRequest", function (req, res, next) {
  * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetSettleResult
  */
-router.get("/getSettleResult", function (req, res, next) {
+router.get("/GetSettleResult", function (req, res, next) {
   // 팝빌회원 사업자 번호
   var CorpNum = "1234567890";
   // 정산코드 - PaymentRequest 호출시 반환되는 값
@@ -1328,7 +1328,7 @@ router.get("/getSettleResult", function (req, res, next) {
  * 연동회원의 포인트 결제내역을 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetPaymentHistory
  */
-router.get("/getPaymentHistory", function (req, res, next) {
+router.get("/GetPaymentHistory", function (req, res, next) {
   // 팝빌회원 사업자번호 (하이픈 "-" 제외 10자리)
   var CorpNum = "1234567890";
   // 조회 기간의 시작일자 (형식 : yyyyMMdd)
@@ -1369,7 +1369,7 @@ router.get("/getPaymentHistory", function (req, res, next) {
  * 연동회원의 포인트 사용내역을 확인합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#GetUseHistory
  */
-router.get("/getUseHistory", function (req, res, next) {
+router.get("/GetUseHistory", function (req, res, next) {
   var CorpNum = "1234567890";
   var SDate = "";
   var EDate = "";
@@ -1406,7 +1406,7 @@ router.get("/getUseHistory", function (req, res, next) {
  * 연동회원 포인트를 환불 신청합니다.
  * - https://developers.popbill.com/reference/easyfinbank/node/api/point#Refund
  */
-router.get("/refund", function (req, res, next) {
+router.get("/Refund", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1463,7 +1463,7 @@ router.get("/refund", function (req, res, next) {
  * 연동회원의 포인트 환불신청내역을 확인합니다.
  * https://developers.popbill.com/reference/easyfinbank/node/api/point#GetRefundHistory
  */
-router.get("/getRefundHistory", function (req, res, next) {
+router.get("/GetRefundHistory", function (req, res, next) {
   var CorpNum = "1234567890";
   var Page = 1;
   var PerPage = 500;
@@ -1494,7 +1494,7 @@ router.get("/getRefundHistory", function (req, res, next) {
  * 회원 탈퇴를 합니다.
  * https://developers.popbill.com/reference/easyfinbank/node/api/point#QuitMember
  */
-router.get("/quitMember", function (req, res, next) {
+router.get("/QuitMember", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "123456789";
 
@@ -1529,7 +1529,7 @@ router.get("/quitMember", function (req, res, next) {
  * 환불 가능한 포인트를 확인합니다. (보너스 포인트는 환불가능포인트에서 제외됩니다.)
  * https://developers.popbill.com/reference/easyfinbank/node/api/point#GetRefundableBalance
  */
-router.get("/getRefundableBalance", function (req, res, next) {
+router.get("/GetRefundableBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "123456789";
 
@@ -1559,7 +1559,7 @@ router.get("/getRefundableBalance", function (req, res, next) {
  * 환불 신청의 상태를 확인합니다.
  * https://developers.popbill.com/reference/easyfinbank/node/api/point#GetRefundInfo
  */
-router.get("/getRefundInfo", function (req, res, next) {
+router.get("/GetRefundInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "123456789";
 

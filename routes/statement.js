@@ -19,7 +19,7 @@ router.get("/", function (req, res, next) {
  * - 이미 사용 중인 문서번호는 중복 사용이 불가하고, 전자명세서가 삭제된 경우에만 문서번호의 재사용이 가능합니다.
  * - https://developers.popbill.com/reference/statement/node/api/info#CheckMgtKeyInUse
  */
-router.get("/checkMgtKeyInUse", function (req, res, next) {
+router.get("/CheckMgtKeyInUse", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -54,7 +54,7 @@ router.get("/checkMgtKeyInUse", function (req, res, next) {
  * - 팝빌 사이트 [전자명세서] > [환경설정] > [전자명세서 관리] 메뉴의 발행시 자동승인 옵션 설정을 통해 전자명세서를 "발행완료" 상태가 아닌 "승인대기" 상태로 발행 처리 할 수 있습니다.
  * - https://developers.popbill.com/reference/statement/node/api/issue#RegistIssue
  */
-router.get("/registIssue", function (req, res, next) {
+router.get("/RegistIssue", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -270,7 +270,7 @@ router.get("/registIssue", function (req, res, next) {
  * 작성된 전자명세서 데이터를 팝빌에 저장합니다
  * - https://developers.popbill.com/reference/statement/node/api/issue#Register
  */
-router.get("/register", function (req, res, next) {
+router.get("/Register", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -472,7 +472,7 @@ router.get("/register", function (req, res, next) {
  * "임시저장" 상태의 전자명세서를 수정합니다.건의 전자명세서를 [수정]합니다.
  * - https://developers.popbill.com/reference/statement/node/api/issue#Update
  */
-router.get("/update", function (req, res, next) {
+router.get("/Update", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -678,7 +678,7 @@ router.get("/update", function (req, res, next) {
  * - 전자명세서 발행 함수 호출시 포인트가 과금되며, 수신자에게 발행 안내 메일이 발송됩니다.
  * - https://developers.popbill.com/reference/statement/node/api/issue#Issue
  */
-router.get("/issue", function (req, res, next) {
+router.get("/Issue", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -725,7 +725,7 @@ router.get("/issue", function (req, res, next) {
  * 발신자가 발행한 전자명세서를 발행취소합니다.
  * - https://developers.popbill.com/reference/statement/node/api/issue#Cancel
  */
-router.get("/cancelIssue", function (req, res, next) {
+router.get("/CancelIssue", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -765,7 +765,7 @@ router.get("/cancelIssue", function (req, res, next) {
  * - 삭제 가능한 상태: "임시저장", "취소", "승인거부", "발행취소"
  * - https://developers.popbill.com/reference/statement/node/api/issue#Delete
  */
-router.get("/delete", function (req, res, next) {
+router.get("/Delete", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -800,7 +800,7 @@ router.get("/delete", function (req, res, next) {
  * 전자명세서의 1건의 상태 및 요약정보 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/info#GetInfo
  */
-router.get("/getInfo", function (req, res, next) {
+router.get("/GetInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -834,7 +834,7 @@ router.get("/getInfo", function (req, res, next) {
  * 다수건의 전자명세서 상태/요약 정보를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/info#GetInfos
  */
-router.get("/getInfos", function (req, res, next) {
+router.get("/GetInfos", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -868,7 +868,7 @@ router.get("/getInfos", function (req, res, next) {
  * 전자명세서 1건의 상세정보 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/info#GetDetailInfo
  */
-router.get("/getDetailInfo", function (req, res, next) {
+router.get("/GetDetailInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -902,7 +902,7 @@ router.get("/getDetailInfo", function (req, res, next) {
  * 검색조건에 해당하는 전자명세서를 조회합니다. (조회기간 단위 : 최대 6개월)
  * - https://developers.popbill.com/reference/statement/node/api/info#Search
  */
-router.get("/search", function (req, res, next) {
+router.get("/Search", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -967,7 +967,7 @@ router.get("/search", function (req, res, next) {
  * 전자명세서의 상태에 대한 변경이력을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/info#GetLogs
  */
-router.get("/getLogs", function (req, res, next) {
+router.get("/GetLogs", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1002,7 +1002,7 @@ router.get("/getLogs", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/info#GetURL
  */
-router.get("/getURL", function (req, res, next) {
+router.get("/GetURL", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1037,7 +1037,7 @@ router.get("/getURL", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/view#GetPopUpURL
  */
-router.get("/getPopUpURL", function (req, res, next) {
+router.get("/GetPopUpURL", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1076,7 +1076,7 @@ router.get("/getPopUpURL", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/view#GetViewURL
  */
-router.get("/getViewURL", function (req, res, next) {
+router.get("/GetViewURL", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1115,7 +1115,7 @@ router.get("/getViewURL", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/view#GetPrintURL
  */
-router.get("/getPrintURL", function (req, res, next) {
+router.get("/GetPrintURL", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1154,7 +1154,7 @@ router.get("/getPrintURL", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/view#GetEPrintURL
  */
-router.get("/getEPrintURL", function (req, res, next) {
+router.get("/GetEPrintURL", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1193,7 +1193,7 @@ router.get("/getEPrintURL", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/view#GetMassPrintURL
  */
-router.get("/getMassPrintURL", function (req, res, next) {
+router.get("/GetMassPrintURL", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1232,7 +1232,7 @@ router.get("/getMassPrintURL", function (req, res, next) {
  * - 함수 호출로 반환 받은 URL에는 유효시간이 없습니다.
  * - https://developers.popbill.com/reference/statement/node/api/view#GetMailURL
  */
-router.get("/getMailURL", function (req, res, next) {
+router.get("/GetMailURL", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1271,7 +1271,7 @@ router.get("/getMailURL", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#GetAccessURL
  */
-router.get("/getAccessURL", function (req, res, next) {
+router.get("/GetAccessURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1302,7 +1302,7 @@ router.get("/getAccessURL", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#GetSealURL
  */
-router.get("/getSealURL", function (req, res, next) {
+router.get("/GetSealURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1332,7 +1332,7 @@ router.get("/getSealURL", function (req, res, next) {
  * "임시저장" 상태의 명세서에 1개의 파일을 첨부합니다. (최대 5개)
  * - https://developers.popbill.com/reference/statement/node/api/etc#AttachFile
  */
-router.get("/attachFile", function (req, res, next) {
+router.get("/AttachFile", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1375,7 +1375,7 @@ router.get("/attachFile", function (req, res, next) {
  * "임시저장" 상태의 전자명세서에 첨부된 1개의 파일을 삭제합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#DeleteFile
  */
-router.get("/deleteFile", function (req, res, next) {
+router.get("/DeleteFile", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1415,7 +1415,7 @@ router.get("/deleteFile", function (req, res, next) {
  * - 응답항목 중 파일아이디(AttachedFile) 항목은 파일삭제(DeleteFile API) 호출시 이용할 수 있습니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#GetFiles
  */
-router.get("/getFiles", function (req, res, next) {
+router.get("/GetFiles", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1449,7 +1449,7 @@ router.get("/getFiles", function (req, res, next) {
  * "승인대기", "발행완료" 상태의 전자명세서와 관련된 발행 안내 메일을 재전송 합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#SendEmail
  */
-router.get("/sendEmail", function (req, res, next) {
+router.get("/SendEmail", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1492,7 +1492,7 @@ router.get("/sendEmail", function (req, res, next) {
  * - 함수 호출시 포인트가 과금됩니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#SendSMS
  */
-router.get("/sendSMS", function (req, res, next) {
+router.get("/SendSMS", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1540,7 +1540,7 @@ router.get("/sendSMS", function (req, res, next) {
  * - 함수 호출시 포인트가 과금됩니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#SendFAX
  */
-router.get("/sendFAX", function (req, res, next) {
+router.get("/SendFAX", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1796,7 +1796,7 @@ router.get("/FAXSend", function (req, res, next) {
  * 하나의 전자명세서에 다른 전자명세서를 첨부합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#AttachStatement
  */
-router.get("/attachStatement", function (req, res, next) {
+router.get("/AttachStatement", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1839,7 +1839,7 @@ router.get("/attachStatement", function (req, res, next) {
  * 하나의 전자명세서에 첨부된 다른 전자명세서를 해제합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#DetachStatement
  */
-router.get("/detachStatement", function (req, res, next) {
+router.get("/DetachStatement", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -1882,7 +1882,7 @@ router.get("/detachStatement", function (req, res, next) {
  * 전자명세서 관련 메일 항목에 대한 발송설정을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#ListEmailConfig
  */
-router.get("/listEmailConfig", function (req, res, next) {
+router.get("/ListEmailConfig", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1915,7 +1915,7 @@ router.get("/listEmailConfig", function (req, res, next) {
  * SMT_CANCEL : 수신자에게 전자명세서가 취소 되었음을 알려주는 메일입니다.
  * SMT_CANCEL_ISSUE : 수신자에게 전자명세서가 발행취소 되었음을 알려주는 메일입니다.
  */
-router.get("/updateEmailConfig", function (req, res, next) {
+router.get("/UpdateEmailConfig", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1950,7 +1950,7 @@ router.get("/updateEmailConfig", function (req, res, next) {
  * 연동회원의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetBalance
  */
-router.get("/getBalance", function (req, res, next) {
+router.get("/GetBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -1977,7 +1977,7 @@ router.get("/getBalance", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetChargeURL
  */
-router.get("/getChargeURL", function (req, res, next) {
+router.get("/GetChargeURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -2008,7 +2008,7 @@ router.get("/getChargeURL", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetPaymentURL
  */
-router.get("/getPaymentURL", function (req, res, next) {
+router.get("/GetPaymentURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -2039,7 +2039,7 @@ router.get("/getPaymentURL", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetUseHistoryURL
  */
-router.get("/getUseHistoryURL", function (req, res, next) {
+router.get("/GetUseHistoryURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -2069,7 +2069,7 @@ router.get("/getUseHistoryURL", function (req, res, next) {
  * 파트너의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetPartnerBalance
  */
-router.get("/getPartnerBalance", function (req, res, next) {
+router.get("/GetPartnerBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -2096,7 +2096,7 @@ router.get("/getPartnerBalance", function (req, res, next) {
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetPartnerURL
  */
-router.get("/getPartnerURL", function (req, res, next) {
+router.get("/GetPartnerURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -2126,7 +2126,7 @@ router.get("/getPartnerURL", function (req, res, next) {
  * 전자명세서 발행시 과금되는 포인트 단가를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetUnitCost
  */
-router.get("/getUnitCost", function (req, res, next) {
+router.get("/GetUnitCost", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -2156,7 +2156,7 @@ router.get("/getUnitCost", function (req, res, next) {
  * 팝빌 전자명세서 API 서비스 과금정보를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetChargeInfo
  */
-router.get("/getChargeInfo", function (req, res, next) {
+router.get("/GetChargeInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -2186,7 +2186,7 @@ router.get("/getChargeInfo", function (req, res, next) {
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#CheckIsMember
  */
-router.get("/checkIsMember", function (req, res, next) {
+router.get("/CheckIsMember", function (req, res, next) {
   // 조회할 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -2212,7 +2212,7 @@ router.get("/checkIsMember", function (req, res, next) {
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#CheckID
  */
-router.get("/checkID", function (req, res, next) {
+router.get("/CheckID", function (req, res, next) {
   // 조회할 아이디
   var testID = "testkorea";
 
@@ -2239,7 +2239,7 @@ router.get("/checkID", function (req, res, next) {
  * 사용자를 연동회원으로 가입처리합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#JoinMember
  */
-router.get("/joinMember", function (req, res, next) {
+router.get("/JoinMember", function (req, res, next) {
   // 회원정보
   var joinInfo = {
     // 회원 아이디 (6자 이상 50자 미만)
@@ -2302,7 +2302,7 @@ router.get("/joinMember", function (req, res, next) {
  * 연동회원의 회사정보를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#GetCorpInfo
  */
-router.get("/getCorpInfo", function (req, res, next) {
+router.get("/GetCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -2328,7 +2328,7 @@ router.get("/getCorpInfo", function (req, res, next) {
  * 연동회원의 회사정보를 수정합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#UpdateCorpInfo
  */
-router.get("/updateCorpInfo", function (req, res, next) {
+router.get("/UpdateCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -2374,7 +2374,7 @@ router.get("/updateCorpInfo", function (req, res, next) {
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#RegistContact
  */
-router.get("/registContact", function (req, res, next) {
+router.get("/RegistContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -2423,7 +2423,7 @@ router.get("/registContact", function (req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#GetContactInfo
  */
-router.get("/getContactInfo", function (req, res, next) {
+router.get("/GetContactInfo", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -2453,7 +2453,7 @@ router.get("/getContactInfo", function (req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#ListContact
  */
-router.get("/listContact", function (req, res, next) {
+router.get("/ListContact", function (req, res, next) {
   // 팝빌회원 사업자번호
   var CorpNum = "1234567890";
 
@@ -2479,7 +2479,7 @@ router.get("/listContact", function (req, res, next) {
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#UpdateContact
  */
-router.get("/updateContact", function (req, res, next) {
+router.get("/UpdateContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -2529,7 +2529,7 @@ router.get("/updateContact", function (req, res, next) {
  * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#PaymentRequest
  */
-router.get("/paymentRequest", function (req, res, next) {
+router.get("/PaymentRequest", function (req, res, next) {
   // 팝빌회원 사업자 번호
   var CorpNum = "1234567890";
   // 담당자명
@@ -2578,7 +2578,7 @@ router.get("/paymentRequest", function (req, res, next) {
  * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetSettleResult
  */
-router.get("/getSettleResult", function (req, res, next) {
+router.get("/GetSettleResult", function (req, res, next) {
   // 팝빌회원 사업자 번호
   var CorpNum = "1234567890";
   // 정산코드 - PaymentRequest 호출시 반환되는 값
@@ -2610,7 +2610,7 @@ router.get("/getSettleResult", function (req, res, next) {
  * 연동회원의 포인트 결제내역을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetPaymentHistory
  */
-router.get("/getPaymentHistory", function (req, res, next) {
+router.get("/GetPaymentHistory", function (req, res, next) {
   // 팝빌회원 사업자번호 (하이픈 "-" 제외 10자리)
   var CorpNum = "1234567890";
   // 조회 기간의 시작일자 (형식 : yyyyMMdd)
@@ -2651,7 +2651,7 @@ router.get("/getPaymentHistory", function (req, res, next) {
  * 연동회원의 포인트 사용내역을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetUseHistory
  */
-router.get("/getUseHistory", function (req, res, next) {
+router.get("/GetUseHistory", function (req, res, next) {
   var CorpNum = "1234567890";
   var SDate = "";
   var EDate = "";
@@ -2688,7 +2688,7 @@ router.get("/getUseHistory", function (req, res, next) {
  * 연동회원 포인트를 환불 신청합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#Refund
  */
-router.get("/refund", function (req, res, next) {
+router.get("/Refund", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "1234567890";
 
@@ -2745,7 +2745,7 @@ router.get("/refund", function (req, res, next) {
  * 연동회원의 포인트 환불신청내역을 확인합니다.
  * https://developers.popbill.com/reference/statement/node/api/point#GetRefundHistory
  */
-router.get("/getRefundHistory", function (req, res, next) {
+router.get("/GetRefundHistory", function (req, res, next) {
   var CorpNum = "1234567890";
   var Page = 1;
   var PerPage = 500;
@@ -2776,7 +2776,7 @@ router.get("/getRefundHistory", function (req, res, next) {
  * 회원 탈퇴를 합니다.
  * https://developers.popbill.com/reference/statement/node/api/member#QuitMember
  */
-router.get("/quitMember", function (req, res, next) {
+router.get("/QuitMember", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "123456789";
 
@@ -2811,7 +2811,7 @@ router.get("/quitMember", function (req, res, next) {
  * 환불 가능한 포인트를 확인합니다. (보너스 포인트는 환불가능포인트에서 제외됩니다.)
  * https://developers.popbill.com/reference/statement/node/api/point#GetRefundableBalance
  */
-router.get("/getRefundableBalance", function (req, res, next) {
+router.get("/GetRefundableBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "123456789";
 
@@ -2841,7 +2841,7 @@ router.get("/getRefundableBalance", function (req, res, next) {
  * 환불 신청의 상태를 확인합니다.
  * https://developers.popbill.com/reference/statement/node/api/point#GetRefundInfo
  */
-router.get("/getRefundInfo", function (req, res, next) {
+router.get("/GetRefundInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
   var CorpNum = "123456789";
 
