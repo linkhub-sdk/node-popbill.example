@@ -2,7 +2,7 @@
 <html>
 
     <head>
-        <link rel='stylesheet' href='/stylesheets/style.css'/>
+        <link rel="stylesheet" href="/stylesheets/style.css"/>
         <title>팝빌 SDK Express Example. </title>
     </head>
 
@@ -18,17 +18,17 @@
                 <li>pageCount (페이지 개수) : <%= result.pageCount %></li>
                 <legend><%= path %></legend>
                 <%
-                result.list.forEach(function( paymentHistory, index ){
+                result.list.forEach(function( refundHistory, index ){
                 %>
                     <fieldset class="fieldset2">
                         <legend>사용 내역 [<%= index + 1 %>/<%= result.length %>]</legend>
                         <ul>
-                            <li>reqDT (신청 일시) : <%= paymentHistory.reqDT %></li>
-                            <li>requestPoint (환불 신청포인트) <%= paymentHistory.requestPoint %></li>
-                            <li>accountBank (환불계좌 은행명) : <%= paymentHistory.accountBank %></li>
-                            <li>accountNum (환불계좌번호) <%= paymentHistory.accountNum %></li>
-                            <li>state (상태) : <%= paymentHistory.state %></li>
-                            <li>reason (환불사유) : <%= paymentHistory.reason %></li>
+                            <li>reqDT (신청 일시) : <%= refundHistory.reqDT %></li>
+                            <li>requestPoint (환불 신청포인트) <%= refundHistory.requestPoint %></li>
+                            <li>accountBank (환불계좌 은행명) : <%= refundHistory.accountBank %></li>
+                            <li>accountNum (환불계좌번호) <%= refundHistory.accountNum %></li>
+                            <li>state (상태) : <%= refundHistory.state %></li>
+                            <li>reason (환불사유) : <%= refundHistory.reason %></li>
                         </ul>
                     </fieldset>
                 <%
