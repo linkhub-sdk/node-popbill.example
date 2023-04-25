@@ -21,14 +21,14 @@ router.get("/", function (req, res, next) {
  */
 router.get("/getPlusFriendMgtURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   kakaoService.getPlusFriendMgtURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -51,10 +51,10 @@ router.get("/getPlusFriendMgtURL", function (req, res, next) {
  */
 router.get("/listPlusFriendID", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   kakaoService.listPlusFriendID(
-    testCorpNum,
+    CorpNum,
     function (response) {
       res.render("Kakao/listPlusFriendID", {
         path: req.path,
@@ -78,13 +78,13 @@ router.get("/listPlusFriendID", function (req, res, next) {
  */
 router.get("/checkSenderNumber", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 확인할 발신번호
   var senderNumber = "";
 
   kakaoService.checkSenderNumber(
-    testCorpNum,
+    CorpNum,
     senderNumber,
     function (result) {
       res.render("response", {
@@ -110,14 +110,14 @@ router.get("/checkSenderNumber", function (req, res, next) {
  */
 router.get("/getSenderNumberMgtURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   kakaoService.getSenderNumberMgtURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -140,10 +140,10 @@ router.get("/getSenderNumberMgtURL", function (req, res, next) {
  */
 router.get("/getSenderNumberList", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   kakaoService.getSenderNumberList(
-    testCorpNum,
+    CorpNum,
     function (response) {
       res.render("Kakao/getSenderNumberList", {
         path: req.path,
@@ -167,14 +167,14 @@ router.get("/getSenderNumberList", function (req, res, next) {
  */
 router.get("/getATSTemplateMgtURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   kakaoService.getATSTemplateMgtURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -197,13 +197,13 @@ router.get("/getATSTemplateMgtURL", function (req, res, next) {
  */
 router.get("/getATSTemplate", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 확인할 템플릿 코드
   var templateCode = "022040000374";
 
   kakaoService.getATSTemplate(
-    testCorpNum,
+    CorpNum,
     templateCode,
     function (response) {
       res.render("Kakao/getATSTemplate", {
@@ -227,10 +227,10 @@ router.get("/getATSTemplate", function (req, res, next) {
  */
 router.get("/listATSTemplate", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   kakaoService.listATSTemplate(
-    testCorpNum,
+    CorpNum,
     function (response) {
       res.render("Kakao/listATSTemplate", {
         path: req.path,
@@ -255,7 +255,7 @@ router.get("/listATSTemplate", function (req, res, next) {
  */
 router.get("/sendATS_one", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 승인된 알림톡 템플릿코드
   // └ 알림톡 템플릿 관리 팝업 URL(GetATSTemplateMgtURL API) 함수, 알림톡 템플릿 목록 확인(ListATStemplate API) 함수를 호출하거나
@@ -320,7 +320,7 @@ router.get("/sendATS_one", function (req, res, next) {
   // ];
 
   kakaoService.sendATS_one(
-    testCorpNum,
+    CorpNum,
     templateCode,
     Sender,
     content,
@@ -357,7 +357,7 @@ router.get("/sendATS_one", function (req, res, next) {
  */
 router.get("/sendATS_multi", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 승인된 알림톡 템플릿코드
   // └ 알림톡 템플릿 관리 팝업 URL(GetATSTemplateMgtURL API) 함수, 알림톡 템플릿 목록 확인(ListATStemplate API) 함수를 호출하거나
@@ -435,7 +435,7 @@ router.get("/sendATS_multi", function (req, res, next) {
   // ];
 
   kakaoService.sendATS_multi(
-    testCorpNum,
+    CorpNum,
     templateCode,
     Sender,
     altSendType,
@@ -468,7 +468,7 @@ router.get("/sendATS_multi", function (req, res, next) {
  */
 router.get("/sendATS_same", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 승인된 알림톡 템플릿코드
   // └ 알림톡 템플릿 관리 팝업 URL(GetATSTemplateMgtURL API) 함수, 알림톡 템플릿 목록 확인(ListATStemplate API) 함수를 호출하거나
@@ -538,7 +538,7 @@ router.get("/sendATS_same", function (req, res, next) {
   // ];
 
   kakaoService.sendATS_same(
-    testCorpNum,
+    CorpNum,
     templateCode,
     Sender,
     content,
@@ -574,7 +574,7 @@ router.get("/sendATS_same", function (req, res, next) {
  */
 router.get("/sendFTS_one", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌에 등록된 카카오톡 채널 아이디
   var plusFriendID = "@팝빌";
@@ -636,7 +636,7 @@ router.get("/sendFTS_one", function (req, res, next) {
   var requestNum = "";
 
   kakaoService.sendFTS_one(
-    testCorpNum,
+    CorpNum,
     plusFriendID,
     Sender,
     content,
@@ -674,7 +674,7 @@ router.get("/sendFTS_one", function (req, res, next) {
  */
 router.get("/sendFTS_multi", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌에 등록된 카카오톡 채널 아이디
   var plusFriendID = "@팝빌";
@@ -745,7 +745,7 @@ router.get("/sendFTS_multi", function (req, res, next) {
   var requestNum = "";
 
   kakaoService.sendFTS_multi(
-    testCorpNum,
+    CorpNum,
     plusFriendID,
     Sender,
     altSendType,
@@ -779,7 +779,7 @@ router.get("/sendFTS_multi", function (req, res, next) {
  */
 router.get("/sendFTS_same", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌에 등록된 카카오톡 채널 아이디
   var plusFriendID = "@팝빌";
@@ -847,7 +847,7 @@ router.get("/sendFTS_same", function (req, res, next) {
   var requestNum = "";
 
   kakaoService.sendFTS_same(
-    testCorpNum,
+    CorpNum,
     plusFriendID,
     Sender,
     content,
@@ -885,7 +885,7 @@ router.get("/sendFTS_same", function (req, res, next) {
  */
 router.get("/sendFMS_one", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌에 등록된 카카오톡 채널 아이디
   var plusFriendID = "@팝빌";
@@ -956,7 +956,7 @@ router.get("/sendFMS_one", function (req, res, next) {
   var requestNum = "";
 
   kakaoService.sendFMS_one(
-    testCorpNum,
+    CorpNum,
     plusFriendID,
     Sender,
     content,
@@ -997,7 +997,7 @@ router.get("/sendFMS_one", function (req, res, next) {
  */
 router.get("/sendFMS_multi", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌에 등록된 카카오톡 채널 아이디
   var plusFriendID = "@팝빌";
@@ -1078,7 +1078,7 @@ router.get("/sendFMS_multi", function (req, res, next) {
   var requestNum = "";
 
   kakaoService.sendFMS_multi(
-    testCorpNum,
+    CorpNum,
     plusFriendID,
     Sender,
     altSendType,
@@ -1115,7 +1115,7 @@ router.get("/sendFMS_multi", function (req, res, next) {
  */
 router.get("/sendFMS_same", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌에 등록된 카카오톡 채널 아이디
   var plusFriendID = "@팝빌";
@@ -1192,7 +1192,7 @@ router.get("/sendFMS_same", function (req, res, next) {
   var requestNum = "";
 
   kakaoService.sendFMS_same(
-    testCorpNum,
+    CorpNum,
     plusFriendID,
     Sender,
     content,
@@ -1229,7 +1229,7 @@ router.get("/sendFMS_same", function (req, res, next) {
  */
 router.get("/cancelReserve", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 예약 알림톡/친구톡 전송 접수번호
   var receiptNum = "021010912071500001";
@@ -1239,7 +1239,7 @@ router.get("/cancelReserve", function (req, res, next) {
   var UserID = "testkorea";
 
   kakaoService.cancelReserve(
-    testCorpNum,
+    CorpNum,
     receiptNum,
     function (response) {
       res.render("response", {
@@ -1264,7 +1264,7 @@ router.get("/cancelReserve", function (req, res, next) {
  */
 router.get("/cancelReserveRN", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 예약 알림톡/친구톡 전송 요청번호
   var requestNum = "";
@@ -1274,7 +1274,7 @@ router.get("/cancelReserveRN", function (req, res, next) {
   var UserID = "testkorea";
 
   kakaoService.cancelReserveRN(
-    testCorpNum,
+    CorpNum,
     requestNum,
     function (response) {
       res.render("response", {
@@ -1299,7 +1299,7 @@ router.get("/cancelReserveRN", function (req, res, next) {
  */
 router.get("/getMessages", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 카카오톡 접수번호
   var receiptNum = "022070114430900001";
@@ -1309,7 +1309,7 @@ router.get("/getMessages", function (req, res, next) {
   var UserID = "testkorea";
 
   kakaoService.getMessages(
-    testCorpNum,
+    CorpNum,
     receiptNum,
     function (response) {
       res.render("Kakao/getMessages", {
@@ -1333,7 +1333,7 @@ router.get("/getMessages", function (req, res, next) {
  */
 router.get("/getMessagesRN", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 카카오톡 요청번호
   var requestNum = "";
@@ -1343,7 +1343,7 @@ router.get("/getMessagesRN", function (req, res, next) {
   var UserID = "testkorea";
 
   kakaoService.getMessagesRN(
-    testCorpNum,
+    CorpNum,
     requestNum,
     function (response) {
       res.render("Kakao/getMessages", {
@@ -1368,7 +1368,7 @@ router.get("/getMessagesRN", function (req, res, next) {
  */
 router.get("/search", function (req, res, next) {
   // 팝빌회원 사업자 번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 시작일자, 표시형식 (yyyyMMdd)
   var sDate = "20220601";
@@ -1415,7 +1415,7 @@ router.get("/search", function (req, res, next) {
   var UserID = "testkorea";
 
   kakaoService.search(
-    testCorpNum,
+    CorpNum,
     sDate,
     eDate,
     state,
@@ -1450,14 +1450,14 @@ router.get("/search", function (req, res, next) {
  */
 router.get("/getSentListURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   kakaoService.getSentListURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1480,10 +1480,10 @@ router.get("/getSentListURL", function (req, res, next) {
  */
 router.get("/getBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   kakaoService.getBalance(
-    testCorpNum,
+    CorpNum,
     function (remainPoint) {
       res.render("result", {
         path: req.path,
@@ -1507,14 +1507,14 @@ router.get("/getBalance", function (req, res, next) {
  */
 router.get("/getChargeURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   kakaoService.getChargeURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1538,14 +1538,14 @@ router.get("/getChargeURL", function (req, res, next) {
  */
 router.get("/getPaymentURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   kakaoService.getPaymentURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1569,14 +1569,14 @@ router.get("/getPaymentURL", function (req, res, next) {
  */
 router.get("/getUseHistoryURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   kakaoService.getUseHistoryURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1599,10 +1599,10 @@ router.get("/getUseHistoryURL", function (req, res, next) {
  */
 router.get("/getPartnerBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   kakaoService.getPartnerBalance(
-    testCorpNum,
+    CorpNum,
     function (remainPoint) {
       res.render("result", {
         path: req.path,
@@ -1626,13 +1626,13 @@ router.get("/getPartnerBalance", function (req, res, next) {
  */
 router.get("/getPartnerURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // CHRG(파트너 포인트충전)
   var TOGO = "CHRG";
 
   kakaoService.getPartnerURL(
-    testCorpNum,
+    CorpNum,
     TOGO,
     function (url) {
       res.render("result", {
@@ -1656,12 +1656,12 @@ router.get("/getPartnerURL", function (req, res, next) {
  */
 router.get("/getUnitCost", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
   // 전송유형 ( ATS-알림톡 / FTS-친구톡텍스트 / FMS-친구톡이미지 )
   var kakaoType = popbill.KakaoType.ATS;
 
   kakaoService.getUnitCost(
-    testCorpNum,
+    CorpNum,
     kakaoType,
     function (unitCost) {
       res.render("result", {
@@ -1685,13 +1685,13 @@ router.get("/getUnitCost", function (req, res, next) {
  */
 router.get("/getChargeInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 전송유형 ( ATS-알림톡 / FTS-친구톡텍스트 / FMS-친구톡이미지 )
   var kakaoType = popbill.KakaoType.ATS;
 
   kakaoService.getChargeInfo(
-    testCorpNum,
+    CorpNum,
     kakaoType,
     function (result) {
       res.render("Base/getChargeInfo", {
@@ -1715,10 +1715,10 @@ router.get("/getChargeInfo", function (req, res, next) {
  */
 router.get("/checkIsMember", function (req, res, next) {
   //조회할 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   kakaoService.checkIsMember(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -1832,14 +1832,14 @@ router.get("/joinMember", function (req, res, next) {
  */
 router.get("/getAccessURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   kakaoService.getAccessURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1862,10 +1862,10 @@ router.get("/getAccessURL", function (req, res, next) {
  */
 router.get("/getCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   kakaoService.getCorpInfo(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Base/getCorpInfo", {
         path: req.path,
@@ -1888,7 +1888,7 @@ router.get("/getCorpInfo", function (req, res, next) {
  */
 router.get("/updateCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 회사정보
   var corpInfo = {
@@ -1909,7 +1909,7 @@ router.get("/updateCorpInfo", function (req, res, next) {
   };
 
   kakaoService.updateCorpInfo(
-    testCorpNum,
+    CorpNum,
     corpInfo,
     function (result) {
       res.render("response", {
@@ -1934,7 +1934,7 @@ router.get("/updateCorpInfo", function (req, res, next) {
  */
 router.get("/registContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 담당자 정보
   var contactInfo = {
@@ -1958,7 +1958,7 @@ router.get("/registContact", function (req, res, next) {
   };
 
   kakaoService.registContact(
-    testCorpNum,
+    CorpNum,
     contactInfo,
     function (result) {
       res.render("response", {
@@ -1983,13 +1983,13 @@ router.get("/registContact", function (req, res, next) {
  */
 router.get("/getContactInfo", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 확인할 담당자 아이디
   var contactID = "checkContactID";
 
   kakaoService.getContactInfo(
-    testCorpNum,
+    CorpNum,
     contactID,
     function (result) {
       res.render("Base/getContactInfo", {
@@ -2013,10 +2013,10 @@ router.get("/getContactInfo", function (req, res, next) {
  */
 router.get("/listContact", function (req, res, next) {
   // 조회할 아이디
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   kakaoService.listContact(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Base/listContact", {
         path: req.path,
@@ -2039,15 +2039,15 @@ router.get("/listContact", function (req, res, next) {
  */
 router.get("/updateContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   // 담당자 정보 항목
   var contactInfo = {
     // 담당자 아이디
-    id: testUserID,
+    id: UserID,
 
     // 담당자명 (최대 100자)
     personName: "담당자명0309",
@@ -2063,8 +2063,8 @@ router.get("/updateContact", function (req, res, next) {
   };
 
   kakaoService.updateContact(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     contactInfo,
     function (result) {
       res.render("response", {
@@ -2166,7 +2166,7 @@ router.get("/paymentRequest", function (req, res, next) {
   var UserID = "testkorea";
 
   kakaoService.paymentRequest(
-    CorpNUm,
+    CorpNum,
     PaymentForm,
     UserID,
     function (result) {

@@ -20,7 +20,7 @@ router.get("/", function (req, res, next) {
  */
 router.get("/registBankAccount", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 계좌정보
   var bankAccountInfo = {
@@ -66,7 +66,7 @@ router.get("/registBankAccount", function (req, res, next) {
   };
 
   easyFinBankService.registBankAccount(
-    testCorpNum,
+    CorpNum,
     bankAccountInfo,
     function (result) {
       res.render("response", {
@@ -91,7 +91,7 @@ router.get("/registBankAccount", function (req, res, next) {
  */
 router.get("/updateBankAccount", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 계좌정보
   var bankAccountInfo = {
@@ -124,7 +124,7 @@ router.get("/updateBankAccount", function (req, res, next) {
   };
 
   easyFinBankService.updateBankAccount(
-    testCorpNum,
+    CorpNum,
     bankAccountInfo,
     function (result) {
       res.render("response", {
@@ -149,7 +149,7 @@ router.get("/updateBankAccount", function (req, res, next) {
  */
 router.get("/getBankAccountInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 기관코드
   // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
@@ -161,7 +161,7 @@ router.get("/getBankAccountInfo", function (req, res, next) {
   var accountNumber = "";
 
   easyFinBankService.getBankAccountInfo(
-    testCorpNum,
+    CorpNum,
     bankCode,
     accountNumber,
     function (result) {
@@ -186,10 +186,10 @@ router.get("/getBankAccountInfo", function (req, res, next) {
  */
 router.get("/listBankAccount", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   easyFinBankService.listBankAccount(
-    testCorpNum,
+    CorpNum,
     function (response) {
       res.render("EasyFinBank/listBankAccount", {
         path: req.path,
@@ -213,14 +213,14 @@ router.get("/listBankAccount", function (req, res, next) {
  */
 router.get("/getBankAccountMgtURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   easyFinBankService.getBankAccountMgtURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -243,7 +243,7 @@ router.get("/getBankAccountMgtURL", function (req, res, next) {
  */
 router.get("/closeBankAccount", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 기관코드
   // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
@@ -261,7 +261,7 @@ router.get("/closeBankAccount", function (req, res, next) {
   var closeType = "중도";
 
   easyFinBankService.closeBankAccount(
-    testCorpNum,
+    CorpNum,
     bankCode,
     accountNumber,
     closeType,
@@ -288,7 +288,7 @@ router.get("/closeBankAccount", function (req, res, next) {
  */
 router.get("/revokeCloseBankAccount", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 기관코드
   // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
@@ -300,7 +300,7 @@ router.get("/revokeCloseBankAccount", function (req, res, next) {
   var accountNumber = "";
 
   easyFinBankService.revokeCloseBankAccount(
-    testCorpNum,
+    CorpNum,
     bankCode,
     accountNumber,
     function (result) {
@@ -328,7 +328,7 @@ router.get("/revokeCloseBankAccount", function (req, res, next) {
  */
 router.get("/deleteBankAccount", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 기관코드
   // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
@@ -340,7 +340,7 @@ router.get("/deleteBankAccount", function (req, res, next) {
   var accountNumber = "";
 
   easyFinBankService.deleteBankAccount(
-    testCorpNum,
+    CorpNum,
     bankCode,
     accountNumber,
     function (result) {
@@ -368,7 +368,7 @@ router.get("/deleteBankAccount", function (req, res, next) {
  */
 router.get("/requestJob", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 기관코드
   var bankCode = "";
@@ -383,7 +383,7 @@ router.get("/requestJob", function (req, res, next) {
   var EDate = "20220629";
 
   easyFinBankService.requestJob(
-    testCorpNum,
+    CorpNum,
     bankCode,
     accountNumber,
     SDate,
@@ -416,13 +416,13 @@ router.get("/requestJob", function (req, res, next) {
  */
 router.get("/getJobState", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 수집 요청(requestJob API)시 반환반은 작업아이디(jobID)
   var jobID = "021123110000000001";
 
   easyFinBankService.getJobState(
-    testCorpNum,
+    CorpNum,
     jobID,
     function (response) {
       res.render("EasyFinBank/jobState", {
@@ -447,10 +447,10 @@ router.get("/getJobState", function (req, res, next) {
  */
 router.get("/listActiveJob", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   easyFinBankService.listActiveJob(
-    testCorpNum,
+    CorpNum,
     function (response) {
       res.render("EasyFinBank/listActiveJob", {
         path: req.path,
@@ -473,7 +473,7 @@ router.get("/listActiveJob", function (req, res, next) {
  */
 router.get("/search", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 수집 요청(RequestJob API) 함수 호출시 반환받은 작업아이디
   var jobID = "021072414000000001";
@@ -499,7 +499,7 @@ router.get("/search", function (req, res, next) {
   var order = "D";
 
   easyFinBankService.search(
-    testCorpNum,
+    CorpNum,
     jobID,
     tradeType,
     searchString,
@@ -529,7 +529,7 @@ router.get("/search", function (req, res, next) {
  */
 router.get("/summary", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 수집 요청(requestJob API)시 반환반은 작업아이디(jobID)
   var jobID = "021123110000000004";
@@ -546,7 +546,7 @@ router.get("/summary", function (req, res, next) {
   var searchString = "";
 
   easyFinBankService.summary(
-    testCorpNum,
+    CorpNum,
     jobID,
     tradeType,
     searchString,
@@ -572,7 +572,7 @@ router.get("/summary", function (req, res, next) {
  */
 router.get("/saveMemo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 메모를 저장할 거래내역 아이디
   // └ 거래내역 조회(Search API) 함수의 반환 값 중 "tid"를 통해 확인 가능
@@ -582,7 +582,7 @@ router.get("/saveMemo", function (req, res, next) {
   var memo = "memo-nodejs";
 
   easyFinBankService.saveMemo(
-    testCorpNum,
+    CorpNum,
     tid,
     memo,
     function (result) {
@@ -609,14 +609,14 @@ router.get("/saveMemo", function (req, res, next) {
  */
 router.get("/getFlatRatePopUpURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   easyFinBankService.getFlatRatePopUpURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -639,7 +639,7 @@ router.get("/getFlatRatePopUpURL", function (req, res, next) {
  */
 router.get("/getFlatRateState", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 기관코드
   var bankCode = "";
@@ -648,7 +648,7 @@ router.get("/getFlatRateState", function (req, res, next) {
   var accountNumber = "";
 
   easyFinBankService.getFlatRateState(
-    testCorpNum,
+    CorpNum,
     bankCode,
     accountNumber,
     function (response) {
@@ -673,10 +673,10 @@ router.get("/getFlatRateState", function (req, res, next) {
  */
 router.get("/getBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   easyFinBankService.getBalance(
-    testCorpNum,
+    CorpNum,
     function (remainPoint) {
       res.render("result", {
         path: req.path,
@@ -699,14 +699,14 @@ router.get("/getBalance", function (req, res, next) {
  */
 router.get("/getChargeURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   easyFinBankService.getChargeURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -730,14 +730,14 @@ router.get("/getChargeURL", function (req, res, next) {
  */
 router.get("/getPaymentURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   easyFinBankService.getPaymentURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -761,14 +761,14 @@ router.get("/getPaymentURL", function (req, res, next) {
  */
 router.get("/getUseHistoryURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   easyFinBankService.getUseHistoryURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -791,10 +791,10 @@ router.get("/getUseHistoryURL", function (req, res, next) {
  */
 router.get("/getPartnerBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   easyFinBankService.getPartnerBalance(
-    testCorpNum,
+    CorpNum,
     function (remainPoint) {
       res.render("result", {
         path: req.path,
@@ -818,13 +818,13 @@ router.get("/getPartnerBalance", function (req, res, next) {
  */
 router.get("/getPartnerURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // CHRG(포인트충전)
   var TOGO = "CHRG";
 
   easyFinBankService.getPartnerURL(
-    testCorpNum,
+    CorpNum,
     TOGO,
     function (url) {
       res.render("result", {
@@ -848,10 +848,10 @@ router.get("/getPartnerURL", function (req, res, next) {
  */
 router.get("/getChargeInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   easyFinBankService.getChargeInfo(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Base/getChargeInfo", {
         path: req.path,
@@ -874,10 +874,10 @@ router.get("/getChargeInfo", function (req, res, next) {
  */
 router.get("/checkIsMember", function (req, res, next) {
   // 조회할 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   easyFinBankService.checkIsMember(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -992,14 +992,14 @@ router.get("/joinMember", function (req, res, next) {
  */
 router.get("/getAccessURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   easyFinBankService.getAccessURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1022,10 +1022,10 @@ router.get("/getAccessURL", function (req, res, next) {
  */
 router.get("/getCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   easyFinBankService.getCorpInfo(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Base/getCorpInfo", {
         path: req.path,
@@ -1048,7 +1048,7 @@ router.get("/getCorpInfo", function (req, res, next) {
  */
 router.get("/updateCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 회사정보
   var corpInfo = {
@@ -1069,7 +1069,7 @@ router.get("/updateCorpInfo", function (req, res, next) {
   };
 
   easyFinBankService.updateCorpInfo(
-    testCorpNum,
+    CorpNum,
     corpInfo,
     function (result) {
       res.render("response", {
@@ -1094,7 +1094,7 @@ router.get("/updateCorpInfo", function (req, res, next) {
  */
 router.get("/registContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 담당자 정보
   var contactInfo = {
@@ -1118,7 +1118,7 @@ router.get("/registContact", function (req, res, next) {
   };
 
   easyFinBankService.registContact(
-    testCorpNum,
+    CorpNum,
     contactInfo,
     function (result) {
       res.render("response", {
@@ -1143,13 +1143,13 @@ router.get("/registContact", function (req, res, next) {
  */
 router.get("/getContactInfo", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 확인할 담당자 아이디
   var contactID = "checkContactID";
 
   easyFinBankService.getContactInfo(
-    testCorpNum,
+    CorpNum,
     contactID,
     function (result) {
       res.render("Base/getContactInfo", {
@@ -1173,10 +1173,10 @@ router.get("/getContactInfo", function (req, res, next) {
  */
 router.get("/listContact", function (req, res, next) {
   // 조회할 아이디
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   easyFinBankService.listContact(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Base/listContact", {
         path: req.path,
@@ -1199,15 +1199,15 @@ router.get("/listContact", function (req, res, next) {
  */
 router.get("/updateContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   // 담당자 정보 항목
   var contactInfo = {
     // 담당자 아이디
-    id: testUserID,
+    id: UserID,
 
     // 담당자명 (최대 100자)
     personName: "담당자명0309",
@@ -1223,8 +1223,8 @@ router.get("/updateContact", function (req, res, next) {
   };
 
   easyFinBankService.updateContact(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     contactInfo,
     function (result) {
       res.render("response", {
@@ -1273,7 +1273,7 @@ router.get("/paymentRequest", function (req, res, next) {
   var UserID = "testkorea";
 
   easyFinBankService.paymentRequest(
-    CorpNUm,
+    CorpNum,
     PaymentForm,
     UserID,
     function (result) {

@@ -20,7 +20,7 @@ router.get("/", function (req, res, next) {
  */
 router.get("/requestJob", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 현금영수증 유형, SELL-매출, BUY-매입
   var type = popbill.MgtKeyType.SELL;
@@ -32,7 +32,7 @@ router.get("/requestJob", function (req, res, next) {
   var EDate = "20220629";
 
   htCashbillService.requestJob(
-    testCorpNum,
+    CorpNum,
     type,
     SDate,
     EDate,
@@ -64,13 +64,13 @@ router.get("/requestJob", function (req, res, next) {
  */
 router.get("/getJobState", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 작업아이디
   var jobID = "021010912000000058";
 
   htCashbillService.getJobState(
-    testCorpNum,
+    CorpNum,
     jobID,
     function (response) {
       res.render("HomeTax/jobState", {
@@ -95,10 +95,10 @@ router.get("/getJobState", function (req, res, next) {
  */
 router.get("/listActiveJob", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.listActiveJob(
-    testCorpNum,
+    CorpNum,
     function (response) {
       res.render("HomeTax/listActiveJob", {
         path: req.path,
@@ -121,7 +121,7 @@ router.get("/listActiveJob", function (req, res, next) {
  */
 router.get("/search", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 작업아이디
   var jobID = "021010912000000058";
@@ -146,7 +146,7 @@ router.get("/search", function (req, res, next) {
   var order = "D";
 
   htCashbillService.search(
-    testCorpNum,
+    CorpNum,
     jobID,
     tradeType,
     tradeUsage,
@@ -176,7 +176,7 @@ router.get("/search", function (req, res, next) {
  */
 router.get("/summary", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 작업아이디
   var jobID = "021010912000000058";
@@ -192,7 +192,7 @@ router.get("/summary", function (req, res, next) {
   var tradeUsage = ["P", "C"];
 
   htCashbillService.summary(
-    testCorpNum,
+    CorpNum,
     jobID,
     tradeType,
     tradeUsage,
@@ -220,14 +220,14 @@ router.get("/summary", function (req, res, next) {
  */
 router.get("/getCertificatePopUpURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htCashbillService.getCertificatePopUpURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -250,10 +250,10 @@ router.get("/getCertificatePopUpURL", function (req, res, next) {
  */
 router.get("/getCertificateExpireDate", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.getCertificateExpireDate(
-    testCorpNum,
+    CorpNum,
     function (expireDate) {
       res.render("result", {
         path: req.path,
@@ -276,10 +276,10 @@ router.get("/getCertificateExpireDate", function (req, res, next) {
  */
 router.get("/checkCertValidation", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.checkCertValidation(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -303,7 +303,7 @@ router.get("/checkCertValidation", function (req, res, next) {
  */
 router.get("/registDeptUser", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 홈택스에서 생성한 현금영수증 부서사용자 아이디
   var deptUserID = "userid";
@@ -312,7 +312,7 @@ router.get("/registDeptUser", function (req, res, next) {
   var deptUserPWD = "passwd";
 
   htCashbillService.registDeptUser(
-    testCorpNum,
+    CorpNum,
     deptUserID,
     deptUserPWD,
     function (result) {
@@ -338,10 +338,10 @@ router.get("/registDeptUser", function (req, res, next) {
  */
 router.get("/checkDeptUser", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.checkDeptUser(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -365,10 +365,10 @@ router.get("/checkDeptUser", function (req, res, next) {
  */
 router.get("/checkLoginDeptUser", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.checkLoginDeptUser(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -392,10 +392,10 @@ router.get("/checkLoginDeptUser", function (req, res, next) {
  */
 router.get("/deleteDeptUser", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.deleteDeptUser(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -420,14 +420,14 @@ router.get("/deleteDeptUser", function (req, res, next) {
  */
 router.get("/getFlatRatePopUpURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htCashbillService.getFlatRatePopUpURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -450,10 +450,10 @@ router.get("/getFlatRatePopUpURL", function (req, res, next) {
  */
 router.get("/getFlatRateState", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.getFlatRateState(
-    testCorpNum,
+    CorpNum,
     function (response) {
       res.render("HomeTax/flatRateState", {
         path: req.path,
@@ -476,10 +476,10 @@ router.get("/getFlatRateState", function (req, res, next) {
  */
 router.get("/getBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.getBalance(
-    testCorpNum,
+    CorpNum,
     function (remainPoint) {
       res.render("result", {
         path: req.path,
@@ -503,14 +503,14 @@ router.get("/getBalance", function (req, res, next) {
  */
 router.get("/getChargeURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htCashbillService.getChargeURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -534,14 +534,14 @@ router.get("/getChargeURL", function (req, res, next) {
  */
 router.get("/getPaymentURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htCashbillService.getPaymentURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -565,14 +565,14 @@ router.get("/getPaymentURL", function (req, res, next) {
  */
 router.get("/getUseHistoryURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htCashbillService.getUseHistoryURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -595,10 +595,10 @@ router.get("/getUseHistoryURL", function (req, res, next) {
  */
 router.get("/getPartnerBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.getPartnerBalance(
-    testCorpNum,
+    CorpNum,
     function (remainPoint) {
       res.render("result", {
         path: req.path,
@@ -622,13 +622,13 @@ router.get("/getPartnerBalance", function (req, res, next) {
  */
 router.get("/getPartnerURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // CHRG(포인트충전)
   var TOGO = "CHRG";
 
   htCashbillService.getPartnerURL(
-    testCorpNum,
+    CorpNum,
     TOGO,
     function (url) {
       res.render("result", {
@@ -652,10 +652,10 @@ router.get("/getPartnerURL", function (req, res, next) {
  */
 router.get("/getChargeInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.getChargeInfo(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Base/getChargeInfo", {
         path: req.path,
@@ -678,10 +678,10 @@ router.get("/getChargeInfo", function (req, res, next) {
  */
 router.get("/checkIsMember", function (req, res, next) {
   // 조회할 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.checkIsMember(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -796,14 +796,14 @@ router.get("/joinMember", function (req, res, next) {
  */
 router.get("/getAccessURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htCashbillService.getAccessURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -826,10 +826,10 @@ router.get("/getAccessURL", function (req, res, next) {
  */
 router.get("/getCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.getCorpInfo(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Base/getCorpInfo", {
         path: req.path,
@@ -852,7 +852,7 @@ router.get("/getCorpInfo", function (req, res, next) {
  */
 router.get("/updateCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 회사정보
   var corpInfo = {
@@ -873,7 +873,7 @@ router.get("/updateCorpInfo", function (req, res, next) {
   };
 
   htCashbillService.updateCorpInfo(
-    testCorpNum,
+    CorpNum,
     corpInfo,
     function (result) {
       res.render("response", {
@@ -898,7 +898,7 @@ router.get("/updateCorpInfo", function (req, res, next) {
  */
 router.get("/registContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 담당자 정보
   var contactInfo = {
@@ -922,7 +922,7 @@ router.get("/registContact", function (req, res, next) {
   };
 
   htCashbillService.registContact(
-    testCorpNum,
+    CorpNum,
     contactInfo,
     function (result) {
       res.render("response", {
@@ -947,13 +947,13 @@ router.get("/registContact", function (req, res, next) {
  */
 router.get("/getContactInfo", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 확인할 담당자 아이디
   var contactID = "checkContactID";
 
   htCashbillService.getContactInfo(
-    testCorpNum,
+    CorpNum,
     contactID,
     function (result) {
       res.render("Base/getContactInfo", {
@@ -977,10 +977,10 @@ router.get("/getContactInfo", function (req, res, next) {
  */
 router.get("/listContact", function (req, res, next) {
   // 조회할 아이디
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htCashbillService.listContact(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Base/listContact", {
         path: req.path,
@@ -1003,15 +1003,15 @@ router.get("/listContact", function (req, res, next) {
  */
 router.get("/updateContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   // 담당자 정보 항목
   var contactInfo = {
     // 담당자 아이디
-    id: testUserID,
+    id: UserID,
 
     // 담당자명 (최대 100자)
     personName: "담당자명0309",
@@ -1027,8 +1027,8 @@ router.get("/updateContact", function (req, res, next) {
   };
 
   htCashbillService.updateContact(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     contactInfo,
     function (result) {
       res.render("response", {
@@ -1092,6 +1092,248 @@ router.get("/refund", function (req, res, next) {
         code: result.code,
         message: result.message,
         refundCode: result.refundCode,
+      });
+    },
+    function (Error) {
+      res.render("response", {
+        path: req.path,
+        code: Error.code,
+        message: Error.message,
+      });
+    }
+  );
+});
+
+/**
+ * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
+ * - https://developers.popbill.com/reference/htcashbill/node/api/point#PaymentRequest
+ */
+router.get("/paymentRequest", function (req, res, next) {
+  // 팝빌회원 사업자 번호
+  var CorpNum = "1234567890";
+  // 담당자명
+  var SettlerName = "";
+  // 담당자 이메일
+  var SettlerEmail = "";
+  // 담당자 휴대폰
+  var NotifyHP = "";
+  // 입금자명
+  var PaymentName = "";
+  // 결제금액
+  var SettleCost = "";
+
+  // 입금신청 객체 정보
+  var PaymentForm = {
+    settlerName: SettlerName,
+    settlerEmail: SettlerEmail,
+    notifyHP: NotifyHP,
+    paymentName: PaymentName,
+    settleCost: SettleCost,
+  };
+  // 팝빌회원 아이디
+  var UserID = "1234567890";
+
+  htCashbillService.paymentRequest(
+    CorpNum,
+    PaymentForm,
+    UserID,
+    function (result) {
+      res.render("Base/paymentResponse", {
+        path: req.path,
+        result: result,
+      });
+    },
+    function (Error) {
+      res.render("response", {
+        path: req.path,
+        code: Error.code,
+        message: Error.message,
+      });
+    }
+  );
+});
+
+/**
+ * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
+ * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetSettleResult
+ */
+router.get("/getSettleResult", function (req, res, next) {
+  // 팝빌회원 사업자 번호
+  var CorpNum = "1234567890";
+  // 정산코드 - PaymentRequest 호출시 반환되는 값
+  var SettleCode = "";
+  // 팝빌회원 아이디
+  var UserID = "1234567890";
+
+  htCashbillService.getBulkResult(
+    CorpNum,
+    SettleCode,
+    UserID,
+    function (result) {
+      res.render("Base/paymentHistory", {
+        path: req.path,
+        result: result,
+      });
+    },
+    function (Error) {
+      res.render("response", {
+        path: req.path,
+        code: Error.code,
+        message: Error.message,
+      });
+    }
+  );
+});
+
+/**
+ * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
+ * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetSettleResult
+ */
+router.get("/getSettleResult", function (req, res, next) {
+  // 팝빌회원 사업자 번호
+  var CorpNum = "1234567890";
+  // 정산코드 - PaymentRequest 호출시 반환되는 값
+  var SettleCode = "";
+  // 팝빌회원 아이디
+  var UserID = "1234567890";
+
+  htCashbillService.getBulkResult(
+    CorpNum,
+    SettleCode,
+    UserID,
+    function (result) {
+      res.render("Base/paymentHistory", {
+        path: req.path,
+        result: result,
+      });
+    },
+    function (Error) {
+      res.render("response", {
+        path: req.path,
+        code: Error.code,
+        message: Error.message,
+      });
+    }
+  );
+});
+
+/**
+ * 연동회원의 포인트 사용내역을 확인합니다.
+ * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetUseHistory
+ */
+router.get("/getUseHistory", function (req, res, next) {
+  // 팝빌회원 사업자번호, "-" 제외 10자리
+  var CorpNum = "1234567890";
+
+  // 조회 기간의 시작일자 (형식: yyyyMMdd)
+  var SDate = "";
+
+  // 조회 기간의 종료일자 (형식: yyyyMMdd)
+  var EDate = "";
+
+  // 목록 페이지번호 (기본값 1)
+  var Page = 1;
+
+  // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+  var PerPage = 500;
+
+  // 거래일자를 기준으로 하는 목록 정렬 방향 : "D" / "A" 중 택 1
+  var Order = "";
+
+  // 팝빌 회원 아이디
+  var UserID = "testkorea";
+
+  htCashbillService.getUseHistory(
+    CorpNum,
+    SDate,
+    EDate,
+    Page,
+    PerPage,
+    Order,
+    UserID,
+    function (result) {
+      res.render("Base/useHistoryResult", {
+        path: req.path,
+        result: result,
+      });
+    },
+    function (Error) {
+      res.render("response", {
+        path: req.path,
+        code: Error.code,
+        message: Error.message,
+      });
+    }
+  );
+});
+
+/**
+ * 연동회원의 포인트 결제내역을 확인합니다.
+ * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetPaymentHistory
+ */
+router.get("/getPaymentHistory", function (req, res, next) {
+  // 팝빌회원 사업자번호 (하이픈 "-" 제외 10자리)
+  var CorpNum = "1234567890";
+  // 조회 기간의 시작일자 (형식 : yyyyMMdd)
+  var SDate = "20230101";
+  // 조회 기간의 종료일자 (형식 : yyyyMMdd)
+  var EDate = "20230107";
+  // 목록 페이지번호 (기본값 1)
+  var Page = 1;
+  // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+  var PerPage = 500;
+  // 팝빌회원 아이디
+  var UserID = "1234567890";
+
+  htCashbillService.getPaymentHistory(
+    CorpNum,
+    SDate,
+    EDate,
+    Page,
+    PerPage,
+    UserID,
+    function (result) {
+      res.render("Base/paymentHistoryResult", {
+        path: req.path,
+        result: result,
+      });
+    },
+    function (Error) {
+      res.render("response", {
+        path: req.path,
+        code: Error.code,
+        message: Error.message,
+      });
+    }
+  );
+});
+
+/**
+ * 연동회원의 포인트 환불신청내역을 확인합니다.
+ * https://developers.popbill.com/reference/htcashbill/node/api/point#GetRefundHistory
+ */
+router.get("/getRefundHistory", function (req, res, next) {
+  // 팝빌회원 사업자번호, "-" 제외 10자리
+  var CorpNum = "1234567890";
+
+  // 목록 페이지번호
+  var Page = 1;
+
+  // 페이지당 검색개수
+  var PerPage = 500;
+
+  // 팝빌 회원 아이디
+  var UserID = "testkorea";
+
+  htCashbillService.getRefundHistory(
+    CorpNum,
+    Page,
+    PerPage,
+    UserID,
+    function (result) {
+      res.render("Base/RefundHistoryResult", {
+        path: req.path,
+        result: result,
       });
     },
     function (Error) {

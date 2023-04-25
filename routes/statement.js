@@ -21,7 +21,7 @@ router.get("/", function (req, res, next) {
  */
 router.get("/checkMgtKeyInUse", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -30,7 +30,7 @@ router.get("/checkMgtKeyInUse", function (req, res, next) {
   var mgtKey = "20220629-001";
 
   statementService.checkMgtKeyInUse(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     function (result) {
@@ -56,10 +56,10 @@ router.get("/checkMgtKeyInUse", function (req, res, next) {
  */
 router.get("/registIssue", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var ItemCode = 121;
@@ -99,7 +99,7 @@ router.get("/registIssue", function (req, res, next) {
      **************************************************************************/
 
     // 발신자 사업자번호
-    senderCorpNum: testCorpNum,
+    senderCorpNum: CorpNum,
 
     // 발신자 상호
     senderCorpName: "발신자 상호",
@@ -243,10 +243,10 @@ router.get("/registIssue", function (req, res, next) {
   };
 
   statementService.registIssue(
-    testCorpNum,
+    CorpNum,
     statement,
     memo,
-    testUserID,
+    UserID,
     emailSubject,
     function (result) {
       res.render("Statement/IssueResponse", {
@@ -272,7 +272,7 @@ router.get("/registIssue", function (req, res, next) {
  */
 router.get("/register", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var ItemCode = 121;
@@ -305,7 +305,7 @@ router.get("/register", function (req, res, next) {
      **************************************************************************/
 
     // 발신자 사업자번호
-    senderCorpNum: testCorpNum,
+    senderCorpNum: CorpNum,
 
     // 발신자 상호
     senderCorpName: "발신자 상호",
@@ -449,7 +449,7 @@ router.get("/register", function (req, res, next) {
   };
 
   statementService.register(
-    testCorpNum,
+    CorpNum,
     statement,
     function (result) {
       res.render("response", {
@@ -474,7 +474,7 @@ router.get("/register", function (req, res, next) {
  */
 router.get("/update", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var ItemCode = 121;
@@ -507,7 +507,7 @@ router.get("/update", function (req, res, next) {
      **************************************************************************/
 
     // 발신자 사업자번호
-    senderCorpNum: testCorpNum,
+    senderCorpNum: CorpNum,
 
     // 발신자 상호
     senderCorpName: "발신자 상호_수정",
@@ -651,7 +651,7 @@ router.get("/update", function (req, res, next) {
   };
 
   statementService.update(
-    testCorpNum,
+    CorpNum,
     ItemCode,
     MgtKey,
     statement,
@@ -680,7 +680,7 @@ router.get("/update", function (req, res, next) {
  */
 router.get("/issue", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -698,7 +698,7 @@ router.get("/issue", function (req, res, next) {
   var UserID = "testkorea";
 
   statementService.issue(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     memo,
@@ -727,7 +727,7 @@ router.get("/issue", function (req, res, next) {
  */
 router.get("/cancelIssue", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -739,7 +739,7 @@ router.get("/cancelIssue", function (req, res, next) {
   var memo = "발행취소 메모";
 
   statementService.cancel(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     memo,
@@ -767,7 +767,7 @@ router.get("/cancelIssue", function (req, res, next) {
  */
 router.get("/delete", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -776,7 +776,7 @@ router.get("/delete", function (req, res, next) {
   var mgtKey = "20220629-001";
 
   statementService.delete(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     function (result) {
@@ -802,7 +802,7 @@ router.get("/delete", function (req, res, next) {
  */
 router.get("/getInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -811,7 +811,7 @@ router.get("/getInfo", function (req, res, next) {
   var mgtKey = "20220629-001";
 
   statementService.getInfo(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     function (result) {
@@ -836,7 +836,7 @@ router.get("/getInfo", function (req, res, next) {
  */
 router.get("/getInfos", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -845,7 +845,7 @@ router.get("/getInfos", function (req, res, next) {
   var mgtKeyList = ["20220629-001", "20220629-002"];
 
   statementService.getInfos(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKeyList,
     function (result) {
@@ -870,7 +870,7 @@ router.get("/getInfos", function (req, res, next) {
  */
 router.get("/getDetailInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -879,7 +879,7 @@ router.get("/getDetailInfo", function (req, res, next) {
   var mgtKey = "20220629-001";
 
   statementService.getDetailInfo(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     function (result) {
@@ -904,7 +904,7 @@ router.get("/getDetailInfo", function (req, res, next) {
  */
 router.get("/search", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 일자 유형 ("R" , "W" , "I" 중 택 1)
   // └ R = 등록일자 , W = 작성일자 , I = 발행일자
@@ -937,7 +937,7 @@ router.get("/search", function (req, res, next) {
   var PerPage = 10;
 
   statementService.search(
-    testCorpNum,
+    CorpNum,
     DType,
     SDate,
     EDate,
@@ -969,7 +969,7 @@ router.get("/search", function (req, res, next) {
  */
 router.get("/getLogs", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -978,7 +978,7 @@ router.get("/getLogs", function (req, res, next) {
   var mgtKey = "20220629-001";
 
   statementService.getLogs(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     function (result) {
@@ -1004,18 +1004,18 @@ router.get("/getLogs", function (req, res, next) {
  */
 router.get("/getURL", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // SBOX(매출문서함), TBOX(임시문서함)
   var TOGO = "SBOX";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   statementService.getURL(
-    testCorpNum,
+    CorpNum,
     TOGO,
-    testUserID,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1039,7 +1039,7 @@ router.get("/getURL", function (req, res, next) {
  */
 router.get("/getPopUpURL", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1048,13 +1048,13 @@ router.get("/getPopUpURL", function (req, res, next) {
   var mgtKey = "20220629-001";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   statementService.getPopUpURL(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
-    testUserID,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1078,7 +1078,7 @@ router.get("/getPopUpURL", function (req, res, next) {
  */
 router.get("/getViewURL", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1087,13 +1087,13 @@ router.get("/getViewURL", function (req, res, next) {
   var mgtKey = "20220629-001";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   statementService.getViewURL(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
-    testUserID,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1117,7 +1117,7 @@ router.get("/getViewURL", function (req, res, next) {
  */
 router.get("/getPrintURL", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1126,13 +1126,13 @@ router.get("/getPrintURL", function (req, res, next) {
   var mgtKey = "20220629-001";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   statementService.getPrintURL(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
-    testUserID,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1156,7 +1156,7 @@ router.get("/getPrintURL", function (req, res, next) {
  */
 router.get("/getEPrintURL", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1165,13 +1165,13 @@ router.get("/getEPrintURL", function (req, res, next) {
   var mgtKey = "20220629-001";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   statementService.getEPrintURL(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
-    testUserID,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1195,7 +1195,7 @@ router.get("/getEPrintURL", function (req, res, next) {
  */
 router.get("/getMassPrintURL", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1204,13 +1204,13 @@ router.get("/getMassPrintURL", function (req, res, next) {
   var mgtKeyList = ["20220629-001", "20220629-002"];
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   statementService.getMassPrintURL(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKeyList,
-    testUserID,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1234,7 +1234,7 @@ router.get("/getMassPrintURL", function (req, res, next) {
  */
 router.get("/getMailURL", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1243,13 +1243,13 @@ router.get("/getMailURL", function (req, res, next) {
   var mgtKey = "20220629-001";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   statementService.getMailURL(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
-    testUserID,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1273,14 +1273,14 @@ router.get("/getMailURL", function (req, res, next) {
  */
 router.get("/getAccessURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   statementService.getAccessURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1304,14 +1304,14 @@ router.get("/getAccessURL", function (req, res, next) {
  */
 router.get("/getSealURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   statementService.getSealURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1334,7 +1334,7 @@ router.get("/getSealURL", function (req, res, next) {
  */
 router.get("/attachFile", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1349,7 +1349,7 @@ router.get("/attachFile", function (req, res, next) {
   var fileName = filePaths[0].replace(/^.*[\\\/]/, "");
 
   statementService.attachFile(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     fileName,
@@ -1377,7 +1377,7 @@ router.get("/attachFile", function (req, res, next) {
  */
 router.get("/deleteFile", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1389,7 +1389,7 @@ router.get("/deleteFile", function (req, res, next) {
   var fileID = "";
 
   statementService.deleteFile(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     fileID,
@@ -1417,7 +1417,7 @@ router.get("/deleteFile", function (req, res, next) {
  */
 router.get("/getFiles", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1426,7 +1426,7 @@ router.get("/getFiles", function (req, res, next) {
   var mgtKey = "20220629-002";
 
   statementService.getFiles(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     function (result) {
@@ -1451,7 +1451,7 @@ router.get("/getFiles", function (req, res, next) {
  */
 router.get("/sendEmail", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1465,7 +1465,7 @@ router.get("/sendEmail", function (req, res, next) {
   var receiver = "";
 
   statementService.sendEmail(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     receiver,
@@ -1494,7 +1494,7 @@ router.get("/sendEmail", function (req, res, next) {
  */
 router.get("/sendSMS", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1512,7 +1512,7 @@ router.get("/sendSMS", function (req, res, next) {
   var contents = "전자명세서 알림문자재전송 테스트";
 
   statementService.sendSMS(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     senderNum,
@@ -1542,7 +1542,7 @@ router.get("/sendSMS", function (req, res, next) {
  */
 router.get("/sendFAX", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1557,7 +1557,7 @@ router.get("/sendFAX", function (req, res, next) {
   var receiverNum = "";
 
   statementService.sendFAX(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     senderNum,
@@ -1589,7 +1589,7 @@ router.get("/sendFAX", function (req, res, next) {
  */
 router.get("/FAXSend", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 발신번호
   var sendNum = "";
@@ -1628,7 +1628,7 @@ router.get("/FAXSend", function (req, res, next) {
      **************************************************************************/
 
     // 발신자 사업자번호
-    senderCorpNum: testCorpNum,
+    senderCorpNum: CorpNum,
 
     // 발신자 상호
     senderCorpName: "발신자 상호",
@@ -1772,7 +1772,7 @@ router.get("/FAXSend", function (req, res, next) {
   };
 
   statementService.FAXSend(
-    testCorpNum,
+    CorpNum,
     statement,
     sendNum,
     receiveNum,
@@ -1798,7 +1798,7 @@ router.get("/FAXSend", function (req, res, next) {
  */
 router.get("/attachStatement", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 종류코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1813,7 +1813,7 @@ router.get("/attachStatement", function (req, res, next) {
   var subMgtKey = "20220629-002";
 
   statementService.attachStatement(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     subItemCode,
@@ -1841,7 +1841,7 @@ router.get("/attachStatement", function (req, res, next) {
  */
 router.get("/detachStatement", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 종류코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
@@ -1856,7 +1856,7 @@ router.get("/detachStatement", function (req, res, next) {
   var subMgtKey = "20220629-002";
 
   statementService.detachStatement(
-    testCorpNum,
+    CorpNum,
     itemCode,
     mgtKey,
     subItemCode,
@@ -1884,10 +1884,10 @@ router.get("/detachStatement", function (req, res, next) {
  */
 router.get("/listEmailConfig", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   statementService.listEmailConfig(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Statement/ListEmailConfig", {
         path: req.path,
@@ -1917,7 +1917,7 @@ router.get("/listEmailConfig", function (req, res, next) {
  */
 router.get("/updateEmailConfig", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 메일 전송 유형
   var emailType = "SMT_ISSUE";
@@ -1926,7 +1926,7 @@ router.get("/updateEmailConfig", function (req, res, next) {
   var sendYN = true;
 
   statementService.updateEmailConfig(
-    testCorpNum,
+    CorpNum,
     emailType,
     sendYN,
     function (result) {
@@ -1952,10 +1952,10 @@ router.get("/updateEmailConfig", function (req, res, next) {
  */
 router.get("/getBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   statementService.getBalance(
-    testCorpNum,
+    CorpNum,
     function (remainPoint) {
       res.render("result", {
         path: req.path,
@@ -1979,14 +1979,14 @@ router.get("/getBalance", function (req, res, next) {
  */
 router.get("/getChargeURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   statementService.getChargeURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -2010,14 +2010,14 @@ router.get("/getChargeURL", function (req, res, next) {
  */
 router.get("/getPaymentURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   statementService.getPaymentURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -2041,14 +2041,14 @@ router.get("/getPaymentURL", function (req, res, next) {
  */
 router.get("/getUseHistoryURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   statementService.getUseHistoryURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -2071,10 +2071,10 @@ router.get("/getUseHistoryURL", function (req, res, next) {
  */
 router.get("/getPartnerBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   statementService.getPartnerBalance(
-    testCorpNum,
+    CorpNum,
     function (remainPoint) {
       res.render("result", {
         path: req.path,
@@ -2098,13 +2098,13 @@ router.get("/getPartnerBalance", function (req, res, next) {
  */
 router.get("/getPartnerURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // CHRG(포인트충전)
   var TOGO = "CHRG";
 
   statementService.getPartnerURL(
-    testCorpNum,
+    CorpNum,
     TOGO,
     function (url) {
       res.render("result", {
@@ -2128,13 +2128,13 @@ router.get("/getPartnerURL", function (req, res, next) {
  */
 router.get("/getUnitCost", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
 
   statementService.getUnitCost(
-    testCorpNum,
+    CorpNum,
     itemCode,
     function (unitCost) {
       res.render("result", {
@@ -2158,13 +2158,13 @@ router.get("/getUnitCost", function (req, res, next) {
  */
 router.get("/getChargeInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 명세서 종류코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
   var itemCode = 121;
 
   statementService.getChargeInfo(
-    testCorpNum,
+    CorpNum,
     itemCode,
     function (result) {
       res.render("Base/getChargeInfo", {
@@ -2188,10 +2188,10 @@ router.get("/getChargeInfo", function (req, res, next) {
  */
 router.get("/checkIsMember", function (req, res, next) {
   // 조회할 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   statementService.checkIsMember(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -2304,10 +2304,10 @@ router.get("/joinMember", function (req, res, next) {
  */
 router.get("/getCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   statementService.getCorpInfo(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Base/getCorpInfo", {
         path: req.path,
@@ -2330,7 +2330,7 @@ router.get("/getCorpInfo", function (req, res, next) {
  */
 router.get("/updateCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 회사정보
   var corpInfo = {
@@ -2351,7 +2351,7 @@ router.get("/updateCorpInfo", function (req, res, next) {
   };
 
   statementService.updateCorpInfo(
-    testCorpNum,
+    CorpNum,
     corpInfo,
     function (result) {
       res.render("response", {
@@ -2376,7 +2376,7 @@ router.get("/updateCorpInfo", function (req, res, next) {
  */
 router.get("/registContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 담당자 정보
   var contactInfo = {
@@ -2400,7 +2400,7 @@ router.get("/registContact", function (req, res, next) {
   };
 
   statementService.registContact(
-    testCorpNum,
+    CorpNum,
     contactInfo,
     function (result) {
       res.render("response", {
@@ -2425,13 +2425,13 @@ router.get("/registContact", function (req, res, next) {
  */
 router.get("/getContactInfo", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 확인할 담당자 아이디
   var contactID = "checkContactID";
 
   statementService.getContactInfo(
-    testCorpNum,
+    CorpNum,
     contactID,
     function (result) {
       res.render("Base/getContactInfo", {
@@ -2455,10 +2455,10 @@ router.get("/getContactInfo", function (req, res, next) {
  */
 router.get("/listContact", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   statementService.listContact(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Base/listContact", {
         path: req.path,
@@ -2481,15 +2481,15 @@ router.get("/listContact", function (req, res, next) {
  */
 router.get("/updateContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   // 담당자 정보 항목
   var contactInfo = {
     // 담당자 아이디
-    id: testUserID,
+    id: UserID,
 
     // 담당자명 (최대 100자)
     personName: "담당자명0309",
@@ -2505,8 +2505,8 @@ router.get("/updateContact", function (req, res, next) {
   };
 
   statementService.updateContact(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     contactInfo,
     function (result) {
       res.render("response", {
@@ -2531,7 +2531,7 @@ router.get("/updateContact", function (req, res, next) {
  */
 router.get("/paymentRequest", function (req, res, next) {
   // 팝빌회원 사업자 번호
-  var CorpNUm = "";
+  var CorpNum = "1234567890";
   // 담당자명
   var SettlerName = "";
   // 담당자 이메일
@@ -2555,7 +2555,7 @@ router.get("/paymentRequest", function (req, res, next) {
   var UserID = "testkorea";
 
   statementService.paymentRequest(
-    CorpNUm,
+    CorpNum,
     PaymentForm,
     UserID,
     function (result) {

@@ -21,7 +21,7 @@ router.get("/", function (req, res, next) {
  */
 router.get("/requestJob", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 전자세금계산서 유형 SELL-매출, BUY-매입, TRUSTEE-위수탁
   var type = popbill.MgtKeyType.SELL;
@@ -36,7 +36,7 @@ router.get("/requestJob", function (req, res, next) {
   var EDate = "20220629";
 
   htTaxinvoiceService.requestJob(
-    testCorpNum,
+    CorpNum,
     type,
     DType,
     SDate,
@@ -69,13 +69,13 @@ router.get("/requestJob", function (req, res, next) {
  */
 router.get("/getJobState", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 수집 요청(requestJob API)시 반환반은 작업아이디(jobID)
   var jobID = "021121721000000002";
 
   htTaxinvoiceService.getJobState(
-    testCorpNum,
+    CorpNum,
     jobID,
     function (response) {
       res.render("HomeTax/jobState", {
@@ -100,10 +100,10 @@ router.get("/getJobState", function (req, res, next) {
  */
 router.get("/listActiveJob", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htTaxinvoiceService.listActiveJob(
-    testCorpNum,
+    CorpNum,
     function (response) {
       res.render("HomeTax/listActiveJob", {
         path: req.path,
@@ -126,10 +126,10 @@ router.get("/listActiveJob", function (req, res, next) {
  */
 router.get("/search", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "";
+  var UserID = "1234567890";
 
   // 작업아이디
   var jobID = "021121721000000002";
@@ -177,7 +177,7 @@ router.get("/search", function (req, res, next) {
   var searchString = "";
 
   htTaxinvoiceService.search(
-    testCorpNum,
+    CorpNum,
     jobID,
     type,
     taxType,
@@ -188,7 +188,7 @@ router.get("/search", function (req, res, next) {
     page,
     perPage,
     order,
-    testUserID,
+    UserID,
     searchString,
     function (response) {
       res.render("HTTaxinvoice/search", {
@@ -213,10 +213,10 @@ router.get("/search", function (req, res, next) {
  */
 router.get("/summary", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "";
+  var UserID = "1234567890";
 
   // 작업아이디
   var jobID = "021103109000000121";
@@ -255,7 +255,7 @@ router.get("/summary", function (req, res, next) {
   var searchString = "";
 
   htTaxinvoiceService.summary(
-    testCorpNum,
+    CorpNum,
     jobID,
     type,
     taxType,
@@ -263,7 +263,7 @@ router.get("/summary", function (req, res, next) {
     taxRegIDType,
     taxRegIDYN,
     taxRegID,
-    testUserID,
+    UserID,
     searchString,
     function (response) {
       res.render("HTTaxinvoice/summary", {
@@ -287,13 +287,13 @@ router.get("/summary", function (req, res, next) {
  */
 router.get("/getTaxinvoice", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 전자세금계산서 국세청 승인번호
   var ntsconfirmNum = "202101074100020300000ecd";
 
   htTaxinvoiceService.getTaxinvoice(
-    testCorpNum,
+    CorpNum,
     ntsconfirmNum,
     function (response) {
       res.render("HTTaxinvoice/getTaxinvoice", {
@@ -317,13 +317,13 @@ router.get("/getTaxinvoice", function (req, res, next) {
  */
 router.get("/getXML", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 전자세금계산서 국세청 승인번호
   var ntsconfirmNum = "202101074100020300000ecd";
 
   htTaxinvoiceService.getXML(
-    testCorpNum,
+    CorpNum,
     ntsconfirmNum,
     function (response) {
       res.render("HTTaxinvoice/getXML", {
@@ -348,18 +348,18 @@ router.get("/getXML", function (req, res, next) {
  */
 router.get("/getPopUpURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 국세청승인번호
   var NTSConfirmNum = "202101074100020300000ecd";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htTaxinvoiceService.getPopUpURL(
-    testCorpNum,
+    CorpNum,
     NTSConfirmNum,
-    testUserID,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -383,18 +383,18 @@ router.get("/getPopUpURL", function (req, res, next) {
  */
 router.get("/getPrintURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 국세청승인번호
   var NTSConfirmNum = "202101074100020300000ecd";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htTaxinvoiceService.getPrintURL(
-    testCorpNum,
+    CorpNum,
     NTSConfirmNum,
-    testUserID,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -418,14 +418,14 @@ router.get("/getPrintURL", function (req, res, next) {
  */
 router.get("/getCertificatePopUpURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htTaxinvoiceService.getCertificatePopUpURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -448,10 +448,10 @@ router.get("/getCertificatePopUpURL", function (req, res, next) {
  */
 router.get("/getCertificateExpireDate", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htTaxinvoiceService.getCertificateExpireDate(
-    testCorpNum,
+    CorpNum,
     function (expireDate) {
       res.render("result", {
         path: req.path,
@@ -474,10 +474,10 @@ router.get("/getCertificateExpireDate", function (req, res, next) {
  */
 router.get("/checkCertValidation", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htTaxinvoiceService.checkCertValidation(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -501,7 +501,7 @@ router.get("/checkCertValidation", function (req, res, next) {
  */
 router.get("/registDeptUser", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 홈택스에서 생성한 전자세금계산서 부서사용자 아이디
   var deptUserID = "userid";
@@ -510,7 +510,7 @@ router.get("/registDeptUser", function (req, res, next) {
   var deptUserPWD = "passwd";
 
   htTaxinvoiceService.registDeptUser(
-    testCorpNum,
+    CorpNum,
     deptUserID,
     deptUserPWD,
     function (result) {
@@ -536,10 +536,10 @@ router.get("/registDeptUser", function (req, res, next) {
  */
 router.get("/checkDeptUser", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htTaxinvoiceService.checkDeptUser(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -563,10 +563,10 @@ router.get("/checkDeptUser", function (req, res, next) {
  */
 router.get("/checkLoginDeptUser", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htTaxinvoiceService.checkLoginDeptUser(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -590,10 +590,10 @@ router.get("/checkLoginDeptUser", function (req, res, next) {
  */
 router.get("/deleteDeptUser", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htTaxinvoiceService.deleteDeptUser(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -618,14 +618,14 @@ router.get("/deleteDeptUser", function (req, res, next) {
  */
 router.get("/getFlatRatePopUpURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htTaxinvoiceService.getFlatRatePopUpURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -648,10 +648,10 @@ router.get("/getFlatRatePopUpURL", function (req, res, next) {
  */
 router.get("/getFlatRateState", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htTaxinvoiceService.getFlatRateState(
-    testCorpNum,
+    CorpNum,
     function (response) {
       res.render("HomeTax/flatRateState", {
         path: req.path,
@@ -674,10 +674,10 @@ router.get("/getFlatRateState", function (req, res, next) {
  */
 router.get("/getBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htTaxinvoiceService.getBalance(
-    testCorpNum,
+    CorpNum,
     function (remainPoint) {
       res.render("result", {
         path: req.path,
@@ -701,14 +701,14 @@ router.get("/getBalance", function (req, res, next) {
  */
 router.get("/getChargeURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htTaxinvoiceService.getChargeURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -732,14 +732,14 @@ router.get("/getChargeURL", function (req, res, next) {
  */
 router.get("/getPaymentURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htTaxinvoiceService.getPaymentURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -763,14 +763,14 @@ router.get("/getPaymentURL", function (req, res, next) {
  */
 router.get("/getUseHistoryURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htTaxinvoiceService.getUseHistoryURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -793,10 +793,10 @@ router.get("/getUseHistoryURL", function (req, res, next) {
  */
 router.get("/getPartnerBalance", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htTaxinvoiceService.getPartnerBalance(
-    testCorpNum,
+    CorpNum,
     function (remainPoint) {
       res.render("result", {
         path: req.path,
@@ -820,13 +820,13 @@ router.get("/getPartnerBalance", function (req, res, next) {
  */
 router.get("/getPartnerURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // CHRG(포인트충전)
   var TOGO = "CHRG";
 
   htTaxinvoiceService.getPartnerURL(
-    testCorpNum,
+    CorpNum,
     TOGO,
     function (url) {
       res.render("result", {
@@ -850,10 +850,10 @@ router.get("/getPartnerURL", function (req, res, next) {
  */
 router.get("/getChargeInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htTaxinvoiceService.getChargeInfo(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Base/getChargeInfo", {
         path: req.path,
@@ -876,10 +876,10 @@ router.get("/getChargeInfo", function (req, res, next) {
  */
 router.get("/checkIsMember", function (req, res, next) {
   // 조회할 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htTaxinvoiceService.checkIsMember(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("response", {
         path: req.path,
@@ -994,14 +994,14 @@ router.get("/joinMember", function (req, res, next) {
  */
 router.get("/getAccessURL", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   htTaxinvoiceService.getAccessURL(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     function (url) {
       res.render("result", {
         path: req.path,
@@ -1024,10 +1024,10 @@ router.get("/getAccessURL", function (req, res, next) {
  */
 router.get("/getCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   htTaxinvoiceService.getCorpInfo(
-    testCorpNum,
+    CorpNum,
     function (result) {
       res.render("Base/getCorpInfo", {
         path: req.path,
@@ -1050,7 +1050,7 @@ router.get("/getCorpInfo", function (req, res, next) {
  */
 router.get("/updateCorpInfo", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 회사정보
   var corpInfo = {
@@ -1071,7 +1071,7 @@ router.get("/updateCorpInfo", function (req, res, next) {
   };
 
   htTaxinvoiceService.updateCorpInfo(
-    testCorpNum,
+    CorpNum,
     corpInfo,
     function (result) {
       res.render("response", {
@@ -1096,7 +1096,7 @@ router.get("/updateCorpInfo", function (req, res, next) {
  */
 router.get("/registContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 담당자 정보
   var contactInfo = {
@@ -1120,7 +1120,7 @@ router.get("/registContact", function (req, res, next) {
   };
 
   htTaxinvoiceService.registContact(
-    testCorpNum,
+    CorpNum,
     contactInfo,
     function (result) {
       res.render("response", {
@@ -1145,14 +1145,18 @@ router.get("/registContact", function (req, res, next) {
  */
 router.get("/getContactInfo", function (req, res, next) {
   // 팝빌회원 사업자번호
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 확인할 담당자 아이디
   var contactID = "checkContactID";
 
+  // 팝빌회원 아이디
+  var UserID = "testkorea";
+
   htTaxinvoiceService.getContactInfo(
-    testCorpNum,
+    CorpNum,
     contactID,
+    UserID,
     function (result) {
       res.render("Base/getContactInfo", {
         path: req.path,
@@ -1174,11 +1178,14 @@ router.get("/getContactInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/httaxinvoice/node/api/member#ListContact
  */
 router.get("/listContact", function (req, res, next) {
-  // 조회할 아이디
-  var testCorpNum = "1234567890";
+  // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
+  var CorpNum = "1234567890";
+
+  var UserID = "testkorea";
 
   htTaxinvoiceService.listContact(
-    testCorpNum,
+    CorpNum,
+    UserID,
     function (result) {
       res.render("Base/listContact", {
         path: req.path,
@@ -1201,15 +1208,15 @@ router.get("/listContact", function (req, res, next) {
  */
 router.get("/updateContact", function (req, res, next) {
   // 팝빌회원 사업자번호, "-" 제외 10자리
-  var testCorpNum = "1234567890";
+  var CorpNum = "1234567890";
 
   // 팝빌회원 아이디
-  var testUserID = "testkorea";
+  var UserID = "testkorea";
 
   // 담당자 정보 항목
   var contactInfo = {
     // 담당자 아이디
-    id: testUserID,
+    id: UserID,
 
     // 담당자명 (최대 100자)
     personName: "담당자명0309",
@@ -1225,8 +1232,8 @@ router.get("/updateContact", function (req, res, next) {
   };
 
   htTaxinvoiceService.updateContact(
-    testCorpNum,
-    testUserID,
+    CorpNum,
+    UserID,
     contactInfo,
     function (result) {
       res.render("response", {
@@ -1290,6 +1297,263 @@ router.get("/refund", function (req, res, next) {
         code: result.code,
         message: result.message,
         refundCode: result.refundCode,
+      });
+    },
+    function (Error) {
+      res.render("response", {
+        path: req.path,
+        code: Error.code,
+        message: Error.message,
+      });
+    }
+  );
+});
+
+/**
+ * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
+ * - https://developers.popbill.com/reference/httaxinvoice/node/api/point#PaymentRequest
+ */
+router.get("/paymentRequest", function (req, res, next) {
+  // 팝빌회원 사업자 번호
+  var CorpNum = "1234567890";
+
+  // 담당자명
+  var SettlerName = "";
+
+  // 담당자 이메일
+  var SettlerEmail = "";
+
+  // 담당자 휴대폰
+  var NotifyHP = "";
+
+  // 입금자명
+  var PaymentName = "";
+
+  // 결제금액
+  var SettleCost = "";
+
+  // 입금신청 객체 정보
+  var PaymentForm = {
+    settlerName: SettlerName,
+    settlerEmail: SettlerEmail,
+    notifyHP: NotifyHP,
+    paymentName: PaymentName,
+    settleCost: SettleCost,
+  };
+
+  // 팝빌회원 아이디
+  var UserID = "1234567890";
+
+  htTaxinvoiceService.paymentRequest(
+    CorpNum,
+    PaymentForm,
+    UserID,
+    function (result) {
+      res.render("Base/paymentResponse", {
+        path: req.path,
+        result: result,
+      });
+    },
+    function (Error) {
+      res.render("response", {
+        path: req.path,
+        code: Error.code,
+        message: Error.message,
+      });
+    }
+  );
+});
+
+/**
+ * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
+ * - https://developers.popbill.com/reference/httaxinvoice/node/api/point#GetSettleResult
+ */
+router.get("/getSettleResult", function (req, res, next) {
+  // 팝빌회원 사업자 번호
+  var CorpNum = "1234567890";
+
+  // 정산코드 - PaymentRequest 호출시 반환되는 값
+  var SettleCode = "";
+
+  // 팝빌회원 아이디
+  var UserID = "1234567890";
+
+  htTaxinvoiceService.getBulkResult(
+    CorpNum,
+    SettleCode,
+    UserID,
+    function (result) {
+      res.render("Base/paymentHistory", {
+        path: req.path,
+        result: result,
+      });
+    },
+    function (Error) {
+      res.render("response", {
+        path: req.path,
+        code: Error.code,
+        message: Error.message,
+      });
+    }
+  );
+});
+
+/**
+ * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
+ * - https://developers.popbill.com/reference/httaxinvoice/node/api/point#GetSettleResult
+ */
+router.get("/getSettleResult", function (req, res, next) {
+  // 팝빌회원 사업자 번호
+  var CorpNum = "1234567890";
+
+  // 정산코드 - PaymentRequest 호출시 반환되는 값
+  var SettleCode = "";
+
+  // 팝빌회원 아이디
+  var UserID = "1234567890";
+
+  htTaxinvoiceService.getBulkResult(
+    CorpNum,
+    SettleCode,
+    UserID,
+    function (result) {
+      res.render("Base/paymentHistory", {
+        path: req.path,
+        result: result,
+      });
+    },
+    function (Error) {
+      res.render("response", {
+        path: req.path,
+        code: Error.code,
+        message: Error.message,
+      });
+    }
+  );
+});
+
+/**
+ * 연동회원의 포인트 사용내역을 확인합니다.
+ * - https://developers.popbill.com/reference/httaxinvoice/node/api/point#GetUseHistory
+ */
+router.get("/getUseHistory", function (req, res, next) {
+  // 팝빌회원 사업자번호, "-" 제외 10자리
+  var CorpNum = "1234567890";
+
+  // 조회 기간의 시작일자 (형식: yyyyMMdd)
+  var SDate = "";
+
+  // 조회 기간의 종료일자 (형식: yyyyMMdd)
+  var EDate = "";
+
+  // 목록 페이지번호 (기본값 1)
+  var Page = 1;
+
+  // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+  var PerPage = 500;
+
+  // 거래일자를 기준으로 하는 목록 정렬 방향 : "D" / "A" 중 택 1
+  var Order = "";
+
+  // 팝빌 회원 아이디
+  var UserID = "testkorea";
+
+  htTaxinvoiceService.getUseHistory(
+    CorpNum,
+    SDate,
+    EDate,
+    Page,
+    PerPage,
+    Order,
+    UserID,
+    function (result) {
+      res.render("Base/useHistoryResult", {
+        path: req.path,
+        result: result,
+      });
+    },
+    function (Error) {
+      res.render("response", {
+        path: req.path,
+        code: Error.code,
+        message: Error.message,
+      });
+    }
+  );
+});
+
+/**
+ * 연동회원의 포인트 결제내역을 확인합니다.
+ * - https://developers.popbill.com/reference/httaxinvoice/node/api/point#GetPaymentHistory
+ */
+router.get("/getPaymentHistory", function (req, res, next) {
+  // 팝빌회원 사업자번호 (하이픈 "-" 제외 10자리)
+  var CorpNum = "1234567890";
+
+  // 조회 기간의 시작일자 (형식 : yyyyMMdd)
+  var SDate = "20230101";
+
+  // 조회 기간의 종료일자 (형식 : yyyyMMdd)
+  var EDate = "20230107";
+
+  // 목록 페이지번호 (기본값 1)
+  var Page = 1;
+
+  // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+  var PerPage = 500;
+
+  // 팝빌회원 아이디
+  var UserID = "1234567890";
+
+  htTaxinvoiceService.getPaymentHistory(
+    CorpNum,
+    SDate,
+    EDate,
+    Page,
+    PerPage,
+    UserID,
+    function (result) {
+      res.render("Base/paymentHistoryResult", {
+        path: req.path,
+        result: result,
+      });
+    },
+    function (Error) {
+      res.render("response", {
+        path: req.path,
+        code: Error.code,
+        message: Error.message,
+      });
+    }
+  );
+});
+
+/**
+ * 연동회원의 포인트 환불신청내역을 확인합니다.
+ * https://developers.popbill.com/reference/httaxinvoice/node/api/point#GetRefundHistory
+ */
+router.get("/getRefundHistory", function (req, res, next) {
+  // 팝빌회원 사업자번호, "-" 제외 10자리
+  var CorpNum = "1234567890";
+
+  // 목록 페이지번호
+  var Page = 1;
+
+  // 페이지당 검색개수
+  var PerPage = 500;
+
+  // 팝빌 회원 아이디
+  var UserID = "testkorea";
+
+  htTaxinvoiceService.getRefundHistory(
+    CorpNum,
+    Page,
+    PerPage,
+    UserID,
+    function (result) {
+      res.render("Base/RefundHistoryResult", {
+        path: req.path,
+        result: result,
       });
     },
     function (Error) {
