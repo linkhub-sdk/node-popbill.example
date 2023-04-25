@@ -11,7 +11,7 @@ var htCashbillService = popbill.HTCashbillService();
  * HTCashbill API Index 목록
  */
 router.get("/", function (req, res, next) {
-  res.render("HTCashbill/index", {});
+    res.render("HTCashbill/index", {});
 });
 
 /*
@@ -19,37 +19,37 @@ router.get("/", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/job#RequestJob
  */
 router.get("/RequestJob", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 현금영수증 유형, SELL-매출, BUY-매입
-  var type = popbill.MgtKeyType.SELL;
+    // 현금영수증 유형, SELL-매출, BUY-매입
+    var type = popbill.MgtKeyType.SELL;
 
-  // 시작일자, 날짜형식(yyyyMMdd)
-  var SDate = "20220601";
+    // 시작일자, 날짜형식(yyyyMMdd)
+    var SDate = "20220601";
 
-  // 종료일자, 날짜형식(yyyyMMdd)
-  var EDate = "20220629";
+    // 종료일자, 날짜형식(yyyyMMdd)
+    var EDate = "20220629";
 
-  htCashbillService.requestJob(
-    CorpNum,
-    type,
-    SDate,
-    EDate,
-    function (jobID) {
-      res.render("result", {
-        path: req.path,
-        result: jobID,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.requestJob(
+        CorpNum,
+        type,
+        SDate,
+        EDate,
+        function (jobID) {
+            res.render("result", {
+                path: req.path,
+                result: jobID,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -63,29 +63,29 @@ router.get("/RequestJob", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/job#GetJobState
  */
 router.get("/GetJobState", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 작업아이디
-  var jobID = "021010912000000058";
+    // 작업아이디
+    var jobID = "021010912000000058";
 
-  htCashbillService.getJobState(
-    CorpNum,
-    jobID,
-    function (response) {
-      res.render("HomeTax/jobState", {
-        path: req.path,
-        result: response,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getJobState(
+        CorpNum,
+        jobID,
+        function (response) {
+            res.render("HomeTax/jobState", {
+                path: req.path,
+                result: response,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -94,25 +94,25 @@ router.get("/GetJobState", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/job#ListActiveJob
  */
 router.get("/ListActiveJob", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  htCashbillService.listActiveJob(
-    CorpNum,
-    function (response) {
-      res.render("HomeTax/listActiveJob", {
-        path: req.path,
-        result: response,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.listActiveJob(
+        CorpNum,
+        function (response) {
+            res.render("HomeTax/listActiveJob", {
+                path: req.path,
+                result: response,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -120,53 +120,53 @@ router.get("/ListActiveJob", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/search#Search
  */
 router.get("/Search", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 작업아이디
-  var jobID = "021010912000000058";
+    // 작업아이디
+    var jobID = "021010912000000058";
 
-  // 문서형태 배열 ("N" 와 "C" 중 선택, 다중 선택 가능)
-  // └ N = 일반 현금영수증 , C = 취소현금영수증
-  // - 미입력 시 전체조회
-  var tradeType = ["N", "C"];
+    // 문서형태 배열 ("N" 와 "C" 중 선택, 다중 선택 가능)
+    // └ N = 일반 현금영수증 , C = 취소현금영수증
+    // - 미입력 시 전체조회
+    var tradeType = ["N", "C"];
 
-  // 거래구분 배열 ("P" 와 "C" 중 선택, 다중 선택 가능)
-  // └ P = 소득공제용 , C = 지출증빙용
-  // - 미입력 시 전체조회
-  var tradeUsage = ["P", "C"];
+    // 거래구분 배열 ("P" 와 "C" 중 선택, 다중 선택 가능)
+    // └ P = 소득공제용 , C = 지출증빙용
+    // - 미입력 시 전체조회
+    var tradeUsage = ["P", "C"];
 
-  // 페이지번호
-  var page = 1;
+    // 페이지번호
+    var page = 1;
 
-  // 페이지당 검색개수
-  var perPage = 10;
+    // 페이지당 검색개수
+    var perPage = 10;
 
-  // 정렬방향, D-내림차순, A-오름차순
-  var order = "D";
+    // 정렬방향, D-내림차순, A-오름차순
+    var order = "D";
 
-  htCashbillService.search(
-    CorpNum,
-    jobID,
-    tradeType,
-    tradeUsage,
-    page,
-    perPage,
-    order,
-    function (response) {
-      res.render("HTCashbill/search", {
-        path: req.path,
-        result: response,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.search(
+        CorpNum,
+        jobID,
+        tradeType,
+        tradeUsage,
+        page,
+        perPage,
+        order,
+        function (response) {
+            res.render("HTCashbill/search", {
+                path: req.path,
+                result: response,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -175,41 +175,41 @@ router.get("/Search", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/search#Summary
  */
 router.get("/Summary", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 작업아이디
-  var jobID = "021010912000000058";
+    // 작업아이디
+    var jobID = "021010912000000058";
 
-  // 문서형태 배열 ("N" 와 "C" 중 선택, 다중 선택 가능)
-  // └ N = 일반 현금영수증 , C = 취소현금영수증
-  // - 미입력 시 전체조회
-  var tradeType = ["N", "C"];
+    // 문서형태 배열 ("N" 와 "C" 중 선택, 다중 선택 가능)
+    // └ N = 일반 현금영수증 , C = 취소현금영수증
+    // - 미입력 시 전체조회
+    var tradeType = ["N", "C"];
 
-  // 거래구분 배열 ("P" 와 "C" 중 선택, 다중 선택 가능)
-  // └ P = 소득공제용 , C = 지출증빙용
-  // - 미입력 시 전체조회
-  var tradeUsage = ["P", "C"];
+    // 거래구분 배열 ("P" 와 "C" 중 선택, 다중 선택 가능)
+    // └ P = 소득공제용 , C = 지출증빙용
+    // - 미입력 시 전체조회
+    var tradeUsage = ["P", "C"];
 
-  htCashbillService.summary(
-    CorpNum,
-    jobID,
-    tradeType,
-    tradeUsage,
-    function (response) {
-      res.render("HTCashbill/summary", {
-        path: req.path,
-        result: response,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.summary(
+        CorpNum,
+        jobID,
+        tradeType,
+        tradeUsage,
+        function (response) {
+            res.render("HTCashbill/summary", {
+                path: req.path,
+                result: response,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -219,29 +219,29 @@ router.get("/Summary", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/cert#GetCertificatePopUpURL
  */
 router.get("/GetCertificatePopUpURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  htCashbillService.getCertificatePopUpURL(
-    CorpNum,
-    UserID,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getCertificatePopUpURL(
+        CorpNum,
+        UserID,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -249,25 +249,25 @@ router.get("/GetCertificatePopUpURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/cert#GetCertificateExpireDate
  */
 router.get("/GetCertificateExpireDate", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  htCashbillService.getCertificateExpireDate(
-    CorpNum,
-    function (expireDate) {
-      res.render("result", {
-        path: req.path,
-        result: expireDate,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getCertificateExpireDate(
+        CorpNum,
+        function (expireDate) {
+            res.render("result", {
+                path: req.path,
+                result: expireDate,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -275,26 +275,26 @@ router.get("/GetCertificateExpireDate", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/cert#CheckCertValidation
  */
 router.get("/CheckCertValidation", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  htCashbillService.checkCertValidation(
-    CorpNum,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.checkCertValidation(
+        CorpNum,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -302,34 +302,34 @@ router.get("/CheckCertValidation", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/cert#RegistDeptUser
  */
 router.get("/RegistDeptUser", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 홈택스에서 생성한 현금영수증 부서사용자 아이디
-  var deptUserID = "userid";
+    // 홈택스에서 생성한 현금영수증 부서사용자 아이디
+    var deptUserID = "userid";
 
-  // 홈택스에서 생성한 현금영수증 부서사용자 비밀번호
-  var deptUserPWD = "passwd";
+    // 홈택스에서 생성한 현금영수증 부서사용자 비밀번호
+    var deptUserPWD = "passwd";
 
-  htCashbillService.registDeptUser(
-    CorpNum,
-    deptUserID,
-    deptUserPWD,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.registDeptUser(
+        CorpNum,
+        deptUserID,
+        deptUserPWD,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -337,26 +337,26 @@ router.get("/RegistDeptUser", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/cert#CheckDeptUser
  */
 router.get("/CheckDeptUser", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  htCashbillService.checkDeptUser(
-    CorpNum,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.checkDeptUser(
+        CorpNum,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -364,26 +364,26 @@ router.get("/CheckDeptUser", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/cert#CheckLoginDeptUser
  */
 router.get("/CheckLoginDeptUser", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  htCashbillService.checkLoginDeptUser(
-    CorpNum,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.checkLoginDeptUser(
+        CorpNum,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -391,26 +391,26 @@ router.get("/CheckLoginDeptUser", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/cert#DeleteDeptUser
  */
 router.get("/DeleteDeptUser", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  htCashbillService.deleteDeptUser(
-    CorpNum,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.deleteDeptUser(
+        CorpNum,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -419,29 +419,29 @@ router.get("/DeleteDeptUser", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetFlatRatePopUpURL
  */
 router.get("/GetFlatRatePopUpURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  htCashbillService.getFlatRatePopUpURL(
-    CorpNum,
-    UserID,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getFlatRatePopUpURL(
+        CorpNum,
+        UserID,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -449,25 +449,25 @@ router.get("/GetFlatRatePopUpURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetFlatRateState
  */
 router.get("/GetFlatRateState", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  htCashbillService.getFlatRateState(
-    CorpNum,
-    function (response) {
-      res.render("HomeTax/flatRateState", {
-        path: req.path,
-        result: response,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getFlatRateState(
+        CorpNum,
+        function (response) {
+            res.render("HomeTax/flatRateState", {
+                path: req.path,
+                result: response,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -475,25 +475,25 @@ router.get("/GetFlatRateState", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetBalance
  */
 router.get("/GetBalance", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  htCashbillService.getBalance(
-    CorpNum,
-    function (remainPoint) {
-      res.render("result", {
-        path: req.path,
-        result: remainPoint,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getBalance(
+        CorpNum,
+        function (remainPoint) {
+            res.render("result", {
+                path: req.path,
+                result: remainPoint,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -502,29 +502,29 @@ router.get("/GetBalance", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetChargeURL
  */
 router.get("/GetChargeURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  htCashbillService.getChargeURL(
-    CorpNum,
-    UserID,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getChargeURL(
+        CorpNum,
+        UserID,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -533,29 +533,29 @@ router.get("/GetChargeURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetPaymentURL
  */
 router.get("/GetPaymentURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  htCashbillService.getPaymentURL(
-    CorpNum,
-    UserID,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getPaymentURL(
+        CorpNum,
+        UserID,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -564,29 +564,29 @@ router.get("/GetPaymentURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetUseHistoryURL
  */
 router.get("/GetUseHistoryURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  htCashbillService.getUseHistoryURL(
-    CorpNum,
-    UserID,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getUseHistoryURL(
+        CorpNum,
+        UserID,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -594,25 +594,25 @@ router.get("/GetUseHistoryURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetPartnerBalance
  */
 router.get("/GetPartnerBalance", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  htCashbillService.getPartnerBalance(
-    CorpNum,
-    function (remainPoint) {
-      res.render("result", {
-        path: req.path,
-        result: remainPoint,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getPartnerBalance(
+        CorpNum,
+        function (remainPoint) {
+            res.render("result", {
+                path: req.path,
+                result: remainPoint,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -621,29 +621,29 @@ router.get("/GetPartnerBalance", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetPartnerURL
  */
 router.get("/GetPartnerURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // CHRG(포인트충전)
-  var TOGO = "CHRG";
+    // CHRG(포인트충전)
+    var TOGO = "CHRG";
 
-  htCashbillService.getPartnerURL(
-    CorpNum,
-    TOGO,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getPartnerURL(
+        CorpNum,
+        TOGO,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -651,25 +651,25 @@ router.get("/GetPartnerURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetChargeInfo
  */
 router.get("/GetChargeInfo", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  htCashbillService.getChargeInfo(
-    CorpNum,
-    function (result) {
-      res.render("Base/getChargeInfo", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getChargeInfo(
+        CorpNum,
+        function (result) {
+            res.render("Base/getChargeInfo", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -677,26 +677,26 @@ router.get("/GetChargeInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/member#CheckIsMember
  */
 router.get("/CheckIsMember", function (req, res, next) {
-  // 조회할 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 조회할 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  htCashbillService.checkIsMember(
-    CorpNum,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.checkIsMember(
+        CorpNum,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -704,26 +704,26 @@ router.get("/CheckIsMember", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/member#CheckID
  */
 router.get("/CheckID", function (req, res, next) {
-  // 조회할 아이디
-  var testID = "testkorea";
+    // 조회할 아이디
+    var testID = "testkorea";
 
-  htCashbillService.checkID(
-    testID,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.checkID(
+        testID,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -731,62 +731,62 @@ router.get("/CheckID", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/member#JoinMember
  */
 router.get("/JoinMember", function (req, res, next) {
-  // 회원정보
-  var joinInfo = {
-    // 회원 아이디 (6자 이상 50자 미만)
-    ID: "userid",
+    // 회원정보
+    var joinInfo = {
+        // 회원 아이디 (6자 이상 50자 미만)
+        ID: "userid",
 
-    // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
-    Password: "asdf8536!@#",
+        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        Password: "asdf8536!@#",
 
-    // 링크아이디
-    LinkID: htCashbillService._config.LinkID,
+        // 링크아이디
+        LinkID: htCashbillService._config.LinkID,
 
-    // 사업자번호, "-" 제외 10자리
-    CorpNum: "1234567890",
+        // 사업자번호, "-" 제외 10자리
+        CorpNum: "1234567890",
 
-    // 대표자명 (최대 100자)
-    CEOName: "대표자성명",
+        // 대표자명 (최대 100자)
+        CEOName: "대표자성명",
 
-    // 상호 (최대 200자)
-    CorpName: "테스트상호",
+        // 상호 (최대 200자)
+        CorpName: "테스트상호",
 
-    // 주소 (최대 300자)
-    Addr: "주소",
+        // 주소 (최대 300자)
+        Addr: "주소",
 
-    // 업태 (최대 100자)
-    BizType: "업태",
+        // 업태 (최대 100자)
+        BizType: "업태",
 
-    // 종목 (최대 100자)
-    BizClass: "업종",
+        // 종목 (최대 100자)
+        BizClass: "업종",
 
-    // 담당자 성명 (최대 100자)
-    ContactName: "담당자 성명",
+        // 담당자 성명 (최대 100자)
+        ContactName: "담당자 성명",
 
-    // 담당자 이메일 (최대 20자)
-    ContactEmail: "",
+        // 담당자 이메일 (최대 20자)
+        ContactEmail: "",
 
-    // 담당자 연락처 (최대 20자)
-    ContactTEL: "",
-  };
+        // 담당자 연락처 (최대 20자)
+        ContactTEL: "",
+    };
 
-  htCashbillService.joinMember(
-    joinInfo,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.joinMember(
+        joinInfo,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -795,29 +795,29 @@ router.get("/JoinMember", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/member#GetAccessURL
  */
 router.get("/GetAccessURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  htCashbillService.getAccessURL(
-    CorpNum,
-    UserID,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getAccessURL(
+        CorpNum,
+        UserID,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -825,25 +825,25 @@ router.get("/GetAccessURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/member#GetCorpInfo
  */
 router.get("/GetCorpInfo", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  htCashbillService.getCorpInfo(
-    CorpNum,
-    function (result) {
-      res.render("Base/getCorpInfo", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getCorpInfo(
+        CorpNum,
+        function (result) {
+            res.render("Base/getCorpInfo", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -851,45 +851,45 @@ router.get("/GetCorpInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/member#UpdateCorpInfo
  */
 router.get("/UpdateCorpInfo", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 회사정보
-  var corpInfo = {
-    // 대표자명 (최대 100자)
-    ceoname: "대표자성명_nodejs",
+    // 회사정보
+    var corpInfo = {
+        // 대표자명 (최대 100자)
+        ceoname: "대표자성명_nodejs",
 
-    // 상호 (최대 200자)
-    corpName: "업체명_nodejs",
+        // 상호 (최대 200자)
+        corpName: "업체명_nodejs",
 
-    // 주소 (최대 300자)
-    addr: "서구 천변좌로_nodejs",
+        // 주소 (최대 300자)
+        addr: "서구 천변좌로_nodejs",
 
-    // 업태 (최대 100자)
-    bizType: "업태_nodejs",
+        // 업태 (최대 100자)
+        bizType: "업태_nodejs",
 
-    // 종목 (최대 100자)
-    bizClass: "종목_nodejs",
-  };
+        // 종목 (최대 100자)
+        bizClass: "종목_nodejs",
+    };
 
-  htCashbillService.updateCorpInfo(
-    CorpNum,
-    corpInfo,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.updateCorpInfo(
+        CorpNum,
+        corpInfo,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -897,48 +897,48 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/member#RegistContact
  */
 router.get("/RegistContact", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 담당자 정보
-  var contactInfo = {
-    // 아이디 (6자 이상 50자 미만)
-    id: "testkorea03033",
+    // 담당자 정보
+    var contactInfo = {
+        // 아이디 (6자 이상 50자 미만)
+        id: "testkorea03033",
 
-    // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
-    Password: "asdf8536!@#",
+        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        Password: "asdf8536!@#",
 
-    // 담당자명 (최대 100자)
-    personName: "담당자명0309",
+        // 담당자명 (최대 100자)
+        personName: "담당자명0309",
 
-    // 연락처 (최대 20자)
-    tel: "010-1234-1234",
+        // 연락처 (최대 20자)
+        tel: "010-1234-1234",
 
-    // 이메일 (최대 100자)
-    email: "test@email.com",
+        // 이메일 (최대 100자)
+        email: "test@email.com",
 
-    // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
-    searchRole: 3,
-  };
+        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        searchRole: 3,
+    };
 
-  htCashbillService.registContact(
-    CorpNum,
-    contactInfo,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.registContact(
+        CorpNum,
+        contactInfo,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -946,29 +946,29 @@ router.get("/RegistContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/member#GetContactInfo
  */
 router.get("/GetContactInfo", function (req, res, next) {
-  // 팝빌회원 사업자번호
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호
+    var CorpNum = "1234567890";
 
-  // 확인할 담당자 아이디
-  var contactID = "checkContactID";
+    // 확인할 담당자 아이디
+    var contactID = "checkContactID";
 
-  htCashbillService.getContactInfo(
-    CorpNum,
-    contactID,
-    function (result) {
-      res.render("Base/getContactInfo", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getContactInfo(
+        CorpNum,
+        contactID,
+        function (result) {
+            res.render("Base/getContactInfo", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -976,25 +976,25 @@ router.get("/GetContactInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/member#ListContact
  */
 router.get("/ListContact", function (req, res, next) {
-  // 조회할 아이디
-  var CorpNum = "1234567890";
+    // 조회할 아이디
+    var CorpNum = "1234567890";
 
-  htCashbillService.listContact(
-    CorpNum,
-    function (result) {
-      res.render("Base/listContact", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.listContact(
+        CorpNum,
+        function (result) {
+            res.render("Base/listContact", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1002,49 +1002,49 @@ router.get("/ListContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/member#UpdateContact
  */
 router.get("/UpdateContact", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  // 담당자 정보 항목
-  var contactInfo = {
-    // 담당자 아이디
-    id: UserID,
+    // 담당자 정보 항목
+    var contactInfo = {
+        // 담당자 아이디
+        id: UserID,
 
-    // 담당자명 (최대 100자)
-    personName: "담당자명0309",
+        // 담당자명 (최대 100자)
+        personName: "담당자명0309",
 
-    // 연락처 (최대 20자)
-    tel: "010-1234-1234",
+        // 연락처 (최대 20자)
+        tel: "010-1234-1234",
 
-    // 이메일 (최대 100자)
-    email: "test@email.com",
+        // 이메일 (최대 100자)
+        email: "test@email.com",
 
-    // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
-    searchRole: 3,
-  };
+        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        searchRole: 3,
+    };
 
-  htCashbillService.updateContact(
-    CorpNum,
-    UserID,
-    contactInfo,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.updateContact(
+        CorpNum,
+        UserID,
+        contactInfo,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1052,56 +1052,56 @@ router.get("/UpdateContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#Refund
  */
 router.get("/Refund", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 환불신청 객체정보
-  var RefundForm = {
-    // 담당자명
-    contactName: "환불_담당자",
+    // 환불신청 객체정보
+    var RefundForm = {
+        // 담당자명
+        contactName: "환불_담당자",
 
-    // 담당자 연락처
-    tel: "010-1234-1234",
+        // 담당자 연락처
+        tel: "010-1234-1234",
 
-    // 환불 신청 포인트
-    requestPoint: "1000",
+        // 환불 신청 포인트
+        requestPoint: "1000",
 
-    // 은행명
-    accountBank: "국민",
+        // 은행명
+        accountBank: "국민",
 
-    // 계좌번호
-    accountNum: "123123123-123",
+        // 계좌번호
+        accountNum: "123123123-123",
 
-    // 예금주명
-    accountName: "환불_예금주",
+        // 예금주명
+        accountName: "환불_예금주",
 
-    // 환불 사유
-    reason: "환불사유",
-  };
+        // 환불 사유
+        reason: "환불사유",
+    };
 
-  // 팝빌 회원 아이디
-  var UserID = "testkorea";
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
 
-  htCashbillService.refund(
-    CorpNum,
-    RefundForm,
-    UserID,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-        refundCode: result.refundCode,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.refund(
+        CorpNum,
+        RefundForm,
+        UserID,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+                refundCode: result.refundCode,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1109,48 +1109,48 @@ router.get("/Refund", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#PaymentRequest
  */
 router.get("/PaymentRequest", function (req, res, next) {
-  // 팝빌회원 사업자 번호
-  var CorpNum = "1234567890";
-  // 담당자명
-  var SettlerName = "";
-  // 담당자 이메일
-  var SettlerEmail = "";
-  // 담당자 휴대폰
-  var NotifyHP = "";
-  // 입금자명
-  var PaymentName = "";
-  // 결제금액
-  var SettleCost = "";
+    // 팝빌회원 사업자 번호
+    var CorpNum = "1234567890";
+    // 담당자명
+    var SettlerName = "";
+    // 담당자 이메일
+    var SettlerEmail = "";
+    // 담당자 휴대폰
+    var NotifyHP = "";
+    // 입금자명
+    var PaymentName = "";
+    // 결제금액
+    var SettleCost = "";
 
-  // 입금신청 객체 정보
-  var PaymentForm = {
-    settlerName: SettlerName,
-    settlerEmail: SettlerEmail,
-    notifyHP: NotifyHP,
-    paymentName: PaymentName,
-    settleCost: SettleCost,
-  };
-  // 팝빌회원 아이디
-  var UserID = "1234567890";
+    // 입금신청 객체 정보
+    var PaymentForm = {
+        settlerName: SettlerName,
+        settlerEmail: SettlerEmail,
+        notifyHP: NotifyHP,
+        paymentName: PaymentName,
+        settleCost: SettleCost,
+    };
+    // 팝빌회원 아이디
+    var UserID = "1234567890";
 
-  htCashbillService.paymentRequest(
-    CorpNum,
-    PaymentForm,
-    UserID,
-    function (result) {
-      res.render("Base/paymentResponse", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.paymentRequest(
+        CorpNum,
+        PaymentForm,
+        UserID,
+        function (result) {
+            res.render("Base/paymentResponse", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1158,31 +1158,31 @@ router.get("/PaymentRequest", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetSettleResult
  */
 router.get("/GetSettleResult", function (req, res, next) {
-  // 팝빌회원 사업자 번호
-  var CorpNum = "1234567890";
-  // 정산코드 - PaymentRequest 호출시 반환되는 값
-  var SettleCode = "";
-  // 팝빌회원 아이디
-  var UserID = "1234567890";
+    // 팝빌회원 사업자 번호
+    var CorpNum = "1234567890";
+    // 정산코드 - PaymentRequest 호출시 반환되는 값
+    var SettleCode = "";
+    // 팝빌회원 아이디
+    var UserID = "1234567890";
 
-  htCashbillService.getBulkResult(
-    CorpNum,
-    SettleCode,
-    UserID,
-    function (result) {
-      res.render("Base/paymentHistory", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getBulkResult(
+        CorpNum,
+        SettleCode,
+        UserID,
+        function (result) {
+            res.render("Base/paymentHistory", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1190,31 +1190,31 @@ router.get("/GetSettleResult", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetSettleResult
  */
 router.get("/GetSettleResult", function (req, res, next) {
-  // 팝빌회원 사업자 번호
-  var CorpNum = "1234567890";
-  // 정산코드 - PaymentRequest 호출시 반환되는 값
-  var SettleCode = "";
-  // 팝빌회원 아이디
-  var UserID = "1234567890";
+    // 팝빌회원 사업자 번호
+    var CorpNum = "1234567890";
+    // 정산코드 - PaymentRequest 호출시 반환되는 값
+    var SettleCode = "";
+    // 팝빌회원 아이디
+    var UserID = "1234567890";
 
-  htCashbillService.getBulkResult(
-    CorpNum,
-    SettleCode,
-    UserID,
-    function (result) {
-      res.render("Base/paymentHistory", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getBulkResult(
+        CorpNum,
+        SettleCode,
+        UserID,
+        function (result) {
+            res.render("Base/paymentHistory", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1222,49 +1222,49 @@ router.get("/GetSettleResult", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetUseHistory
  */
 router.get("/GetUseHistory", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 조회 기간의 시작일자 (형식: yyyyMMdd)
-  var SDate = "";
+    // 조회 기간의 시작일자 (형식: yyyyMMdd)
+    var SDate = "";
 
-  // 조회 기간의 종료일자 (형식: yyyyMMdd)
-  var EDate = "";
+    // 조회 기간의 종료일자 (형식: yyyyMMdd)
+    var EDate = "";
 
-  // 목록 페이지번호 (기본값 1)
-  var Page = 1;
+    // 목록 페이지번호 (기본값 1)
+    var Page = 1;
 
-  // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
-  var PerPage = 500;
+    // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+    var PerPage = 500;
 
-  // 거래일자를 기준으로 하는 목록 정렬 방향 : "D" / "A" 중 택 1
-  var Order = "";
+    // 거래일자를 기준으로 하는 목록 정렬 방향 : "D" / "A" 중 택 1
+    var Order = "";
 
-  // 팝빌 회원 아이디
-  var UserID = "testkorea";
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
 
-  htCashbillService.getUseHistory(
-    CorpNum,
-    SDate,
-    EDate,
-    Page,
-    PerPage,
-    Order,
-    UserID,
-    function (result) {
-      res.render("Base/useHistoryResult", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getUseHistory(
+        CorpNum,
+        SDate,
+        EDate,
+        Page,
+        PerPage,
+        Order,
+        UserID,
+        function (result) {
+            res.render("Base/useHistoryResult", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1272,40 +1272,40 @@ router.get("/GetUseHistory", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetPaymentHistory
  */
 router.get("/GetPaymentHistory", function (req, res, next) {
-  // 팝빌회원 사업자번호 (하이픈 "-" 제외 10자리)
-  var CorpNum = "1234567890";
-  // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-  var SDate = "20230101";
-  // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-  var EDate = "20230107";
-  // 목록 페이지번호 (기본값 1)
-  var Page = 1;
-  // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
-  var PerPage = 500;
-  // 팝빌회원 아이디
-  var UserID = "1234567890";
+    // 팝빌회원 사업자번호 (하이픈 "-" 제외 10자리)
+    var CorpNum = "1234567890";
+    // 조회 기간의 시작일자 (형식 : yyyyMMdd)
+    var SDate = "20230101";
+    // 조회 기간의 종료일자 (형식 : yyyyMMdd)
+    var EDate = "20230107";
+    // 목록 페이지번호 (기본값 1)
+    var Page = 1;
+    // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+    var PerPage = 500;
+    // 팝빌회원 아이디
+    var UserID = "1234567890";
 
-  htCashbillService.getPaymentHistory(
-    CorpNum,
-    SDate,
-    EDate,
-    Page,
-    PerPage,
-    UserID,
-    function (result) {
-      res.render("Base/paymentHistoryResult", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getPaymentHistory(
+        CorpNum,
+        SDate,
+        EDate,
+        Page,
+        PerPage,
+        UserID,
+        function (result) {
+            res.render("Base/paymentHistoryResult", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1313,37 +1313,37 @@ router.get("/GetPaymentHistory", function (req, res, next) {
  * https://developers.popbill.com/reference/htcashbill/node/api/point#GetRefundHistory
  */
 router.get("/GetRefundHistory", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 목록 페이지번호
-  var Page = 1;
+    // 목록 페이지번호
+    var Page = 1;
 
-  // 페이지당 검색개수
-  var PerPage = 500;
+    // 페이지당 검색개수
+    var PerPage = 500;
 
-  // 팝빌 회원 아이디
-  var UserID = "testkorea";
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
 
-  htCashbillService.getRefundHistory(
-    CorpNum,
-    Page,
-    PerPage,
-    UserID,
-    function (result) {
-      res.render("Base/RefundHistoryResult", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.getRefundHistory(
+        CorpNum,
+        Page,
+        PerPage,
+        UserID,
+        function (result) {
+            res.render("Base/RefundHistoryResult", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1351,34 +1351,34 @@ router.get("/GetRefundHistory", function (req, res, next) {
  * https://developers.popbill.com/reference/htcashbill/node/api/point#QuitMember
  */
 router.get("/QuitMember", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "123456789";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "123456789";
 
-  // 탈퇴 사유
-  var QuitReason = "탈퇴 사유";
+    // 탈퇴 사유
+    var QuitReason = "탈퇴 사유";
 
-  // 팝빌 회원 아이디
-  var UserID = "testkorea";
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
 
-  htCashbillService.QuitMember(
-    CorpNum,
-    QuitReason,
-    UserID,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.QuitMember(
+        CorpNum,
+        QuitReason,
+        UserID,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1386,29 +1386,29 @@ router.get("/QuitMember", function (req, res, next) {
  * https://developers.popbill.com/reference/htcashbill/node/api/point#GetRefundableBalance
  */
 router.get("/GetRefundableBalance", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "123456789";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "123456789";
 
-  // 팝빌 회원 아이디
-  var UserID = "testkorea";
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
 
-  htCashbillService.GetRefundableBalance(
-    CorpNum,
-    UserID,
-    function (result) {
-      res.render("Base/getRefundableBalance", {
-        path: req.path,
-        refundableBalance: result.refundableBalance,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.GetRefundableBalance(
+        CorpNum,
+        UserID,
+        function (result) {
+            res.render("Base/getRefundableBalance", {
+                path: req.path,
+                refundableBalance: result.refundableBalance,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1416,33 +1416,33 @@ router.get("/GetRefundableBalance", function (req, res, next) {
  * https://developers.popbill.com/reference/htcashbill/node/api/point#GetRefundInfo
  */
 router.get("/GetRefundInfo", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "123456789";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "123456789";
 
-  // 환불 코드
-  var RefundCode = "023040000017";
+    // 환불 코드
+    var RefundCode = "023040000017";
 
-  // 팝빌 회원 아이디
-  var UserID = "testkorea";
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
 
-  htCashbillService.GetRefundInfo(
-    CorpNum,
-    RefundCode,
-    UserID,
-    function (result) {
-      res.render("Base/getRefundInfo", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    htCashbillService.GetRefundInfo(
+        CorpNum,
+        RefundCode,
+        UserID,
+        function (result) {
+            res.render("Base/getRefundInfo", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 module.exports = router;

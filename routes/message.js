@@ -11,7 +11,7 @@ var messageService = popbill.MessageService();
  * Message API Index 목록
  */
 router.get("/", function (req, res, next) {
-  res.render("Message/index", {});
+    res.render("Message/index", {});
 });
 
 /*
@@ -20,30 +20,30 @@ router.get("/", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/sendnum#CheckSenderNumber
  */
 router.get("/CheckSenderNumber", function (req, res, next) {
-  // 팝빌회원 사업자번호
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호
+    var CorpNum = "1234567890";
 
-  // 확인할 발신번호
-  var senderNumber = "";
+    // 확인할 발신번호
+    var senderNumber = "";
 
-  messageService.checkSenderNumber(
-    CorpNum,
-    senderNumber,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.checkSenderNumber(
+        CorpNum,
+        senderNumber,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -52,29 +52,29 @@ router.get("/CheckSenderNumber", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/sendnum#GetSenderNumberMgtURL
  */
 router.get("/GetSenderNumberMgtURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  messageService.getSenderNumberMgtURL(
-    CorpNum,
-    UserID,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getSenderNumberMgtURL(
+        CorpNum,
+        UserID,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -82,25 +82,25 @@ router.get("/GetSenderNumberMgtURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/sendnum#GetSenderNumberList
  */
 router.get("/GetSenderNumberList", function (req, res, next) {
-  // 조회할 아이디
-  var CorpNum = "1234567890";
+    // 조회할 아이디
+    var CorpNum = "1234567890";
 
-  messageService.getSenderNumberList(
-    CorpNum,
-    function (result) {
-      res.render("Message/SenderNumberList", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getSenderNumberList(
+        CorpNum,
+        function (result) {
+            res.render("Message/SenderNumberList", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -108,61 +108,61 @@ router.get("/GetSenderNumberList", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#SendSMSOne
  */
 router.get("/SendSMS", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 발신번호
-  var sendNum = "";
+    // 발신번호
+    var sendNum = "";
 
-  // 발신자명
-  var sendName = "발신자명";
+    // 발신자명
+    var sendName = "발신자명";
 
-  // 수신번호
-  var receiveNum = "";
+    // 수신번호
+    var receiveNum = "";
 
-  // 수신자명
-  var receiveName = "수신자명";
+    // 수신자명
+    var receiveName = "수신자명";
 
-  // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
-  var contents = "SMS 단건전송 메시지 테스트";
+    // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
+    var contents = "SMS 단건전송 메시지 테스트";
 
-  // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-  var reserveDT = "";
+    // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
+    var reserveDT = "";
 
-  // 광고성 메시지 여부 ( true , false 중 택 1)
-  // └ true = 광고 , false = 일반
-  // - 미입력 시 기본값 false 처리
-  var adsYN = false;
+    // 광고성 메시지 여부 ( true , false 중 택 1)
+    // └ true = 광고 , false = 일반
+    // - 미입력 시 기본값 false 처리
+    var adsYN = false;
 
-  // 전송요청번호
-  // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-  // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-  var requestNum = "";
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
 
-  messageService.sendSMS(
-    CorpNum,
-    sendNum,
-    receiveNum,
-    receiveName,
-    contents,
-    reserveDT,
-    adsYN,
-    sendName,
-    requestNum,
-    function (receiptNum) {
-      res.render("result", {
-        path: req.path,
-        result: receiptNum,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.sendSMS(
+        CorpNum,
+        sendNum,
+        receiveNum,
+        receiveName,
+        contents,
+        reserveDT,
+        adsYN,
+        sendName,
+        requestNum,
+        function (receiptNum) {
+            res.render("result", {
+                path: req.path,
+                result: receiptNum,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -171,72 +171,72 @@ router.get("/SendSMS", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#SendSMSAll
  */
 router.get("/SendSMS_multi", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 발신번호(동보전송용)
-  var sendNum = "";
+    // 발신번호(동보전송용)
+    var sendNum = "";
 
-  // 메시지 내용(동보전송용), 90Byte 초과시 길이가 조정되어 전송
-  var contents = "동보전송 메시지";
+    // 메시지 내용(동보전송용), 90Byte 초과시 길이가 조정되어 전송
+    var contents = "동보전송 메시지";
 
-  // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-  var reserveDT = "";
+    // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
+    var reserveDT = "";
 
-  // 광고성 메시지 여부 ( true , false 중 택 1)
-  // └ true = 광고 , false = 일반
-  // - 미입력 시 기본값 false 처리
-  var adsYN = false;
+    // 광고성 메시지 여부 ( true , false 중 택 1)
+    // └ true = 광고 , false = 일반
+    // - 미입력 시 기본값 false 처리
+    var adsYN = false;
 
-  // 개별전송정보 배열, 최대 1000건
-  var Messages = [
-    {
-      Sender: "", // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
-      SenderName: "발신자명", // 발신자명
-      Receiver: "", // 수신번호
-      ReceiverName: "수신자명1", // 수신자명
-      Contents: "문자 메시지 내용1", // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
-      // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
-      interOPRefKey: "20220629-SMS001", // 파트너 지정키, 수신자 구별용 메모
-    },
-    {
-      Sender: "", // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
-      SenderName: "발신자명", // 발신자명
-      Receiver: "", // 수신번호
-      ReceiverName: "수신자명2", // 수신자명
-      Contents: "문자 메시지 내용2", // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
-      // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
-      interOPRefKey: "20220629-SMS002", // 파트너 지정키, 수신자 구별용 메모
-    },
-  ];
+    // 개별전송정보 배열, 최대 1000건
+    var Messages = [
+        {
+            Sender: "", // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
+            SenderName: "발신자명", // 발신자명
+            Receiver: "", // 수신번호
+            ReceiverName: "수신자명1", // 수신자명
+            Contents: "문자 메시지 내용1", // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
+            // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
+            interOPRefKey: "20220629-SMS001", // 파트너 지정키, 수신자 구별용 메모
+        },
+        {
+            Sender: "", // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
+            SenderName: "발신자명", // 발신자명
+            Receiver: "", // 수신번호
+            ReceiverName: "수신자명2", // 수신자명
+            Contents: "문자 메시지 내용2", // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
+            // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
+            interOPRefKey: "20220629-SMS002", // 파트너 지정키, 수신자 구별용 메모
+        },
+    ];
 
-  // 전송요청번호
-  // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-  // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-  var requestNum = "";
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
 
-  messageService.sendSMS_multi(
-    CorpNum,
-    sendNum,
-    contents,
-    Messages,
-    reserveDT,
-    adsYN,
-    requestNum,
-    function (receiptNum) {
-      res.render("result", {
-        path: req.path,
-        result: receiptNum,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.sendSMS_multi(
+        CorpNum,
+        sendNum,
+        contents,
+        Messages,
+        reserveDT,
+        adsYN,
+        requestNum,
+        function (receiptNum) {
+            res.render("result", {
+                path: req.path,
+                result: receiptNum,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -244,65 +244,65 @@ router.get("/SendSMS_multi", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#SendLMSOne
  */
 router.get("/SendLMS", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 발신번호
-  var sendNum = "";
+    // 발신번호
+    var sendNum = "";
 
-  // 발신자명
-  var sendName = "발신자명";
+    // 발신자명
+    var sendName = "발신자명";
 
-  // 수신번호
-  var receiveNum = "";
+    // 수신번호
+    var receiveNum = "";
 
-  // 수신자명
-  var receiveName = "수신자명";
+    // 수신자명
+    var receiveName = "수신자명";
 
-  // 메시지 제목
-  var subject = "장문 메시지 제목";
+    // 메시지 제목
+    var subject = "장문 메시지 제목";
 
-  // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
-  var contents = "LMS 단건전송 테스트";
+    // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
+    var contents = "LMS 단건전송 테스트";
 
-  // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-  var reserveDT = "";
+    // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
+    var reserveDT = "";
 
-  // 광고성 메시지 여부 ( true , false 중 택 1)
-  // └ true = 광고 , false = 일반
-  // - 미입력 시 기본값 false 처리
-  var adsYN = false;
+    // 광고성 메시지 여부 ( true , false 중 택 1)
+    // └ true = 광고 , false = 일반
+    // - 미입력 시 기본값 false 처리
+    var adsYN = false;
 
-  // 전송요청번호
-  // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-  // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-  var requestNum = "";
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
 
-  messageService.sendLMS(
-    CorpNum,
-    sendNum,
-    receiveNum,
-    receiveName,
-    subject,
-    contents,
-    reserveDT,
-    adsYN,
-    sendName,
-    requestNum,
-    function (receiptNum) {
-      res.render("result", {
-        path: req.path,
-        result: receiptNum,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.sendLMS(
+        CorpNum,
+        sendNum,
+        receiveNum,
+        receiveName,
+        subject,
+        contents,
+        reserveDT,
+        adsYN,
+        sendName,
+        requestNum,
+        function (receiptNum) {
+            res.render("result", {
+                path: req.path,
+                result: receiptNum,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -311,78 +311,78 @@ router.get("/SendLMS", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#SendLMSAll
  */
 router.get("/SendLMS_multi", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 발신번호
-  var sendNum = "";
+    // 발신번호
+    var sendNum = "";
 
-  // 메시지 제목
-  var subject = "장문 메시지 제목";
+    // 메시지 제목
+    var subject = "장문 메시지 제목";
 
-  // 메시지 내용(동보전송용), 2000byte 초과시 길이가 조정되어 전송
-  var contents = "LMS 대량전송 테스트";
+    // 메시지 내용(동보전송용), 2000byte 초과시 길이가 조정되어 전송
+    var contents = "LMS 대량전송 테스트";
 
-  // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-  var reserveDT = "";
+    // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
+    var reserveDT = "";
 
-  // 광고성 메시지 여부 ( true , false 중 택 1)
-  // └ true = 광고 , false = 일반
-  // - 미입력 시 기본값 false 처리
-  var adsYN = false;
+    // 광고성 메시지 여부 ( true , false 중 택 1)
+    // └ true = 광고 , false = 일반
+    // - 미입력 시 기본값 false 처리
+    var adsYN = false;
 
-  // 개별전송정보 배열, 최대 1000건
-  var Messages = [
-    {
-      Sender: "", // 발신번호, 개별전송정보 배열에 발신자번호(Sender) 항목이 없는 경우 동보전송 발신번호로 전송
-      SenderName: "발신자명1", // 발신자명
-      Receiver: "", // 수신번호
-      ReceiverName: "수신자명1", // 수신자명
-      Subject: "메시지 제목1", // 메시지 제목
-      Contents: "문자 메시지 내용1", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송,
-      // 개벌전송정보 배열에 메시지내용(Contents)항목 없는경우 동보전송 메시지내용로 전송
-      interOPRefKey: "20220629-LMS001", // 파트너 지정키, 수신자 구별용 메모
-    },
-    {
-      Sender: "", // 발신번호
-      SenderName: "발신자명2", // 발신자명
-      Receiver: "", // 수신번호
-      ReceiverName: "수신자명2", // 수신자명
-      Subject: "메시지 제목2", // 메시지 제목, 2000Byte 초과시 길이가 조정되어 전송
-      Contents:
-        "문자 메시지 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ", // 메시지 내용
-      interOPRefKey: "20220629-LMS002", // 파트너 지정키, 수신자 구별용 메모
-    },
-  ];
+    // 개별전송정보 배열, 최대 1000건
+    var Messages = [
+        {
+            Sender: "", // 발신번호, 개별전송정보 배열에 발신자번호(Sender) 항목이 없는 경우 동보전송 발신번호로 전송
+            SenderName: "발신자명1", // 발신자명
+            Receiver: "", // 수신번호
+            ReceiverName: "수신자명1", // 수신자명
+            Subject: "메시지 제목1", // 메시지 제목
+            Contents: "문자 메시지 내용1", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송,
+            // 개벌전송정보 배열에 메시지내용(Contents)항목 없는경우 동보전송 메시지내용로 전송
+            interOPRefKey: "20220629-LMS001", // 파트너 지정키, 수신자 구별용 메모
+        },
+        {
+            Sender: "", // 발신번호
+            SenderName: "발신자명2", // 발신자명
+            Receiver: "", // 수신번호
+            ReceiverName: "수신자명2", // 수신자명
+            Subject: "메시지 제목2", // 메시지 제목, 2000Byte 초과시 길이가 조정되어 전송
+            Contents:
+                "문자 메시지 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ", // 메시지 내용
+            interOPRefKey: "20220629-LMS002", // 파트너 지정키, 수신자 구별용 메모
+        },
+    ];
 
-  // 전송요청번호
-  // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-  // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-  var requestNum = "";
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
 
-  messageService.sendLMS_multi(
-    CorpNum,
-    sendNum,
-    subject,
-    contents,
-    Messages,
-    reserveDT,
-    adsYN,
-    requestNum,
-    function (receiptNum) {
-      res.render("result", {
-        path: req.path,
-        result: receiptNum,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.sendLMS_multi(
+        CorpNum,
+        sendNum,
+        subject,
+        contents,
+        Messages,
+        reserveDT,
+        adsYN,
+        requestNum,
+        function (receiptNum) {
+            res.render("result", {
+                path: req.path,
+                result: receiptNum,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -391,65 +391,65 @@ router.get("/SendLMS_multi", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#SendMMSOne
  */
 router.get("/SendMMS", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 발신번호
-  var sendNum = "";
+    // 발신번호
+    var sendNum = "";
 
-  // 수신번호
-  var receiveNum = "";
+    // 수신번호
+    var receiveNum = "";
 
-  // 수신자명
-  var receiveName = "수신자명";
+    // 수신자명
+    var receiveName = "수신자명";
 
-  // 메시지 제목
-  var subject = "MMS 메시지 제목";
+    // 메시지 제목
+    var subject = "MMS 메시지 제목";
 
-  // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
-  var contents = "MMS 단건전송 테스트";
+    // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
+    var contents = "MMS 단건전송 테스트";
 
-  // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-  var reserveDT = "";
+    // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
+    var reserveDT = "";
 
-  // 광고성 메시지 여부 ( true , false 중 택 1)
-  // └ true = 광고 , false = 일반
-  // - 미입력 시 기본값 false 처리
-  var adsYN = false;
+    // 광고성 메시지 여부 ( true , false 중 택 1)
+    // └ true = 광고 , false = 일반
+    // - 미입력 시 기본값 false 처리
+    var adsYN = false;
 
-  // MMS 이미지 파일경로, 최대 300Kbyte, JPEG 포맷
-  var filePaths = ["./fmsImage.jpg"];
+    // MMS 이미지 파일경로, 최대 300Kbyte, JPEG 포맷
+    var filePaths = ["./fmsImage.jpg"];
 
-  // 전송요청번호
-  // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-  // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-  var requestNum = "";
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
 
-  messageService.sendMMS(
-    CorpNum,
-    sendNum,
-    receiveNum,
-    receiveName,
-    subject,
-    contents,
-    filePaths,
-    reserveDT,
-    adsYN,
-    requestNum,
-    function (receiptNum) {
-      res.render("result", {
-        path: req.path,
-        result: receiptNum,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.sendMMS(
+        CorpNum,
+        sendNum,
+        receiveNum,
+        receiveName,
+        subject,
+        contents,
+        filePaths,
+        reserveDT,
+        adsYN,
+        requestNum,
+        function (receiptNum) {
+            res.render("result", {
+                path: req.path,
+                result: receiptNum,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -459,82 +459,82 @@ router.get("/SendMMS", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#SendMMSAll
  */
 router.get("/SendMMS_multi", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 발신번호(동보전송용)
-  var senderNum = "";
+    // 발신번호(동보전송용)
+    var senderNum = "";
 
-  // 메시지 제목(동보전송용)
-  var subject = "장문 메시지 제목";
+    // 메시지 제목(동보전송용)
+    var subject = "장문 메시지 제목";
 
-  // 메시지 내용(동보전송용), 2000Byte 초과시 길이가 조정되어 전송
-  var contents =
-    "MMS 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로";
+    // 메시지 내용(동보전송용), 2000Byte 초과시 길이가 조정되어 전송
+    var contents =
+        "MMS 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로";
 
-  // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-  var reserveDT = "";
+    // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
+    var reserveDT = "";
 
-  // 광고성 메시지 여부 ( true , false 중 택 1)
-  // └ true = 광고 , false = 일반
-  // - 미입력 시 기본값 false 처리
-  var adsYN = false;
+    // 광고성 메시지 여부 ( true , false 중 택 1)
+    // └ true = 광고 , false = 일반
+    // - 미입력 시 기본값 false 처리
+    var adsYN = false;
 
-  // MMS 이미지 파일경로, 최대 300Kbyte, JPEG 포맷
-  var filePaths = ["./fmsimage.jpg"];
+    // MMS 이미지 파일경로, 최대 300Kbyte, JPEG 포맷
+    var filePaths = ["./fmsimage.jpg"];
 
-  // 개별전송정보, 최대 1000건
-  var Messages = [
-    {
-      Sender: "", // 발신번호
-      SenderName: "발신자명", // 발신자명
-      Receiver: "", // 수신번호
-      ReceiverName: "수신자명",
-      Subject: "MMS 테스트 제목1",
-      Contents: "MMS 전송 테스트 내용1", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
-      interOPRefKey: "20220629-MMS001", // 파트너 지정키, 수신자 구별용 메모
-    },
-    {
-      Sender: "", // 발신번호
-      SenderName: "발신자명", // 발신자명
-      Receiver: "", // 수신번호
-      ReceiverName: "수신자명",
-      Subject: "MMS 테스트 제목2",
-      Contents:
-        "MMS 전송 테스트 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만 무궁화 삼천리 화려강산 ", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
-      interOPRefKey: "20220629-MMS001", // 파트너 지정키, 수신자 구별용 메모
-    },
-  ];
+    // 개별전송정보, 최대 1000건
+    var Messages = [
+        {
+            Sender: "", // 발신번호
+            SenderName: "발신자명", // 발신자명
+            Receiver: "", // 수신번호
+            ReceiverName: "수신자명",
+            Subject: "MMS 테스트 제목1",
+            Contents: "MMS 전송 테스트 내용1", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
+            interOPRefKey: "20220629-MMS001", // 파트너 지정키, 수신자 구별용 메모
+        },
+        {
+            Sender: "", // 발신번호
+            SenderName: "발신자명", // 발신자명
+            Receiver: "", // 수신번호
+            ReceiverName: "수신자명",
+            Subject: "MMS 테스트 제목2",
+            Contents:
+                "MMS 전송 테스트 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만 무궁화 삼천리 화려강산 ", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
+            interOPRefKey: "20220629-MMS001", // 파트너 지정키, 수신자 구별용 메모
+        },
+    ];
 
-  // 전송요청번호
-  // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-  // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-  var requestNum = "";
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
 
-  messageService.sendMMS_multi(
-    CorpNum,
-    senderNum,
-    subject,
-    contents,
-    Messages,
-    filePaths,
-    reserveDT,
-    adsYN,
-    requestNum,
-    function (receiptNum) {
-      res.render("result", {
-        path: req.path,
-        result: receiptNum,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.sendMMS_multi(
+        CorpNum,
+        senderNum,
+        subject,
+        contents,
+        Messages,
+        filePaths,
+        reserveDT,
+        adsYN,
+        requestNum,
+        function (receiptNum) {
+            res.render("result", {
+                path: req.path,
+                result: receiptNum,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -543,65 +543,65 @@ router.get("/SendMMS_multi", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#SendXMSOne
  */
 router.get("/SendXMS", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 발신번호
-  var sendNum = "";
+    // 발신번호
+    var sendNum = "";
 
-  // 발신자명
-  var sendName = "발신자명";
+    // 발신자명
+    var sendName = "발신자명";
 
-  // 수신번호
-  var receiveNum = "";
+    // 수신번호
+    var receiveNum = "";
 
-  // 수신자명
-  var receiveName = "수신자명";
+    // 수신자명
+    var receiveName = "수신자명";
 
-  // 메시지 제목
-  var subject = "자동인식 문자전송 제목";
+    // 메시지 제목
+    var subject = "자동인식 문자전송 제목";
 
-  // 메시지 내용, 길이에 따라 90Byte 기준으로 단/장문 자동인식되어 전송 됨.
-  var contents = "XMS 자동인식 단건전송";
+    // 메시지 내용, 길이에 따라 90Byte 기준으로 단/장문 자동인식되어 전송 됨.
+    var contents = "XMS 자동인식 단건전송";
 
-  // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-  var reserveDT = "";
+    // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
+    var reserveDT = "";
 
-  // 광고성 메시지 여부 ( true , false 중 택 1)
-  // └ true = 광고 , false = 일반
-  // - 미입력 시 기본값 false 처리
-  var adsYN = false;
+    // 광고성 메시지 여부 ( true , false 중 택 1)
+    // └ true = 광고 , false = 일반
+    // - 미입력 시 기본값 false 처리
+    var adsYN = false;
 
-  // 전송요청번호
-  // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-  // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-  var requestNum = "";
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
 
-  messageService.sendXMS(
-    CorpNum,
-    sendNum,
-    receiveNum,
-    receiveName,
-    subject,
-    contents,
-    reserveDT,
-    adsYN,
-    sendName,
-    requestNum,
-    function (receiptNum) {
-      res.render("result", {
-        path: req.path,
-        result: receiptNum,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.sendXMS(
+        CorpNum,
+        sendNum,
+        receiveNum,
+        receiveName,
+        subject,
+        contents,
+        reserveDT,
+        adsYN,
+        sendName,
+        requestNum,
+        function (receiptNum) {
+            res.render("result", {
+                path: req.path,
+                result: receiptNum,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -611,79 +611,79 @@ router.get("/SendXMS", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#SendXMSAll
  */
 router.get("/SendXMS_multi", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 발신번호(동보전송용)
-  var sendNum = "";
+    // 발신번호(동보전송용)
+    var sendNum = "";
 
-  // 메시지 제목(동보전송용)
-  var subject = "자동인식 문자전송 제목";
+    // 메시지 제목(동보전송용)
+    var subject = "자동인식 문자전송 제목";
 
-  // 메시지 내용, 길이에 따라 90Byte 기준으로 단/장문 자동인식되어 전송 됨.
-  var contents =
-    "XMS 자동인식 단건전송 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로";
+    // 메시지 내용, 길이에 따라 90Byte 기준으로 단/장문 자동인식되어 전송 됨.
+    var contents =
+        "XMS 자동인식 단건전송 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로";
 
-  // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-  var reserveDT = "";
+    // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
+    var reserveDT = "";
 
-  // 광고성 메시지 여부 ( true , false 중 택 1)
-  // └ true = 광고 , false = 일반
-  // - 미입력 시 기본값 false 처리
-  var adsYN = false;
+    // 광고성 메시지 여부 ( true , false 중 택 1)
+    // └ true = 광고 , false = 일반
+    // - 미입력 시 기본값 false 처리
+    var adsYN = false;
 
-  // 개별전송정보 배열, 최대 1000건
-  var Messages = [
-    {
-      Sender: "", // 발신번호
-      SenderName: "발신자명", // 발신자명
-      Receiver: "", // 수신번호
-      ReceiverName: "수신자명", // 수신자명
-      Subject: "메시지 제목1", // 메시지 제목
-      Contents: "문자 메시지 내용1", // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
-      interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
-    },
-    {
-      Sender: "", // 발신번호
-      SenderName: "발신자명", // 발신자명
-      Receiver: "", // 수신번호
-      ReceiverName: "수신자명", // 수신자명
-      Subject: "메시지 제목2", // 메시지 제목
-      // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
-      Contents:
-        "단/장문 자동인식 문자전송 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ",
-      interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
-    },
-  ];
+    // 개별전송정보 배열, 최대 1000건
+    var Messages = [
+        {
+            Sender: "", // 발신번호
+            SenderName: "발신자명", // 발신자명
+            Receiver: "", // 수신번호
+            ReceiverName: "수신자명", // 수신자명
+            Subject: "메시지 제목1", // 메시지 제목
+            Contents: "문자 메시지 내용1", // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
+            interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
+        },
+        {
+            Sender: "", // 발신번호
+            SenderName: "발신자명", // 발신자명
+            Receiver: "", // 수신번호
+            ReceiverName: "수신자명", // 수신자명
+            Subject: "메시지 제목2", // 메시지 제목
+            // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
+            Contents:
+                "단/장문 자동인식 문자전송 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ",
+            interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
+        },
+    ];
 
-  // 전송요청번호
-  // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
-  // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-  var requestNum = "";
+    // 전송요청번호
+    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
+    var requestNum = "";
 
-  messageService.sendXMS_multi(
-    CorpNum,
-    sendNum,
-    subject,
-    contents,
-    Messages,
-    reserveDT,
-    adsYN,
-    requestNum,
-    function (receiptNum) {
-      res.render("result", {
-        path: req.path,
-        result: receiptNum,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.sendXMS_multi(
+        CorpNum,
+        sendNum,
+        subject,
+        contents,
+        Messages,
+        reserveDT,
+        adsYN,
+        requestNum,
+        function (receiptNum) {
+            res.render("result", {
+                path: req.path,
+                result: receiptNum,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -691,30 +691,30 @@ router.get("/SendXMS_multi", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#CancelReserve
  */
 router.get("/CancelReserve", function (req, res, next) {
-  // 팝빌회원 사업자번호
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호
+    var CorpNum = "1234567890";
 
-  // 문자전송 접수번호
-  var receiptNum = "021010911000000010";
+    // 문자전송 접수번호
+    var receiptNum = "021010911000000010";
 
-  messageService.cancelReserve(
-    CorpNum,
-    receiptNum,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.cancelReserve(
+        CorpNum,
+        receiptNum,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -722,30 +722,30 @@ router.get("/CancelReserve", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#CancelReserveRN
  */
 router.get("/CancelReserveRN", function (req, res, next) {
-  // 팝빌회원 사업자번호
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호
+    var CorpNum = "1234567890";
 
-  // 문자전송 요청번호
-  var requestNum = "";
+    // 문자전송 요청번호
+    var requestNum = "";
 
-  messageService.cancelReserveRN(
-    CorpNum,
-    requestNum,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.cancelReserveRN(
+        CorpNum,
+        requestNum,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -753,38 +753,38 @@ router.get("/CancelReserveRN", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#CancelReservebyRCV
  */
 router.get("/CancelReservebyRCV", function (req, res, next) {
-  // 팝빌회원 사업자번호
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  // 문자전송 접수번호
-  var receiptNum = "";
+    // 문자전송 접수번호
+    var receiptNum = "";
 
-  // 문자전송 수신번호
-  var receiveNum = "";
+    // 문자전송 수신번호
+    var receiveNum = "";
 
-  messageService.cancelReservebyRCV(
-    CorpNum,
-    receiptNum,
-    receiveNum,
-    UserID,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.cancelReservebyRCV(
+        CorpNum,
+        receiptNum,
+        receiveNum,
+        UserID,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -792,38 +792,38 @@ router.get("/CancelReservebyRCV", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#CancelReserveRNbyRCV
  */
 router.get("/CancelReserveRNbyRCV", function (req, res, next) {
-  // 팝빌회원 사업자번호
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  // 문자전송 요청번호
-  var requestNum = "";
+    // 문자전송 요청번호
+    var requestNum = "";
 
-  // 문자전송 수신번호
-  var receiveNum = "";
+    // 문자전송 수신번호
+    var receiveNum = "";
 
-  messageService.cancelReserveRNbyRCV(
-    CorpNum,
-    requestNum,
-    receiveNum,
-    UserID,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.cancelReserveRNbyRCV(
+        CorpNum,
+        requestNum,
+        receiveNum,
+        UserID,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -831,29 +831,29 @@ router.get("/CancelReserveRNbyRCV", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/info#GetMessages
  */
 router.get("/GetMessages", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 문자전송 접수번호
-  var receiptNum = "022070115000000018";
+    // 문자전송 접수번호
+    var receiptNum = "022070115000000018";
 
-  messageService.getMessages(
-    CorpNum,
-    receiptNum,
-    function (result) {
-      res.render("Message/SentMessage", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getMessages(
+        CorpNum,
+        receiptNum,
+        function (result) {
+            res.render("Message/SentMessage", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -861,29 +861,29 @@ router.get("/GetMessages", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/info#GetMessagesRN
  */
 router.get("/GetMessagesRN", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 문자전송 요청번호
-  var requestNum = "";
+    // 문자전송 요청번호
+    var requestNum = "";
 
-  messageService.getMessagesRN(
-    CorpNum,
-    requestNum,
-    function (result) {
-      res.render("Message/SentMessage", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getMessagesRN(
+        CorpNum,
+        requestNum,
+        function (result) {
+            res.render("Message/SentMessage", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -892,75 +892,75 @@ router.get("/GetMessagesRN", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/info#Search
  */
 router.get("/Search", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 검색시작일자, 날짜형식(yyyyMMdd)
-  var SDate = "20220601";
+    // 검색시작일자, 날짜형식(yyyyMMdd)
+    var SDate = "20220601";
 
-  // 검색종료일자, 날짜형식(yyyyMMdd)
-  var EDate = "20220629";
+    // 검색종료일자, 날짜형식(yyyyMMdd)
+    var EDate = "20220629";
 
-  // 전송상태 배열 ("1" , "2" , "3" , "4" 중 선택, 다중 선택 가능)
-  // └ 1 = 대기 , 2 = 성공 , 3 = 실패 , 4 = 취소
-  // - 미입력 시 전체조회
-  var State = [1, 2, 3, 4];
+    // 전송상태 배열 ("1" , "2" , "3" , "4" 중 선택, 다중 선택 가능)
+    // └ 1 = 대기 , 2 = 성공 , 3 = 실패 , 4 = 취소
+    // - 미입력 시 전체조회
+    var State = [1, 2, 3, 4];
 
-  // 검색대상 배열 ("SMS" , "LMS" , "MMS" 중 선택, 다중 선택 가능)
-  // └ SMS = 단문 , LMS = 장문 , MMS = 포토문자
-  // - 미입력 시 전체조회
-  var Item = ["SMS", "LMS", "MMS"];
+    // 검색대상 배열 ("SMS" , "LMS" , "MMS" 중 선택, 다중 선택 가능)
+    // └ SMS = 단문 , LMS = 장문 , MMS = 포토문자
+    // - 미입력 시 전체조회
+    var Item = ["SMS", "LMS", "MMS"];
 
-  // 예약여부 (false , true 중 택 1)
-  // └ false = 전체조회, true = 예약전송건 조회
-  // - 미입력시 기본값 false 처리
-  var ReserveYN = false;
+    // 예약여부 (false , true 중 택 1)
+    // └ false = 전체조회, true = 예약전송건 조회
+    // - 미입력시 기본값 false 처리
+    var ReserveYN = false;
 
-  // 개인조회 여부 (false , true 중 택 1)
-  // └ false = 접수한 문자 전체 조회 (관리자권한)
-  // └ true = 해당 담당자 계정으로 접수한 문자만 조회 (개인권한)
-  // - 미입력시 기본값 false 처리
-  var SenderYN = false;
+    // 개인조회 여부 (false , true 중 택 1)
+    // └ false = 접수한 문자 전체 조회 (관리자권한)
+    // └ true = 해당 담당자 계정으로 접수한 문자만 조회 (개인권한)
+    // - 미입력시 기본값 false 처리
+    var SenderYN = false;
 
-  // 정렬방향, D-내림차순, A-오름차순
-  var Order = "D";
+    // 정렬방향, D-내림차순, A-오름차순
+    var Order = "D";
 
-  // 페이지번호
-  var Page = 1;
+    // 페이지번호
+    var Page = 1;
 
-  // 페이지 목록개수, 최대 1000건
-  var PerPage = 30;
+    // 페이지 목록개수, 최대 1000건
+    var PerPage = 30;
 
-  // 조회하고자 하는 발신자명 또는 수신자명
-  // - 미입력시 전체조회
-  var Qstring = "";
+    // 조회하고자 하는 발신자명 또는 수신자명
+    // - 미입력시 전체조회
+    var Qstring = "";
 
-  messageService.search(
-    CorpNum,
-    SDate,
-    EDate,
-    State,
-    Item,
-    ReserveYN,
-    SenderYN,
-    Order,
-    Page,
-    PerPage,
-    Qstring,
-    function (result) {
-      res.render("Message/search", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.search(
+        CorpNum,
+        SDate,
+        EDate,
+        State,
+        Item,
+        ReserveYN,
+        SenderYN,
+        Order,
+        Page,
+        PerPage,
+        Qstring,
+        function (result) {
+            res.render("Message/search", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -969,29 +969,29 @@ router.get("/Search", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/info#GetSentListURL
  */
 router.get("/GetSentListURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  messageService.getSentListURL(
-    CorpNum,
-    UserID,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getSentListURL(
+        CorpNum,
+        UserID,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -999,25 +999,25 @@ router.get("/GetSentListURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/info#GetAutoDenyList
  */
 router.get("/GetAutoDenyList", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  messageService.getAutoDenyList(
-    CorpNum,
-    function (response) {
-      res.render("Message/AutoDenyList", {
-        path: req.path,
-        result: response,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getAutoDenyList(
+        CorpNum,
+        function (response) {
+            res.render("Message/AutoDenyList", {
+                path: req.path,
+                result: response,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1025,25 +1025,25 @@ router.get("/GetAutoDenyList", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#GetBalance
  */
 router.get("/GetBalance", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  messageService.getBalance(
-    CorpNum,
-    function (remainPoint) {
-      res.render("result", {
-        path: req.path,
-        result: remainPoint,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getBalance(
+        CorpNum,
+        function (remainPoint) {
+            res.render("result", {
+                path: req.path,
+                result: remainPoint,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1052,29 +1052,29 @@ router.get("/GetBalance", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#GetChargeURL
  */
 router.get("/GetChargeURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  messageService.getChargeURL(
-    CorpNum,
-    UserID,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getChargeURL(
+        CorpNum,
+        UserID,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1083,29 +1083,29 @@ router.get("/GetChargeURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#GetPaymentURL
  */
 router.get("/GetPaymentURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  messageService.getPaymentURL(
-    CorpNum,
-    UserID,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getPaymentURL(
+        CorpNum,
+        UserID,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1114,29 +1114,29 @@ router.get("/GetPaymentURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#GetUseHistoryURL
  */
 router.get("/GetUseHistoryURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  messageService.getUseHistoryURL(
-    CorpNum,
-    UserID,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getUseHistoryURL(
+        CorpNum,
+        UserID,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1144,25 +1144,25 @@ router.get("/GetUseHistoryURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#GetPartnerBalance
  */
 router.get("/GetPartnerBalance", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  messageService.getPartnerBalance(
-    CorpNum,
-    function (remainPoint) {
-      res.render("result", {
-        path: req.path,
-        result: remainPoint,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getPartnerBalance(
+        CorpNum,
+        function (remainPoint) {
+            res.render("result", {
+                path: req.path,
+                result: remainPoint,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1171,29 +1171,29 @@ router.get("/GetPartnerBalance", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#GetPartnerURL
  */
 router.get("/GetPartnerURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // CHRG(포인트충전)
-  var TOGO = "CHRG";
+    // CHRG(포인트충전)
+    var TOGO = "CHRG";
 
-  messageService.getPartnerURL(
-    CorpNum,
-    TOGO,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getPartnerURL(
+        CorpNum,
+        TOGO,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1201,29 +1201,29 @@ router.get("/GetPartnerURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#GetUnitCost
  */
 router.get("/GetUnitCost", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 문자전송유형, SMS(단문), LMS(장문), MMS(포토)
-  var messageType = popbill.MessageType.LMS;
+    // 문자전송유형, SMS(단문), LMS(장문), MMS(포토)
+    var messageType = popbill.MessageType.LMS;
 
-  messageService.getUnitCost(
-    CorpNum,
-    messageType,
-    function (unitCost) {
-      res.render("result", {
-        path: req.path,
-        result: unitCost,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getUnitCost(
+        CorpNum,
+        messageType,
+        function (unitCost) {
+            res.render("result", {
+                path: req.path,
+                result: unitCost,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1231,29 +1231,29 @@ router.get("/GetUnitCost", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#GetChargeInfo
  */
 router.get("/GetChargeInfo", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 문자전송유형, SMS(단문), LMS(장문), MMS(포토)
-  var messageType = popbill.MessageType.SMS;
+    // 문자전송유형, SMS(단문), LMS(장문), MMS(포토)
+    var messageType = popbill.MessageType.SMS;
 
-  messageService.getChargeInfo(
-    CorpNum,
-    messageType,
-    function (result) {
-      res.render("Base/getChargeInfo", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getChargeInfo(
+        CorpNum,
+        messageType,
+        function (result) {
+            res.render("Base/getChargeInfo", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1261,25 +1261,25 @@ router.get("/GetChargeInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/member#CheckIsMember
  */
 router.get("/CheckIsMember", function (req, res, next) {
-  // 조회할 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 조회할 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  messageService.checkIsMember(
-    CorpNum,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.checkIsMember(
+        CorpNum,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1287,26 +1287,26 @@ router.get("/CheckIsMember", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/member#CheckID
  */
 router.get("/CheckID", function (req, res, next) {
-  // 조회할 아이디
-  var testID = "testkorea";
+    // 조회할 아이디
+    var testID = "testkorea";
 
-  messageService.checkID(
-    testID,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.checkID(
+        testID,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1314,62 +1314,62 @@ router.get("/CheckID", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/member#JoinMember
  */
 router.get("/JoinMember", function (req, res, next) {
-  // 회원정보
-  var joinInfo = {
-    // 회원 아이디 (6자 이상 50자 미만)
-    ID: "userid",
+    // 회원정보
+    var joinInfo = {
+        // 회원 아이디 (6자 이상 50자 미만)
+        ID: "userid",
 
-    // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
-    Password: "asdf8536!@#",
+        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        Password: "asdf8536!@#",
 
-    // 링크아이디
-    LinkID: messageService._config.LinkID,
+        // 링크아이디
+        LinkID: messageService._config.LinkID,
 
-    // 사업자번호, "-" 제외 10자리
-    CorpNum: "1234567890",
+        // 사업자번호, "-" 제외 10자리
+        CorpNum: "1234567890",
 
-    // 대표자명 (최대 100자)
-    CEOName: "대표자성명",
+        // 대표자명 (최대 100자)
+        CEOName: "대표자성명",
 
-    // 상호 (최대 200자)
-    CorpName: "테스트상호",
+        // 상호 (최대 200자)
+        CorpName: "테스트상호",
 
-    // 주소 (최대 300자)
-    Addr: "주소",
+        // 주소 (최대 300자)
+        Addr: "주소",
 
-    // 업태 (최대 100자)
-    BizType: "업태",
+        // 업태 (최대 100자)
+        BizType: "업태",
 
-    // 종목 (최대 100자)
-    BizClass: "업종",
+        // 종목 (최대 100자)
+        BizClass: "업종",
 
-    // 담당자 성명 (최대 100자)
-    ContactName: "담당자 성명",
+        // 담당자 성명 (최대 100자)
+        ContactName: "담당자 성명",
 
-    // 담당자 이메일 (최대 20자)
-    ContactEmail: "",
+        // 담당자 이메일 (최대 20자)
+        ContactEmail: "",
 
-    // 담당자 연락처 (최대 20자)
-    ContactTEL: "",
-  };
+        // 담당자 연락처 (최대 20자)
+        ContactTEL: "",
+    };
 
-  messageService.joinMember(
-    joinInfo,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.joinMember(
+        joinInfo,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1378,29 +1378,29 @@ router.get("/JoinMember", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/member#GetAccessURL
  */
 router.get("/GetAccessURL", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  messageService.getAccessURL(
-    CorpNum,
-    UserID,
-    function (url) {
-      res.render("result", {
-        path: req.path,
-        result: url,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getAccessURL(
+        CorpNum,
+        UserID,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1408,48 +1408,48 @@ router.get("/GetAccessURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/member#RegistContact
  */
 router.get("/RegistContact", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 담당자 정보
-  var contactInfo = {
-    // 아이디 (6자 이상 50자 미만)
-    id: "testkorea03033",
+    // 담당자 정보
+    var contactInfo = {
+        // 아이디 (6자 이상 50자 미만)
+        id: "testkorea03033",
 
-    // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
-    Password: "asdf8536!@#",
+        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        Password: "asdf8536!@#",
 
-    // 담당자명 (최대 100자)
-    personName: "담당자명0309",
+        // 담당자명 (최대 100자)
+        personName: "담당자명0309",
 
-    // 연락처 (최대 20자)
-    tel: "010-1234-1234",
+        // 연락처 (최대 20자)
+        tel: "010-1234-1234",
 
-    // 이메일 (최대 100자)
-    email: "test@email.com",
+        // 이메일 (최대 100자)
+        email: "test@email.com",
 
-    // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
-    searchRole: 3,
-  };
+        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        searchRole: 3,
+    };
 
-  messageService.registContact(
-    CorpNum,
-    contactInfo,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.registContact(
+        CorpNum,
+        contactInfo,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1457,29 +1457,29 @@ router.get("/RegistContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/member#GetContactInfo
  */
 router.get("/GetContactInfo", function (req, res, next) {
-  // 팝빌회원 사업자번호
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호
+    var CorpNum = "1234567890";
 
-  // 확인할 담당자 아이디
-  var contactID = "checkContactID";
+    // 확인할 담당자 아이디
+    var contactID = "checkContactID";
 
-  messageService.getContactInfo(
-    CorpNum,
-    contactID,
-    function (result) {
-      res.render("Base/getContactInfo", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getContactInfo(
+        CorpNum,
+        contactID,
+        function (result) {
+            res.render("Base/getContactInfo", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1487,25 +1487,25 @@ router.get("/GetContactInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/member#ListContact
  */
 router.get("/ListContact", function (req, res, next) {
-  // 조회할 아이디
-  var CorpNum = "1234567890";
+    // 조회할 아이디
+    var CorpNum = "1234567890";
 
-  messageService.listContact(
-    CorpNum,
-    function (result) {
-      res.render("Base/listContact", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.listContact(
+        CorpNum,
+        function (result) {
+            res.render("Base/listContact", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1513,49 +1513,49 @@ router.get("/ListContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/member#UpdateContact
  */
 router.get("/UpdateContact", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  // 담당자 정보 항목
-  var contactInfo = {
-    // 담당자 아이디
-    id: UserID,
+    // 담당자 정보 항목
+    var contactInfo = {
+        // 담당자 아이디
+        id: UserID,
 
-    // 담당자명 (최대 100자)
-    personName: "담당자명0309",
+        // 담당자명 (최대 100자)
+        personName: "담당자명0309",
 
-    // 연락처 (최대 20자)
-    tel: "010-1234-1234",
+        // 연락처 (최대 20자)
+        tel: "010-1234-1234",
 
-    // 이메일 (최대 100자)
-    email: "test@email.com",
+        // 이메일 (최대 100자)
+        email: "test@email.com",
 
-    // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
-    searchRole: 3,
-  };
+        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        searchRole: 3,
+    };
 
-  messageService.updateContact(
-    CorpNum,
-    UserID,
-    contactInfo,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.updateContact(
+        CorpNum,
+        UserID,
+        contactInfo,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1563,25 +1563,25 @@ router.get("/UpdateContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/member#GetCorpInfo
  */
 router.get("/GetCorpInfo", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  messageService.getCorpInfo(
-    CorpNum,
-    function (result) {
-      res.render("Base/getCorpInfo", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getCorpInfo(
+        CorpNum,
+        function (result) {
+            res.render("Base/getCorpInfo", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1589,45 +1589,45 @@ router.get("/GetCorpInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/member#UpdateCorpInfo
  */
 router.get("/UpdateCorpInfo", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 회사정보
-  var corpInfo = {
-    // 대표자명 (최대 100자)
-    ceoname: "대표자성명_nodejs",
+    // 회사정보
+    var corpInfo = {
+        // 대표자명 (최대 100자)
+        ceoname: "대표자성명_nodejs",
 
-    // 상호 (최대 200자)
-    corpName: "업체명_nodejs",
+        // 상호 (최대 200자)
+        corpName: "업체명_nodejs",
 
-    // 주소 (최대 300자)
-    addr: "서구 천변좌로_nodejs",
+        // 주소 (최대 300자)
+        addr: "서구 천변좌로_nodejs",
 
-    // 업태 (최대 100자)
-    bizType: "업태_nodejs",
+        // 업태 (최대 100자)
+        bizType: "업태_nodejs",
 
-    // 종목 (최대 100자)
-    bizClass: "종목_nodejs",
-  };
+        // 종목 (최대 100자)
+        bizClass: "종목_nodejs",
+    };
 
-  messageService.updateCorpInfo(
-    CorpNum,
-    corpInfo,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.updateCorpInfo(
+        CorpNum,
+        corpInfo,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /*
@@ -1635,25 +1635,25 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/info#CheckAutoDenyNumber
  */
 router.get("/CheckAutoDenyNumber", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  messageService.checkAutoDenyNumber(
-    CorpNum,
-    function (result) {
-      res.render("Message/AutoDenyNumber", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.checkAutoDenyNumber(
+        CorpNum,
+        function (result) {
+            res.render("Message/AutoDenyNumber", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1661,48 +1661,48 @@ router.get("/CheckAutoDenyNumber", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#PaymentRequest
  */
 router.get("/PaymentRequest", function (req, res, next) {
-  // 팝빌회원 사업자 번호
-  var CorpNum = "1234567890";
-  // 담당자명
-  var SettlerName = "";
-  // 담당자 이메일
-  var SettlerEmail = "";
-  // 담당자 휴대폰
-  var NotifyHP = "";
-  // 입금자명
-  var PaymentName = "";
-  // 결제금액
-  var SettleCost = "";
+    // 팝빌회원 사업자 번호
+    var CorpNum = "1234567890";
+    // 담당자명
+    var SettlerName = "";
+    // 담당자 이메일
+    var SettlerEmail = "";
+    // 담당자 휴대폰
+    var NotifyHP = "";
+    // 입금자명
+    var PaymentName = "";
+    // 결제금액
+    var SettleCost = "";
 
-  // 입금신청 객체 정보
-  var PaymentForm = {
-    settlerName: SettlerName,
-    settlerEmail: SettlerEmail,
-    notifyHP: NotifyHP,
-    paymentName: PaymentName,
-    settleCost: SettleCost,
-  };
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 입금신청 객체 정보
+    var PaymentForm = {
+        settlerName: SettlerName,
+        settlerEmail: SettlerEmail,
+        notifyHP: NotifyHP,
+        paymentName: PaymentName,
+        settleCost: SettleCost,
+    };
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  messageService.paymentRequest(
-    CorpNum,
-    PaymentForm,
-    UserID,
-    function (result) {
-      res.render("Base/paymentResponse", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.paymentRequest(
+        CorpNum,
+        PaymentForm,
+        UserID,
+        function (result) {
+            res.render("Base/paymentResponse", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1710,31 +1710,31 @@ router.get("/PaymentRequest", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#GetSettleResult
  */
 router.get("/GetSettleResult", function (req, res, next) {
-  // 팝빌회원 사업자 번호
-  var CorpNum = "1234567890";
-  // 정산코드 - PaymentRequest 호출시 반환되는 값
-  var SettleCode = "";
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 사업자 번호
+    var CorpNum = "1234567890";
+    // 정산코드 - PaymentRequest 호출시 반환되는 값
+    var SettleCode = "";
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  messageService.getSettleResult(
-    CorpNum,
-    SettleCode,
-    UserID,
-    function (result) {
-      res.render("Base/paymentHistory", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getSettleResult(
+        CorpNum,
+        SettleCode,
+        UserID,
+        function (result) {
+            res.render("Base/paymentHistory", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1742,40 +1742,40 @@ router.get("/GetSettleResult", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#GetPaymentHistory
  */
 router.get("/GetPaymentHistory", function (req, res, next) {
-  // 팝빌회원 사업자번호 (하이픈 "-" 제외 10자리)
-  var CorpNum = "1234567890";
-  // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-  var SDate = "20230101";
-  // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-  var EDate = "20230107";
-  // 목록 페이지번호 (기본값 1)
-  var Page = 1;
-  // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
-  var PerPage = 500;
-  // 팝빌회원 아이디
-  var UserID = "testkorea";
+    // 팝빌회원 사업자번호 (하이픈 "-" 제외 10자리)
+    var CorpNum = "1234567890";
+    // 조회 기간의 시작일자 (형식 : yyyyMMdd)
+    var SDate = "20230101";
+    // 조회 기간의 종료일자 (형식 : yyyyMMdd)
+    var EDate = "20230107";
+    // 목록 페이지번호 (기본값 1)
+    var Page = 1;
+    // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+    var PerPage = 500;
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
-  messageService.getPaymentHistory(
-    CorpNum,
-    SDate,
-    EDate,
-    Page,
-    PerPage,
-    UserID,
-    function (result) {
-      res.render("Base/paymentHistoryResult", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getPaymentHistory(
+        CorpNum,
+        SDate,
+        EDate,
+        Page,
+        PerPage,
+        UserID,
+        function (result) {
+            res.render("Base/paymentHistoryResult", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1783,36 +1783,36 @@ router.get("/GetPaymentHistory", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#GetUseHistory
  */
 router.get("/GetUseHistory", function (req, res, next) {
-  var CorpNum = "1234567890";
-  var SDate = "";
-  var EDate = "";
-  var Page = 1;
-  var PerPage = 500;
-  var Order = "";
-  var UserID = "testkorea";
+    var CorpNum = "1234567890";
+    var SDate = "";
+    var EDate = "";
+    var Page = 1;
+    var PerPage = 500;
+    var Order = "";
+    var UserID = "testkorea";
 
-  messageService.getUseHistory(
-    CorpNum,
-    SDate,
-    EDate,
-    Page,
-    PerPage,
-    Order,
-    UserID,
-    function (result) {
-      res.render("Base/useHistoryResult", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getUseHistory(
+        CorpNum,
+        SDate,
+        EDate,
+        Page,
+        PerPage,
+        Order,
+        UserID,
+        function (result) {
+            res.render("Base/useHistoryResult", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1820,56 +1820,56 @@ router.get("/GetUseHistory", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/point#Refund
  */
 router.get("/Refund", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "1234567890";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
 
-  // 환불신청 객체정보
-  var RefundForm = {
-    // 담당자명
-    contactName: "환불_담당자",
+    // 환불신청 객체정보
+    var RefundForm = {
+        // 담당자명
+        contactName: "환불_담당자",
 
-    // 담당자 연락처
-    tel: "010-1234-1234",
+        // 담당자 연락처
+        tel: "010-1234-1234",
 
-    // 환불 신청 포인트
-    requestPoint: "1000",
+        // 환불 신청 포인트
+        requestPoint: "1000",
 
-    // 은행명
-    accountBank: "국민",
+        // 은행명
+        accountBank: "국민",
 
-    // 계좌번호
-    accountNum: "123123123-123",
+        // 계좌번호
+        accountNum: "123123123-123",
 
-    // 예금주명
-    accountName: "환불_예금주",
+        // 예금주명
+        accountName: "환불_예금주",
 
-    // 환불 사유
-    reason: "환불사유",
-  };
+        // 환불 사유
+        reason: "환불사유",
+    };
 
-  // 팝빌 회원 아이디
-  var UserID = "testkorea";
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
 
-  messageService.refund(
-    CorpNum,
-    RefundForm,
-    UserID,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-        refundCode: result.refundCode,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.refund(
+        CorpNum,
+        RefundForm,
+        UserID,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+                refundCode: result.refundCode,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1877,30 +1877,30 @@ router.get("/Refund", function (req, res, next) {
  * https://developers.popbill.com/reference/sms/node/api/point#GetRefundHistory
  */
 router.get("/GetRefundHistory", function (req, res, next) {
-  var CorpNum = "1234567890";
-  var Page = 1;
-  var PerPage = 500;
-  var UserID = "testkorea";
+    var CorpNum = "1234567890";
+    var Page = 1;
+    var PerPage = 500;
+    var UserID = "testkorea";
 
-  messageService.getRefundHistory(
-    CorpNum,
-    Page,
-    PerPage,
-    UserID,
-    function (result) {
-      res.render("Base/RefundHistoryResult", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.getRefundHistory(
+        CorpNum,
+        Page,
+        PerPage,
+        UserID,
+        function (result) {
+            res.render("Base/RefundHistoryResult", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1908,34 +1908,34 @@ router.get("/GetRefundHistory", function (req, res, next) {
  * https://developers.popbill.com/reference/sms/node/api/point#QuitMember
  */
 router.get("/QuitMember", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "123456789";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "123456789";
 
-  // 탈퇴 사유
-  var QuitReason = "탈퇴 사유";
+    // 탈퇴 사유
+    var QuitReason = "탈퇴 사유";
 
-  // 팝빌 회원 아이디
-  var UserID = "testkorea";
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
 
-  messageService.QuitMember(
-    CorpNum,
-    QuitReason,
-    UserID,
-    function (result) {
-      res.render("response", {
-        path: req.path,
-        code: result.code,
-        message: result.message,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.QuitMember(
+        CorpNum,
+        QuitReason,
+        UserID,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1943,29 +1943,29 @@ router.get("/QuitMember", function (req, res, next) {
  * https://developers.popbill.com/reference/sms/node/api/point#GetRefundableBalance
  */
 router.get("/GetRefundableBalance", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "123456789";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "123456789";
 
-  // 팝빌 회원 아이디
-  var UserID = "testkorea";
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
 
-  messageService.GetRefundableBalance(
-    CorpNum,
-    UserID,
-    function (result) {
-      res.render("Base/getRefundableBalance", {
-        path: req.path,
-        refundableBalance: result.refundableBalance,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.GetRefundableBalance(
+        CorpNum,
+        UserID,
+        function (result) {
+            res.render("Base/getRefundableBalance", {
+                path: req.path,
+                refundableBalance: result.refundableBalance,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 /**
@@ -1973,33 +1973,33 @@ router.get("/GetRefundableBalance", function (req, res, next) {
  * https://developers.popbill.com/reference/sms/node/api/point#GetRefundInfo
  */
 router.get("/GetRefundInfo", function (req, res, next) {
-  // 팝빌회원 사업자번호, "-" 제외 10자리
-  var CorpNum = "123456789";
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "123456789";
 
-  // 환불 코드
-  var RefundCode = "023040000017";
+    // 환불 코드
+    var RefundCode = "023040000017";
 
-  // 팝빌 회원 아이디
-  var UserID = "testkorea";
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
 
-  messageService.GetRefundInfo(
-    CorpNum,
-    RefundCode,
-    UserID,
-    function (result) {
-      res.render("Base/getRefundInfo", {
-        path: req.path,
-        result: result,
-      });
-    },
-    function (Error) {
-      res.render("response", {
-        path: req.path,
-        code: Error.code,
-        message: Error.message,
-      });
-    }
-  );
+    messageService.GetRefundInfo(
+        CorpNum,
+        RefundCode,
+        UserID,
+        function (result) {
+            res.render("Base/getRefundInfo", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
 });
 
 module.exports = router;
