@@ -913,4 +913,103 @@ router.get("/GetRefundHistory", function (req, res, next) {
     );
 });
 
+/**
+ * 환불 신청의 상태를 확인합니다.
+ * https://developers.popbill.com/reference/closedown/node/api/point#GetRefundInfo
+ */
+router.get("/GetRefundInfo", function (req, res, next) {
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "123456789";
+
+    // 환불 코드
+    var RefundCode = "023040000017";
+
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
+
+    closedownService.GetRefundInfo(
+        CorpNum,
+        RefundCode,
+        UserID,
+        function (result) {
+            res.render("Base/getRefundInfo", {
+                path: req.path,
+                result: result,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
+});
+
+/**
+ * 회원 탈퇴를 합니다.
+ * https://developers.popbill.com/reference/closedown/node/api/point#QuitMember
+ */
+router.get("/QuitMember", function (req, res, next) {
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "123456789";
+
+    // 탈퇴 사유
+    var QuitReason = "탈퇴 사유";
+
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
+
+    closedownService.QuitMember(
+        CorpNum,
+        QuitReason,
+        UserID,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
+});
+
+/**
+ * 환불 가능한 포인트를 확인합니다. (보너스 포인트는 환불가능포인트에서 제외됩니다.)
+ * https://developers.popbill.com/reference/closedown/node/api/point#GetRefundableBalance
+ */
+router.get("/GetRefundableBalance", function (req, res, next) {
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "123456789";
+
+    // 팝빌 회원 아이디
+    var UserID = "testkorea";
+
+    closedownService.GetRefundableBalance(
+        CorpNum,
+        UserID,
+        function (result) {
+            res.render("Base/getRefundableBalance", {
+                path: req.path,
+                refundableBalance: result.refundableBalance,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
+});
+
 module.exports = router;
