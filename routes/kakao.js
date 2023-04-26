@@ -2084,7 +2084,10 @@ router.get("/UpdateContact", function (req, res, next) {
     );
 });
 
-// TODO : API 설명 주석 추가
+/**
+ * 팝빌에서 반환받은 접수번호와 수신번호를 통해 예약접수된 문자 메시지 전송을 취소합니다. (예약시간 10분 전까지 가능)
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#CancelReservebyRCV
+ */
 router.get("/CancelReservebyRCV", function (req, res, next) {
     var CorpNum = "1234567890";
     var receiptNum = "";
@@ -2109,7 +2112,10 @@ router.get("/CancelReservebyRCV", function (req, res, next) {
     );
 });
 
-// TODO : API 설명 주석 추가
+/**
+ * 파트너가 할당한 전송 요청번호로 접수 건을 식별하여 수신번호에 예약된 카카오톡을 전송 취소합니다. (예약시간 10분 전까지 가능)
+ * - https://developers.popbill.com/reference/kakaotalk/node/api/send#CancelReserveRNbyRCV
+ */
 router.get("/CancelReserveRNbyRCV", function (req, res, next) {
     var CorpNum = "1234567890";
     var requestNum = "";
