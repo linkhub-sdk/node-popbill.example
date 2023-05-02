@@ -20,7 +20,7 @@ router.get("/", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/sendnum#CheckSenderNumber
  */
 router.get("/CheckSenderNumber", function (req, res, next) {
-    // 팝빌회원 사업자번호
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
     // 확인할 발신번호
@@ -691,7 +691,7 @@ router.get("/SendXMS_multi", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#CancelReserve
  */
 router.get("/CancelReserve", function (req, res, next) {
-    // 팝빌회원 사업자번호
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
     // 문자전송 접수번호
@@ -722,7 +722,7 @@ router.get("/CancelReserve", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#CancelReserveRN
  */
 router.get("/CancelReserveRN", function (req, res, next) {
-    // 팝빌회원 사업자번호
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
     // 문자전송 요청번호
@@ -753,7 +753,7 @@ router.get("/CancelReserveRN", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#CancelReservebyRCV
  */
 router.get("/CancelReservebyRCV", function (req, res, next) {
-    // 팝빌회원 사업자번호
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
     // 팝빌회원 아이디
@@ -792,7 +792,7 @@ router.get("/CancelReservebyRCV", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/send#CancelReserveRNbyRCV
  */
 router.get("/CancelReserveRNbyRCV", function (req, res, next) {
-    // 팝빌회원 사업자번호
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
     // 팝빌회원 아이디
@@ -1457,7 +1457,7 @@ router.get("/RegistContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/api/member#GetContactInfo
  */
 router.get("/GetContactInfo", function (req, res, next) {
-    // 팝빌회원 사업자번호
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
     // 확인할 담당자 아이디
@@ -1847,7 +1847,7 @@ router.get("/Refund", function (req, res, next) {
         reason: "환불사유",
     };
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     messageService.refund(
@@ -1914,7 +1914,7 @@ router.get("/QuitMember", function (req, res, next) {
     // 탈퇴 사유
     var QuitReason = "탈퇴 사유";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     messageService.QuitMember(
@@ -1946,7 +1946,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "123456789";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     messageService.GetRefundableBalance(
@@ -1979,7 +1979,7 @@ router.get("/GetRefundInfo", function (req, res, next) {
     // 환불 코드
     var RefundCode = "023040000017";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     messageService.GetRefundInfo(

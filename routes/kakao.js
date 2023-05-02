@@ -77,7 +77,7 @@ router.get("/ListPlusFriendID", function (req, res, next) {
  * - https://developers.popbill.com/reference/kakaotalk/node/api/sendnum#CheckSenderNumber
  */
 router.get("/CheckSenderNumber", function (req, res, next) {
-    // 팝빌회원 사업자번호
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
     // 확인할 발신번호
@@ -297,7 +297,6 @@ router.get("/SendATS_one", function (req, res, next) {
     var receiverName = "partner";
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     // 전송요청번호
@@ -411,7 +410,6 @@ router.get("/SendATS_multi", function (req, res, next) {
     });
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     // 전송요청번호
@@ -513,7 +511,6 @@ router.get("/SendATS_same", function (req, res, next) {
     ];
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     // 전송요청번호
@@ -624,7 +621,6 @@ router.get("/SendFTS_one", function (req, res, next) {
     ];
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     // 전송요청번호
@@ -733,7 +729,6 @@ router.get("/SendFTS_multi", function (req, res, next) {
     // ];
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     // 전송요청번호
@@ -835,7 +830,6 @@ router.get("/SendFTS_same", function (req, res, next) {
     ];
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     // 전송요청번호
@@ -944,7 +938,6 @@ router.get("/SendFMS_one", function (req, res, next) {
     ];
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     // 전송요청번호
@@ -1066,7 +1059,6 @@ router.get("/SendFMS_multi", function (req, res, next) {
     // ];
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     // 전송요청번호
@@ -1180,7 +1172,6 @@ router.get("/SendFMS_same", function (req, res, next) {
     ];
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     // 전송요청번호
@@ -1232,7 +1223,6 @@ router.get("/CancelReserve", function (req, res, next) {
     var receiptNum = "021010912071500001";
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     kakaoService.cancelReserve(
@@ -1268,7 +1258,6 @@ router.get("/CancelReserveRN", function (req, res, next) {
     var requestNum = "";
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     kakaoService.cancelReserveRN(
@@ -1304,7 +1293,6 @@ router.get("/GetMessages", function (req, res, next) {
     var receiptNum = "022070114430900001";
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     kakaoService.getMessages(
@@ -1339,7 +1327,6 @@ router.get("/GetMessagesRN", function (req, res, next) {
     var requestNum = "";
 
     // 팝빌회원 아이디
-    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     kakaoService.getMessagesRN(
@@ -1412,7 +1399,7 @@ router.get("/Search", function (req, res, next) {
     var QString = "";
 
     // 팝빌 회원아이디
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     kakaoService.search(
@@ -1983,7 +1970,7 @@ router.get("/RegistContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/kakaotalk/node/api/member#GetContactInfo
  */
 router.get("/GetContactInfo", function (req, res, next) {
-    // 팝빌회원 사업자번호
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
     // 확인할 담당자 아이디
@@ -2334,7 +2321,7 @@ router.get("/Refund", function (req, res, next) {
         reason: "환불사유",
     };
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     kakaoService.refund(
@@ -2401,7 +2388,7 @@ router.get("/QuitMember", function (req, res, next) {
     // 탈퇴 사유
     var QuitReason = "탈퇴 사유";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     kakaoService.QuitMember(
@@ -2433,7 +2420,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "123456789";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     kakaoService.GetRefundableBalance(
@@ -2466,7 +2453,7 @@ router.get("/GetRefundInfo", function (req, res, next) {
     // 환불 코드
     var RefundCode = "023040000017";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     kakaoService.GetRefundInfo(

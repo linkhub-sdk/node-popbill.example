@@ -694,7 +694,7 @@ router.get("/Issue", function (req, res, next) {
     // 메모
     var memo = "발행메모";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     statementService.issue(
@@ -2716,7 +2716,7 @@ router.get("/Refund", function (req, res, next) {
         reason: "환불사유",
     };
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     statementService.refund(
@@ -2783,7 +2783,7 @@ router.get("/QuitMember", function (req, res, next) {
     // 탈퇴 사유
     var QuitReason = "탈퇴 사유";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     statementService.QuitMember(
@@ -2815,7 +2815,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "123456789";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     statementService.GetRefundableBalance(
@@ -2848,7 +2848,7 @@ router.get("/GetRefundInfo", function (req, res, next) {
     // 환불 코드
     var RefundCode = "023040000017";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     statementService.GetRefundInfo(

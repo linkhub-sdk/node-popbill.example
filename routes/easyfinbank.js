@@ -1142,7 +1142,7 @@ router.get("/RegistContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/easyfinbank/node/api/member#GetContactInfo
  */
 router.get("/GetContactInfo", function (req, res, next) {
-    // 팝빌회원 사업자번호
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
     // 확인할 담당자 아이디
@@ -1434,7 +1434,7 @@ router.get("/Refund", function (req, res, next) {
         reason: "환불사유",
     };
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     easyFinBankService.refund(
@@ -1501,7 +1501,7 @@ router.get("/QuitMember", function (req, res, next) {
     // 탈퇴 사유
     var QuitReason = "탈퇴 사유";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     easyFinBankService.QuitMember(
@@ -1533,7 +1533,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "123456789";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     easyFinBankService.GetRefundableBalance(
@@ -1566,7 +1566,7 @@ router.get("/GetRefundInfo", function (req, res, next) {
     // 환불 코드
     var RefundCode = "023040000017";
 
-    // 팝빌 회원 아이디
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     easyFinBankService.GetRefundInfo(
