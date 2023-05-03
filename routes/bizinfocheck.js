@@ -934,7 +934,7 @@ router.get("/GetRefundHistory", function (req, res, next) {
  */
 router.get("/QuitMember", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
-    var CorpNum = "123456789";
+    var CorpNum = "1234567890";
 
     // 탈퇴 사유
     var QuitReason = "탈퇴 사유";
@@ -942,7 +942,7 @@ router.get("/QuitMember", function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
-    bizInfoCheckService.QuitMember(
+    bizInfoCheckService.quitMember(
         CorpNum,
         QuitReason,
         UserID,
@@ -969,12 +969,12 @@ router.get("/QuitMember", function (req, res, next) {
  */
 router.get("/GetRefundableBalance", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
-    var CorpNum = "123456789";
+    var CorpNum = "1234567890";
 
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
-    bizInfoCheckService.GetRefundableBalance(
+    bizInfoCheckService.getRefundableBalance(
         CorpNum,
         UserID,
         function (result) {
@@ -999,7 +999,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
  */
 router.get("/GetRefundInfo", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
-    var CorpNum = "123456789";
+    var CorpNum = "1234567890";
 
     // 환불 코드
     var RefundCode = "023040000017";
@@ -1007,7 +1007,7 @@ router.get("/GetRefundInfo", function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
-    bizInfoCheckService.GetRefundInfo(
+    bizInfoCheckService.getRefundInfo(
         CorpNum,
         RefundCode,
         UserID,
