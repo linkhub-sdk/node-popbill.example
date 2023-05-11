@@ -2695,22 +2695,22 @@ router.get("/Refund", function (req, res, next) {
     // 환불신청 객체정보
     var RefundForm = {
         // 담당자명
-        contactName: "환불_담당자",
+        contactname: "환불_담당자",
 
         // 담당자 연락처
         tel: "010-1234-1234",
 
         // 환불 신청 포인트
-        requestPoint: "1000",
+        requestpoint: "100",
 
         // 은행명
-        accountBank: "국민",
+        accountbank: "국민",
 
         // 계좌번호
-        accountNum: "123123123-123",
+        accountnum: "123123123-123",
 
         // 예금주명
-        accountName: "환불_예금주",
+        accountname: "환불_예금주",
 
         // 환불 사유
         reason: "환불사유",
@@ -2743,7 +2743,7 @@ router.get("/Refund", function (req, res, next) {
 
 /**
  * 연동회원의 포인트 환불신청내역을 확인합니다.
- * https://developers.popbill.com/reference/statement/node/api/point#GetRefundHistory
+ * - https://developers.popbill.com/reference/statement/node/api/point#GetRefundHistory
  */
 router.get("/GetRefundHistory", function (req, res, next) {
     var CorpNum = "1234567890";
@@ -2773,8 +2773,11 @@ router.get("/GetRefundHistory", function (req, res, next) {
 });
 
 /**
- * 회원 탈퇴를 합니다.
- * https://developers.popbill.com/reference/statement/node/api/member#QuitMember
+ * 가입된 연동회원의 탈퇴를 요청합니다.
+ * - 회원탈퇴 신청과 동시에 팝빌의 모든 서비스 이용이 불가하며, 관리자를 포함한 모든 담당자 계정도 일괄탈퇴 됩니다.
+ * - 회원탈퇴로 삭제된 데이터는 복원이 불가능합니다.
+ * - 관리자 계정만 회원탈퇴가 가능합니다.
+ * - https://developers.popbill.com/reference/statement/node/api/member#QuitMember
  */
 router.get("/QuitMember", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -2809,7 +2812,7 @@ router.get("/QuitMember", function (req, res, next) {
 
 /**
  * 환불 가능한 포인트를 확인합니다. (보너스 포인트는 환불가능포인트에서 제외됩니다.)
- * https://developers.popbill.com/reference/statement/node/api/point#GetRefundableBalance
+ * - https://developers.popbill.com/reference/statement/node/api/point#GetRefundableBalance
  */
 router.get("/GetRefundableBalance", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -2838,8 +2841,8 @@ router.get("/GetRefundableBalance", function (req, res, next) {
 });
 
 /**
- * 환불 신청의 상태를 확인합니다.
- * https://developers.popbill.com/reference/statement/node/api/point#GetRefundInfo
+ * 포인트 환불에 대한 상세정보 1건을 확인합니다.
+ * - https://developers.popbill.com/reference/statement/node/api/point#GetRefundInfo
  */
 router.get("/GetRefundInfo", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
