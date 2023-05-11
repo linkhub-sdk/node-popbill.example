@@ -1941,25 +1941,25 @@ router.get("/Refund", function (req, res, next) {
     // 환불신청 객체정보
     var RefundForm = {
         // 담당자명
-        contactname: "환불_담당자",
+        ContactName: "환불_담당자",
 
         // 담당자 연락처
         tel: "010-1234-1234",
 
         // 환불 신청 포인트
-        requestpoint: "100",
+        RequestPoint: "100",
 
         // 은행명
-        accountbank: "국민",
+        AccountBank: "국민",
 
         // 계좌번호
-        accountnum: "123123123-123",
+        AccountNum: "123123123-123",
 
         // 예금주명
-        accountname: "환불_예금주",
+        AccountName: "환불_예금주",
 
         // 환불 사유
-        reason: "환불사유",
+        Reason: "환불사유",
     };
 
     // 팝빌회원 아이디
