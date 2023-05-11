@@ -14,13 +14,13 @@
             <li>code (응답코드) : <%= code %></li>
             <li>message (응답메시지) : <%= message %></li>
             <% if (typeof ntsConfirmNum != "undefined") { %>
-                <li>국세청승인번호 (Response.ntsConfirmNum) : <%= ntsConfirmNum %></li>
+                <li>ntsConfirmNum (국세청승인번호) : <%= ntsConfirmNum %></li>
             <% } %>
             <% if (typeof receiptID != "undefined") { %>
-                <li>접수아이디 (Response.receiptID) : <%= receiptID %></li>
+                <li>receiptID (접수아이디 ) : <%= receiptID %></li>
             <% } %>
             <% if (typeof refundCode != "undefined") { %>
-                <li>환불코드 (Response.refundCode) : <%= refundCode %></li>
+                <li>refundCode (환불코드) : <%= refundCode %></li>
             <% } %>
         </ul>
     </fieldset>
