@@ -1467,7 +1467,7 @@ router.get("/Refund", function (req, res, next) {
         RefundForm,
         UserID,
         function (result) {
-            res.render("response", {
+            res.render("refundResponse", {
                 path: req.path,
                 code: result.code,
                 message: result.message,
