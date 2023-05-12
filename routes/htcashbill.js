@@ -1112,29 +1112,24 @@ router.get("/PaymentRequest", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 담당자명
-    var SettlerName = "테스트_담당자";
-
-    // 담당자 이메일
-    var SettlerEmail = "damdang@email.com";
-
-    // 담당자 휴대폰
-    var NotifyHP = "01011112222";
-
-    // 입금자명
-    var PaymentName = "입금자_테스트";
-
-    // 결제금액
-    var SettleCost = "1000";
-
     // 입금신청 객체 정보
     var PaymentForm = {
-        settlerName: SettlerName,
-        settlerEmail: SettlerEmail,
-        notifyHP: NotifyHP,
-        paymentName: PaymentName,
-        settleCost: SettleCost,
+        // 담당자명
+        settlerName: "테스트_담당자",
+
+        // 담당자 이메일
+        settlerEmail: "damdang@email.com",
+
+        // 담당자 휴대폰
+        notifyHP: "01011112222",
+
+        // 입금자명
+        paymentName: "입금자_테스트",
+
+        // 결제금액
+        settleCost: "1000",
     };
+
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
