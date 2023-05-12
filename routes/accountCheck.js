@@ -707,7 +707,7 @@ router.get("/UpdateContact", function (req, res, next) {
     );
 });
 
-/***
+/**
  * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
  * - https://developers.popbill.com/reference/accountcheck/node/api/point#PaymentRequest
  */
@@ -761,7 +761,7 @@ router.get("/PaymentRequest", function (req, res, next) {
     );
 });
 
-/***
+/**
  * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
  * - https://developers.popbill.com/reference/accountcheck/node/api/point#GetSettleResult
  */
@@ -795,7 +795,7 @@ router.get("/GetSettleResult", function (req, res, next) {
     );
 });
 
-/***
+/**
  * 연동회원의 포인트 결제내역을 확인합니다.
  * - https://developers.popbill.com/reference/accountcheck/node/api/point#GetPaymentHistory
  */
@@ -841,7 +841,7 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     );
 });
 
-/***
+/**
  * 연동회원의 포인트 사용내역을 확인합니다.
  * - https://developers.popbill.com/reference/accountcheck/node/api/point#GetUseHistory
  */
@@ -891,7 +891,7 @@ router.get("/GetUseHistory", function (req, res, next) {
     );
 });
 
-/***
+/**
  * 연동회원 포인트를 환불 신청합니다.
  * - https://developers.popbill.com/reference/accountcheck/node/api/point#Refund
  */
@@ -948,7 +948,7 @@ router.get("/Refund", function (req, res, next) {
     );
 });
 
-/***
+/**
  * 연동회원의 포인트 환불신청내역을 확인합니다.
  * - https://developers.popbill.com/reference/accountcheck/node/api/point#GetRefundHistory
  */
@@ -986,7 +986,7 @@ router.get("/GetRefundHistory", function (req, res, next) {
     );
 });
 
-/***
+/**
  * 가입된 연동회원의 탈퇴를 요청합니다.
  * - 회원탈퇴 신청과 동시에 팝빌의 모든 서비스 이용이 불가하며, 관리자를 포함한 모든 담당자 계정도 일괄탈퇴 됩니다.
  * - 회원탈퇴로 삭제된 데이터는 복원이 불가능합니다.
@@ -1024,7 +1024,7 @@ router.get("/QuitMember", function (req, res, next) {
     );
 });
 
-/***
+/**
  * 환불 가능한 포인트를 확인합니다. (보너스 포인트는 환불가능포인트에서 제외됩니다.)
  * - https://developers.popbill.com/reference/accountcheck/node/api/point#GetRefundableBalance
  */
@@ -1054,7 +1054,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
     );
 });
 
-/***
+/**
  * 포인트 환불에 대한 상세정보 1건을 확인합니다.
  * - https://developers.popbill.com/reference/accountcheck/node/api/point#GetRefundInfo
  */
