@@ -3685,18 +3685,18 @@ router.get("/ListContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/point#PaymentRequest
  */
 router.get("/PaymentRequest", function (req, res, next) {
-    // 팝빌회원 사업자 번호
+    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
     var CorpNum = "1234567890";
     // 담당자명
-    var SettlerName = "";
+    var SettlerName = "테스트 담당자";
     // 담당자 이메일
-    var SettlerEmail = "";
+    var SettlerEmail = "test@email.com";
     // 담당자 휴대폰
-    var NotifyHP = "";
+    var NotifyHP = "01012341234";
     // 입금자명
-    var PaymentName = "";
+    var PaymentName = "테스트";
     // 결제금액
-    var SettleCost = "";
+    var SettleCost = "1000";
 
     // 입금신청 객체 정보
     var PaymentForm = {
@@ -3734,10 +3734,10 @@ router.get("/PaymentRequest", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetSettleResult
  */
 router.get("/GetSettleResult", function (req, res, next) {
-    // 팝빌회원 사업자 번호
+    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
     var CorpNum = "1234567890";
     // 정산코드 - PaymentRequest 호출시 반환되는 값
-    var SettleCode = "";
+    var SettleCode = "202305120000000035";
     // 팝빌회원 아이디
     var UserID = "testkorea";
 

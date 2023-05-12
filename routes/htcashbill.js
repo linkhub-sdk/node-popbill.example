@@ -1109,18 +1109,23 @@ router.get("/Refund", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#PaymentRequest
  */
 router.get("/PaymentRequest", function (req, res, next) {
-    // 팝빌회원 사업자 번호
+    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
     var CorpNum = "1234567890";
+
     // 담당자명
-    var SettlerName = "";
+    var SettlerName = "테스트_담당자";
+
     // 담당자 이메일
-    var SettlerEmail = "";
+    var SettlerEmail = "damdang@email.com";
+
     // 담당자 휴대폰
-    var NotifyHP = "";
+    var NotifyHP = "01011112222";
+
     // 입금자명
-    var PaymentName = "";
+    var PaymentName = "입금자_테스트";
+
     // 결제금액
-    var SettleCost = "";
+    var SettleCost = "1000";
 
     // 입금신청 객체 정보
     var PaymentForm = {
@@ -1131,7 +1136,7 @@ router.get("/PaymentRequest", function (req, res, next) {
         settleCost: SettleCost,
     };
     // 팝빌회원 아이디
-    var UserID = "1234567890";
+    var UserID = "testkorea";
 
     htCashbillService.paymentRequest(
         CorpNum,
@@ -1158,12 +1163,12 @@ router.get("/PaymentRequest", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetSettleResult
  */
 router.get("/GetSettleResult", function (req, res, next) {
-    // 팝빌회원 사업자 번호
+    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
     var CorpNum = "1234567890";
     // 정산코드 - PaymentRequest 호출시 반환되는 값
-    var SettleCode = "";
+    var SettleCode = "202305120000000035";
     // 팝빌회원 아이디
-    var UserID = "1234567890";
+    var UserID = "testkorea";
 
     htCashbillService.getBulkResult(
         CorpNum,
@@ -1190,12 +1195,12 @@ router.get("/GetSettleResult", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetSettleResult
  */
 router.get("/GetSettleResult", function (req, res, next) {
-    // 팝빌회원 사업자 번호
+    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
     var CorpNum = "1234567890";
     // 정산코드 - PaymentRequest 호출시 반환되는 값
-    var SettleCode = "";
+    var SettleCode = "202305120000000035";
     // 팝빌회원 아이디
-    var UserID = "1234567890";
+    var UserID = "testkorea";
 
     htCashbillService.getBulkResult(
         CorpNum,
@@ -1283,7 +1288,7 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
     var PerPage = 500;
     // 팝빌회원 아이디
-    var UserID = "1234567890";
+    var UserID = "testkorea";
 
     htCashbillService.getPaymentHistory(
         CorpNum,
