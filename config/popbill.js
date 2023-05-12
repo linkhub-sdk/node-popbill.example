@@ -1,4 +1,4 @@
-/*
+/**
  * 팝빌 API Node.js SDK Example
  *
  * Node.js SDK 연동환경 설정방법 안내 : https://developers.popbill.com/guide/taxinvoice/node/getting-started/tutorial
@@ -12,7 +12,7 @@
  */
 var popbill = require("popbill");
 
-/*
+/**
  * 팝빌 서비스 연동환경 초기화
  */
 popbill.config({

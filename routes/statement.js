@@ -2,19 +2,19 @@ var express = require("express");
 var router = express.Router();
 var popbill = require("popbill");
 
-/*
+/**
  * 전자명세서 API 모듈 초기화
  */
 var statementService = popbill.StatementService();
 
-/*
+/**
  * Statement API Index 목록
  */
 router.get("/", function (req, res, next) {
     res.render("Statement/index", {});
 });
 
-/*
+/**
  * 파트너가 전자명세서 관리 목적으로 할당하는 문서번호의 사용여부를 확인합니다.
  * - 이미 사용 중인 문서번호는 중복 사용이 불가하고, 전자명세서가 삭제된 경우에만 문서번호의 재사용이 가능합니다.
  * - https://developers.popbill.com/reference/statement/node/api/info#CheckMgtKeyInUse
@@ -49,7 +49,7 @@ router.get("/CheckMgtKeyInUse", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 작성된 전자명세서 데이터를 팝빌에 저장과 동시에 발행하여, "발행완료" 상태로 처리합니다.
  * - 팝빌 사이트 [전자명세서] > [환경설정] > [전자명세서 관리] 메뉴의 발행시 자동승인 옵션 설정을 통해 전자명세서를 "발행완료" 상태가 아닌 "승인대기" 상태로 발행 처리 할 수 있습니다.
  * - https://developers.popbill.com/reference/statement/node/api/issue#RegistIssue
@@ -94,7 +94,7 @@ router.get("/RegistIssue", function (req, res, next) {
         // 문서번호
         mgtKey: MgtKey,
 
-        /*************************************************************************
+        /**************************************************************************
          *                             발신자 정보
          **************************************************************************/
 
@@ -131,7 +131,7 @@ router.get("/RegistIssue", function (req, res, next) {
         // 발신자 휴대폰번호
         senderHP: "",
 
-        /*************************************************************************
+        /**************************************************************************
          *                             수신자 정보
          **************************************************************************/
 
@@ -170,7 +170,7 @@ router.get("/RegistIssue", function (req, res, next) {
         // 수신자 휴대폰 번호
         receiverHP: "",
 
-        /*************************************************************************
+        /**************************************************************************
          *                            전자명세서 기재정보
          **************************************************************************/
 
@@ -201,7 +201,7 @@ router.get("/RegistIssue", function (req, res, next) {
         // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         bankBookYN: false,
 
-        /*************************************************************************
+        /**************************************************************************
          *                          상세9항목(품목) 정보
          **************************************************************************/
 
@@ -230,7 +230,7 @@ router.get("/RegistIssue", function (req, res, next) {
             },
         ],
 
-        /*************************************************************************
+        /**************************************************************************
          *                               전자명세서 추가속성
          * - https://developers.popbill.com/guide/statement/node/introduction/statement-form#propertybag-table
          **************************************************************************/
@@ -266,7 +266,7 @@ router.get("/RegistIssue", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 작성된 전자명세서 데이터를 팝빌에 저장합니다
  * - https://developers.popbill.com/reference/statement/node/api/issue#Register
  */
@@ -300,7 +300,7 @@ router.get("/Register", function (req, res, next) {
         // 문서번호
         mgtKey: MgtKey,
 
-        /*************************************************************************
+        /**************************************************************************
          *                             발신자 정보
          **************************************************************************/
 
@@ -337,7 +337,7 @@ router.get("/Register", function (req, res, next) {
         // 발신자 휴대폰번호
         senderHP: "",
 
-        /*************************************************************************
+        /**************************************************************************
          *                             수신자 정보
          **************************************************************************/
 
@@ -376,7 +376,7 @@ router.get("/Register", function (req, res, next) {
         // 수신자 휴대폰 번호
         receiverHP: "",
 
-        /*************************************************************************
+        /**************************************************************************
          *                            전자명세서 기재정보
          **************************************************************************/
 
@@ -407,7 +407,7 @@ router.get("/Register", function (req, res, next) {
         // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         bankBookYN: false,
 
-        /*************************************************************************
+        /**************************************************************************
          *                          상세9항목(품목) 정보
          **************************************************************************/
 
@@ -436,7 +436,7 @@ router.get("/Register", function (req, res, next) {
             },
         ],
 
-        /*************************************************************************
+        /**************************************************************************
          *                               전자명세서 추가속성
          * - https://developers.popbill.com/guide/statement/node/introduction/statement-form#propertybag-table
          **************************************************************************/
@@ -468,7 +468,7 @@ router.get("/Register", function (req, res, next) {
     );
 });
 
-/*
+/**
  * "임시저장" 상태의 전자명세서를 수정합니다.건의 전자명세서를 [수정]합니다.
  * - https://developers.popbill.com/reference/statement/node/api/issue#Update
  */
@@ -502,7 +502,7 @@ router.get("/Update", function (req, res, next) {
         // 문서번호
         mgtKey: MgtKey,
 
-        /*************************************************************************
+        /**************************************************************************
          *                             발신자 정보
          **************************************************************************/
 
@@ -539,7 +539,7 @@ router.get("/Update", function (req, res, next) {
         // 발신자 휴대폰번호
         senderHP: "",
 
-        /*************************************************************************
+        /**************************************************************************
          *                             수신자 정보
          **************************************************************************/
 
@@ -578,7 +578,7 @@ router.get("/Update", function (req, res, next) {
         // 수신자 휴대폰 번호
         receiverHP: "",
 
-        /*************************************************************************
+        /**************************************************************************
          *                            전자명세서 기재정보
          **************************************************************************/
 
@@ -609,7 +609,7 @@ router.get("/Update", function (req, res, next) {
         // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         bankBookYN: false,
 
-        /*************************************************************************
+        /**************************************************************************
          *                          상세9항목(품목) 정보
          **************************************************************************/
 
@@ -638,7 +638,7 @@ router.get("/Update", function (req, res, next) {
             },
         ],
 
-        /*************************************************************************
+        /**************************************************************************
          *                               전자명세서 추가속성
          * - https://developers.popbill.com/guide/statement/node/introduction/statement-form#propertybag-table
          **************************************************************************/
@@ -672,7 +672,7 @@ router.get("/Update", function (req, res, next) {
     );
 });
 
-/*
+/**
  * "임시저장" 상태의 전자명세서를 발행하여, "발행완료" 상태로 처리합니다.
  * - 팝빌 사이트 [전자명세서] > [환경설정] > [전자명세서 관리] 메뉴의 발행시 자동승인 옵션 설정을 통해 전자명세서를 "발행완료" 상태가 아닌 "승인대기" 상태로 발행 처리 할 수 있습니다.
  * - 전자명세서 발행 함수 호출시 포인트가 과금되며, 수신자에게 발행 안내 메일이 발송됩니다.
@@ -721,7 +721,7 @@ router.get("/Issue", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 발신자가 발행한 전자명세서를 발행취소합니다.
  * - https://developers.popbill.com/reference/statement/node/api/issue#Cancel
  */
@@ -760,7 +760,7 @@ router.get("/CancelIssue", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 삭제 가능한 상태의 전자명세서를 삭제합니다.
  * - 삭제 가능한 상태: "임시저장", "취소", "승인거부", "발행취소"
  * - https://developers.popbill.com/reference/statement/node/api/issue#Delete
@@ -796,7 +796,7 @@ router.get("/Delete", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 전자명세서의 1건의 상태 및 요약정보 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/info#GetInfo
  */
@@ -830,7 +830,7 @@ router.get("/GetInfo", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 다수건의 전자명세서 상태/요약 정보를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/info#GetInfos
  */
@@ -864,7 +864,7 @@ router.get("/GetInfos", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 전자명세서 1건의 상세정보 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/info#GetDetailInfo
  */
@@ -898,7 +898,7 @@ router.get("/GetDetailInfo", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 검색조건에 해당하는 전자명세서를 조회합니다. (조회기간 단위 : 최대 6개월)
  * - https://developers.popbill.com/reference/statement/node/api/info#Search
  */
@@ -963,7 +963,7 @@ router.get("/Search", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 전자명세서의 상태에 대한 변경이력을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/info#GetLogs
  */
@@ -997,7 +997,7 @@ router.get("/GetLogs", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 로그인 상태로 팝빌 사이트의 전자명세서 문서함 메뉴에 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/info#GetURL
@@ -1032,7 +1032,7 @@ router.get("/GetURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 팝빌 사이트와 동일한 전자명세서 1건의 상세 정보 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/view#GetPopUpURL
@@ -1071,7 +1071,7 @@ router.get("/GetPopUpURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 팝빌 사이트와 동일한 전자명세서 1건의 상세 정보 페이지(사이트 상단, 좌측 메뉴 및 버튼 제외)의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/view#GetViewURL
@@ -1110,7 +1110,7 @@ router.get("/GetViewURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 전자명세서 1건을 인쇄하기 위한 페이지의 팝업 URL을 반환하며, 페이지내에서 인쇄 설정값을 "공급자" / "공급받는자" / "공급자+공급받는자"용 중 하나로 지정할 수 있습니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/view#GetPrintURL
@@ -1149,7 +1149,7 @@ router.get("/GetPrintURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * "공급받는자" 용 전자명세서 1건을 인쇄하기 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/view#GetEPrintURL
@@ -1188,7 +1188,7 @@ router.get("/GetEPrintURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 다수건의 전자명세서를 인쇄하기 위한 페이지의 팝업 URL을 반환합니다. (최대 100건)
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/view#GetMassPrintURL
@@ -1227,7 +1227,7 @@ router.get("/GetMassPrintURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 안내메일과 관련된 전자명세서를 확인 할 수 있는 상세 페이지의 팝업 URL을 반환하며, 해당 URL은 메일 하단의 파란색 버튼의 링크와 같습니다.
  * - 함수 호출로 반환 받은 URL에는 유효시간이 없습니다.
  * - https://developers.popbill.com/reference/statement/node/api/view#GetMailURL
@@ -1266,7 +1266,7 @@ router.get("/GetMailURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#GetAccessURL
@@ -1297,7 +1297,7 @@ router.get("/GetAccessURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 전자명세서에 첨부할 인감, 사업자등록증, 통장사본을 등록하는 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#GetSealURL
@@ -1328,7 +1328,7 @@ router.get("/GetSealURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * "임시저장" 상태의 명세서에 1개의 파일을 첨부합니다. (최대 5개)
  * - https://developers.popbill.com/reference/statement/node/api/etc#AttachFile
  */
@@ -1371,7 +1371,7 @@ router.get("/AttachFile", function (req, res, next) {
     );
 });
 
-/*
+/**
  * "임시저장" 상태의 전자명세서에 첨부된 1개의 파일을 삭제합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#DeleteFile
  */
@@ -1410,7 +1410,7 @@ router.get("/DeleteFile", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 전자명세서에 첨부된 파일목록을 확인합니다.
  * - 응답항목 중 파일아이디(AttachedFile) 항목은 파일삭제(DeleteFile API) 호출시 이용할 수 있습니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#GetFiles
@@ -1445,7 +1445,7 @@ router.get("/GetFiles", function (req, res, next) {
     );
 });
 
-/*
+/**
  * "승인대기", "발행완료" 상태의 전자명세서와 관련된 발행 안내 메일을 재전송 합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#SendEmail
  */
@@ -1486,7 +1486,7 @@ router.get("/SendEmail", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 전자명세서와 관련된 안내 SMS(단문) 문자를 재전송하는 함수로, 팝빌 사이트 [문자·팩스] > [문자] > [전송내역] 메뉴에서 전송결과를 확인 할 수 있습니다.
  * - 메시지는 최대 90byte까지 입력 가능하고, 초과한 내용은 자동으로 삭제되어 전송합니다. (한글 최대 45자)
  * - 함수 호출시 포인트가 과금됩니다.
@@ -1535,7 +1535,7 @@ router.get("/SendSMS", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 전자명세서를 팩스로 전송하는 함수로, 팝빌 사이트 [문자·팩스] > [팩스] > [전송내역] 메뉴에서 전송결과를 확인 할 수 있습니다.
  * - 함수 호출시 포인트가 과금됩니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#SendFAX
@@ -1579,7 +1579,7 @@ router.get("/SendFAX", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 전자명세서를 팩스로 전송하는 함수로, 팝빌에 데이터를 저장하는 과정이 없습니다.
  * - 팝빌 사이트 [문자·팩스] > [팩스] > [전송내역] 메뉴에서 전송결과를 확인 할 수 있습니다.
  * - 함수 호출시 포인트가 과금됩니다.
@@ -1595,7 +1595,7 @@ router.get("/FAXSend", function (req, res, next) {
     var sendNum = "";
 
     // 수신팩스번호
-    var receiveNum = "";
+    var receiveNum = "01012341234";
 
     // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var ItemCode = 121;
@@ -1623,7 +1623,7 @@ router.get("/FAXSend", function (req, res, next) {
         // 문서번호
         mgtKey: MgtKey,
 
-        /*************************************************************************
+        /**************************************************************************
          *                             발신자 정보
          **************************************************************************/
 
@@ -1660,7 +1660,7 @@ router.get("/FAXSend", function (req, res, next) {
         // 발신자 휴대폰번호
         senderHP: "",
 
-        /*************************************************************************
+        /**************************************************************************
          *                             수신자 정보
          **************************************************************************/
 
@@ -1699,7 +1699,7 @@ router.get("/FAXSend", function (req, res, next) {
         // 수신자 휴대폰 번호
         receiverHP: "",
 
-        /*************************************************************************
+        /**************************************************************************
          *                            전자명세서 기재정보
          **************************************************************************/
 
@@ -1730,7 +1730,7 @@ router.get("/FAXSend", function (req, res, next) {
         // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         bankBookYN: false,
 
-        /*************************************************************************
+        /**************************************************************************
          *                          상세9항목(품목) 정보
          **************************************************************************/
 
@@ -1759,7 +1759,7 @@ router.get("/FAXSend", function (req, res, next) {
             },
         ],
 
-        /*************************************************************************
+        /**************************************************************************
          *                               전자명세서 추가속성
          * - https://developers.popbill.com/guide/statement/node/introduction/statement-form#propertybag-table
          **************************************************************************/
@@ -1792,7 +1792,7 @@ router.get("/FAXSend", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 하나의 전자명세서에 다른 전자명세서를 첨부합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#AttachStatement
  */
@@ -1835,7 +1835,7 @@ router.get("/AttachStatement", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 하나의 전자명세서에 첨부된 다른 전자명세서를 해제합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#DetachStatement
  */
@@ -1878,7 +1878,7 @@ router.get("/DetachStatement", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 전자명세서 관련 메일 항목에 대한 발송설정을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#ListEmailConfig
  */
@@ -1904,7 +1904,7 @@ router.get("/ListEmailConfig", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 전자명세서 관련 메일 항목에 대한 발송설정을 수정합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#UpdateEmailConfig
  *
@@ -1946,7 +1946,7 @@ router.get("/UpdateEmailConfig", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 연동회원의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetBalance
  */
@@ -1972,7 +1972,7 @@ router.get("/GetBalance", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetChargeURL
@@ -2003,7 +2003,7 @@ router.get("/GetChargeURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetPaymentURL
@@ -2034,7 +2034,7 @@ router.get("/GetPaymentURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetUseHistoryURL
@@ -2065,7 +2065,7 @@ router.get("/GetUseHistoryURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 파트너의 잔여포인트를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetPartnerBalance
  */
@@ -2091,7 +2091,7 @@ router.get("/GetPartnerBalance", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetPartnerURL
@@ -2122,7 +2122,7 @@ router.get("/GetPartnerURL", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 전자명세서 발행시 과금되는 포인트 단가를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetUnitCost
  */
@@ -2152,7 +2152,7 @@ router.get("/GetUnitCost", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 팝빌 전자명세서 API 서비스 과금정보를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetChargeInfo
  */
@@ -2182,7 +2182,7 @@ router.get("/GetChargeInfo", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#CheckIsMember
  */
@@ -2208,12 +2208,12 @@ router.get("/CheckIsMember", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#CheckID
  */
 router.get("/CheckID", function (req, res, next) {
-    // 조회할 아이디
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var testID = "testkorea";
 
     statementService.checkID(
@@ -2235,7 +2235,7 @@ router.get("/CheckID", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 사용자를 연동회원으로 가입처리합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#JoinMember
  */
@@ -2298,7 +2298,7 @@ router.get("/JoinMember", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 연동회원의 회사정보를 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#GetCorpInfo
  */
@@ -2324,7 +2324,7 @@ router.get("/GetCorpInfo", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 연동회원의 회사정보를 수정합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#UpdateCorpInfo
  */
@@ -2370,7 +2370,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#RegistContact
  */
@@ -2419,7 +2419,7 @@ router.get("/RegistContact", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#GetContactInfo
  */
@@ -2449,7 +2449,7 @@ router.get("/GetContactInfo", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#ListContact
  */
@@ -2475,7 +2475,7 @@ router.get("/ListContact", function (req, res, next) {
     );
 });
 
-/*
+/**
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
  * - https://developers.popbill.com/reference/statement/node/api/member#UpdateContact
  */
@@ -2525,12 +2525,12 @@ router.get("/UpdateContact", function (req, res, next) {
     );
 });
 
-/**
+/***
  * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#PaymentRequest
  */
 router.get("/PaymentRequest", function (req, res, next) {
-    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
     // 담당자명
@@ -2580,15 +2580,17 @@ router.get("/PaymentRequest", function (req, res, next) {
     );
 });
 
-/**
+/***
  * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetSettleResult
  */
 router.get("/GetSettleResult", function (req, res, next) {
-    // 팝빌회원 사업자번호 (하이픈 '-' 제외 10자리)
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
+
     // 정산코드 - PaymentRequest 호출시 반환되는 값
     var SettleCode = "202305120000000035";
+
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
@@ -2612,21 +2614,26 @@ router.get("/GetSettleResult", function (req, res, next) {
     );
 });
 
-/**
+/***
  * 연동회원의 포인트 결제내역을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetPaymentHistory
  */
 router.get("/GetPaymentHistory", function (req, res, next) {
-    // 팝빌회원 사업자번호 (하이픈 "-" 제외 10자리)
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
+
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
     var SDate = "20230101";
+
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
     var EDate = "20230107";
+
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
+
     // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
     var PerPage = 500;
+
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
@@ -2653,17 +2660,30 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     );
 });
 
-/**
+/***
  * 연동회원의 포인트 사용내역을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetUseHistory
  */
 router.get("/GetUseHistory", function (req, res, next) {
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
-    var SDate = "";
-    var EDate = "";
+
+    // 조회 기간의 시작일자 (형식 : yyyyMMdd)
+    var SDate = "20230501";
+
+    // 조회 기간의 종료일자 (형식 : yyyyMMdd)
+    var EDate = "20230530";
+
+    // 목록 페이지번호 (기본값 1)
     var Page = 1;
+
+    // 페이지당 표시할 목록 개수(기본값 500, 최대 1,000)
     var PerPage = 500;
-    var Order = "";
+
+    // 거래일자를 기준으로 하는 목록 정렬 방향 : "D" / "A" 중 택 1
+    var Order = "D";
+
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     statementService.getUseHistory(
@@ -2690,7 +2710,7 @@ router.get("/GetUseHistory", function (req, res, next) {
     );
 });
 
-/**
+/***
  * 연동회원 포인트를 환불 신청합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#Refund
  */
@@ -2704,7 +2724,7 @@ router.get("/Refund", function (req, res, next) {
         ContactName: "환불_담당자",
 
         // 담당자 연락처
-        tel: "010-1234-1234",
+        TEL: "010-1234-1234",
 
         // 환불 신청 포인트
         RequestPoint: "100",
@@ -2747,14 +2767,21 @@ router.get("/Refund", function (req, res, next) {
     );
 });
 
-/**
+/***
  * 연동회원의 포인트 환불신청내역을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetRefundHistory
  */
 router.get("/GetRefundHistory", function (req, res, next) {
+    // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
+
+    // 목록 페이지번호
     var Page = 1;
+
+    // 페이지당 검색개수
     var PerPage = 500;
+
+    // 팝빌회원 아이디
     var UserID = "testkorea";
 
     statementService.getRefundHistory(
@@ -2778,7 +2805,7 @@ router.get("/GetRefundHistory", function (req, res, next) {
     );
 });
 
-/**
+/***
  * 가입된 연동회원의 탈퇴를 요청합니다.
  * - 회원탈퇴 신청과 동시에 팝빌의 모든 서비스 이용이 불가하며, 관리자를 포함한 모든 담당자 계정도 일괄탈퇴 됩니다.
  * - 회원탈퇴로 삭제된 데이터는 복원이 불가능합니다.
@@ -2816,7 +2843,7 @@ router.get("/QuitMember", function (req, res, next) {
     );
 });
 
-/**
+/***
  * 환불 가능한 포인트를 확인합니다. (보너스 포인트는 환불가능포인트에서 제외됩니다.)
  * - https://developers.popbill.com/reference/statement/node/api/point#GetRefundableBalance
  */
@@ -2846,7 +2873,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
     );
 });
 
-/**
+/***
  * 포인트 환불에 대한 상세정보 1건을 확인합니다.
  * - https://developers.popbill.com/reference/statement/node/api/point#GetRefundInfo
  */
