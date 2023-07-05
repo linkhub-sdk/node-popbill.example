@@ -21,7 +21,7 @@
         result.list.forEach(function(refundHistory, index){
         %>
             <fieldset class="fieldset2">
-                <legend>사용 내역 [<%= index + 1 %>/<%= result.length %>]</legend>
+                <legend>환불 내역 [<%= index + 1 %>/<%= result.length %>]</legend>
                 <ul>
                     <li>reqDT (신청 일시) : <%= refundHistory.reqDT %></li>
                     <li>requestPoint (환불 신청포인트) <%= refundHistory.requestPoint %></li>
