@@ -2818,32 +2818,6 @@ router.get("/DetachStatement", function (req, res, next) {
 });
 
 /**
- * 전자세금계산서 유통사업자의 메일 목록을 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#GetEmailPublicKeys
- */
-router.get("/GetEmailPublicKeys", function (req, res, next) {
-    // 팝빌회원 사업자번호, "-" 제외 10자리
-    var CorpNum = "1234567890";
-
-    taxinvoiceService.getEmailPublicKeys(
-        CorpNum,
-        function (result) {
-            res.render("Taxinvoice/EmailPublicKeys", {
-                path: req.path,
-                result: result,
-            });
-        },
-        function (Error) {
-            res.render("response", {
-                path: req.path,
-                code: Error.code,
-                message: Error.message,
-            });
-        },
-    );
-});
-
-/**
  * 팝빌 사이트를 통해 발행하여 문서번호가 부여되지 않은 세금계산서에 문서번호를 할당합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#AssignMgtKey
  */
