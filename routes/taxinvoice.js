@@ -6270,4 +6270,44 @@ router.get("/modifyTaxinvoice06", function (req, res, next) {
     );
 });
 
+/**
+ * 전자세금계산서 발급을 위한 공동인증서를 등록합니다.
+ * - 공동인증서의 PublicKey, PrivateKey, 비밀번호를 팝빌 서버에 등록합니다.
+ * - 등록된 정보는 DB Column 암호화되어 안전하게 저장됩니다.
+ */
+router.get("/RegistTaxCert", function (req, res, next) {
+
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
+
+    // 공동인증서 PublicKey(Base64 Encoded)
+    var certPublicKey = "";
+
+    // 공동인증서 PrivateKey(Base64 Encoded)
+    var certPrivateKey = "";
+
+    // 공동인증서 비밀번호
+    var certPWD = "";
+
+    taxinvoiceService.registTaxCert(
+        CorpNum,
+        certPublicKey,
+        certPrivateKey,
+        certPWD,
+        function (url) {
+            res.render("result", {
+                path: req.path,
+                result: url,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        },
+    );
+});
+
 module.exports = router;
