@@ -1,3 +1,22 @@
+/**
+  * 팝빌 카카오톡 API Node SDK Example
+  *
+  * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/kakaotalk/node/getting-started/tutorial
+  * 연동 기술지원 연락처 : 1600-9854
+  * 연동 기술지원 이메일 : code@linkhubcorp.com
+  *
+  * <테스트 연동개발 준비사항>
+  *  1) 발신번호 사전등록을 합니다. (등록방법은 사이트/API 두가지 방식이 있습니다.)
+  *    - 1. 팝빌 사이트 로그인 > [문자/팩스] > [카카오톡] > [발신번호 사전등록] 메뉴에서 등록
+  *    - 2. getSenderNumberMgtURL API를 통해 반환된 URL을 이용하여 발신번호 등록
+  *  2) 비즈니스 채널 등록 및 알림톡 템플릿을 신청합니다.
+  *    - 1. 비즈니스 채널 등록 (등록방법은 사이트/API 두가지 방식이 있습니다.)
+  *       └ 팝빌 사이트 로그인 [문자/팩스] > [카카오톡] > [카카오톡 관리] > '카카오톡 채널 관리' 메뉴에서 등록
+  *       └ GetPlusFriendMgtURL API 를 통해 반환된 URL을 이용하여 등록
+  *    - 2. 알림톡 템플릿 신청 (등록방법은 사이트/API 두가지 방식이 있습니다.)
+  *       └ 팝빌 사이트 로그인 [문자/팩스] > [카카오톡] > [카카오톡 관리] > '알림톡 템플릿 관리' 메뉴에서 등록
+  *       └ GetATSTemplateMgtURL API 를 통해 URL을 이용하여 등록
+  */
 var express = require("express");
 var router = express.Router();
 var popbill = require("popbill");
@@ -300,7 +319,7 @@ router.get("/SendATS_one", function (req, res, next) {
     var UserID = "testkorea";
 
     // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "20221221123456";
 
@@ -413,7 +432,7 @@ router.get("/SendATS_multi", function (req, res, next) {
     var UserID = "testkorea";
 
     // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "20221221123456";
 
@@ -514,7 +533,7 @@ router.get("/SendATS_same", function (req, res, next) {
     var UserID = "testkorea";
 
     // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "20221221123456";
 
@@ -624,7 +643,7 @@ router.get("/SendFTS_one", function (req, res, next) {
     var UserID = "testkorea";
 
     // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "20221221123456";
 
@@ -732,7 +751,7 @@ router.get("/SendFTS_multi", function (req, res, next) {
     var UserID = "testkorea";
 
     // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "20221221123456";
 
@@ -833,7 +852,7 @@ router.get("/SendFTS_same", function (req, res, next) {
     var UserID = "testkorea";
 
     // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "20221221123456";
 
@@ -941,7 +960,7 @@ router.get("/SendFMS_one", function (req, res, next) {
     var UserID = "testkorea";
 
     // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "20221221123456";
 
@@ -1062,7 +1081,7 @@ router.get("/SendFMS_multi", function (req, res, next) {
     var UserID = "testkorea";
 
     // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "20221221123456";
 
@@ -1175,7 +1194,7 @@ router.get("/SendFMS_same", function (req, res, next) {
     var UserID = "testkorea";
 
     // 전송요청번호
-    // 파트너가 전송 건에 대해 관리번호를 구성하여 관리하는 경우 사용.
+    // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
     var requestNum = "20221221123456";
 

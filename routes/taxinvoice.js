@@ -1,3 +1,16 @@
+/**
+  * 팝빌 전자세금계산서 API Node SDK Example
+  *
+  * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/taxinvoice/node/getting-started/tutorial
+  * 연동 기술지원 연락처 : 1600-9854
+  * 연동 기술지원 이메일 : code@linkhubcorp.com
+  *
+  * <테스트 연동개발 준비사항>
+  * 1) 전자세금계산서 인증서 등록
+  *    - 전자세금계산서 발행을 위해 공인인증서를 등록합니다.
+  *    - 팝빌사이트 로그인 > [전자세금계산서] > [환경설정] > [공인인증서 관리]
+  *    - 공인인증서 등록 팝업 URL (GetTaxCertURL API)을 이용하여 등록
+  */
 var express = require("express");
 var router = express.Router();
 var popbill = require("popbill");
@@ -172,7 +185,7 @@ router.get("/RegistIssue", function (req, res, next) {
         invoiceeHP1: "",
 
         // 공급받는자 이메일 주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "",
 
@@ -285,7 +298,7 @@ router.get("/RegistIssue", function (req, res, next) {
                 contactName: "담당자 성명",
 
                 // 담당자 메일
-                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
                 // 실제 거래처의 메일주소가 기재되지 않도록 주의
                 email: "",
             },
@@ -297,7 +310,7 @@ router.get("/RegistIssue", function (req, res, next) {
                 contactName: "담당자 성명 2",
 
                 // 담당자 메일
-                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
                 // 실제 거래처의 메일주소가 기재되지 않도록 주의
                 email: "",
             },
@@ -453,7 +466,7 @@ router.get("/BulkSubmit", function (req, res, next) {
             invoiceeHP1: "",
 
             // 공급받는자 이메일 주소
-            // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+            // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
             // 실제 거래처의 메일주소가 기재되지 않도록 주의
             invoiceeEmail1: "",
 
@@ -570,7 +583,7 @@ router.get("/BulkSubmit", function (req, res, next) {
                     contactName: "담당자 성명",
 
                     // 담당자 메일
-                    // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                    // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
                     // 실제 거래처의 메일주소가 기재되지 않도록 주의
                     email: "",
                 },
@@ -582,7 +595,7 @@ router.get("/BulkSubmit", function (req, res, next) {
                     contactName: "담당자 성명 2",
 
                     // 담당자 메일
-                    // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                    // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
                     // 실제 거래처의 메일주소가 기재되지 않도록 주의
                     email: "",
                 },
@@ -772,7 +785,7 @@ router.get("/Register", function (req, res, next) {
         invoiceeHP1: "",
 
         // 공급받는자 이메일 주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "",
 
@@ -890,7 +903,7 @@ router.get("/Register", function (req, res, next) {
                 contactName: "담당자 성명",
 
                 // 담당자 메일
-                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
                 // 실제 거래처의 메일주소가 기재되지 않도록 주의
                 email: "",
             },
@@ -902,7 +915,7 @@ router.get("/Register", function (req, res, next) {
                 contactName: "담당자 성명 2",
 
                 // 담당자 메일
-                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
                 // 실제 거래처의 메일주소가 기재되지 않도록 주의
                 email: "",
             },
@@ -1052,7 +1065,7 @@ router.get("/Update", function (req, res, next) {
         invoiceeHP1: "",
 
         // 공급받는자 이메일 주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "",
 
@@ -1170,7 +1183,7 @@ router.get("/Update", function (req, res, next) {
                 contactName: "담당자 성명",
 
                 // 담당자 메일
-                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
                 // 실제 거래처의 메일주소가 기재되지 않도록 주의
                 email: "",
             },
@@ -1182,7 +1195,7 @@ router.get("/Update", function (req, res, next) {
                 contactName: "담당자 성명 2",
 
                 // 담당자 메일
-                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
                 // 실제 거래처의 메일주소가 기재되지 않도록 주의
                 email: "",
             },
@@ -1434,7 +1447,7 @@ router.get("/RegistRequest", function (req, res, next) {
         invoiceeHP1: "",
 
         // 공급받는자 이메일 주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "",
 
@@ -2611,7 +2624,7 @@ router.get("/SendEmail", function (req, res, next) {
     var mgtKey = "20220629-001";
 
     // 수신 메일주소
-    // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+    // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
     // 실제 거래처의 메일주소가 기재되지 않도록 주의
     var receiver = "";
 
@@ -2818,7 +2831,7 @@ router.get("/DetachStatement", function (req, res, next) {
 });
 
 /**
- * 팝빌 사이트를 통해 발행하여 문서번호가 부여되지 않은 세금계산서에 문서번호를 할당합니다.
+ * 팝빌 사이트를 통해 발행하여 문서번호가 할당되지 않은 세금계산서에 문서번호를 할당합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#AssignMgtKey
  */
 router.get("/AssignMgtKey", function (req, res, next) {
@@ -4176,7 +4189,7 @@ router.get("/modifyTaxinvoice01minus", function (req, res, next) {
         invoiceeContactName1: "공급받는자 담당자 성명",
 
         // 공급받는자 담당자 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "test@invoicee.com",
 
@@ -4454,7 +4467,7 @@ router.get("/modifyTaxinvoice01plus", function (req, res, next) {
         invoiceeContactName1: "공급받는자 담당자 성명",
 
         // 공급받는자 담당자 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "test@invoicee.com",
 
@@ -4736,7 +4749,7 @@ router.get("/modifyTaxinvoice02", function (req, res, next) {
         invoiceeContactName1: "공급받는자 담당자 성명",
 
         // 공급받는자 담당자 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "test@invoicee.com",
 
@@ -5013,7 +5026,7 @@ router.get("/modifyTaxinvoice03", function (req, res, next) {
         invoiceeContactName1: "공급받는자 담당자 성명",
 
         // 공급받는자 담당자 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "test@invoicee.com",
 
@@ -5290,7 +5303,7 @@ router.get("/modifyTaxinvoice04", function (req, res, next) {
         invoiceeContactName1: "공급받는자 담당자 성명",
 
         // 공급받는자 담당자 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "test@invoicee.com",
 
@@ -5568,7 +5581,7 @@ router.get("/modifyTaxinvoice05minus", function (req, res, next) {
         invoiceeContactName1: "공급받는자 담당자 성명",
 
         // 공급받는자 담당자 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "test@invoicee.com",
 
@@ -5853,7 +5866,7 @@ router.get("/modifyTaxinvoice05plus", function (req, res, next) {
         invoiceeContactName1: "공급받는자 담당자 성명",
 
         // 공급받는자 담당자 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "test@invoicee.com",
 
@@ -6132,7 +6145,7 @@ router.get("/modifyTaxinvoice06", function (req, res, next) {
         invoiceeContactName1: "공급받는자 담당자 성명",
 
         // 공급받는자 담당자 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "test@invoicee.com",
 

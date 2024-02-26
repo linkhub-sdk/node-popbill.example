@@ -1,3 +1,11 @@
+/**
+  * 팝빌 계좌조회 API Node SDK Example
+  *
+  * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/easyfinbank/node/getting-started/tutorial
+  * 연동 기술지원 연락처 : 1600-9854
+  * 연동 기술지원 이메일 : code@linkhubcorp.com
+  *
+  */
 var express = require("express");
 var router = express.Router();
 var popbill = require("popbill");

@@ -1,3 +1,11 @@
+/**
+  * 팝빌 현금영수증 API Node SDK Example
+  *
+  * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/cashbill/node/getting-started/tutorial
+  * 연동 기술지원 연락처 : 1600-9854
+  * 연동 기술지원 이메일 : code@linkhubcorp.com
+  *
+  */
 var express = require("express");
 var router = express.Router();
 var popbill = require("popbill");
@@ -131,7 +139,7 @@ router.get("/RegistIssue", function (req, res, next) {
         orderNumber: "주문번호",
 
         // 고객 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         email: "",
 
@@ -260,7 +268,7 @@ router.get("/BulkSubmit", function (req, res, next) {
             orderNumber: "주문번호",
 
             // 고객 메일주소
-            // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+            // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
             // 실제 거래처의 메일주소가 기재되지 않도록 주의
             email: "",
 
@@ -963,7 +971,7 @@ router.get("/SendEmail", function (req, res, next) {
     var mgtKey = "20220629-001";
 
     // 수신메일주소
-    // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+    // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
     // 실제 거래처의 메일주소가 기재되지 않도록 주의
     var receiver = "";
 
@@ -1074,7 +1082,7 @@ router.get("/SendFAX", function (req, res, next) {
 });
 
 /**
- * 팝빌 사이트를 통해 발행하여 문서번호가 부여되지 않은 현금영수증에 문서번호를 할당합니다.
+ * 팝빌 사이트를 통해 발행하여 문서번호가 할당되지 않은 현금영수증에 문서번호를 할당합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/etc#AssignMgtKey
  */
 router.get("/AssignMgtKey", function (req, res, next) {

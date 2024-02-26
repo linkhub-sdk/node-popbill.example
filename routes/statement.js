@@ -1,3 +1,11 @@
+/**
+  * 팝빌 전자명세서 API Node SDK Example
+  *
+  * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/statement/node/getting-started/tutorial
+  * 연동 기술지원 연락처 : 1600-9854
+  * 연동 기술지원 이메일 : code@linkhubcorp.com
+  *
+  */
 var express = require("express");
 var router = express.Router();
 var popbill = require("popbill");
@@ -160,7 +168,7 @@ router.get("/RegistIssue", function (req, res, next) {
         receiverContactName: "수신자 담당자 성명",
 
         // 수신자 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         receiverEmail: "",
 
@@ -366,7 +374,7 @@ router.get("/Register", function (req, res, next) {
         receiverContactName: "수신자 담당자 성명",
 
         // 수신자 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         receiverEmail: "",
 
@@ -568,7 +576,7 @@ router.get("/Update", function (req, res, next) {
         receiverContactName: "수신자 담당자 성명",
 
         // 수신자 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         receiverEmail: "",
 
@@ -1460,7 +1468,7 @@ router.get("/SendEmail", function (req, res, next) {
     var mgtKey = "20220629-001";
 
     // 수신메일주소
-    // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+    // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
     // 실제 거래처의 메일주소가 기재되지 않도록 주의
     var receiver = "";
 
@@ -1689,7 +1697,7 @@ router.get("/FAXSend", function (req, res, next) {
         receiverContactName: "수신자 담당자 성명",
 
         // 수신자 메일주소
-        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         receiverEmail: "",
 
