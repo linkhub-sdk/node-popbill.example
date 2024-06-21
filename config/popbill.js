@@ -25,7 +25,7 @@ popbill.config({
     // 비밀키
     SecretKey: "SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=",
 
-    // 연동환경 설정, true-테스트, false-운영(Production), (기본값:true)
+    // 연동환경 설정, true-테스트, false-운영(Production), (기본값:false)
     IsTest: true,
 
     // 통신 IP 고정, true-사용, false-미사용, (기본값:false)
