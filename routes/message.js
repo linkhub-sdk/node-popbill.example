@@ -54,7 +54,7 @@ router.get("/CheckSenderNumber", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -85,7 +85,7 @@ router.get("/GetSenderNumberMgtURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -111,7 +111,7 @@ router.get("/GetSenderNumberList", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -124,13 +124,13 @@ router.get("/SendSMS", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호
-    var sendNum = "";
+    var sendNum = "15997709";
 
     // 발신자명
     var sendName = "발신자명";
 
     // 수신번호
-    var receiveNum = "01012341234";
+    var receiveNum = "010149450724";
 
     // 수신자명
     var receiveName = "수신자명";
@@ -139,7 +139,7 @@ router.get("/SendSMS", function (req, res, next) {
     var contents = "SMS 단건전송 메시지 테스트";
 
     // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-    var reserveDT = "";
+    var reserveDT = "20240508132300";
 
     // 광고성 메시지 여부 ( true , false 중 택 1)
     // └ true = 광고 , false = 일반
@@ -149,7 +149,7 @@ router.get("/SendSMS", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "";
 
     messageService.sendSMS(
         CorpNum,
@@ -173,7 +173,7 @@ router.get("/SendSMS", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -187,7 +187,7 @@ router.get("/SendSMS_multi", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호(동보전송용)
-    var sendNum = "";
+    var sendNum = "15997709";
 
     // 메시지 내용(동보전송용), 90Byte 초과시 길이가 조정되어 전송
     var contents = "동보전송 메시지";
@@ -203,18 +203,18 @@ router.get("/SendSMS_multi", function (req, res, next) {
     // 개별전송정보 배열, 최대 1000건
     var Messages = [
         {
-            Sender: "", // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
-            SenderName: "발신자명", // 발신자명
-            Receiver: "", // 수신번호
+            Sender: "15997709", // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
+            SenderName: "발신자명01", // 발신자명
+            Receiver: "01012341234", // 수신번호
             ReceiverName: "수신자명1", // 수신자명
             Contents: "문자 메시지 내용1", // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
             // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
             interOPRefKey: "20220629-SMS001", // 파트너 지정키, 수신자 구별용 메모
         },
         {
-            Sender: "", // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
-            SenderName: "발신자명", // 발신자명
-            Receiver: "", // 수신번호
+            Sender: "15997709", // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
+            SenderName: "발신자명02", // 발신자명
+            Receiver: "01012341234", // 수신번호
             ReceiverName: "수신자명2", // 수신자명
             Contents: "문자 메시지 내용2", // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
             // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
@@ -225,7 +225,11 @@ router.get("/SendSMS_multi", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "20211z122asdf234516";
+
+    // 발신자명
+    // 동보전송의 경우 사용
+    var SenderName = "동보_발신자명"
 
     messageService.sendSMS_multi(
         CorpNum,
@@ -235,6 +239,7 @@ router.get("/SendSMS_multi", function (req, res, next) {
         reserveDT,
         adsYN,
         requestNum,
+        SenderName,
         function (receiptNum) {
             res.render("result", {
                 path: req.path,
@@ -247,7 +252,7 @@ router.get("/SendSMS_multi", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -260,7 +265,7 @@ router.get("/SendLMS", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호
-    var sendNum = "";
+    var sendNum = "15997709";
 
     // 발신자명
     var sendName = "발신자명";
@@ -288,7 +293,7 @@ router.get("/SendLMS", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "202aa1221123456";
 
     messageService.sendLMS(
         CorpNum,
@@ -313,7 +318,7 @@ router.get("/SendLMS", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -327,7 +332,7 @@ router.get("/SendLMS_multi", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호
-    var sendNum = "";
+    var sendNum = "15997709";
 
     // 메시지 제목
     var subject = "장문 메시지 제목";
@@ -348,7 +353,7 @@ router.get("/SendLMS_multi", function (req, res, next) {
         {
             Sender: "", // 발신번호, 개별전송정보 배열에 발신자번호(Sender) 항목이 없는 경우 동보전송 발신번호로 전송
             SenderName: "발신자명1", // 발신자명
-            Receiver: "", // 수신번호
+            Receiver: "01012341234", // 수신번호
             ReceiverName: "수신자명1", // 수신자명
             Subject: "메시지 제목1", // 메시지 제목
             Contents: "문자 메시지 내용1", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송,
@@ -358,7 +363,7 @@ router.get("/SendLMS_multi", function (req, res, next) {
         {
             Sender: "", // 발신번호
             SenderName: "발신자명2", // 발신자명
-            Receiver: "", // 수신번호
+            Receiver: "01012341234", // 수신번호
             ReceiverName: "수신자명2", // 수신자명
             Subject: "메시지 제목2", // 메시지 제목, 2000Byte 초과시 길이가 조정되어 전송
             Contents:
@@ -370,7 +375,11 @@ router.get("/SendLMS_multi", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "df09dfasdlzzsd";
+
+    // 발신자명
+    // 동보전송의 경우 사용
+    var SenderName = "발신자명";
 
     messageService.sendLMS_multi(
         CorpNum,
@@ -381,6 +390,7 @@ router.get("/SendLMS_multi", function (req, res, next) {
         reserveDT,
         adsYN,
         requestNum,
+        SenderName,
         function (receiptNum) {
             res.render("result", {
                 path: req.path,
@@ -393,7 +403,7 @@ router.get("/SendLMS_multi", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -407,7 +417,7 @@ router.get("/SendMMS", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호
-    var sendNum = "";
+    var sendNum = "15997709";
 
     // 수신번호
     var receiveNum = "01012341234";
@@ -435,7 +445,7 @@ router.get("/SendMMS", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "2022c221dd123456";
 
     messageService.sendMMS(
         CorpNum,
@@ -460,7 +470,7 @@ router.get("/SendMMS", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -475,14 +485,13 @@ router.get("/SendMMS_multi", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호(동보전송용)
-    var senderNum = "";
+    var senderNum = "15997709";
 
     // 메시지 제목(동보전송용)
     var subject = "장문 메시지 제목";
 
     // 메시지 내용(동보전송용), 2000Byte 초과시 길이가 조정되어 전송
-    var contents =
-        "MMS 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로";
+    var contents = "MMS 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로";
 
     // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
     var reserveDT = "";
@@ -498,30 +507,33 @@ router.get("/SendMMS_multi", function (req, res, next) {
     // 개별전송정보, 최대 1000건
     var Messages = [
         {
-            Sender: "", // 발신번호
-            SenderName: "발신자명", // 발신자명
-            Receiver: "", // 수신번호
-            ReceiverName: "수신자명",
-            Subject: "MMS 테스트 제목1",
-            Contents: "MMS 전송 테스트 내용1", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
-            interOPRefKey: "20220629-MMS001", // 파트너 지정키, 수신자 구별용 메모
+            // Sender: "", // 발신번호
+            // SenderName: "발신자명", // 발신자명
+            Receiver: "01012341234", // 수신번호
+            // ReceiverName: "수신자명",
+            // Subject: "MMS 테스트 제목1",
+            // Contents: "MMS 전송 테스트 내용1", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
+            // interOPRefKey: "20220629-MMS001", // 파트너 지정키, 수신자 구별용 메모
         },
         {
-            Sender: "", // 발신번호
-            SenderName: "발신자명", // 발신자명
-            Receiver: "", // 수신번호
-            ReceiverName: "수신자명",
-            Subject: "MMS 테스트 제목2",
-            Contents:
-                "MMS 전송 테스트 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만 무궁화 삼천리 화려강산 ", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
-            interOPRefKey: "20220629-MMS001", // 파트너 지정키, 수신자 구별용 메모
+            // Sender: "", // 발신번호
+            // SenderName: "발신자명", // 발신자명
+            Receiver: "01012341234", // 수신번호
+            // ReceiverName: "수신자명",
+            // Subject: "MMS 테스트 제목2",
+            // Contents: "MMS 전송 테스트 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만 무궁화 삼천리 화려강산 ", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
+            // interOPRefKey: "20220629-MMS001", // 파트너 지정키, 수신자 구별용 메모
         },
     ];
 
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "2022122ca1123456";
+
+    // 발신자명
+    // 동보전송의 경우 사용
+    var SenderName = "발신자명";
 
     messageService.sendMMS_multi(
         CorpNum,
@@ -533,6 +545,7 @@ router.get("/SendMMS_multi", function (req, res, next) {
         reserveDT,
         adsYN,
         requestNum,
+        SenderName,
         function (receiptNum) {
             res.render("result", {
                 path: req.path,
@@ -545,7 +558,7 @@ router.get("/SendMMS_multi", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -559,7 +572,7 @@ router.get("/SendXMS", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호
-    var sendNum = "";
+    var sendNum = "15997709";
 
     // 발신자명
     var sendName = "발신자명";
@@ -587,7 +600,7 @@ router.get("/SendXMS", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "202212221123456";
 
     messageService.sendXMS(
         CorpNum,
@@ -612,7 +625,7 @@ router.get("/SendXMS", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -627,14 +640,13 @@ router.get("/SendXMS_multi", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호(동보전송용)
-    var sendNum = "";
+    var sendNum = "15997709";
 
     // 메시지 제목(동보전송용)
     var subject = "자동인식 문자전송 제목";
 
     // 메시지 내용, 길이에 따라 90Byte 기준으로 단/장문 자동인식되어 전송 됨.
-    var contents =
-        "XMS 자동인식 단건전송 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로";
+    var contents = "XMS 자동인식 단건전송 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로";
 
     // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
     var reserveDT = "";
@@ -647,31 +659,34 @@ router.get("/SendXMS_multi", function (req, res, next) {
     // 개별전송정보 배열, 최대 1000건
     var Messages = [
         {
-            Sender: "", // 발신번호
-            SenderName: "발신자명", // 발신자명
-            Receiver: "", // 수신번호
-            ReceiverName: "수신자명", // 수신자명
-            Subject: "메시지 제목1", // 메시지 제목
-            Contents: "문자 메시지 내용1", // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
-            interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
+            // Sender: "15997709", // 발신번호
+            // SenderName: "발신자명01", // 발신자명
+            Receiver: "01012341234", // 수신번호
+            // ReceiverName: "수신자명", // 수신자명
+            // Subject: "메시지 제목1", // 메시지 제목
+            // Contents: "문자 메시지 내용1", // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
+            // interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
         },
         {
-            Sender: "", // 발신번호
-            SenderName: "발신자명", // 발신자명
-            Receiver: "", // 수신번호
-            ReceiverName: "수신자명", // 수신자명
-            Subject: "메시지 제목2", // 메시지 제목
+            // Sender: "15997709", // 발신번호
+            // SenderName: "발신자명02", // 발신자명
+            Receiver: "01012341234", // 수신번호
+            // ReceiverName: "수신자명", // 수신자명
+            // Subject: "메시지 제목2", // 메시지 제목
             // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
-            Contents:
-                "단/장문 자동인식 문자전송 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ",
-            interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
+            // Contents: "단/장문 자동인식 문자전송 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ",
+            // interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
         },
     ];
 
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "";
+
+    // 발신자명
+    // 동보전송의 경우 사용
+    var SenderName = "동보_발신자명";
 
     messageService.sendXMS_multi(
         CorpNum,
@@ -682,6 +697,7 @@ router.get("/SendXMS_multi", function (req, res, next) {
         reserveDT,
         adsYN,
         requestNum,
+        SenderName,
         function (receiptNum) {
             res.render("result", {
                 path: req.path,
@@ -694,7 +710,7 @@ router.get("/SendXMS_multi", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -725,7 +741,7 @@ router.get("/CancelReserve", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -756,7 +772,7 @@ router.get("/CancelReserveRN", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -795,7 +811,7 @@ router.get("/CancelReservebyRCV", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -834,7 +850,7 @@ router.get("/CancelReserveRNbyRCV", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -864,7 +880,7 @@ router.get("/GetMessages", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -894,7 +910,7 @@ router.get("/GetMessagesRN", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -971,7 +987,7 @@ router.get("/Search", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1002,7 +1018,7 @@ router.get("/GetSentListURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1028,7 +1044,7 @@ router.get("/GetAutoDenyList", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1054,7 +1070,7 @@ router.get("/GetBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1085,7 +1101,7 @@ router.get("/GetChargeURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1116,7 +1132,7 @@ router.get("/GetPaymentURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1147,7 +1163,7 @@ router.get("/GetUseHistoryURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1173,7 +1189,7 @@ router.get("/GetPartnerBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1204,7 +1220,7 @@ router.get("/GetPartnerURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1234,7 +1250,7 @@ router.get("/GetUnitCost", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1264,7 +1280,7 @@ router.get("/GetChargeInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1290,7 +1306,7 @@ router.get("/CheckIsMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1317,7 +1333,7 @@ router.get("/CheckID", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1380,7 +1396,7 @@ router.get("/JoinMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1411,7 +1427,7 @@ router.get("/GetAccessURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1460,7 +1476,7 @@ router.get("/RegistContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1490,7 +1506,7 @@ router.get("/GetContactInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1516,7 +1532,7 @@ router.get("/ListContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1566,7 +1582,7 @@ router.get("/UpdateContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1592,7 +1608,7 @@ router.get("/GetCorpInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1638,7 +1654,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1664,7 +1680,7 @@ router.get("/CheckAutoDenyNumber", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1713,7 +1729,7 @@ router.get("/PaymentRequest", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1747,7 +1763,7 @@ router.get("/GetSettleResult", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1793,7 +1809,7 @@ router.get("/GetPaymentHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1843,7 +1859,7 @@ router.get("/GetUseHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1900,7 +1916,7 @@ router.get("/Refund", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1938,7 +1954,7 @@ router.get("/GetRefundHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1976,7 +1992,7 @@ router.get("/QuitMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2006,7 +2022,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2040,7 +2056,7 @@ router.get("/GetRefundInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
