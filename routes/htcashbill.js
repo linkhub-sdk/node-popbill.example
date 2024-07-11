@@ -61,7 +61,7 @@ router.get("/RequestJob", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -80,7 +80,7 @@ router.get("/GetJobState", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 작업아이디
-    var jobID = "021010912000000058";
+    var jobID = "024062416000000003";
 
     htCashbillService.getJobState(
         CorpNum,
@@ -97,7 +97,7 @@ router.get("/GetJobState", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -124,7 +124,7 @@ router.get("/ListActiveJob", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -137,7 +137,7 @@ router.get("/Search", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 작업아이디
-    var jobID = "021010912000000058";
+    var jobID = "024062416000000003";
 
     // 문서형태 배열 ("N" 와 "C" 중 선택, 다중 선택 가능)
     // └ N = 일반 현금영수증 , C = 취소현금영수증
@@ -178,7 +178,7 @@ router.get("/Search", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -192,7 +192,7 @@ router.get("/Summary", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 작업아이디
-    var jobID = "021010912000000058";
+    var jobID = "024062416000000003";
 
     // 문서형태 배열 ("N" 와 "C" 중 선택, 다중 선택 가능)
     // └ N = 일반 현금영수증 , C = 취소현금영수증
@@ -221,7 +221,7 @@ router.get("/Summary", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -253,7 +253,7 @@ router.get("/GetCertificatePopUpURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -279,7 +279,7 @@ router.get("/GetCertificateExpireDate", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -306,7 +306,7 @@ router.get("/CheckCertValidation", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -341,7 +341,7 @@ router.get("/RegistDeptUser", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -368,7 +368,7 @@ router.get("/CheckDeptUser", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -395,7 +395,7 @@ router.get("/CheckLoginDeptUser", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -422,7 +422,7 @@ router.get("/DeleteDeptUser", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -453,7 +453,7 @@ router.get("/GetFlatRatePopUpURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -479,7 +479,7 @@ router.get("/GetFlatRateState", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -505,7 +505,7 @@ router.get("/GetBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -536,7 +536,7 @@ router.get("/GetChargeURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -567,7 +567,7 @@ router.get("/GetPaymentURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -598,7 +598,7 @@ router.get("/GetUseHistoryURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -624,7 +624,7 @@ router.get("/GetPartnerBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -655,7 +655,7 @@ router.get("/GetPartnerURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -681,7 +681,7 @@ router.get("/GetChargeInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -708,7 +708,7 @@ router.get("/CheckIsMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -735,7 +735,7 @@ router.get("/CheckID", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -798,7 +798,7 @@ router.get("/JoinMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -829,7 +829,7 @@ router.get("/GetAccessURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -855,7 +855,7 @@ router.get("/GetCorpInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -901,7 +901,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -950,7 +950,7 @@ router.get("/RegistContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -980,7 +980,7 @@ router.get("/GetContactInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1006,7 +1006,7 @@ router.get("/ListContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1056,7 +1056,7 @@ router.get("/UpdateContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1113,7 +1113,7 @@ router.get("/Refund", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1162,7 +1162,7 @@ router.get("/PaymentRequest", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1180,7 +1180,7 @@ router.get("/GetSettleResult", function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
-    htCashbillService.getBulkResult(
+    htCashbillService.getSettleResult(
         CorpNum,
         SettleCode,
         UserID,
@@ -1196,7 +1196,7 @@ router.get("/GetSettleResult", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1248,7 +1248,7 @@ router.get("/GetUseHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1294,7 +1294,7 @@ router.get("/GetPaymentHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1332,7 +1332,7 @@ router.get("/GetRefundHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1370,7 +1370,7 @@ router.get("/QuitMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1400,7 +1400,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1434,7 +1434,7 @@ router.get("/GetRefundInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 

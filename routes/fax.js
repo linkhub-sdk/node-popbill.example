@@ -55,7 +55,7 @@ router.get("/CheckSenderNumber", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -86,7 +86,7 @@ router.get("/GetSenderNumberMgtURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -112,7 +112,7 @@ router.get("/GetSenderNumberList", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -179,7 +179,7 @@ router.get("/SendFAX", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -254,7 +254,7 @@ router.get("/SendFAX_multi", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -345,7 +345,7 @@ router.get("/SendFAXBinary", function (req, res, next) {
                                     code: Error.code,
                                     message: Error.message,
                                 });
-                            },
+                            }
                         );
                     } else {
                         res.render("response", {
@@ -413,9 +413,9 @@ router.get("/ResendFAX", function (req, res, next) {
         receiveNum,
         receiveName,
         reserveDT,
-        UserID,
         title,
         requestNum,
+        UserID,
         function (receiptNum) {
             res.render("result", {
                 path: req.path,
@@ -428,7 +428,7 @@ router.get("/ResendFAX", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -502,7 +502,7 @@ router.get("/ResendFAX_multi", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -569,7 +569,7 @@ router.get("/ResendFAXRN", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -644,7 +644,7 @@ router.get("/ResendFAXRN_multi", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -675,7 +675,7 @@ router.get("/CancelReserve", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -706,7 +706,7 @@ router.get("/CancelReserveRN", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -736,7 +736,7 @@ router.get("/GetFaxResult", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -766,7 +766,7 @@ router.get("/GetFaxResultRN", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -837,7 +837,7 @@ router.get("/Search", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -868,7 +868,7 @@ router.get("/GetSentListURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -903,7 +903,7 @@ router.get("/GetPreviewURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -929,7 +929,7 @@ router.get("/GetBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -960,7 +960,7 @@ router.get("/GetChargeURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -991,7 +991,7 @@ router.get("/GetPaymentURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1022,7 +1022,7 @@ router.get("/GetUseHistoryURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1048,7 +1048,7 @@ router.get("/GetPartnerBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1079,7 +1079,7 @@ router.get("/GetPartnerURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1109,7 +1109,7 @@ router.get("/GetUnitCost", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1143,7 +1143,7 @@ router.get("/GetChargeInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1169,7 +1169,7 @@ router.get("/CheckIsMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1196,7 +1196,7 @@ router.get("/CheckID", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1259,7 +1259,7 @@ router.get("/JoinMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1290,7 +1290,7 @@ router.get("/GetAccessURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1316,7 +1316,7 @@ router.get("/GetCorpInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1362,7 +1362,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1411,7 +1411,7 @@ router.get("/RegistContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1441,7 +1441,7 @@ router.get("/GetContactInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1467,7 +1467,7 @@ router.get("/ListContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1517,7 +1517,7 @@ router.get("/UpdateContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1566,7 +1566,7 @@ router.get("/PaymentRequest", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1600,7 +1600,7 @@ router.get("/GetSettleResult", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1646,7 +1646,7 @@ router.get("/GetPaymentHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1696,7 +1696,7 @@ router.get("/GetUseHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1753,7 +1753,7 @@ router.get("/Refund", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1778,7 +1778,7 @@ router.get("/GetRefundHistory", function (req, res, next) {
         CorpNum,
         Page,
         PerPage,
-        UserID,
+        // UserID,
         function (result) {
             res.render("Base/RefundHistoryResult", {
                 path: req.path,
@@ -1791,7 +1791,7 @@ router.get("/GetRefundHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1829,7 +1829,7 @@ router.get("/QuitMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1859,7 +1859,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1893,7 +1893,7 @@ router.get("/GetRefundInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 

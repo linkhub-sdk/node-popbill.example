@@ -1,22 +1,22 @@
 /**
-  * 팝빌 카카오톡 API Node SDK Example
-  *
-  * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/kakaotalk/node/getting-started/tutorial
-  * 연동 기술지원 연락처 : 1600-9854
-  * 연동 기술지원 이메일 : code@linkhubcorp.com
-  *
-  * <테스트 연동개발 준비사항>
-  *  1) 발신번호 사전등록을 합니다. (등록방법은 사이트/API 두가지 방식이 있습니다.)
-  *    - 1. 팝빌 사이트 로그인 > [문자/팩스] > [카카오톡] > [발신번호 사전등록] 메뉴에서 등록
-  *    - 2. getSenderNumberMgtURL API를 통해 반환된 URL을 이용하여 발신번호 등록
-  *  2) 비즈니스 채널 등록 및 알림톡 템플릿을 신청합니다.
-  *    - 1. 비즈니스 채널 등록 (등록방법은 사이트/API 두가지 방식이 있습니다.)
-  *       └ 팝빌 사이트 로그인 [문자/팩스] > [카카오톡] > [카카오톡 관리] > '카카오톡 채널 관리' 메뉴에서 등록
-  *       └ GetPlusFriendMgtURL API 를 통해 반환된 URL을 이용하여 등록
-  *    - 2. 알림톡 템플릿 신청 (등록방법은 사이트/API 두가지 방식이 있습니다.)
-  *       └ 팝빌 사이트 로그인 [문자/팩스] > [카카오톡] > [카카오톡 관리] > '알림톡 템플릿 관리' 메뉴에서 등록
-  *       └ GetATSTemplateMgtURL API 를 통해 URL을 이용하여 등록
-  */
+ * 팝빌 카카오톡 API Node SDK Example
+ *
+ * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/kakaotalk/node/getting-started/tutorial
+ * 연동 기술지원 연락처 : 1600-9854
+ * 연동 기술지원 이메일 : code@linkhubcorp.com
+ *
+ * <테스트 연동개발 준비사항>
+ *  1) 발신번호 사전등록을 합니다. (등록방법은 사이트/API 두가지 방식이 있습니다.)
+ *    - 1. 팝빌 사이트 로그인 > [문자/팩스] > [카카오톡] > [발신번호 사전등록] 메뉴에서 등록
+ *    - 2. getSenderNumberMgtURL API를 통해 반환된 URL을 이용하여 발신번호 등록
+ *  2) 비즈니스 채널 등록 및 알림톡 템플릿을 신청합니다.
+ *    - 1. 비즈니스 채널 등록 (등록방법은 사이트/API 두가지 방식이 있습니다.)
+ *       └ 팝빌 사이트 로그인 [문자/팩스] > [카카오톡] > [카카오톡 관리] > '카카오톡 채널 관리' 메뉴에서 등록
+ *       └ GetPlusFriendMgtURL API 를 통해 반환된 URL을 이용하여 등록
+ *    - 2. 알림톡 템플릿 신청 (등록방법은 사이트/API 두가지 방식이 있습니다.)
+ *       └ 팝빌 사이트 로그인 [문자/팩스] > [카카오톡] > [카카오톡 관리] > '알림톡 템플릿 관리' 메뉴에서 등록
+ *       └ GetATSTemplateMgtURL API 를 통해 URL을 이용하여 등록
+ */
 var express = require("express");
 var router = express.Router();
 var popbill = require("popbill");
@@ -60,7 +60,7 @@ router.get("/GetPlusFriendMgtURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -86,7 +86,7 @@ router.get("/ListPlusFriendID", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -118,7 +118,7 @@ router.get("/CheckSenderNumber", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -149,7 +149,7 @@ router.get("/GetSenderNumberMgtURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -175,7 +175,7 @@ router.get("/GetSenderNumberList", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -206,7 +206,7 @@ router.get("/GetATSTemplateMgtURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -236,7 +236,7 @@ router.get("/GetATSTemplate", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -262,7 +262,7 @@ router.get("/ListATSTemplate", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -279,19 +279,14 @@ router.get("/SendATS_one", function (req, res, next) {
     // 승인된 알림톡 템플릿코드
     // └ 알림톡 템플릿 관리 팝업 URL(GetATSTemplateMgtURL API) 함수, 알림톡 템플릿 목록 확인(ListATStemplate API) 함수를 호출하거나
     //   팝빌사이트에서 승인된 알림톡 템플릿 코드를  확인 가능.
-    var templateCode = "022040000005";
+    var templateCode = "024040000245";
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var Sender = "";
+    var Sender = "1600-8536";
 
     // 알림톡 내용 (최대 1000자)
-    var content = "[ 팝빌 ]\n";
-    content += "신청하신 #{템플릿코드}에 대한 심사가 완료되어 승인 처리되었습니다.\n";
-    content += "해당 템플릿으로 전송 가능합니다.\n\n";
-    content += "문의사항 있으시면 파트너센터로 편하게 연락주시기 바랍니다.\n\n";
-    content += "팝빌 파트너센터 : 1600-8536\n";
-    content += "support@linkhub.co.kr";
+    var content = "배송조회 버튼 테스트";
 
     // 대체문자 제목
     // - 메시지 길이(90byte)에 따라 장문(LMS)인 경우에만 적용.
@@ -363,7 +358,7 @@ router.get("/SendATS_one", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -474,7 +469,7 @@ router.get("/SendATS_multi", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -579,7 +574,7 @@ router.get("/SendATS_same", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -598,7 +593,7 @@ router.get("/SendFTS_one", function (req, res, next) {
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var Sender = "";
+    var Sender = "1600-8536";
 
     // 친구톡 내용 (최대 1000자)
     var content = "친구톡 내용.";
@@ -620,10 +615,10 @@ router.get("/SendFTS_one", function (req, res, next) {
     var altSendType = "A";
 
     // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-    var sndDT = "";
+    var sndDT = "20240508132700";
 
     // 수신번호
-    var receiver = "";
+    var receiver = "01012341234";
 
     // 수신자 이름
     var receiverName = "partner";
@@ -649,7 +644,7 @@ router.get("/SendFTS_one", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "";
 
     kakaoService.sendFTS_one(
         CorpNum,
@@ -678,7 +673,7 @@ router.get("/SendFTS_one", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -782,7 +777,7 @@ router.get("/SendFTS_multi", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -886,7 +881,7 @@ router.get("/SendFTS_same", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -997,7 +992,7 @@ router.get("/SendFMS_one", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1114,7 +1109,7 @@ router.get("/SendFMS_multi", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1230,7 +1225,7 @@ router.get("/SendFMS_same", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1265,7 +1260,7 @@ router.get("/CancelReserve", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1300,7 +1295,7 @@ router.get("/CancelReserveRN", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1334,7 +1329,7 @@ router.get("/GetMessages", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1368,7 +1363,7 @@ router.get("/GetMessagesRN", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1450,7 +1445,7 @@ router.get("/Search", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1481,7 +1476,7 @@ router.get("/GetSentListURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1507,7 +1502,7 @@ router.get("/GetBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1538,7 +1533,7 @@ router.get("/GetChargeURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1569,7 +1564,7 @@ router.get("/GetPaymentURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1600,7 +1595,7 @@ router.get("/GetUseHistoryURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1626,7 +1621,7 @@ router.get("/GetPartnerBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1657,7 +1652,7 @@ router.get("/GetPartnerURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1686,7 +1681,7 @@ router.get("/GetUnitCost", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1716,7 +1711,7 @@ router.get("/GetChargeInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1742,7 +1737,7 @@ router.get("/CheckIsMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1769,7 +1764,7 @@ router.get("/CheckID", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1832,7 +1827,7 @@ router.get("/JoinMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1863,7 +1858,7 @@ router.get("/GetAccessURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1889,7 +1884,7 @@ router.get("/GetCorpInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1935,7 +1930,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1984,7 +1979,7 @@ router.get("/RegistContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2014,7 +2009,7 @@ router.get("/GetContactInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2040,7 +2035,7 @@ router.get("/ListContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2090,7 +2085,7 @@ router.get("/UpdateContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2117,7 +2112,7 @@ router.get("/CancelReservebyRCV", function (req, res, next) {
         receiveNum,
         UserID,
         function (result) {
-            res.render("response", { path: req.path, result: result });
+            res.render("response", {path: req.path, result: result});
         },
         function (error) {
             res.render("response", {
@@ -2125,7 +2120,7 @@ router.get("/CancelReservebyRCV", function (req, res, next) {
                 code: error.code,
                 message: error.message,
             });
-        },
+        }
     );
 });
 
@@ -2163,7 +2158,7 @@ router.get("/CancelReserveRNbyRCV", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2212,7 +2207,7 @@ router.get("/PaymentRequest", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2230,7 +2225,7 @@ router.get("/GetSettleResult", function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
-    kakaoService.getBulkResult(
+    kakaoService.getSettleResult(
         CorpNum,
         SettleCode,
         UserID,
@@ -2246,7 +2241,7 @@ router.get("/GetSettleResult", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2292,7 +2287,7 @@ router.get("/GetPaymentHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2342,7 +2337,7 @@ router.get("/GetUseHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2399,7 +2394,7 @@ router.get("/Refund", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2437,7 +2432,7 @@ router.get("/GetRefundHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2475,7 +2470,7 @@ router.get("/QuitMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2505,7 +2500,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -2539,7 +2534,7 @@ router.get("/GetRefundInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 

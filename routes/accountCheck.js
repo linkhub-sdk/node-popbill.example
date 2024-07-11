@@ -1,11 +1,11 @@
 /**
-  * 팝빌 예금주조회 API Node SDK Example
-  *
-  * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/accountcheck/node/getting-started/tutorial
-  * 연동 기술지원 연락처 : 1600-9854
-  * 연동 기술지원 이메일 : code@linkhubcorp.com
-  *
-  */
+ * 팝빌 예금주조회 API Node SDK Example
+ *
+ * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/accountcheck/node/getting-started/tutorial
+ * 연동 기술지원 연락처 : 1600-9854
+ * 연동 기술지원 이메일 : code@linkhubcorp.com
+ *
+ */
 var express = require("express");
 var router = express.Router();
 var popbill = require("popbill");
@@ -31,10 +31,10 @@ router.get("/CheckAccountInfo", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 기관코드
-    var bankCode = "";
+    var bankCode = "0088";
 
     // 계좌번호 (하이픈 "-" 제외 8자리 이상 14자리 이하)
-    var accountNumber = "";
+    var accountNumber = "100032730993";
 
     accountCheckService.checkAccountInfo(
         CorpNum,
@@ -65,19 +65,19 @@ router.get("/CheckDepositorInfo", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 기관코드
-    var bankCode = "";
+    var bankCode = "0088";
 
     // 계좌번호 (하이픈 "-" 제외 8자리 이상 14자리 이하)
-    var accountNumber = "";
+    var accountNumber = "100032730993";
 
     // 등록번호 유형 ( P / B 중 택 1 ,  P = 개인, B = 사업자)
-    var identityNumType = "P";
+    var identityNumType = "B";
 
     // 등록번호
     // └ 등록번호 유형 값이 "B"인 경우 사업자번호(10 자리) 입력
     // └ 등록번호 유형 값이 "P"인 경우 생년월일(6 자리) 입력 (형식 : YYMMDD)
     // 하이픈 "-" 제외하고 입력
-    var identityNum = "";
+    var identityNum = "1234567890";
 
     accountCheckService.checkDepositorInfo(
         CorpNum,
@@ -97,7 +97,7 @@ router.get("/CheckDepositorInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -123,7 +123,7 @@ router.get("/GetBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -154,7 +154,7 @@ router.get("/GetChargeURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -185,7 +185,7 @@ router.get("/GetPaymentURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -216,7 +216,7 @@ router.get("/GetUseHistoryURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -242,7 +242,7 @@ router.get("/GetPartnerBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -273,7 +273,7 @@ router.get("/GetPartnerURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -292,18 +292,20 @@ router.get("/GetUnitCost", function (req, res, next) {
         CorpNum,
         serviceType,
         function (unitCost) {
+            console.log(unitCost)
             res.render("result", {
                 path: req.path,
                 result: unitCost,
             });
         },
         function (Error) {
+            console.log(Error);
             res.render("response", {
                 path: req.path,
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -337,7 +339,7 @@ router.get("/GetChargeInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -363,7 +365,7 @@ router.get("/CheckIsMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -390,7 +392,7 @@ router.get("/CheckID", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -402,7 +404,7 @@ router.get("/JoinMember", function (req, res, next) {
     // 회원정보
     var joinInfo = {
         // 회원 아이디 (6자 이상 50자 미만)
-        ID: "userid",
+        ID: "quit_member_test_id_001",
 
         // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
         Password: "asdf8536!@#",
@@ -453,7 +455,7 @@ router.get("/JoinMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -484,7 +486,7 @@ router.get("/GetAccessURL", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -510,7 +512,7 @@ router.get("/GetCorpInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -556,7 +558,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -605,7 +607,7 @@ router.get("/RegistContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -635,7 +637,7 @@ router.get("/GetContactInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -661,7 +663,7 @@ router.get("/ListContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -711,7 +713,7 @@ router.get("/UpdateContact", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -760,7 +762,7 @@ router.get("/PaymentRequest", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -778,7 +780,7 @@ router.get("/GetSettleResult", function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
-    accountCheckService.getBulkResult(
+    accountCheckService.getSettleResult(
         CorpNum,
         SettleCode,
         UserID,
@@ -794,7 +796,7 @@ router.get("/GetSettleResult", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -807,10 +809,10 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230101";
+    var SDate = "20240601";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230107";
+    var EDate = "20240610";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -840,7 +842,7 @@ router.get("/GetPaymentHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -853,10 +855,10 @@ router.get("/GetUseHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식: yyyyMMdd)
-    var SDate = "";
+    var SDate = "20240101";
 
     // 조회 기간의 종료일자 (형식: yyyyMMdd)
-    var EDate = "";
+    var EDate = "20240102";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -890,7 +892,7 @@ router.get("/GetUseHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -947,7 +949,7 @@ router.get("/Refund", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -985,7 +987,7 @@ router.get("/GetRefundHistory", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1004,7 +1006,7 @@ router.get("/QuitMember", function (req, res, next) {
     var QuitReason = "탈퇴 사유";
 
     // 팝빌회원 아이디
-    var UserID = "testkorea";
+    var UserID = "quit_member_test_id_001";
 
     accountCheckService.quitMember(
         CorpNum,
@@ -1023,7 +1025,7 @@ router.get("/QuitMember", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1053,7 +1055,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
@@ -1087,7 +1089,7 @@ router.get("/GetRefundInfo", function (req, res, next) {
                 code: Error.code,
                 message: Error.message,
             });
-        },
+        }
     );
 });
 
