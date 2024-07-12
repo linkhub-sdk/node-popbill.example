@@ -229,7 +229,7 @@ router.get("/SendSMS_multi", function (req, res, next) {
 
     // 발신자명
     // 동보전송의 경우 사용
-    var SenderName = "동보_발신자명"
+    var SenderName = "발신자명";
 
     messageService.sendSMS_multi(
         CorpNum,
@@ -414,7 +414,7 @@ router.get("/SendLMS_multi", function (req, res, next) {
  */
 router.get("/SendMMS", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
-    var CorpNum = "1234567890";
+    var CorpNum = "6798700433";
 
     // 발신번호
     var sendNum = "15997709";
@@ -445,7 +445,10 @@ router.get("/SendMMS", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "2022c221dd123456";
+    var requestNum = "";
+
+    // 발신자명
+    var SenderName = "발신자명";
 
     messageService.sendMMS(
         CorpNum,
@@ -458,6 +461,7 @@ router.get("/SendMMS", function (req, res, next) {
         reserveDT,
         adsYN,
         requestNum,
+        SenderName,
         function (receiptNum) {
             res.render("result", {
                 path: req.path,
@@ -507,22 +511,22 @@ router.get("/SendMMS_multi", function (req, res, next) {
     // 개별전송정보, 최대 1000건
     var Messages = [
         {
-            // Sender: "", // 발신번호
-            // SenderName: "발신자명", // 발신자명
+            Sender: "", // 발신번호
+            SenderName: "발신자명", // 발신자명
             Receiver: "01012341234", // 수신번호
-            // ReceiverName: "수신자명",
-            // Subject: "MMS 테스트 제목1",
-            // Contents: "MMS 전송 테스트 내용1", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
-            // interOPRefKey: "20220629-MMS001", // 파트너 지정키, 수신자 구별용 메모
+            ReceiverName: "수신자명",
+            Subject: "MMS 테스트 제목1",
+            Contents: "MMS 전송 테스트 내용1", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
+            interOPRefKey: "20220629-MMS001", // 파트너 지정키, 수신자 구별용 메모
         },
         {
-            // Sender: "", // 발신번호
-            // SenderName: "발신자명", // 발신자명
+            Sender: "", // 발신번호
+            SenderName: "발신자명", // 발신자명
             Receiver: "01012341234", // 수신번호
-            // ReceiverName: "수신자명",
-            // Subject: "MMS 테스트 제목2",
-            // Contents: "MMS 전송 테스트 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만 무궁화 삼천리 화려강산 ", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
-            // interOPRefKey: "20220629-MMS001", // 파트너 지정키, 수신자 구별용 메모
+            ReceiverName: "수신자명",
+            Subject: "MMS 테스트 제목2",
+            Contents: "MMS 전송 테스트 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만 무궁화 삼천리 화려강산 ", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
+            interOPRefKey: "20220629-MMS001", // 파트너 지정키, 수신자 구별용 메모
         },
     ];
 
@@ -659,23 +663,23 @@ router.get("/SendXMS_multi", function (req, res, next) {
     // 개별전송정보 배열, 최대 1000건
     var Messages = [
         {
-            // Sender: "15997709", // 발신번호
-            // SenderName: "발신자명01", // 발신자명
+            Sender: "15997709", // 발신번호
+            SenderName: "발신자명01", // 발신자명
             Receiver: "01012341234", // 수신번호
-            // ReceiverName: "수신자명", // 수신자명
-            // Subject: "메시지 제목1", // 메시지 제목
-            // Contents: "문자 메시지 내용1", // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
-            // interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
+            ReceiverName: "수신자명", // 수신자명
+            Subject: "메시지 제목1", // 메시지 제목
+            Contents: "문자 메시지 내용1", // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
+            interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
         },
         {
-            // Sender: "15997709", // 발신번호
-            // SenderName: "발신자명02", // 발신자명
+            Sender: "15997709", // 발신번호
+            SenderName: "발신자명02", // 발신자명
             Receiver: "01012341234", // 수신번호
-            // ReceiverName: "수신자명", // 수신자명
-            // Subject: "메시지 제목2", // 메시지 제목
+            ReceiverName: "수신자명", // 수신자명
+            Subject: "메시지 제목2", // 메시지 제목
             // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
-            // Contents: "단/장문 자동인식 문자전송 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ",
-            // interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
+            Contents: "단/장문 자동인식 문자전송 내용 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만세 무궁화 삼천리 화려강산 ",
+            interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
         },
     ];
 
