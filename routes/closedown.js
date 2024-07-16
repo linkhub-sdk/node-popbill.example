@@ -502,7 +502,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 회사정보
-    var corpInfo = {
+    var CorpInfo = {
         // 대표자명 (최대 100자)
         ceoname: "대표자성명_nodejs",
 
@@ -521,7 +521,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
 
     closedownService.updateCorpInfo(
         CorpNum,
-        corpInfo,
+        CorpInfo,
         function (result) {
             res.render("response", {
                 path: req.path,
