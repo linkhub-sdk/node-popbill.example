@@ -2507,17 +2507,17 @@ router.get("/AttachFile", function (req, res, next) {
     var mgtKey = "test_20240711_002";
 
     // 파일경로
-    var FilePaths = ["./test.jpg"];
+    var FilePath = "./test.jpg";
 
     // 파일명
-    var DisplayName = "displayName.jpg"
+    var DisplayName = "DisplayName.jpg";
 
     taxinvoiceService.attachFile(
         CorpNum,
         keyType,
         mgtKey,
         DisplayName,
-        FilePaths,
+        FilePath,
         function (result) {
             res.render("response", {
                 path: req.path,

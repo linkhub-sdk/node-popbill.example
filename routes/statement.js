@@ -1351,17 +1351,17 @@ router.get("/AttachFile", function (req, res, next) {
     var mgtKey = "test_20240711_002";
 
     // 파일경로
-    var filePaths = ["./test.jpg"];
+    var filePath = "./test.jpg";
 
     // 파일명
-    var DisplayName = "DisplayName_Test.jpg"
+    var DisplayName = "DisplayName.jpg";
 
     statementService.attachFile(
         CorpNum,
         itemCode,
         mgtKey,
         DisplayName,
-        filePaths,
+        filePath,
         function (result) {
             res.render("response", {
                 path: req.path,
