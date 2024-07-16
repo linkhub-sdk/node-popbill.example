@@ -633,10 +633,10 @@ router.get("/Search", function (req, res, next) {
     var DType = "R";
 
     // 시작일자, 작성형식(yyyyMMdd)
-    var SDate = "20220601";
+    var SDate = "20240716";
 
     // 종료일자, 작성형식(yyyyMMdd)
-    var EDate = "20220629";
+    var EDate = "20240716";
 
     // 상태코드 배열 (2,3번째 자리에 와일드카드(*) 사용 가능)
     // - 미입력시 전체조회
@@ -1716,7 +1716,7 @@ router.get("/UpdateContact", function (req, res, next) {
 
     // 담당자 정보 항목
     var contactInfo = {
-        // 담당자 아이디
+        // 담당자 아이디 (6자 이상 50자 이하)
         id: UserID,
 
         // 담당자명 (최대 100자)
@@ -1845,10 +1845,10 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230101";
+    var SDate = "20240716";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230107";
+    var EDate = "20240716";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -1891,10 +1891,10 @@ router.get("/GetUseHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230501";
+    var SDate = "20240716";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230530";
+    var EDate = "20240716";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -2106,7 +2106,7 @@ router.get("/QuitMember", function (req, res, next) {
     var QuitReason = "테스트 탈퇴 사유";
 
     // 팝빌회원 아이디
-    var UserID = "quit_member_test_id_001";
+    var UserID = "testkorea";
 
     cashbillService.quitMember(
         CorpNum,

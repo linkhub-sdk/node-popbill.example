@@ -615,7 +615,7 @@ router.get("/SendFTS_one", function (req, res, next) {
     var altSendType = "A";
 
     // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-    var sndDT = "20240508132700";
+    var sndDT = "";
 
     // 수신번호
     var receiver = "01012341234";
@@ -1377,7 +1377,7 @@ router.get("/Search", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 시작일자, 표시형식 (yyyyMMdd)
-    var sDate = "20220601";
+    var sDate = "2022-06-29";
 
     // 종료일자, 표시형식 (yyyyMMdd)
     var eDate = "20220629";
@@ -2052,7 +2052,7 @@ router.get("/UpdateContact", function (req, res, next) {
 
     // 담당자 정보 항목
     var contactInfo = {
-        // 담당자 아이디
+        // 담당자 아이디 (6자 이상 50자 이하)
         id: UserID,
 
         // 담당자명 (최대 100자)
@@ -2254,10 +2254,10 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230101";
+    var SDate = "20240716";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230107";
+    var EDate = "20240716";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -2300,10 +2300,10 @@ router.get("/GetUseHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230501";
+    var SDate = "20240716";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230530";
+    var EDate = "20240716";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;

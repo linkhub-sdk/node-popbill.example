@@ -43,10 +43,10 @@ router.get("/RequestJob", function (req, res, next) {
     var DType = "S";
 
     // 시작일자, 날짜형식(yyyyMMdd)
-    var SDate = "20240501";
+    var SDate = "20240716";
 
     // 종료일자, 날짜형식(yyyyMMdd)
-    var EDate = "20240508";
+    var EDate = "20240716";
 
     htTaxinvoiceService.requestJob(
         CorpNum,
@@ -517,7 +517,7 @@ router.get("/RegistDeptUser", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 홈택스에서 생성한 전자세금계산서 부서사용자 아이디
-    var deptUserID = "userid";
+    var deptUserID = "testkorea";
 
     // 홈택스에서 생성한 전자세금계산서 부서사용자 비밀번호
     var deptUserPWD = "passwd";
@@ -1228,7 +1228,7 @@ router.get("/UpdateContact", function (req, res, next) {
 
     // 담당자 정보 항목
     var contactInfo = {
-        // 담당자 아이디
+        // 담당자 아이디 (6자 이상 50자 이하)
         id: UserID,
 
         // 담당자명 (최대 100자)
@@ -1414,10 +1414,10 @@ router.get("/GetUseHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식: yyyyMMdd)
-    var SDate = "";
+    var SDate = "20240716";
 
     // 조회 기간의 종료일자 (형식: yyyyMMdd)
-    var EDate = "";
+    var EDate = "20240716";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -1464,10 +1464,10 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230101";
+    var SDate = "20240716";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230107";
+    var EDate = "20240716";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;

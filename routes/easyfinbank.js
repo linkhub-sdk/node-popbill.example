@@ -132,7 +132,7 @@ router.get("/UpdateBankAccount", function (req, res, next) {
         Memo: "메모테스트",
     };
 
-    var UserID = "linkhub2";
+    var UserID = "testkorea";
 
     easyFinBankService.updateBankAccount(
         CorpNum,
@@ -391,10 +391,10 @@ router.get("/RequestJob", function (req, res, next) {
     var accountNumber = "1005303358692";
 
     // 시작일자, 날짜형식(yyyyMMdd)
-    var SDate = "20240501";
+    var SDate = "20240716";
 
     // 종료일자, 날짜형식(yyyyMMdd)
-    var EDate = "20240508";
+    var EDate = "20240716";
 
     easyFinBankService.requestJob(
         CorpNum,
@@ -1220,7 +1220,7 @@ router.get("/UpdateContact", function (req, res, next) {
 
     // 담당자 정보 항목
     var contactInfo = {
-        // 담당자 아이디
+        // 담당자 아이디 (6자 이상 50자 이하)
         id: UserID,
 
         // 담당자명 (최대 100자)
@@ -1349,10 +1349,10 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230101";
+    var SDate = "20240716";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230107";
+    var EDate = "20240716";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -1395,10 +1395,10 @@ router.get("/GetUseHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230501";
+    var SDate = "20240716";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230530";
+    var EDate = "20240716";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;

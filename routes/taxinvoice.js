@@ -82,7 +82,7 @@ router.get("/RegistIssue", function (req, res, next) {
     // 세금계산서 항목
     var Taxinvoice = {
         // 작성일자, 날짜형식 yyyyMMdd
-        writeDate: "20220629",
+        writeDate: "20240716",
 
         // 과금방향, {정과금, 역과금}중 선택
         // - 정과금(공급자과금), 역과금(공급받는자과금)
@@ -360,7 +360,7 @@ router.get("/BulkSubmit", function (req, res, next) {
         // 세금계산서 항목
         var Taxinvoice = {
             // 작성일자, 날짜형식 yyyyMMdd
-            writeDate: "20220629",
+            writeDate: "20240716",
 
             // 과금방향, {정과금, 역과금}중 선택
             // - 정과금(공급자과금), 역과금(공급받는자과금)
@@ -679,7 +679,7 @@ router.get("/Register", function (req, res, next) {
     // 세금계산서 항목
     var Taxinvoice = {
         // 작성일자, 날짜형식 yyyyMMdd
-        writeDate: "20220629",
+        writeDate: "20240716",
 
         // 과금방향, {정과금, 역과금}중 선택
         // - 정과금(공급자과금), 역과금(공급받는자과금)
@@ -959,7 +959,7 @@ router.get("/Update", function (req, res, next) {
     // 세금계산서 항목
     var Taxinvoice = {
         // 작성일자, 날짜형식 yyyyMMdd
-        writeDate: "20220629",
+        writeDate: "20240716",
 
         // 과금방향, {정과금, 역과금}중 선택
         // - 정과금(공급자과금), 역과금(공급받는자과금)
@@ -1341,7 +1341,7 @@ router.get("/RegistRequest", function (req, res, next) {
     // 세금계산서 항목
     var Taxinvoice = {
         // 작성일자, 날짜형식 yyyyMMdd
-        writeDate: "20220629",
+        writeDate: "20240716",
 
         // 과금방향, {정과금, 역과금}중 선택
         // - 정과금(공급자과금), 역과금(공급받는자과금)
@@ -1937,10 +1937,10 @@ router.get("/Search", function (req, res, next) {
     var DType = "W";
 
     // 시작일자, 날짜형식yyyyMMdd)
-    var SDate = "20220601";
+    var SDate = "20240716";
 
     // 종료일자, 날짜형식yyyyMMdd)
-    var EDate = "20220629";
+    var EDate = "20240716";
 
     // 세금계산서 상태코드 배열 (2,3번째 자리에 와일드카드(*) 사용 가능)
     // - 미입력시 전체조회
@@ -3520,32 +3520,25 @@ router.get("/RegistContact", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 아이디 (6자 이상 50자 미만)
-    var ID = "testkorea03033";
-
-    // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
-    var Password = "asdf8536!@#";
-
-    // 담당자명 (최대 100자)
-    var PersonName = "담당자명0309";
-
-    // 연락처 (최대 20자)
-    var TEL = "010-1234-1234";
-
-    // 이메일 (최대 100자)
-    var Email = "test@email.com";
-
-    // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
-    var SearchRole = 3;
-
     // 담당자 정보
     var contactInfo = {
-        id: ID,
-        Password: Password,
-        personName: PersonName,
-        tel: TEL,
-        email: Email,
-        searchRole: SearchRole,
+        // 아이디 (6자 이상 50자 미만)
+        id: "testkorea03033",
+
+        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        Password: "asdf8536!@#",
+
+        // 담당자명 (최대 100자)
+        personName: "담당자명0309",
+
+        // 연락처 (최대 20자)
+        tel: "010-1234-1234",
+
+        // 이메일 (최대 100자)
+        email: "test@email.com",
+
+        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        searchRole: 3,
     };
 
     taxinvoiceService.registContact(
@@ -3581,7 +3574,7 @@ router.get("/UpdateContact", function (req, res, next) {
 
     // 담당자 정보 항목
     var contactInfo = {
-        // 담당자 아이디
+        // 담당자 아이디 (6자 이상 50자 이하)
         id: UserID,
 
         // 담당자명 (최대 100자)
@@ -3766,10 +3759,10 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230101";
+    var SDate = "20240716";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230107";
+    var EDate = "20240716";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -3812,10 +3805,10 @@ router.get("/GetUseHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230501";
+    var SDate = "20240716";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230530";
+    var EDate = "20240716";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -3963,7 +3956,7 @@ router.get("/QuitMember", function (req, res, next) {
     var QuitReason = "탈퇴 사유";
 
     // 팝빌회원 아이디
-    var UserID = "";
+    var UserID = "testkorea";
 
     taxinvoiceService.quitMember(
         CorpNum,
@@ -4080,7 +4073,7 @@ router.get("/modifyTaxinvoice01minus", function (req, res, next) {
 
         // 작성일자, 날짜형식(yyyyMMdd)
         // 원본 세금계산서 작성 일자 기재
-        writeDate: "20230102",
+        writeDate: "20240716",
 
         // 공급가액 합계
         supplyCostTotal: "-100000",
@@ -4355,7 +4348,7 @@ router.get("/modifyTaxinvoice01plus", function (req, res, next) {
 
         // 작성일자, 날짜형식(yyyyMMdd)
         // 원본 전자세금계산서 작성일자 또는 변경을 원하는 작성일자
-        writeDate: "20230102",
+        writeDate: "20240716",
 
         // 공급가액 합계
         supplyCostTotal: "200000",
@@ -4636,7 +4629,7 @@ router.get("/modifyTaxinvoice02", function (req, res, next) {
 
         // 작성일자, 날짜형식(yyyyMMdd)
         // 공급가액 변동이 발생한 날
-        writeDate: "20230207",
+        writeDate: "20240716",
 
         // 공급가액 합계
         supplyCostTotal: "-20000",
@@ -4910,7 +4903,7 @@ router.get("/modifyTaxinvoice03", function (req, res, next) {
 
         // 작성일자, 날짜형식(yyyyMMdd)
         // 환입이 발생한 날 기재
-        writeDate: "20230212",
+        writeDate: "20240716",
 
         // 공급가액 합계
         supplyCostTotal: "-10000",
@@ -5187,7 +5180,7 @@ router.get("/modifyTaxinvoice04", function (req, res, next) {
         orgNTSConfirmNum: "20230706-original-TI00001",
 
         // 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: "20230215",
+        writeDate: "20240716",
 
         // 공급가액 합계
         supplyCostTotal: "-30000",
@@ -5465,7 +5458,7 @@ router.get("/modifyTaxinvoice05minus", function (req, res, next) {
 
         // 작성일자, 날짜형식(yyyyMMdd)
         // 착오에 의한 이중발급 사유로 수정세금계산서 작성 시, 원본 전자세금계산서 작성일자 기재
-        writeDate: "20230313",
+        writeDate: "20240716",
 
         // 과세형태, [과세, 영세, 면세] 중 기재
         taxType: "과세",
@@ -5749,7 +5742,7 @@ router.get("/modifyTaxinvoice05plus", function (req, res, next) {
 
         // 작성일자, 날짜형식(yyyyMMdd)
         //  원본 세금계산서의 작성 일자
-        writeDate: "20230313",
+        writeDate: "20240716",
 
         // 공급가액 합계
         supplyCostTotal: "1000000",
@@ -6029,7 +6022,7 @@ router.get("/modifyTaxinvoice06", function (req, res, next) {
 
         // 작성일자, 날짜형식(yyyyMMdd)
         // 착오에 의한 이중발급 사유로 수정세금계산서 작성 시, 원본 전자세금계산서 작성일자 기재
-        writeDate: "20230701",
+        writeDate: "20240716",
 
         // 공급가액 합계
         // 원본 세금계산서와 동일한 내용의 수정분 부(-) 기재
@@ -6287,6 +6280,7 @@ router.get("/modifyTaxinvoice06", function (req, res, next) {
  * 전자세금계산서 발급을 위한 공동인증서를 등록합니다.
  * - 공동인증서의 PublicKey, PrivateKey, 비밀번호를 팝빌 서버에 등록합니다.
  * - 등록된 정보는 DB Column 암호화되어 안전하게 저장됩니다.
+ * - https://developers.popbill.com//reference/taxinvoice/node/api/cert#RegistTaxCert
  */
 router.get("/RegistTaxCert", function (req, res, next) {
 

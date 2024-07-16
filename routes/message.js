@@ -928,10 +928,10 @@ router.get("/Search", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 검색시작일자, 날짜형식(yyyyMMdd)
-    var SDate = "20220601";
+    var SDate = "20240716";
 
     // 검색종료일자, 날짜형식(yyyyMMdd)
-    var EDate = "20220629";
+    var EDate = "20240716";
 
     // 전송상태 배열 ("1" , "2" , "3" , "4" 중 선택, 다중 선택 가능)
     // └ 1 = 대기 , 2 = 성공 , 3 = 실패 , 4 = 취소
@@ -1553,7 +1553,7 @@ router.get("/UpdateContact", function (req, res, next) {
 
     // 담당자 정보 항목
     var contactInfo = {
-        // 담당자 아이디
+        // 담당자 아이디 (6자 이상 50자 이하)
         id: UserID,
 
         // 담당자명 (최대 100자)
@@ -1780,10 +1780,10 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230101";
+    var SDate = "20240716";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230107";
+    var EDate = "20240716";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -1826,10 +1826,10 @@ router.get("/GetUseHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20230501";
+    var SDate = "20240716";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20230530";
+    var EDate = "20240716";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
