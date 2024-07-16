@@ -717,11 +717,11 @@ router.get("/CheckIsMember", function (req, res, next) {
  * - https://developers.popbill.com/reference/htcashbill/node/api/member#CheckID
  */
 router.get("/CheckID", function (req, res, next) {
-    // 팝빌회원 사업자번호, "-" 제외 10자리
-    var testID = "testkorea";
+    // 중복여부를 확인할 아이디
+    var ID = "testkorea";
 
     htCashbillService.checkID(
-        testID,
+        ID,
         function (result) {
             res.render("response", {
                 path: req.path,
@@ -745,7 +745,7 @@ router.get("/CheckID", function (req, res, next) {
  */
 router.get("/JoinMember", function (req, res, next) {
     // 회원정보
-    var joinInfo = {
+    var JoinForm = {
         // 회원 아이디 (6자 이상 50자 미만)
         ID: "userid",
 
@@ -784,7 +784,7 @@ router.get("/JoinMember", function (req, res, next) {
     };
 
     htCashbillService.joinMember(
-        joinInfo,
+        JoinForm,
         function (result) {
             res.render("response", {
                 path: req.path,
@@ -914,7 +914,7 @@ router.get("/RegistContact", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 담당자 정보
-    var contactInfo = {
+    var ContactInfo = {
         // 아이디 (6자 이상 50자 미만)
         id: "testkorea03033",
 
@@ -936,7 +936,7 @@ router.get("/RegistContact", function (req, res, next) {
 
     htCashbillService.registContact(
         CorpNum,
-        contactInfo,
+        ContactInfo,
         function (result) {
             res.render("response", {
                 path: req.path,
@@ -963,11 +963,11 @@ router.get("/GetContactInfo", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 확인할 담당자 아이디
-    var contactID = "checkContactID";
+    var ContactID = "checkContactID";
 
     htCashbillService.getContactInfo(
         CorpNum,
-        contactID,
+        ContactID,
         function (result) {
             res.render("Base/getContactInfo", {
                 path: req.path,
@@ -1022,7 +1022,7 @@ router.get("/UpdateContact", function (req, res, next) {
     var UserID = "testkorea";
 
     // 담당자 정보 항목
-    var contactInfo = {
+    var ContactInfo = {
         // 담당자 아이디 (6자 이상 50자 이하)
         id: UserID,
 
@@ -1042,7 +1042,7 @@ router.get("/UpdateContact", function (req, res, next) {
     htCashbillService.updateContact(
         CorpNum,
         UserID,
-        contactInfo,
+        ContactInfo,
         function (result) {
             res.render("response", {
                 path: req.path,
