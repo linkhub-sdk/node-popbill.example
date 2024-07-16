@@ -1403,10 +1403,10 @@ router.get("/Search", function (req, res, next) {
     // - 미입력시 기본값 false 처리
     var senderYN = true;
 
-    // 페이지 번호, 기본값 1
+    // 목록 페이지번호 (기본값 1)
     var page = 1;
 
-    // 페이지당 검색개수, 기본값 500, 최대값 1000
+    // 페이지당 표시할 목록 개수(기본값 500, 최대 1,000)
     var perPage = 10;
 
     // 정렬방향 ( D-내림차순 / A-오름차순 ) 기본값 D
@@ -2406,10 +2406,10 @@ router.get("/GetRefundHistory", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 목록 페이지번호
+    // 목록 페이지번호 (기본값 1)
     var Page = 1;
 
-    // 페이지당 검색개수
+    // 페이지당 표시할 목록 개수(기본값 500, 최대 1,000)
     var PerPage = 500;
 
     // 팝빌회원 아이디

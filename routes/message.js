@@ -957,10 +957,10 @@ router.get("/Search", function (req, res, next) {
     // 정렬방향, D-내림차순, A-오름차순
     var Order = "D";
 
-    // 페이지번호
+    // 목록 페이지번호 (기본값 1)
     var Page = 1;
 
-    // 페이지 목록개수, 최대 1000건
+    // 페이지당 표시할 목록 개수(기본값 500, 최대 1,000)
     var PerPage = 30;
 
     // 조회하고자 하는 발신자명 또는 수신자명
@@ -1932,10 +1932,10 @@ router.get("/GetRefundHistory", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 목록 페이지번호
+    // 목록 페이지번호 (기본값 1)
     var Page = 1;
 
-    // 페이지당 검색개수
+    // 페이지당 표시할 목록 개수(기본값 500, 최대 1,000)
     var PerPage = 500;
 
     // 팝빌회원 아이디

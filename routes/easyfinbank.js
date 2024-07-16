@@ -1,11 +1,11 @@
 /**
-  * 팝빌 계좌조회 API Node SDK Example
-  *
-  * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/easyfinbank/node/getting-started/tutorial
-  * 연동 기술지원 연락처 : 1600-9854
-  * 연동 기술지원 이메일 : code@linkhubcorp.com
-  *
-  */
+ * 팝빌 계좌조회 API Node SDK Example
+ *
+ * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/easyfinbank/node/getting-started/tutorial
+ * 연동 기술지원 연락처 : 1600-9854
+ * 연동 기술지원 이메일 : code@linkhubcorp.com
+ *
+ */
 var express = require("express");
 var router = express.Router();
 var popbill = require("popbill");
@@ -109,12 +109,12 @@ router.get("/UpdateBankAccount", function (req, res, next) {
     var BankCode = "0003";
 
     // 계좌번호, 하이픈("-") 제외
-    var AccountNumber = "47908305404018";
+    var AccountNumber = "";
 
     // 수정할 계좌정보
     var BankAccountInfo = {
         // 계좌비밀번호
-        AccountPWD: "2018",
+        AccountPWD: "",
 
         // 계좌 별칭
         AccountName: "별칭 추가",
@@ -132,14 +132,15 @@ router.get("/UpdateBankAccount", function (req, res, next) {
         Memo: "메모테스트",
     };
 
+    // 팝빌 회원 아이디
     var UserID = "testkorea";
 
     easyFinBankService.updateBankAccount(
         CorpNum,
-      BankCode,
-      AccountNumber,
-      BankAccountInfo,
-      UserID,
+        BankCode,
+        AccountNumber,
+        BankAccountInfo,
+        UserID,
         function (result) {
             res.render("response", {
                 path: req.path,
@@ -385,10 +386,10 @@ router.get("/RequestJob", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 기관코드
-    var bankCode = "0020";
+    var bankCode = "";
 
     // 계좌번호,  하이픈("-") 제외
-    var accountNumber = "1005303358692";
+    var accountNumber = "";
 
     // 시작일자, 날짜형식(yyyyMMdd)
     var SDate = "20240716";
@@ -433,7 +434,7 @@ router.get("/GetJobState", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 수집 요청(requestJob API)시 반환반은 작업아이디(jobID)
-    var jobID = "024050813000000004";
+    var jobID = "";
 
     easyFinBankService.getJobState(
         CorpNum,
@@ -503,11 +504,11 @@ router.get("/Search", function (req, res, next) {
     // - 미입력시 전체조회
     var searchString = "";
 
-    // 페이지번호
+    // 목록 페이지번호 (기본값 1)
     var page = 1;
 
-    // 페이지당 검색개수
-    var perPage = 10;
+    // 페이지당 표시할 목록 개수(기본값 500, 최대 1,000)
+    var perPage = 500;
 
     // 정렬방향, D-내림차순, A-오름차순
     var order = "D";
@@ -1357,7 +1358,7 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
 
-    // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
+    // 페이지당 표시할 목록 개수(기본값 500, 최대 1,000)
     var PerPage = 500;
 
     // 팝빌회원 아이디
@@ -1501,10 +1502,10 @@ router.get("/GetRefundHistory", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 목록 페이지번호
+    // 목록 페이지번호 (기본값 1)
     var Page = 1;
 
-    // 페이지당 검색개수
+    // 페이지당 표시할 목록 개수(기본값 500, 최대 1,000)
     var PerPage = 500;
 
     // 팝빌회원 아이디
