@@ -405,14 +405,14 @@ router.get("/SendATS_multi", function (req, res, next) {
         msg: content, //알림톡 내용
         altsjt: "대체문자 제목1", // 대체문자 제목
         altmsg: "알림톡 대체 문자_0", //대체문자 내용
-        interOPRefKey: "20220629-01", // 파트너 지정키, 수신자 구별용 메모
+        interOPRefKey: "20240716-01", // 파트너 지정키, 수신자 구별용 메모
     });
     msgs.push({
         rcv: "",
         rcvnm: "linkhub",
         msg: content,
         altmsg: "알림톡 대체 문자_1",
-        interOPRefKey: "20220629-02", // 파트너 지정키, 수신자 구별용 메모
+        interOPRefKey: "20240716-02", // 파트너 지정키, 수신자 구별용 메모
         btns: [
             //수신자별 개별 버튼내용 전송시
             {
@@ -520,10 +520,18 @@ router.get("/SendATS_same", function (req, res, next) {
         {
             rcv: "", //수신번호
             rcvnm: "popbill", //수신자명
+            msg: "", // 알림톡/친구톡 내용
+            altsjt: "", // 대체문자 제목 (대량전송의 경우 사용)
+            altmsg: "", // 대체문자 내용 (대량전송의 경우 사용)
+            interOPRefKey: "20240716-01", // 파트너 지정키, 수신자 구별용 메모
         },
         {
             rcv: "",
             rcvnm: "linkhub",
+            msg: "", // 알림톡/친구톡 내용
+            altsjt: "", // 대체문자 제목 (대량전송의 경우 사용)
+            altmsg: "", // 대체문자 내용 (대량전송의 경우 사용)
+            interOPRefKey: "20240716-02", // 파트너 지정키, 수신자 구별용 메모
         },
     ];
 
@@ -714,14 +722,14 @@ router.get("/SendFTS_multi", function (req, res, next) {
         msg: "테스트 템플릿 입니다.", //친구톡 내용
         altsjt: "친구톡 대체 제목", // 대체문자 제목
         altmsg: "친구톡 대체 문자_0", //대체문자 내용
-        interOPRefKey: "20220629-01", // 파트너 지정키, 수신자 구별용 메모
+        interOPRefKey: "20240716-01", // 파트너 지정키, 수신자 구별용 메모
     });
     msgs.push({
         rcv: "",
         rcvnm: "linkhub",
         msg: "테스트 템플릿 입니다1",
         altmsg: "친구톡 대체 문자_1",
-        interOPRefKey: "20220629-01", // 파트너 지정키, 수신자 구별용 메모
+        interOPRefKey: "20240716-01", // 파트너 지정키, 수신자 구별용 메모
         btns: [
             //수신자별 개별 버튼내용 전송시
             {
@@ -830,10 +838,18 @@ router.get("/SendFTS_same", function (req, res, next) {
         {
             rcv: "", //수신번호
             rcvnm: "popbill", //수신자명
+            msg: "", // 알림톡/친구톡 내용
+            altsjt: "", // 대체문자 제목 (대량전송의 경우 사용)
+            altmsg: "", // 대체문자 내용 (대량전송의 경우 사용)
+            interOPRefKey: "20240716-01", // 파트너 지정키, 수신자 구별용 메모
         },
         {
-            rcv: "",
-            rcvnm: "linkhub",
+            rcv: "", // 수신번호
+            rcvnm: "linkhub", // 수신자명
+            msg: "", // 알림톡/친구톡 내용
+            altsjt: "", // 대체문자 제목 (대량전송의 경우 사용)
+            altmsg: "", // 대체문자 내용 (대량전송의 경우 사용)
+            interOPRefKey: "20240716-02", // 파트너 지정키, 수신자 구별용 메모
         },
     ];
 
@@ -1043,7 +1059,7 @@ router.get("/SendFMS_multi", function (req, res, next) {
         msg: "친구톡 이미지 입니다_0", //친구톡 내용 (최대 400자)
         altsjt: "친구톡 이미지 대체문자제목0", // 대체문자 제목
         altmsg: "친구톡 대체 문자_0", //대체문자 내용 (최대 2000byte)
-        interOPRefKey: "20220629-01", // 파트너 지정키, 수신자 구별용 메모
+        interOPRefKey: "20240716-01", // 파트너 지정키, 수신자 구별용 메모
     });
     msgs.push({
         rcv: "",
@@ -1051,7 +1067,7 @@ router.get("/SendFMS_multi", function (req, res, next) {
         msg: "친구톡 이미지 입니다_1",
         altsjt: "친구톡 이미지 대체문자제목1",
         altmsg: "친구톡 대체 문자_1",
-        interOPRefKey: "20220629-02", // 파트너 지정키, 수신자 구별용 메모
+        interOPRefKey: "20240716-02", // 파트너 지정키, 수신자 구별용 메모
         btns: [
             //수신자별 개별 버튼내용 전송시
             {
@@ -1172,10 +1188,18 @@ router.get("/SendFMS_same", function (req, res, next) {
         {
             rcv: "", //수신번호
             rcvnm: "popbill", //수신자명
+            msg: "", // 알림톡/친구톡 내용
+            altsjt: "", // 대체문자 제목 (대량전송의 경우 사용)
+            altmsg: "", // 대체문자 내용 (대량전송의 경우 사용)
+            interOPRefKey: "20240716-01", // 파트너 지정키, 수신자 구별용 메모
         },
         {
             rcv: "",
             rcvnm: "linkhub",
+            msg: "", // 알림톡/친구톡 내용
+            altsjt: "", // 대체문자 제목 (대량전송의 경우 사용)
+            altmsg: "", // 대체문자 내용 (대량전송의 경우 사용)
+            interOPRefKey: "20240716-02", // 파트너 지정키, 수신자 구별용 메모
         },
     ];
 
@@ -1377,10 +1401,10 @@ router.get("/Search", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 시작일자, 표시형식 (yyyyMMdd)
-    var sDate = "2022-06-29";
+    var sDate = "20240716";
 
     // 종료일자, 표시형식 (yyyyMMdd)
-    var eDate = "20220629";
+    var eDate = "20240716";
 
     // 전송상태 배열 ("0" , "1" , "2" , "3" , "4" , "5" 중 선택, 다중 선택 가능)
     // └ 0 = 전송대기 , 1 = 전송중 , 2 = 전송성공 , 3 = 대체문자 전송 , 4 = 전송실패 , 5 = 전송취소
