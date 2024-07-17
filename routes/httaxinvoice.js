@@ -1425,8 +1425,8 @@ router.get("/GetUseHistory", function (req, res, next) {
     // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
     var PerPage = 500;
 
-    // 거래일자를 기준으로 하는 목록 정렬 방향 : "D" / "A" 중 택 1
-    var Order = "";
+    // 거래일자를 기준으로 하는 목록 정렬 방향 : "D" (기본값) / "A" 중 택 1
+    var Order = "D";
 
     // 팝빌회원 아이디
     var UserID = "testkorea";

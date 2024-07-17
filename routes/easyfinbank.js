@@ -593,7 +593,7 @@ router.get("/SaveMemo", function (req, res, next) {
     // └ 거래내역 조회(Search API) 함수의 반환 값 중 "tid"를 통해 확인 가능
     var tid = "";
 
-    // 메모
+    // 거래 내역에 저장할 메모
     var memo = "memo-nodejs";
 
     easyFinBankService.saveMemo(

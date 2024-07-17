@@ -328,7 +328,7 @@ router.get("/SendATS_one", function (req, res, next) {
     //         t: "WL",                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
     //         u1: "https://www.popbill.com", //[앱링크-iOS, 웹링크-Mobile]
     //         u2: "http://www.popbill.com",  //[앱링크-Android, 웹링크-PC URL]
-    //         tg: "out" // 웹링크 브라우저 (기본값 : 카카오톡 인앱 브라우저)
+    //         tg: "out" // 디바이스 기본 브라우저 (기본값 : 카카오톡 인앱 브라우저)
     //     }
     // ];
 
@@ -420,7 +420,7 @@ router.get("/SendATS_multi", function (req, res, next) {
                 t: "WL", //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
                 u1: "https://www.popbill.com", //[앱링크-iOS, 웹링크-Mobile]
                 u2: "http://www.popbill.com", //[앱링크-Android, 웹링크-PC URL]
-                tg: "out" // 웹링크 브라우저 (기본값 : 카카오톡 인앱 브라우저)
+                tg: "out" // 디바이스 기본 브라우저 (기본값 : 카카오톡 인앱 브라우저)
             },
         ],
     });
@@ -443,7 +443,7 @@ router.get("/SendATS_multi", function (req, res, next) {
     //         t: "WL",                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
     //         u1: "https://www.popbill.com", //[앱링크-iOS, 웹링크-Mobile]
     //         u2: "http://www.popbill.com"  //[앱링크-Android, 웹링크-PC URL]
-    //         tg: "out" // 웹링크 브라우저 (기본값 : 카카오톡 인앱 브라우저)
+    //         tg: "out" // 디바이스 기본 브라우저 (기본값 : 카카오톡 인앱 브라우저)
     //     }
     // ];
 
@@ -553,7 +553,7 @@ router.get("/SendATS_same", function (req, res, next) {
     //         t: "WL",                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
     //         u1: "https://www.popbill.com", //[앱링크-iOS, 웹링크-Mobile]
     //         u2: "http://www.popbill.com"  //[앱링크-Android, 웹링크-PC URL]
-    //         tg: "out" // 웹링크 브라우저 (기본값 : 카카오톡 인앱 브라우저)
+    //         tg: "out" // 디바이스 기본 브라우저 (기본값 : 카카오톡 인앱 브라우저)
     //     }
     // ];
 
@@ -619,7 +619,7 @@ router.get("/SendFTS_one", function (req, res, next) {
         "대체문자를 전송하고 싶지 않을 경우에는 null 을 입력해주세요.";
 
     // 대체문자 유형 (null , "C" , "A" 중 택 1)
-    // null = 미전송, C = 알림톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
+    // null = 미전송 (기본값), C = 알림톡과 동일 내용 전송 , A = 대체문자 내용(altContent)에 입력한 내용 전송
     var altSendType = "A";
 
     // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
@@ -959,7 +959,7 @@ router.get("/SendFMS_one", function (req, res, next) {
 
     // 첨부이미지 파일 경로
     // - 이미지 파일 규격: 전송 포맷 – JPG 파일 (.jpg, .jpeg), 용량 – 최대 500 Kbyte, 크기 – 가로 500px 이상, 가로 기준으로 세로 0.5~1.3배 비율 가능
-    var filePath = ["./fmsimage.jpg"];
+    var filePath = "./test.jpg";
 
     // [배열] 버튼 목록 (최대 5개)
     var btns = [
@@ -1049,7 +1049,7 @@ router.get("/SendFMS_multi", function (req, res, next) {
 
     // 첨부이미지 파일 경로
     // - 이미지 파일 규격: 전송 포맷 – JPG 파일 (.jpg, .jpeg), 용량 – 최대 500 Kbyte, 크기 – 가로 500px 이상, 가로 기준으로 세로 0.5~1.3배 비율 가능
-    var filePath = ["./fmsimage.jpg"];
+    var filePath = "./fmsimage.jpg";
 
     // [배열] 친구톡 전송정보 (최대 1000개)
     var msgs = [];

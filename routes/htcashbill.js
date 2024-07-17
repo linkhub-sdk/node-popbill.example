@@ -1018,13 +1018,10 @@ router.get("/UpdateContact", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 팝빌회원 아이디
-    var UserID = "testkorea";
-
     // 담당자 정보 항목
     var ContactInfo = {
         // 담당자 아이디 (6자 이상 50자 이하)
-        id: UserID,
+        id: "testkorea",
 
         // 담당자명 (최대 100자)
         personName: "담당자명0309",
@@ -1038,6 +1035,9 @@ router.get("/UpdateContact", function (req, res, next) {
         // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
+
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
 
     htCashbillService.updateContact(
         CorpNum,

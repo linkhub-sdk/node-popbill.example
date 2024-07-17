@@ -130,7 +130,7 @@ router.get("/SendSMS", function (req, res, next) {
     var sendName = "발신자명";
 
     // 수신번호
-    var receiveNum = "010149450724";
+    var receiveNum = "01012341234";
 
     // 수신자명
     var receiveName = "수신자명";

@@ -274,10 +274,8 @@ router.get("/GetUnitCost", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-
     closedownService.getUnitCost(
         CorpNum,
-        UserID,
         function (unitCost) {
             res.render("result", {
                 path: req.path,

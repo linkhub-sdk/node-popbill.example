@@ -1778,7 +1778,7 @@ router.get("/GetRefundHistory", function (req, res, next) {
         CorpNum,
         Page,
         PerPage,
-        // UserID,
+        UserID,
         function (result) {
             res.render("Base/RefundHistoryResult", {
                 path: req.path,
