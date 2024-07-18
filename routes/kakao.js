@@ -420,7 +420,7 @@ router.get("/SendATS_multi", function (req, res, next) {
                 t: "WL", //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
                 u1: "https://www.popbill.com", //[앱링크-iOS, 웹링크-Mobile]
                 u2: "http://www.popbill.com", //[앱링크-Android, 웹링크-PC URL]
-                tg: "out" // 디바이스 기본 브라우저 (기본값 : 카카오톡 인앱 브라우저)
+                tg: "out" // 디바이스 기본 브라우저 사용 (공백(기본값) : 카카오톡 인앱 브라우저 사용)
             },
         ],
     });
@@ -443,7 +443,7 @@ router.get("/SendATS_multi", function (req, res, next) {
     //         t: "WL",                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
     //         u1: "https://www.popbill.com", //[앱링크-iOS, 웹링크-Mobile]
     //         u2: "http://www.popbill.com"  //[앱링크-Android, 웹링크-PC URL]
-    //         tg: "out" // 디바이스 기본 브라우저 (기본값 : 카카오톡 인앱 브라우저)
+    //         tg: "out" // 디바이스 기본 브라우저 사용 (공백(기본값) : 카카오톡 인앱 브라우저 사용)
     //     }
     // ];
 
@@ -553,7 +553,7 @@ router.get("/SendATS_same", function (req, res, next) {
     //         t: "WL",                      //버튼유형 [WL-웹링크, AL-앱링크, MD-메시지전달, BK-봇키워드]
     //         u1: "https://www.popbill.com", //[앱링크-iOS, 웹링크-Mobile]
     //         u2: "http://www.popbill.com"  //[앱링크-Android, 웹링크-PC URL]
-    //         tg: "out" // 디바이스 기본 브라우저 (기본값 : 카카오톡 인앱 브라우저)
+    //         tg: "out" // 디바이스 기본 브라우저 사용 (공백(기본값) : 카카오톡 인앱 브라우저 사용)
     //     }
     // ];
 
