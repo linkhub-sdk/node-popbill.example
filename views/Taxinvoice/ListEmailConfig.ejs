@@ -17,9 +17,6 @@
                 <%
                 result.forEach(function(emailConfig, index){
                 %>
-                    <% if(emailConfig.emailType === "TAX_ISSUE") { %>
-                        <li>[정발행] <%= emailConfig.emailType %> (공급받는자에게 전자세금계산서 발행 메일 전송 여부) : <%= emailConfig.sendYN %></li>
-                    <% } %>
                     <% if(emailConfig.emailType === "TAX_ISSUE_INVOICER") { %>
                         <li>[정발행] <%= emailConfig.emailType %> (공급자에게 전자세금계산서 발행 메일 전송 여부) : <%= emailConfig.sendYN %></li>
                     <% } %>
@@ -37,6 +34,9 @@
                     <% } %>
                     <% if(emailConfig.emailType === "TAX_REFUSE") { %>
                         <li>[역발행] <%= emailConfig.emailType %> (공급받는자에게 세금계산서 거부 메일 전송 여부) : <%= emailConfig.sendYN %></li>
+                    <% } %>
+                    <% if(emailConfig.emailType === "TAX_REVERSE_ISSUE") { %>
+                        <li>[역발행] <%= emailConfig.emailType %> (공급받는자에게 세금계산서 발행 메일 전송 여부) : <%= emailConfig.sendYN %></li>
                     <% } %>
                     <% if(emailConfig.emailType === "TAX_TRUST_ISSUE") { %>
                         <li>[위수탁발행] <%= emailConfig.emailType %> (공급받는자에게 전자세금계산서 발행 메일 전송 여부) : <%= emailConfig.sendYN %></li>
