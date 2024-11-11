@@ -2898,7 +2898,9 @@ router.get("/ListEmailConfig", function (req, res, next) {
 /**
  * 세금계산서 관련 메일 항목에 대한 발송설정을 수정합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#UpdateEmailConfig
+ * 
  * 메일전송유형
+ * 
  * [정발행]
  * TAX_ISSUE_INVOICER : 공급자에게 전자세금계산서 발행 사실을 안내하는 메일
  * TAX_CHECK : 공공급자에게 전자세금계산서 수신확인 사실을 안내하는 메일
@@ -2918,7 +2920,7 @@ router.get("/ListEmailConfig", function (req, res, next) {
  * TAX_TRUST_CANCEL_ISSUE_INVOICER : 공급자에게 전자세금계산서 발행취소 사실을 안내하는 메일
  *
  * [처리결과]
- * TAX_CLOSEDOWN : 거래처의 휴폐업 여부를 확인하여 안내하는 메일
+ * TAX_CLOSEDOWN : 거래처의 사업자등록상태(휴폐업)를 확인하여 안내하는 메일
  * TAX_NTSFAIL_INVOICER : 전자세금계산서 국세청 전송실패를 안내하는 메일
  *
  * [정기발송]

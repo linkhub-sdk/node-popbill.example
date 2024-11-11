@@ -7,8 +7,8 @@
   *
   * <테스트 연동개발 준비사항>
   * 1) 홈택스 로그인 인증정보를 등록합니다. (부서사용자등록 / 공동인증서 등록)
-  *    - 팝빌로그인 > [홈택스연동] > [환경설정] > [인증 관리] 메뉴
-  *    - 홈택스연동 인증 관리 팝업 URL(GetCertificatePopUpURL API) 반환된 URL을 이용하여
+  *    - 팝빌로그인 > [홈택스수집] > [환경설정] > [인증 관리] 메뉴
+  *    - 홈택스수집 인증 관리 팝업 URL(GetCertificatePopUpURL API) 반환된 URL을 이용하여
   *      홈택스 인증 처리를 합니다.
   */
 var express = require("express");
@@ -226,7 +226,7 @@ router.get("/Summary", function (req, res, next) {
 });
 
 /**
- * 홈택스연동 인증정보를 관리하는 페이지의 팝업 URL을 반환합니다.
+ * 홈택스수집 인증정보를 관리하는 페이지의 팝업 URL을 반환합니다.
  * - 인증방식에는 부서사용자/공인인증서 인증 방식이 있습니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/htcashbill/node/api/cert#GetCertificatePopUpURL
@@ -258,7 +258,7 @@ router.get("/GetCertificatePopUpURL", function (req, res, next) {
 });
 
 /**
- * 홈택스연동 인증을 위해 팝빌에 등록된 인증서 만료일자를 확인합니다.
+ * 홈택스수집 인증을 위해 팝빌에 등록된 인증서 만료일자를 확인합니다.
  * - https://developers.popbill.com/reference/htcashbill/node/api/cert#GetCertificateExpireDate
  */
 router.get("/GetCertificateExpireDate", function (req, res, next) {
@@ -311,7 +311,7 @@ router.get("/CheckCertValidation", function (req, res, next) {
 });
 
 /**
- * 홈택스연동 인증을 위해 팝빌에 현금영수증 자료조회 부서사용자 계정을 등록합니다.
+ * 홈택스수집 인증을 위해 팝빌에 현금영수증 자료조회 부서사용자 계정을 등록합니다.
  * - https://developers.popbill.com/reference/htcashbill/node/api/cert#RegistDeptUser
  */
 router.get("/RegistDeptUser", function (req, res, next) {
@@ -346,7 +346,7 @@ router.get("/RegistDeptUser", function (req, res, next) {
 });
 
 /**
- * 홈택스연동 인증을 위해 팝빌에 등록된 현금영수증 자료조회 부서사용자 계정을 확인합니다.
+ * 홈택스수집 인증을 위해 팝빌에 등록된 현금영수증 자료조회 부서사용자 계정을 확인합니다.
  * - https://developers.popbill.com/reference/htcashbill/node/api/cert#CheckDeptUser
  */
 router.get("/CheckDeptUser", function (req, res, next) {
@@ -427,7 +427,7 @@ router.get("/DeleteDeptUser", function (req, res, next) {
 });
 
 /**
- * 홈택스연동 정액제 서비스 신청 페이지의 팝업 URL을 반환합니다.
+ * 홈택스수집 정액제 서비스 신청 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetFlatRatePopUpURL
  */
@@ -458,7 +458,7 @@ router.get("/GetFlatRatePopUpURL", function (req, res, next) {
 });
 
 /**
- * 홈택스연동 정액제 서비스 상태를 확인합니다.
+ * 홈택스수집 정액제 서비스 상태를 확인합니다.
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetFlatRateState
  */
 router.get("/GetFlatRateState", function (req, res, next) {
@@ -660,7 +660,7 @@ router.get("/GetPartnerURL", function (req, res, next) {
 });
 
 /**
- * 팝빌 홈택스연동(현금) API 서비스 과금정보를 확인합니다.
+ * 팝빌 홈택스수집(현금) API 서비스 과금정보를 확인합니다.
  * - https://developers.popbill.com/reference/htcashbill/node/api/point#GetChargeInfo
  */
 router.get("/GetChargeInfo", function (req, res, next) {

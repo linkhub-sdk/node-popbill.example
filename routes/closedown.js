@@ -1,5 +1,5 @@
 /**
-  * 팝빌 휴폐업조회 API Node SDK Example
+  * 팝빌 사업자등록상태조회 (휴폐업조회) API Node SDK Example
   *
   * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/closedown/node/getting-started/tutorial
   * 연동 기술지원 연락처 : 1600-9854
@@ -11,7 +11,7 @@ var router = express.Router();
 var popbill = require("popbill");
 
 /**
- * 휴폐업조회 API 모듈초기화
+ * 사업자등록상태조회 (휴폐업조회) API 모듈초기화
  */
 var closedownService = popbill.ClosedownService();
 
@@ -23,7 +23,7 @@ router.get("/", function (req, res, next) {
 });
 
 /**
- * 사업자번호 1건에 대한 휴폐업정보를 확인합니다.
+ * 사업자번호 1건에 대한 사업자등록상태조회 (휴폐업정보) 를 확인합니다.
  * - https://developers.popbill.com/reference/closedown/node/api/check#CheckCorpNum
  */
 router.get("/CheckCorpNum", function (req, res, next) {
@@ -61,7 +61,7 @@ router.get("/CheckCorpNum", function (req, res, next) {
 });
 
 /**
- * 다수건의 사업자번호에 대한 휴폐업정보를 확인합니다. (최대 1,000건)
+ * 다수건의 사업자번호에 대한 사업자등록상태조회 (휴폐업정보) 를 확인합니다. (최대 1,000건)
  * - https://developers.popbill.com/reference/closedown/node/api/check#CheckCorpNums
  */
 router.get("/CheckCorpNums", function (req, res, next) {
@@ -267,7 +267,7 @@ router.get("/GetPartnerURL", function (req, res, next) {
 });
 
 /**
- * 휴폐업 조회시 과금되는 포인트 단가를 확인합니다.
+ * 사업자등록상태 (휴폐업정보) 조회시 과금되는 포인트 단가를 확인합니다.
  * - https://developers.popbill.com/reference/closedown/node/api/point#GetUnitCost
  */
 router.get("/GetUnitCost", function (req, res, next) {
@@ -293,7 +293,7 @@ router.get("/GetUnitCost", function (req, res, next) {
 });
 
 /**
- * 휴폐업조회 API 서비스 과금정보를 확인합니다.
+ * 사업자등록상태조회 (휴폐업정보) API 서비스 과금정보를 확인합니다.
  * - https://developers.popbill.com/reference/closedown/node/api/point#GetChargeInfo
  */
 router.get("/GetChargeInfo", function (req, res, next) {
