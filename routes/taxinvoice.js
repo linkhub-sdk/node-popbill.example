@@ -2931,7 +2931,7 @@ router.get("/UpdateEmailConfig", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 메일 전송 유형
-    var emailType = "TAX_ISSUE";
+    var emailType = "TAX_ISSUE_INVOICER";
 
     // 전송 여부 (true = 전송, false = 미전송)
     var sendYN = true;
