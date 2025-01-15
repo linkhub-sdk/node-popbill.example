@@ -33,7 +33,7 @@ router.get("/CheckAccountInfo", function (req, res, next) {
     // 기관코드
     var bankCode = "";
 
-    // 계좌번호 (하이픈 "-" 제외 8자리 이상 14자리 이하)
+    // 계좌번호 (하이픈 "-" 제외 7자리 이상 14자리 이하)
     var accountNumber = "";
 
     accountCheckService.checkAccountInfo(
@@ -67,7 +67,7 @@ router.get("/CheckDepositorInfo", function (req, res, next) {
     // 기관코드
     var bankCode = "";
 
-    // 계좌번호 (하이픈 "-" 제외 8자리 이상 14자리 이하)
+    // 계좌번호 (하이픈 "-" 제외 7자리 이상 14자리 이하)
     var accountNumber = "";
 
     // 등록번호 유형 ( P / B 중 택 1 ,  P = 개인, B = 사업자)

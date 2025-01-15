@@ -944,6 +944,8 @@ router.get("/Search", function (req, res, next) {
     // 페이지당 표시할 목록 개수 (기본값 500, 최대 1,000)
     var PerPage = 10;
 
+    var UserID = "testkorea";
+
     statementService.search(
         CorpNum,
         DType,
@@ -955,6 +957,7 @@ router.get("/Search", function (req, res, next) {
         Order,
         Page,
         PerPage,
+        UserID,
         function (result) {
             res.render("Statement/Search", {
                 path: req.path,
