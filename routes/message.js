@@ -943,12 +943,12 @@ router.get("/Search", function (req, res, next) {
     // - 미입력 시 전체조회
     var Item = ["SMS", "LMS", "MMS"];
 
-    // 예약여부 (false , true 중 택 1)
-    // └ false = 전체조회, true = 예약전송건 조회
-    // - 미입력시 기본값 false 처리
+    // 예약여부 (null, false, true 중 택 1)
+    // └ null = 전체조회, false = 즉시전송건 조회, true = 예약전송건 조회
+    // - 미입력 시 전체조회
     var ReserveYN = false;
 
-    // 개인조회 여부 (false , true 중 택 1)
+    // 개인조회 여부 (false, true 중 택 1)
     // └ false = 접수한 문자 전체 조회 (관리자권한)
     // └ true = 해당 담당자 계정으로 접수한 문자만 조회 (개인권한)
     // - 미입력시 기본값 false 처리
