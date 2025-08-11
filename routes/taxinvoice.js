@@ -5,16 +5,12 @@
   * 연동 기술지원 연락처 : 1600-9854
   * 연동 기술지원 이메일 : code@linkhubcorp.com
   *
-  * <테스트 연동개발 준비사항>
-  * 1) 전자세금계산서 인증서 등록
-  *    - 전자세금계산서 발행을 위해 공인인증서를 등록합니다.
-  *    - 팝빌사이트 로그인 > [전자세금계산서] > [환경설정] > [공인인증서 관리]
-  *    - 공인인증서 등록 팝업 URL (GetTaxCertURL API)을 이용하여 등록
   */
 var express = require("express");
 var router = express.Router();
 var popbill = require("popbill");
 var fs = require("fs");
+var https = require("https");
 
 /**
  * 전자세금계산서 API 모듈 초기화
@@ -2536,6 +2532,84 @@ router.get("/AttachFile", function (req, res, next) {
 });
 
 /**
+ * "임시저장" 상태의 세금계산서에 1개의 파일을 첨부합니다. (최대 5개)
+ * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#AttachFileBinary
+ */
+router.get("/AttachFileBinary", function (req, res, next) {
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
+
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
+
+    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    var keyType = popbill.MgtKeyType.SELL;
+
+    // 문서번호
+    var mgtKey = "20250811-01";
+
+    var targeturl = "https://d17ecin4ilxxme.cloudfront.net/popbill_test/pdfs/%ED%8C%9D%EB%B9%8C%20%ED%9C%B4%ED%8F%90%EC%97%85%EC%A1%B0%ED%9A%8C%20%EC%A0%9C%EC%95%88%EC%84%9C.pdf";
+
+    https
+        .get(targeturl, function (response) {
+            var data = [];
+            response
+                .on("data", function (chunk) {
+                    data.push(chunk);
+                })
+                .on("end", function () {
+                    if (response.statusCode === 200) {
+                        var binary = Buffer.concat(data);
+
+                        // Binary 파일정보 배열, 전송개수 촤대 20개
+                        var BinaryFiles = {
+                            // 파일명
+                            fileName: "test.pdf",
+                            // 파일데이터
+                            fileData: binary,
+                        };
+
+                  taxinvoiceService.attachFileBinary(
+                      CorpNum,
+                      keyType,
+                      mgtKey,
+                      BinaryFiles,
+                      UserID,
+                      function (result) {
+                          res.render("response", {
+                              path: req.path,
+                              code: result.code,
+                              message: result.message,
+                          });
+                      },
+                      function (Error) {
+                          res.render("response", {
+                              path: req.path,
+                              code: Error.code,
+                              message: Error.message,
+                          });
+                      }
+                  );
+                } else {
+                    res.render("response", {
+                        path: req.path,
+                        code: -99999999,
+                        message: response.statusCode,
+                    });
+                }
+            });
+    })
+    .on("error", function (err) {
+        res.render("response", {
+            path: req.path,
+            code: -99999999,
+            message: err.message,
+        });
+    });
+});
+
+
+/**
  * "임시저장" 상태의 세금계산서에 첨부된 1개의 파일을 삭제합니다.
  * - 파일을 식별하는 파일아이디는 첨부파일 목록(GetFiles API) 의 응답항목 중 파일아이디(AttachedFile) 값을 통해 확인할 수 있습니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#DeleteFile
@@ -2898,9 +2972,9 @@ router.get("/ListEmailConfig", function (req, res, next) {
 /**
  * 세금계산서 관련 메일 항목에 대한 발송설정을 수정합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#UpdateEmailConfig
- * 
+ *
  * 메일전송유형
- * 
+ *
  * [정발행]
  * TAX_ISSUE_INVOICER : 공급자에게 전자세금계산서 발행 사실을 안내하는 메일
  * TAX_CHECK : 공공급자에게 전자세금계산서 수신확인 사실을 안내하는 메일

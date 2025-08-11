@@ -9,6 +9,8 @@
 var express = require("express");
 var router = express.Router();
 var popbill = require("popbill");
+var https = require("https");
+
 
 /**
  * 전자명세서 API 모듈 초기화
@@ -1380,6 +1382,84 @@ router.get("/AttachFile", function (req, res, next) {
             });
         }
     );
+});
+
+/**
+ * "임시저장" 상태의 명세서에 1개의 파일을 첨부합니다. (최대 5개)
+ * - https://developers.popbill.com/reference/statement/node/api/etc#AttachFileBinary
+ */
+router.get("/AttachFileBinary", function (req, res, next) {
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
+
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
+
+    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    var itemCode = 121;
+
+    // 문서번호
+    var mgtKey = "20250811-01";
+
+
+    var targeturl = "https://d17ecin4ilxxme.cloudfront.net/popbill_test/pdfs/%ED%8C%9D%EB%B9%8C%20%ED%9C%B4%ED%8F%90%EC%97%85%EC%A1%B0%ED%9A%8C%20%EC%A0%9C%EC%95%88%EC%84%9C.pdf";
+
+    https
+        .get(targeturl, function (response) {
+            var data = [];
+            response
+                .on("data", function (chunk) {
+                    data.push(chunk);
+                })
+                .on("end", function () {
+                    if (response.statusCode === 200) {
+                        var binary = Buffer.concat(data);
+
+                        // Binary 파일정보 배열, 전송개수 촤대 20개
+                        var BinaryFiles = {
+                            // 파일명
+                            fileName: "test.pdf",
+                            // 파일데이터
+                            fileData: binary,
+                        };
+
+                  statementService.attachFileBinary(
+                      CorpNum,
+                      itemCode,
+                      mgtKey,
+                      BinaryFiles,
+                      UserID,
+                      function (result) {
+                          res.render("response", {
+                              path: req.path,
+                              code: result.code,
+                              message: result.message,
+                          });
+                      },
+                      function (Error) {
+                          res.render("response", {
+                              path: req.path,
+                              code: Error.code,
+                              message: Error.message,
+                          });
+                      }
+                  );
+                } else {
+                    res.render("response", {
+                        path: req.path,
+                        code: -99999999,
+                        message: response.statusCode,
+                    });
+                }
+            });
+    })
+    .on("error", function (err) {
+        res.render("response", {
+            path: req.path,
+            code: -99999999,
+            message: err.message,
+        });
+    });
 });
 
 /**
