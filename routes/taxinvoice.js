@@ -2429,7 +2429,7 @@ router.get("/GetPDFURL", function (req, res, next) {
 /**
  * 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/member#GetAccessURL
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#GetAccessURL
  */
 router.get("/GetAccessURL", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3172,7 +3172,7 @@ router.get("/GetTaxCertInfo", function (req, res, next) {
 
 /**
  * 연동회원의 잔여포인트를 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetBalance
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetBalance
  */
 router.get("/GetBalance", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3199,7 +3199,7 @@ router.get("/GetBalance", function (req, res, next) {
 /**
  * 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetChargeURL
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetChargeURL
  */
 router.get("/GetChargeURL", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3230,7 +3230,7 @@ router.get("/GetChargeURL", function (req, res, next) {
 /**
  * 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetPaymentURL
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetPaymentURL
  */
 router.get("/GetPaymentURL", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3261,7 +3261,7 @@ router.get("/GetPaymentURL", function (req, res, next) {
 /**
  * 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetUseHistoryURL
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetUseHistoryURL
  */
 router.get("/GetUseHistoryURL", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3291,7 +3291,7 @@ router.get("/GetUseHistoryURL", function (req, res, next) {
 
 /**
  * 파트너의 잔여포인트를 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetPartnerBalance
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetPartnerBalance
  */
 router.get("/GetPartnerBalance", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3318,7 +3318,7 @@ router.get("/GetPartnerBalance", function (req, res, next) {
 /**
  * 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
  * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetPartnerURL
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetPartnerURL
  */
 router.get("/GetPartnerURL", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3348,7 +3348,7 @@ router.get("/GetPartnerURL", function (req, res, next) {
 
 /**
  * 전자세금계산서 발행단가를 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetUnitCost
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetUnitCost
  */
 router.get("/GetUnitCost", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3374,7 +3374,7 @@ router.get("/GetUnitCost", function (req, res, next) {
 
 /**
  * 팝빌 전자세금계산서 API 서비스 과금정보를 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetChargeInfo
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetChargeInfo
  */
 router.get("/GetChargeInfo", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3400,7 +3400,7 @@ router.get("/GetChargeInfo", function (req, res, next) {
 
 /**
  * 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/member#CheckIsMember
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#CheckIsMember
  */
 router.get("/CheckIsMember", function (req, res, next) {
     // 조회할 사업자번호, "-" 제외 10자리
@@ -3427,7 +3427,7 @@ router.get("/CheckIsMember", function (req, res, next) {
 
 /**
  * 사용하고자 하는 아이디의 중복여부를 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/member#CheckID
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#CheckID
  */
 router.get("/CheckID", function (req, res, next) {
     // 중복여부를 확인할 아이디
@@ -3454,7 +3454,7 @@ router.get("/CheckID", function (req, res, next) {
 
 /**
  * 사용자를 연동회원으로 가입처리합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/member#JoinMember
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#JoinMember
  */
 router.get("/JoinMember", function (req, res, next) {
     // 회원정보
@@ -3517,7 +3517,7 @@ router.get("/JoinMember", function (req, res, next) {
 
 /**
  * 연동회원의 회사정보를 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/member#GetCorpInfo
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#GetCorpInfo
  */
 router.get("/GetCorpInfo", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3543,7 +3543,7 @@ router.get("/GetCorpInfo", function (req, res, next) {
 
 /**
  * 연동회원의 회사정보를 수정합니다
- * - https://developers.popbill.com/reference/taxinvoice/node/api/member#UpdateCorpInfo
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#UpdateCorpInfo
  */
 router.get("/UpdateCorpInfo", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3589,7 +3589,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
 
 /**
  * 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/member#RegistContact
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#RegistContact
  */
 router.get("/RegistContact", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3598,7 +3598,7 @@ router.get("/RegistContact", function (req, res, next) {
     // 담당자 정보
     var ContactInfo = {
         // 아이디 (6자 이상 50자 미만)
-        id: "testkorea03033",
+        id: "testkorea20250811_01",
 
         // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
         Password: "asdf8536!@#",
@@ -3637,8 +3637,46 @@ router.get("/RegistContact", function (req, res, next) {
 });
 
 /**
+ * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정)를 삭제합니다.
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#DeleteContact
+ */
+router.get("/DeleteContact", function (req, res, next) {
+    // 팝빌회원 사업자번호, "-" 제외 10자리
+    var CorpNum = "1234567890";
+
+    // 삭제할 담당자 아이디
+    var TargetUserID = "testkorea20250811_01";
+
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
+
+
+
+    taxinvoiceService.deleteContact(
+        CorpNum,
+        TargetUserID,
+        UserID,
+        function (result) {
+            res.render("response", {
+                path: req.path,
+                code: result.code,
+                message: result.message,
+            });
+        },
+        function (Error) {
+            res.render("response", {
+                path: req.path,
+                code: Error.code,
+                message: Error.message,
+            });
+        }
+    );
+});
+
+
+/**
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/member#UpdateContact
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#UpdateContact
  */
 router.get("/UpdateContact", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3688,7 +3726,7 @@ router.get("/UpdateContact", function (req, res, next) {
 
 /**
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보을 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/member#GetContactInfo
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#GetContactInfo
  */
 router.get("/GetContactInfo", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3718,7 +3756,7 @@ router.get("/GetContactInfo", function (req, res, next) {
 
 /**
  * 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/member#ListContact
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#ListContact
  */
 router.get("/ListContact", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3744,7 +3782,7 @@ router.get("/ListContact", function (req, res, next) {
 
 /**
  * 연동회원 포인트 충전을 위해 무통장입금을 신청합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#PaymentRequest
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#PaymentRequest
  */
 router.get("/PaymentRequest", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3793,7 +3831,7 @@ router.get("/PaymentRequest", function (req, res, next) {
 
 /**
  * 연동회원 포인트 무통장 입금신청내역 1건을 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetSettleResult
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetSettleResult
  */
 router.get("/GetSettleResult", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3827,7 +3865,7 @@ router.get("/GetSettleResult", function (req, res, next) {
 
 /**
  * 연동회원의 포인트 결제내역을 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetPaymentHistory
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetPaymentHistory
  */
 router.get("/GetPaymentHistory", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3873,7 +3911,7 @@ router.get("/GetPaymentHistory", function (req, res, next) {
 
 /**
  * 연동회원의 포인트 사용내역을 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetUseHistory
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetUseHistory
  */
 router.get("/GetUseHistory", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3923,7 +3961,7 @@ router.get("/GetUseHistory", function (req, res, next) {
 
 /**
  * 연동회원 포인트를 환불 신청합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#Refund
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#Refund
  */
 router.get("/Refund", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -3980,7 +4018,7 @@ router.get("/Refund", function (req, res, next) {
 
 /**
  * 연동회원의 포인트 환불신청내역을 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetRefundHistory
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetRefundHistory
  */
 router.get("/GetRefundHistory", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -4021,7 +4059,7 @@ router.get("/GetRefundHistory", function (req, res, next) {
  * - 회원탈퇴 신청과 동시에 팝빌의 모든 서비스 이용이 불가하며, 관리자를 포함한 모든 담당자 계정도 일괄탈퇴 됩니다.
  * - 회원탈퇴로 삭제된 데이터는 복원이 불가능합니다.
  * - 관리자 계정만 회원탈퇴가 가능합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/member#QuitMember
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#QuitMember
  */
 router.get("/QuitMember", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -4056,7 +4094,7 @@ router.get("/QuitMember", function (req, res, next) {
 
 /**
  * 환불 가능한 포인트를 확인합니다. (보너스 포인트는 환불가능포인트에서 제외됩니다.)
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetRefundableBalance
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetRefundableBalance
  */
 router.get("/GetRefundableBalance", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -4086,7 +4124,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
 
 /**
  * 포인트 환불에 대한 상세정보 1건을 확인합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/point#GetRefundInfo
+ * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetRefundInfo
  */
 router.get("/GetRefundInfo", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
