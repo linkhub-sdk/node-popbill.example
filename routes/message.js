@@ -124,13 +124,13 @@ router.get("/SendSMS", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호
-    var sendNum = "15997709";
+    var sendNum = "";
 
     // 발신자명
     var sendName = "발신자명";
 
     // 수신번호
-    var receiveNum = "01012341234";
+    var receiveNum = "";
 
     // 수신자명
     var receiveName = "수신자명";
@@ -139,7 +139,7 @@ router.get("/SendSMS", function (req, res, next) {
     var contents = "SMS 단건전송 메시지 테스트";
 
     // 예약전송일시(yyyyMMddHHmmss), null인 경우 즉시전송
-    var reserveDT = "20240508132300";
+    var reserveDT = "";
 
     // 광고성 메시지 여부 ( true , false 중 택 1)
     // └ true = 광고 , false = 일반
@@ -188,7 +188,7 @@ router.get("/SendSMS_multi", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호(동보전송용)
-    var sendNum = "15997709";
+    var sendNum = "";
 
     // 메시지 내용(동보전송용), 90Byte 초과시 길이가 조정되어 전송
     var contents = "동보전송 메시지";
@@ -204,18 +204,18 @@ router.get("/SendSMS_multi", function (req, res, next) {
     // 개별전송정보 배열, 최대 1000건
     var Messages = [
         {
-            Sender: "15997709", // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
+            Sender: "", // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
             SenderName: "발신자명01", // 발신자명
-            Receiver: "01012341234", // 수신번호
+            Receiver: "", // 수신번호
             ReceiverName: "수신자명1", // 수신자명
             Contents: "문자 메시지 내용1", // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
             // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
             interOPRefKey: "20220629-SMS001", // 파트너 지정키, 수신자 구별용 메모
         },
         {
-            Sender: "15997709", // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
+            Sender: "", // 발신번호, 개별전송정보 배열에 발신자번호(Sender)가 없는 경우 동보전송 발신번호로 전송
             SenderName: "발신자명02", // 발신자명
-            Receiver: "01012341234", // 수신번호
+            Receiver: "", // 수신번호
             ReceiverName: "수신자명2", // 수신자명
             Contents: "문자 메시지 내용2", // 메시지 내용, 90Byte 초과시 길이가 조정되어 전송
             // 개벌전송정보 배열에 메시지내용(Contents)이 없는경우 동보전송 메시지내용로 전송
@@ -226,7 +226,7 @@ router.get("/SendSMS_multi", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20211z122asdf234516";
+    var requestNum = "";
 
     // 발신자명
     // 동보전송의 경우 사용
@@ -267,13 +267,13 @@ router.get("/SendLMS", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호
-    var sendNum = "15997709";
+    var sendNum = "";
 
     // 발신자명
     var sendName = "발신자명";
 
     // 수신번호
-    var receiveNum = "01012341234";
+    var receiveNum = "";
 
     // 수신자명
     var receiveName = "수신자명";
@@ -295,7 +295,7 @@ router.get("/SendLMS", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "202aa1221123456";
+    var requestNum = "";
 
     messageService.sendLMS(
         CorpNum,
@@ -335,7 +335,7 @@ router.get("/SendLMS_multi", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호
-    var sendNum = "15997709";
+    var sendNum = "";
 
     // 메시지 제목
     var subject = "장문 메시지 제목";
@@ -356,7 +356,7 @@ router.get("/SendLMS_multi", function (req, res, next) {
         {
             Sender: "", // 발신번호, 개별전송정보 배열에 발신자번호(Sender) 항목이 없는 경우 동보전송 발신번호로 전송
             SenderName: "발신자명1", // 발신자명
-            Receiver: "01012341234", // 수신번호
+            Receiver: "", // 수신번호
             ReceiverName: "수신자명1", // 수신자명
             Subject: "메시지 제목1", // 메시지 제목
             Contents: "문자 메시지 내용1", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송,
@@ -366,7 +366,7 @@ router.get("/SendLMS_multi", function (req, res, next) {
         {
             Sender: "", // 발신번호
             SenderName: "발신자명2", // 발신자명
-            Receiver: "01012341234", // 수신번호
+            Receiver: "", // 수신번호
             ReceiverName: "수신자명2", // 수신자명
             Subject: "메시지 제목2", // 메시지 제목, 2000Byte 초과시 길이가 조정되어 전송
             Contents:
@@ -378,7 +378,7 @@ router.get("/SendLMS_multi", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "df09dfasdlzzsd";
+    var requestNum = "";
 
     // 발신자명
     // 동보전송의 경우 사용
@@ -421,10 +421,10 @@ router.get("/SendMMS", function (req, res, next) {
     var CorpNum = "6798700433";
 
     // 발신번호
-    var sendNum = "15997709";
+    var sendNum = "";
 
     // 수신번호
-    var receiveNum = "01012341234";
+    var receiveNum = "";
 
     // 수신자명
     var receiveName = "수신자명";
@@ -494,7 +494,7 @@ router.get("/SendMMS_multi", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호(동보전송용)
-    var senderNum = "15997709";
+    var senderNum = "";
 
     // 메시지 제목(동보전송용)
     var subject = "장문 메시지 제목";
@@ -518,7 +518,7 @@ router.get("/SendMMS_multi", function (req, res, next) {
         {
             Sender: "", // 발신번호
             SenderName: "발신자명", // 발신자명
-            Receiver: "01012341234", // 수신번호
+            Receiver: "", // 수신번호
             ReceiverName: "수신자명",
             Subject: "MMS 테스트 제목1",
             Contents: "MMS 전송 테스트 내용1", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
@@ -527,7 +527,7 @@ router.get("/SendMMS_multi", function (req, res, next) {
         {
             Sender: "", // 발신번호
             SenderName: "발신자명", // 발신자명
-            Receiver: "01012341234", // 수신번호
+            Receiver: "", // 수신번호
             ReceiverName: "수신자명",
             Subject: "MMS 테스트 제목2",
             Contents: "MMS 전송 테스트 동해물과 백두산이 마르고 닳도록 하느님이 보호하사 우리나라만 무궁화 삼천리 화려강산 ", // 메시지 내용, 2000Byte 초과시 길이가 조정되어 전송
@@ -538,7 +538,7 @@ router.get("/SendMMS_multi", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "2022122ca1123456";
+    var requestNum = "";
 
     // 발신자명
     // 동보전송의 경우 사용
@@ -582,13 +582,13 @@ router.get("/SendXMS", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호
-    var sendNum = "15997709";
+    var sendNum = "";
 
     // 발신자명
     var sendName = "발신자명";
 
     // 수신번호
-    var receiveNum = "01012341234";
+    var receiveNum = "";
 
     // 수신자명
     var receiveName = "수신자명";
@@ -610,7 +610,7 @@ router.get("/SendXMS", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "202212221123456";
+    var requestNum = "";
 
     messageService.sendXMS(
         CorpNum,
@@ -651,7 +651,7 @@ router.get("/SendXMS_multi", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 발신번호(동보전송용)
-    var sendNum = "15997709";
+    var sendNum = "";
 
     // 메시지 제목(동보전송용)
     var subject = "자동인식 문자전송 제목";
@@ -670,18 +670,18 @@ router.get("/SendXMS_multi", function (req, res, next) {
     // 개별전송정보 배열, 최대 1000건
     var Messages = [
         {
-            Sender: "15997709", // 발신번호
+            Sender: "", // 발신번호
             SenderName: "발신자명01", // 발신자명
-            Receiver: "01012341234", // 수신번호
+            Receiver: "", // 수신번호
             ReceiverName: "수신자명", // 수신자명
             Subject: "메시지 제목1", // 메시지 제목
             Contents: "문자 메시지 내용1", // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
             interOPRefKey: "20220629-XMS001", // 파트너 지정키, 수신자 구별용 메모
         },
         {
-            Sender: "15997709", // 발신번호
+            Sender: "", // 발신번호
             SenderName: "발신자명02", // 발신자명
-            Receiver: "01012341234", // 수신번호
+            Receiver: "", // 수신번호
             ReceiverName: "수신자명", // 수신자명
             Subject: "메시지 제목2", // 메시지 제목
             // 메시지 내용, 90Byte 기준으로 SMS/LMS 자동인식되어 전송
@@ -805,7 +805,7 @@ router.get("/CancelReservebyRCV", function (req, res, next) {
     var receiptNum = "";
 
     // 문자전송 수신번호
-    var receiveNum = "01012341234";
+    var receiveNum = "";
 
     messageService.cancelReservebyRCV(
         CorpNum,
@@ -842,10 +842,10 @@ router.get("/CancelReserveRNbyRCV", function (req, res, next) {
     var UserID = "testkorea";
 
     // 문자전송 요청번호
-    var requestNum = "20221221123456";
+    var requestNum = "";
 
     // 문자전송 수신번호
-    var receiveNum = "01012341234";
+    var receiveNum = "";
 
     messageService.cancelReserveRNbyRCV(
         CorpNum,
@@ -942,10 +942,10 @@ router.get("/Search", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 검색시작일자, 날짜형식(yyyyMMdd)
-    var SDate = "20240716";
+    var SDate = "20250801";
 
     // 검색종료일자, 날짜형식(yyyyMMdd)
-    var EDate = "20240716";
+    var EDate = "20250831";
 
     // 전송상태 배열 ("1" , "2" , "3" , "4" 중 선택, 다중 선택 가능)
     // └ 1 = 대기 , 2 = 성공 , 3 = 실패 , 4 = 취소
@@ -1370,12 +1370,14 @@ router.get("/CheckID", function (req, res, next) {
  * - https://developers.popbill.com/reference/sms/node/common-api/member#JoinMember
  */
 router.get("/JoinMember", function (req, res, next) {
+
     // 회원정보
     var JoinForm = {
-        // 회원 아이디 (6자 이상 50자 미만)
+
+        // 아이디
         ID: "userid",
 
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        // 비밀번
         Password: "asdf8536!@#",
 
         // 링크아이디
@@ -1402,10 +1404,10 @@ router.get("/JoinMember", function (req, res, next) {
         // 담당자 성명 (최대 100자)
         ContactName: "담당자 성명",
 
-        // 담당자 이메일 (최대 20자)
+        // 담당자 메일 (최대 20자)
         ContactEmail: "",
 
-        // 담당자 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         ContactTEL: "",
     };
 
@@ -1471,22 +1473,22 @@ router.get("/RegistContact", function (req, res, next) {
 
     // 담당자 정보
     var ContactInfo = {
-        // 아이디 (6자 이상 50자 미만)
+        // 아이디
         id: "testkorea03033",
 
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        // 비밀번호
         Password: "asdf8536!@#",
 
-        // 담당자명 (최대 100자)
+        // 담당자 성명 (최대 100자)
         personName: "담당자명0309",
 
-        // 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         tel: "010-1234-1234",
 
-        // 이메일 (최대 100자)
+        // 담당자 메일 (최대 100자)
         email: "test@email.com",
 
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        // 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
 
@@ -1618,19 +1620,20 @@ router.get("/UpdateContact", function (req, res, next) {
 
     // 담당자 정보 항목
     var ContactInfo = {
-        // 담당자 아이디 (6자 이상 50자 이하)
+
+        // 아이디
         id: UserID,
 
-        // 담당자명 (최대 100자)
+        // 담당자 성명 (최대 100자)
         personName: "담당자명0309",
 
-        // 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         tel: "010-1234-1234",
 
-        // 이메일 (최대 100자)
+        // 담당자 메일 (최대 100자)
         email: "test@email.com",
 
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        // 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
 
@@ -1898,10 +1901,10 @@ router.get("/GetUseHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20240716";
+    var SDate = "20250801";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20240716";
+    var EDate = "20250831";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
