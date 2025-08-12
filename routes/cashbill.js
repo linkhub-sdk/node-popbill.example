@@ -64,29 +64,18 @@ router.get("/RegistIssue", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 팝빌회원 아이디
-    var UserID = "testkorea";
-
-    // 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = "20240508-node-101";
-
-    // 현금영수증 상태메모
-    var stateMemo = "발행메모";
-
-    // 발행안내메일 제목
-    // 미기재시 기본양식으로 전송
-    var emailSubject = "";
-
     // 현금영수증 항목
     var cashbill = {
+
         // 문서번호
-        mgtKey: MgtKey,
+        mgtKey: "20240508-node-101",
+
+        // 거래일시, 날짜(yyyyMMddHHmmss)
+        // 당일, 전일만 가능 미입력시 기본값 발행일시 처리
+        tradeDT: "",
 
         // 문서형태, 승인거래 기재
         tradeType: "승인거래",
-
-        // 과세형태 (과세, 비과세) 중 기재
-        taxationType: "과세",
 
         // 거래구분 (소득공제용, 지출증빙용) 중 기재
         tradeUsage: "소득공제용",
@@ -95,11 +84,20 @@ router.get("/RegistIssue", function (req, res, next) {
         // - 미입력시 기본값 "일반" 처리
         tradeOpt: "일반",
 
-        // 식별번호, 거래구분에 따라 작성
-        // └ 소득공제용 - 주민등록/휴대폰/카드번호(현금영수증 카드)/자진발급용 번호(010-000-1234) 기재가능
-        // └ 지출증빙용 - 사업자번호/주민등록/휴대폰/카드번호(현금영수증 카드) 기재가능
-        // └ 주민등록번호 13자리, 휴대폰번호 10~11자리, 카드번호 13~19자리, 사업자번호 10자리 입력 가능
-        identityNum: "0100001234",
+        // 과세형태 (과세, 비과세) 중 기재
+        taxationType: "과세",
+
+        // 거래금액 (공급가액 + 세액 + 봉사료)
+        totalAmount: "11000",
+
+        // 공급가액
+        supplyCost: "10000",
+
+        // 세액
+        tax: "1000",
+
+        // 봉사료
+        serviceFee: "0",
 
         // 가맹점 사업자번호
         franchiseCorpNum: CorpNum,
@@ -119,43 +117,45 @@ router.get("/RegistIssue", function (req, res, next) {
         // 가맹점 연락처
         franchiseTEL: "01012341234",
 
-        // 공급가액
-        supplyCost: "10000",
+        // 식별번호, 거래구분에 따라 작성
+        // └ 소득공제용 - 주민등록/휴대폰/카드번호(현금영수증 카드)/자진발급용 번호(010-000-1234) 기재가능
+        // └ 지출증빙용 - 사업자번호/주민등록/휴대폰/카드번호(현금영수증 카드) 기재가능
+        // └ 주민등록번호 13자리, 휴대폰번호 10~11자리, 카드번호 13~19자리, 사업자번호 10자리 입력 가능
+        identityNum: "0100001234",
 
-        // 세액
-        tax: "1000",
-
-        // 봉사료
-        serviceFee: "0",
-
-        // 거래금액 (공급가액 + 세액 + 봉사료)
-        totalAmount: "11000",
-
-        // 고객명
+        // 구매자 성명
         customerName: "고객명",
 
-        // 상품명
+        // 주문 상품명
         itemName: "상품명",
 
         // 주문번호
         orderNumber: "주문번호",
 
-        // 고객 메일주소
+        // 구매자 메일주소
         // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         email: "",
 
-        // 고객 핸드폰번호
+        // 구매자 휴대폰
         hp: "",
 
-        // 발행시 알림문자 전송여부
+        // 구매자 알림문자 전송여부
         // 문자전송시 포인트가 차감되며 전송실패시 환불처리됨.
         smssendYN: false,
 
-        // 거래일시, 날짜(yyyyMMddHHmmss)
-        // 당일, 전일만 가능 미입력시 기본값 발행일시 처리
-        tradeDT: "",
+
     };
+
+    // 현금영수증 상태메모
+    var stateMemo = "발행메모";
+
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
+
+    // 발행안내메일 제목
+    // 미기재시 기본양식으로 전송
+    var emailSubject = "";
 
     cashbillService.registIssue(
         CorpNum,
@@ -193,7 +193,7 @@ router.get("/BulkSubmit", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 제출 아이디
-    var submitID = "20240508_NODE_BULK02";
+    var submitID = "20250812_NODE_BULK02";
 
     // 현금영수증 객체정보 목록
     var cashbillList = [];
@@ -201,22 +201,16 @@ router.get("/BulkSubmit", function (req, res, next) {
     for (var i = 0; i < 5; i++) {
         // 현금영수증 항목
         var cashbill = {
+
             // 문서번호
             mgtKey: submitID + "-" + i,
 
-            // 문서형태, (승인거래, 취소거래) 중 기재
+            // 거래일시, 날짜(yyyyMMddHHmmss)
+            // 당일, 전일만 가능 미입력시 기본값 발행일시 처리
+            tradeDT: "",
+
+            // 문서형태, 승인거래 기재
             tradeType: "승인거래",
-
-            // // 당초 승인 현금영수증 국세청 승인번호
-            // // 취소 현금영수증 작성시 필수
-            // orgConfirmNum: "",
-            //
-            // // 당초 승인 현금영수증 거래일자
-            // // 취소 현금영수증 작성시 필수
-            // orgTradeDate: "",
-
-            // 과세형태 (과세, 비과세) 중 기재
-            taxationType: "과세",
 
             // 거래구분 (소득공제용, 지출증빙용) 중 기재
             tradeUsage: "소득공제용",
@@ -225,11 +219,20 @@ router.get("/BulkSubmit", function (req, res, next) {
             // - 미입력시 기본값 "일반" 처리
             tradeOpt: "일반",
 
-            // 식별번호, 거래구분에 따라 작성
-            // └ 소득공제용 - 주민등록/휴대폰/카드번호(현금영수증 카드)/자진발급용 번호(010-000-1234) 기재가능
-            // └ 지출증빙용 - 사업자번호/주민등록/휴대폰/카드번호(현금영수증 카드) 기재가능
-            // └ 주민등록번호 13자리, 휴대폰번호 10~11자리, 카드번호 13~19자리, 사업자번호 10자리 입력 가능
-            identityNum: "0100001234",
+            // 과세형태 (과세, 비과세) 중 기재
+            taxationType: "과세",
+
+            // 거래금액 (공급가액 + 세액 + 봉사료)
+            totalAmount: "11000",
+
+            // 공급가액
+            supplyCost: "10000",
+
+            // 세액
+            tax: "1000",
+
+            // 봉사료
+            serviceFee: "0",
 
             // 가맹점 사업자번호
             franchiseCorpNum: CorpNum,
@@ -247,44 +250,34 @@ router.get("/BulkSubmit", function (req, res, next) {
             franchiseAddr: "가맹점 주소",
 
             // 가맹점 연락처
-            franchiseTEL: "",
+            franchiseTEL: "01012341234",
 
-            // 공급가액
-            supplyCost: "10000",
+            // 식별번호, 거래구분에 따라 작성
+            // └ 소득공제용 - 주민등록/휴대폰/카드번호(현금영수증 카드)/자진발급용 번호(010-000-1234) 기재가능
+            // └ 지출증빙용 - 사업자번호/주민등록/휴대폰/카드번호(현금영수증 카드) 기재가능
+            // └ 주민등록번호 13자리, 휴대폰번호 10~11자리, 카드번호 13~19자리, 사업자번호 10자리 입력 가능
+            identityNum: "0100001234",
 
-            // 세액
-            tax: "1000",
-
-            // 봉사료
-            serviceFee: "0",
-
-            // 거래금액 (공급가액 + 세액 + 봉사료)
-            totalAmount: "11000",
-
-            // 고객명
+            // 구매자 성명
             customerName: "고객명",
 
-            // 상품명
+            // 주문 상품명
             itemName: "상품명",
 
             // 주문번호
             orderNumber: "주문번호",
 
-            // 고객 메일주소
+            // 구매자 메일주소
             // 팝빌 테스트 환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
             // 실제 거래처의 메일주소가 기재되지 않도록 주의
             email: "",
 
-            // 고객 핸드폰번호
+            // 구매자 휴대폰
             hp: "",
 
-            // 발행시 알림문자 전송여부
+            // 구매자 알림문자 전송여부
             // 문자전송시 포인트가 차감되며 전송실패시 환불처리됨.
             smssendYN: false,
-
-            // 거래일시, 날짜(yyyyMMddHHmmss)
-            // 당일, 전일만 가능 미입력시 기본값 발행일시 처리
-            tradeDT: "",
         };
 
         cashbillList.push(cashbill);
@@ -644,10 +637,10 @@ router.get("/Search", function (req, res, next) {
     var DType = "R";
 
     // 시작일자, 작성형식(yyyyMMdd)
-    var SDate = "20240716";
+    var SDate = "20250801";
 
     // 종료일자, 작성형식(yyyyMMdd)
-    var EDate = "20240716";
+    var EDate = "20250831";
 
     // 상태코드 배열 (2,3번째 자리에 와일드카드(*) 사용 가능)
     // - 미입력시 전체조회
@@ -1112,7 +1105,7 @@ router.get("/AssignMgtKey", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 현금영수증 팝빌번호, 문서 목록조회(Search API) 함수의 반환항목중 ItemKey 참조
+    // 팝빌 식별번호, 문서 목록조회(Search API) 함수의 반환항목중 ItemKey 참조
     var itemKey = "021021116561000001";
 
     // 할당할 문서번호, 숫자, 영문 "-", "_" 조합으로 최대 24자리 식별키 구성
@@ -1170,10 +1163,7 @@ router.get("/ListEmailConfig", function (req, res, next) {
 /**
  * 현금영수증 관련 메일 항목에 대한 발송설정을 수정합니다.
  * - https://developers.popbill.com/reference/cashbill/node/api/etc#UpdateEmailConfig
- *
- * 메일전송유형
- * CSH_ISSUE : 고객에게 현금영수증이 발행 되었음을 알려주는 메일 입니다.
- */
+  */
 router.get("/UpdateEmailConfig", function (req, res, next) {
 
     // 팝빌회원 사업자번호, "-" 제외 10자리
@@ -1473,6 +1463,7 @@ router.get("/CheckIsMember", function (req, res, next) {
  * - https://developers.popbill.com/reference/cashbill/node/common-api/member#CheckID
  */
 router.get("/CheckID", function (req, res, next) {
+
     // 중복여부를 확인할 아이디
     var ID = "testkorea";
 
@@ -1500,12 +1491,14 @@ router.get("/CheckID", function (req, res, next) {
  * - https://developers.popbill.com/reference/cashbill/node/common-api/member#JoinMember
  */
 router.get("/JoinMember", function (req, res, next) {
+
     // 회원정보
     var JoinForm = {
-        // 회원 아이디 (6자 이상 50자 미만)
+
+        // 회원 아이디
         ID: "userid",
 
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        // 비밀번호
         Password: "asdf8536!@#",
 
         // 링크아이디
@@ -1532,10 +1525,10 @@ router.get("/JoinMember", function (req, res, next) {
         // 담당자 성명 (최대 100자)
         ContactName: "담당자 성명",
 
-        // 담당자 이메일 (최대 20자)
+        // 담당자 메일 (최대 20자)
         ContactEmail: "",
 
-        // 담당자 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         ContactTEL: "",
     };
 
@@ -1596,6 +1589,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
 
     // 회사정보
     var CorpInfo = {
+
         // 대표자명 (최대 100자)
         ceoname: "대표자성명_nodejs",
 
@@ -1643,22 +1637,22 @@ router.get("/RegistContact", function (req, res, next) {
 
     // 담당자 정보
     var ContactInfo = {
-        // 아이디 (6자 이상 50자 미만)
+        // 아이디
         id: "testkorea03033",
 
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        // 비밀번호
         Password: "asdf8536!@#",
 
-        // 담당자명 (최대 100자)
+        // 담당자 성명 (최대 100자)
         personName: "담당자명0309",
 
-        // 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         tel: "010-1234-1234",
 
-        // 이메일 (최대 100자)
+        // 담당자 메일 (최대 100자)
         email: "test@email.com",
 
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        // 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
 
@@ -1790,19 +1784,20 @@ router.get("/UpdateContact", function (req, res, next) {
 
     // 담당자 정보 항목
     var ContactInfo = {
-        // 담당자 아이디 (6자 이상 50자 이하)
+
+        // 아이디
         id: UserID,
 
-        // 담당자명 (최대 100자)
+        // 담당자 성명 (최대 100자)
         personName: "담당자명0309",
 
-        // 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         tel: "010-1234-1234",
 
-        // 이메일 (최대 100자)
+        // 메일 (최대 100자)
         email: "test@email.com",
 
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        // 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
 
@@ -1922,10 +1917,10 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20240716";
+    var SDate = "20250801";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20240716";
+    var EDate = "20250831";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -1969,10 +1964,10 @@ router.get("/GetUseHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20240716";
+    var SDate = "20250801";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20240716";
+    var EDate = "20250831";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
