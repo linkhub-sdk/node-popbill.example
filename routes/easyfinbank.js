@@ -33,6 +33,7 @@ router.get("/RegistBankAccount", function (req, res, next) {
 
     // 계좌정보
     var bankAccountInfo = {
+
         // 기관코드
         BankCode: "",
 
@@ -45,7 +46,7 @@ router.get("/RegistBankAccount", function (req, res, next) {
         // 계좌유형, "법인" 또는 "개인" 입력
         AccountType: "",
 
-        // 예금주 식별정보 (‘-‘ 제외)
+        // 실명번호 (‘-‘ 제외)
         // 계좌유형이 "법인"인 경우 : 사업자번호(10자리)
         // 계좌유형이 "개인"인 경우 : 예금주 생년월일 (6자리-YYMMDD)
         IdentityNumber: "",
@@ -112,7 +113,7 @@ router.get("/UpdateBankAccount", function (req, res, next) {
         AccountPWD: "",
 
         // 계좌 별칭
-        AccountName: "별칭 추가",
+        AccountName: "",
 
         // 인터넷뱅킹 아이디 (국민은행 필수)
         BankID: "",
@@ -124,7 +125,7 @@ router.get("/UpdateBankAccount", function (req, res, next) {
         FastPWD: "",
 
         // 메모
-        Memo: "메모테스트",
+        Memo: "",
     };
 
     // 팝빌 회원 아이디
@@ -380,10 +381,10 @@ router.get("/RequestJob", function (req, res, next) {
     var accountNumber = "";
 
     // 시작일자, 날짜형식(yyyyMMdd)
-    var SDate = "20240716";
+    var SDate = "20250801";
 
     // 종료일자, 날짜형식(yyyyMMdd)
-    var EDate = "20240716";
+    var EDate = "20250831";
 
     easyFinBankService.requestJob(
         CorpNum,
@@ -944,12 +945,14 @@ router.get("/CheckID", function (req, res, next) {
  * - https://developers.popbill.com/reference/easyfinbank/node/common-api/member#JoinMember
  */
 router.get("/JoinMember", function (req, res, next) {
+
     // 회원정보
     var JoinForm = {
-        // 회원 아이디 (6자 이상 50자 미만)
+
+        // 아이디
         ID: "userid",
 
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        // 비밀번호
         Password: "asdf8536!@#",
 
         // 링크아이디
@@ -976,10 +979,10 @@ router.get("/JoinMember", function (req, res, next) {
         // 담당자 성명 (최대 100자)
         ContactName: "담당자 성명",
 
-        // 담당자 이메일 (최대 20자)
+        // 담당자 메일 (최대 20자)
         ContactEmail: "",
 
-        // 담당자 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         ContactTEL: "",
     };
 
@@ -1072,6 +1075,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
 
     // 회사정보
     var CorpInfo = {
+
         // 대표자명 (최대 100자)
         ceoname: "대표자성명_nodejs",
 
@@ -1119,22 +1123,23 @@ router.get("/RegistContact", function (req, res, next) {
 
     // 담당자 정보
     var ContactInfo = {
-        // 아이디 (6자 이상 50자 미만)
+
+        // 아이디
         id: "testkorea03033",
 
         // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
         Password: "asdf8536!@#",
 
-        // 담당자명 (최대 100자)
+        // 담당자 성명 (최대 100자)
         personName: "담당자명0309",
 
-        // 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         tel: "010-1234-1234",
 
-        // 이메일 (최대 100자)
+        // 담당자 메일 (최대 100자)
         email: "test@email.com",
 
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        // 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
 
@@ -1266,19 +1271,20 @@ router.get("/UpdateContact", function (req, res, next) {
 
     // 담당자 정보 항목
     var ContactInfo = {
-        // 담당자 아이디 (6자 이상 50자 이하)
+
+        // 아이디
         id: UserID,
 
-        // 담당자명 (최대 100자)
+        // 담당자 성명 (최대 100자)
         personName: "담당자명0309",
 
-        // 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         tel: "010-1234-1234",
 
-        // 이메일 (최대 100자)
+        // 담당자 메일 (최대 100자)
         email: "test@email.com",
 
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        // 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
 
@@ -1314,6 +1320,7 @@ router.get("/PaymentRequest", function (req, res, next) {
 
     // 입금신청 객체 정보
     var PaymentForm = {
+
         // 담당자명
         settlerName: "테스트_담당자",
 
@@ -1398,10 +1405,10 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20240716";
+    var SDate = "20250801";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20240716";
+    var EDate = "20250831";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -1445,10 +1452,10 @@ router.get("/GetUseHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20240716";
+    var SDate = "20250801";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20240716";
+    var EDate = "20250831";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
