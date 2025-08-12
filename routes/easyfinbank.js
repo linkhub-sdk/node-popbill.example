@@ -33,9 +33,6 @@ router.get("/RegistBankAccount", function (req, res, next) {
     // 계좌정보
     var bankAccountInfo = {
         // 기관코드
-        // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
-        // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
-        // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
         BankCode: "",
 
         // 계좌번호, 하이픈("-") 제외
@@ -98,14 +95,11 @@ router.get("/RegistBankAccount", function (req, res, next) {
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#UpdateBankAccount
  */
 router.get("/UpdateBankAccount", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-
     // 기관코드
-    // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
-    // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
-    // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
     var BankCode = "0003";
 
     // 계좌번호, 하이픈("-") 제외
@@ -163,13 +157,11 @@ router.get("/UpdateBankAccount", function (req, res, next) {
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#GetBankAccountInfo
  */
 router.get("/GetBankAccountInfo", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
     // 기관코드
-    // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
-    // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
-    // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
     var bankCode = "";
 
     // 계좌번호, 하이픈("-") 제외
@@ -257,13 +249,11 @@ router.get("/GetBankAccountMgtURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/easyfinbank/node/api/manage#CloseBankAccount
  */
 router.get("/CloseBankAccount", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
     // 기관코드
-    // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
-    // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
-    // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
     var bankCode = "";
 
     // 계좌번호, 하이픈("-") 제외
@@ -306,9 +296,6 @@ router.get("/RevokeCloseBankAccount", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 기관코드
-    // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
-    // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
-    // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
     var bankCode = "";
 
     // 계좌번호, 하이픈("-") 제외
@@ -346,9 +333,6 @@ router.get("/DeleteBankAccount", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 기관코드
-    // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 /수협은행-0007 / 농협은행-0011 / 우리은행-0020
-    // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
-    // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 /씨티은행-0027
     var bankCode = "";
 
     // 계좌번호, 하이픈("-") 제외
@@ -490,7 +474,7 @@ router.get("/Search", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 수집 요청(RequestJob API) 함수 호출시 반환받은 작업아이디
+    // 수집 요청(requestJob API) 함수 호출시 반환받은 작업아이디
     var jobID = "024050813000000004";
 
     // 거래유형 배열 ("I" 와 "O" 중 선택, 다중 선택 가능)
