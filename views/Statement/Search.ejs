@@ -14,8 +14,8 @@
         <ul>
             <li>code (응답코드) : <%= result.code %></li>
             <li>message (응답메시지) : <%= result.message %></li>
-            <li>total (총 검색건수) : <%= result.total %></li>
-            <li>perPage (페이지당 검색개수) : <%= result.perPage %></li>
+            <li>total (총 검색결과 건수) : <%= result.total %></li>
+            <li>perPage (페이지당 목록 건수) : <%= result.perPage %></li>
             <li>pageNum (페이지 번호) : <%= result.pageNum %></li>
             <li>pageCount (페이지 개수) : <%= result.pageCount %></li>
         </ul>
@@ -27,11 +27,11 @@
                 <legend>조회결과 [ <%= ((result.pageNum - 1) * result.perPage) + (index + 1) %> / <%= result.total %>]
                 </legend>
                 <ul>
-                    <li> itemCode (명세서 코드) : <%= searchInfo.itemCode %></li>
+                    <li> itemCode (전자명세서 문서 유형) : <%= searchInfo.itemCode %></li>
                     <li> itemKey (팝빌번호) : <%= searchInfo.itemKey %></li>
                     <li> invoiceNum (팝빌 승인번호) : <%= searchInfo.invoiceNum %></li>
                     <li> mgtKey (문서번호) : <%= searchInfo.mgtKey %></li>
-                    <li> taxType (세금형태) : <%= searchInfo.taxType %></li>
+                    <li> taxType (과세형태) : <%= searchInfo.taxType %></li>
                     <li> writeDate (작성일자) : <%= searchInfo.writeDate %></li>
                     <li> regDT (임시저장일시) : <%= searchInfo.regDT %></li>
                     <li> senderCorpName (발신자 상호) : <%= searchInfo.senderCorpName %></li>

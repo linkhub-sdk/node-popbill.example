@@ -1,11 +1,12 @@
 /**
-  * 팝빌 전자명세서 API Node SDK Example
-  *
-  * Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/statement/node/getting-started/tutorial
-  * 연동 기술지원 연락처 : 1600-9854
-  * 연동 기술지원 이메일 : code@linkhubcorp.com
-  *
-  */
+* 팝빌 전자명세서 API Node SDK Example
+*
+* Node 연동 튜토리얼 안내 : https://developers.popbill.com/guide/statement/node/getting-started/tutorial
+* 연동 기술지원 연락처 : 1600-9854
+* 연동 기술지원 이메일 : code@linkhubcorp.com
+*
+*/
+
 var express = require("express");
 var router = express.Router();
 var popbill = require("popbill");
@@ -34,7 +35,7 @@ router.get("/CheckMgtKeyInUse", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -70,48 +71,49 @@ router.get("/RegistIssue", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 팝빌회원 아이디
-    var UserID = "testkorea";
-
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
-    var ItemCode = 121;
-
-    // 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = "20220629-001";
-
-    // 메모
-    var memo = "";
-
-    // 발행 안내 메일 제목
-    // - 미입력 시 팝빌에서 지정한 이메일 제목으로 전송
-    var emailSubject = "";
-
     // 전자명세서 정보
     var statement = {
-        // 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: "20240716",
 
-        // {영수, 청구, 없음} 중 기재
-        purposeType: "영수",
+        // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+        itemCode: 121,
 
-        // 과세형태, {과세, 영세, 면세} 중 기재
-        taxType: "과세",
+        // 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
+        mgtKey: "20220629-001",
 
         // 맞춤양식코드, 기본값을 공백("")으로 처리하면 기본양식으로 처리.
         formCode: "",
 
-        // 명세서 코드
-        itemCode: ItemCode,
+        // 기재상 작성일자, 날짜형식(yyyyMMdd)
+        writeDate: "20250812",
 
-        // 문서번호
-        mgtKey: MgtKey,
+        // 과세형태, {과세, 영세, 면세} 중 기재
+        taxType: "과세",
 
-        /*************************************************************************
-         *                             발신자 정보
-         **************************************************************************/
+        // {영수, 청구, 없음} 중 기재
+        purposeType: "영수",
+
+        // 기재 상 "일련번호" 항목
+        serialNum: "1",
+
+        // 공급가액 합계
+        supplyCostTotal: "20000",
+
+        // 세액 합계
+        taxTotal: "2000",
+
+        // 합계금액 (공급가액 합계+ 세액 합계)
+        totalAmount: "22000",
+
+        // 기재 상 "비고" 항목
+        remark1: "비고1",
+        remark2: "비고2",
+        remark3: "비고3",
 
         // 발신자 사업자번호
         senderCorpNum: CorpNum,
+
+        // 종사업장 식별번호, 필요시기재, 형식은 숫자 4자리
+        senderTaxRegID: "",
 
         // 발신자 상호
         senderCorpName: "발신자 상호",
@@ -121,9 +123,6 @@ router.get("/RegistIssue", function (req, res, next) {
 
         // 발신자 대표자 성명
         senderCEOName: "발신자 대표자 성명",
-
-        // 종사업장 식별번호, 필요시기재, 형식은 숫자 4자리
-        senderTaxRegID: "",
 
         // 발신자 종목
         senderBizClass: "종목",
@@ -143,12 +142,11 @@ router.get("/RegistIssue", function (req, res, next) {
         // 발신자 휴대폰번호
         senderHP: "",
 
-        /*************************************************************************
-         *                             수신자 정보
-         **************************************************************************/
-
         // 수신자 사업자번호
         receiverCorpNum: "8888888888",
+
+        // 수신자 종사업장 식별번호, 필요시 기재
+        recieverTaxRegID: "",
 
         // 수신자 상호
         receiverCorpName: "수신자상호",
@@ -158,9 +156,6 @@ router.get("/RegistIssue", function (req, res, next) {
 
         // 수신자 주소
         receiverAddr: "수신자 주소",
-
-        // 수신자 종사업장 식별번호, 필요시 기재
-        recieverTaxRegID: "",
 
         // 수신자 종목
         receiverBizClass: "종목",
@@ -182,27 +177,6 @@ router.get("/RegistIssue", function (req, res, next) {
         // 수신자 휴대폰 번호
         receiverHP: "",
 
-        /*************************************************************************
-         *                            전자명세서 기재정보
-         **************************************************************************/
-
-        // 공급가액 합계
-        supplyCostTotal: "20000",
-
-        // 세액 합계
-        taxTotal: "2000",
-
-        // 합계금액 (공급가액 합계+ 세액 합계)
-        totalAmount: "22000",
-
-        // 기재 상 "일련번호" 항목
-        serialNum: "1",
-
-        // 기재 상 "비고" 항목
-        remark1: "비고1",
-        remark2: "비고2",
-        remark3: "비고3",
-
         // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
         // └ true = 첨부 , false = 미첨부(기본값)
         // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
@@ -213,34 +187,6 @@ router.get("/RegistIssue", function (req, res, next) {
         // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         bankBookYN: false,
 
-        /*************************************************************************
-         *                          상세9항목(품목) 정보
-         **************************************************************************/
-
-        detailList: [
-            {
-                serialNum: 1, // 품목 일련번호 1부터 순차기재
-                itemName: "품명",
-                purchaseDT: "20220629", // 구매일자
-                qty: "1", // 수량
-                unitCost: "10000", // 단가
-                spec: "규격", // 규격
-                supplyCost: "10000", // 공급가액
-                tax: "1000", // 세액
-                remark: "비고",
-            },
-            {
-                serialNum: 2, // 품목 일련번호 1부터 순차기재
-                itemName: "품명2",
-                purchaseDT: "20220629", // 구매일자
-                qty: "1", // 수량
-                unitCost: "10000", // 단가
-                spec: "규격", // 규격
-                supplyCost: "10000", // 공급가액
-                tax: "1000", // 세액
-                remark: "비고",
-            },
-        ],
 
         /*************************************************************************
          *                               전자명세서 추가속성
@@ -252,7 +198,49 @@ router.get("/RegistIssue", function (req, res, next) {
             Deposit: "500", // 입금액
             CBalance: "2500", // 현잔액
         },
+
+
+        /*************************************************************************
+         *                          상세9항목(품목) 정보
+         **************************************************************************/
+
+        detailList: [
+            {
+                serialNum: 1, // 품목 일련번호 1부터 순차기재
+                itemName: "품명",
+                purchaseDT: "20250812", // 구매일자
+                qty: "1", // 수량
+                unitCost: "10000", // 단가
+                spec: "규격", // 규격
+                supplyCost: "10000", // 공급가액
+                tax: "1000", // 세액
+                remark: "비고",
+            },
+            {
+                serialNum: 2, // 품목 일련번호 1부터 순차기재
+                itemName: "품명2",
+                purchaseDT: "20250812", // 구매일자
+                qty: "1", // 수량
+                unitCost: "10000", // 단가
+                spec: "규격", // 규격
+                supplyCost: "10000", // 공급가액
+                tax: "1000", // 세액
+                remark: "비고",
+            },
+        ],
+
+
     };
+
+    // 메모
+    var memo = "";
+
+    // 팝빌회원 아이디
+    var UserID = "testkorea";
+
+    // 발행 안내 메일 제목
+    // - 미입력 시 팝빌에서 지정한 이메일 제목으로 전송
+    var emailSubject = "";
 
     statementService.registIssue(
         CorpNum,
@@ -287,38 +275,49 @@ router.get("/Register", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
-    var ItemCode = 121;
-
-    // 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = "20220629-002";
-
     // 전자명세서 정보
     var statement = {
-        // 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: "20240716",
 
-        // {영수, 청구, 없음} 중 기재
-        purposeType: "영수",
+        // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+        itemCode: 121,
 
-        // 과세형태, {과세, 영세, 면세} 중 기재
-        taxType: "과세",
+        // 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
+        mgtKey: "20220629-001",
 
         // 맞춤양식코드, 기본값을 공백("")으로 처리하면 기본양식으로 처리.
         formCode: "",
 
-        // 명세서 코드
-        itemCode: ItemCode,
+        // 기재상 작성일자, 날짜형식(yyyyMMdd)
+        writeDate: "20250812",
 
-        // 문서번호
-        mgtKey: MgtKey,
+        // 과세형태, {과세, 영세, 면세} 중 기재
+        taxType: "과세",
 
-        /*************************************************************************
-         *                             발신자 정보
-         **************************************************************************/
+        // {영수, 청구, 없음} 중 기재
+        purposeType: "영수",
+
+        // 기재 상 "일련번호" 항목
+        serialNum: "1",
+
+        // 공급가액 합계
+        supplyCostTotal: "20000",
+
+        // 세액 합계
+        taxTotal: "2000",
+
+        // 합계금액 (공급가액 합계+ 세액 합계)
+        totalAmount: "22000",
+
+        // 기재 상 "비고" 항목
+        remark1: "비고1",
+        remark2: "비고2",
+        remark3: "비고3",
 
         // 발신자 사업자번호
         senderCorpNum: CorpNum,
+
+        // 종사업장 식별번호, 필요시기재, 형식은 숫자 4자리
+        senderTaxRegID: "",
 
         // 발신자 상호
         senderCorpName: "발신자 상호",
@@ -328,9 +327,6 @@ router.get("/Register", function (req, res, next) {
 
         // 발신자 대표자 성명
         senderCEOName: "발신자 대표자 성명",
-
-        // 종사업장 식별번호, 필요시기재, 형식은 숫자 4자리
-        senderTaxRegID: "",
 
         // 발신자 종목
         senderBizClass: "종목",
@@ -350,12 +346,11 @@ router.get("/Register", function (req, res, next) {
         // 발신자 휴대폰번호
         senderHP: "",
 
-        /*************************************************************************
-         *                             수신자 정보
-         **************************************************************************/
-
         // 수신자 사업자번호
         receiverCorpNum: "8888888888",
+
+        // 수신자 종사업장 식별번호, 필요시 기재
+        recieverTaxRegID: "",
 
         // 수신자 상호
         receiverCorpName: "수신자상호",
@@ -365,9 +360,6 @@ router.get("/Register", function (req, res, next) {
 
         // 수신자 주소
         receiverAddr: "수신자 주소",
-
-        // 수신자 종사업장 식별번호, 필요시 기재
-        recieverTaxRegID: "",
 
         // 수신자 종목
         receiverBizClass: "종목",
@@ -389,27 +381,6 @@ router.get("/Register", function (req, res, next) {
         // 수신자 휴대폰 번호
         receiverHP: "",
 
-        /*************************************************************************
-         *                            전자명세서 기재정보
-         **************************************************************************/
-
-        // 공급가액 합계
-        supplyCostTotal: "20000",
-
-        // 세액 합계
-        taxTotal: "2000",
-
-        // 합계금액 (공급가액 합계+ 세액 합계)
-        totalAmount: "22000",
-
-        // 기재 상 "일련번호" 항목
-        serialNum: "1",
-
-        // 기재 상 "비고" 항목
-        remark1: "비고1",
-        remark2: "비고2",
-        remark3: "비고3",
-
         // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
         // └ true = 첨부 , false = 미첨부(기본값)
         // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
@@ -420,34 +391,6 @@ router.get("/Register", function (req, res, next) {
         // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         bankBookYN: false,
 
-        /*************************************************************************
-         *                          상세9항목(품목) 정보
-         **************************************************************************/
-
-        detailList: [
-            {
-                serialNum: 1, // 품목 일련번호 1부터 순차기재
-                itemName: "품명",
-                purchaseDT: "20220629", // 구매일자
-                qty: "1", // 수량
-                unitCost: "10000", // 단가
-                spec: "규격", // 규격
-                supplyCost: "10000", // 공급가액
-                tax: "1000", // 세액
-                remark: "비고",
-            },
-            {
-                serialNum: 2, // 품목 일련번호 1부터 순차기재
-                itemName: "품명2",
-                purchaseDT: "20220629", // 구매일자
-                qty: "1", // 수량
-                unitCost: "10000", // 단가
-                spec: "규격", // 규격
-                supplyCost: "10000", // 공급가액
-                tax: "1000", // 세액
-                remark: "비고",
-            },
-        ],
 
         /*************************************************************************
          *                               전자명세서 추가속성
@@ -459,6 +402,38 @@ router.get("/Register", function (req, res, next) {
             Deposit: "500", // 입금액
             CBalance: "2500", // 현잔액
         },
+
+
+        /*************************************************************************
+         *                          상세9항목(품목) 정보
+         **************************************************************************/
+
+        detailList: [
+            {
+                serialNum: 1, // 품목 일련번호 1부터 순차기재
+                itemName: "품명",
+                purchaseDT: "20250812", // 구매일자
+                qty: "1", // 수량
+                unitCost: "10000", // 단가
+                spec: "규격", // 규격
+                supplyCost: "10000", // 공급가액
+                tax: "1000", // 세액
+                remark: "비고",
+            },
+            {
+                serialNum: 2, // 품목 일련번호 1부터 순차기재
+                itemName: "품명2",
+                purchaseDT: "20250812", // 구매일자
+                qty: "1", // 수량
+                unitCost: "10000", // 단가
+                spec: "규격", // 규격
+                supplyCost: "10000", // 공급가액
+                tax: "1000", // 세액
+                remark: "비고",
+            },
+        ],
+
+
     };
 
     statementService.register(
@@ -490,50 +465,58 @@ router.get("/Update", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
-    var ItemCode = 121;
-
-    // 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = "20220629-002";
-
     // 전자명세서 정보
     var statement = {
-        // 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: "20240716",
 
-        // {영수, 청구, 없음} 중 기재
-        purposeType: "영수",
+        // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+        itemCode: 121,
 
-        // 과세형태, {과세, 영세, 면세} 중 기재
-        taxType: "과세",
+        // 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
+        mgtKey: "20220629-001",
 
         // 맞춤양식코드, 기본값을 공백("")으로 처리하면 기본양식으로 처리.
         formCode: "",
 
-        // 명세서 코드
-        itemCode: ItemCode,
+        // 기재상 작성일자, 날짜형식(yyyyMMdd)
+        writeDate: "20250812",
 
-        // 문서번호
-        mgtKey: MgtKey,
+        // 과세형태, {과세, 영세, 면세} 중 기재
+        taxType: "과세",
 
-        /*************************************************************************
-         *                             발신자 정보
-         **************************************************************************/
+        // {영수, 청구, 없음} 중 기재
+        purposeType: "영수",
+
+        // 기재 상 "일련번호" 항목
+        serialNum: "1",
+
+        // 공급가액 합계
+        supplyCostTotal: "20000",
+
+        // 세액 합계
+        taxTotal: "2000",
+
+        // 합계금액 (공급가액 합계+ 세액 합계)
+        totalAmount: "22000",
+
+        // 기재 상 "비고" 항목
+        remark1: "비고1",
+        remark2: "비고2",
+        remark3: "비고3",
 
         // 발신자 사업자번호
         senderCorpNum: CorpNum,
 
+        // 종사업장 식별번호, 필요시기재, 형식은 숫자 4자리
+        senderTaxRegID: "",
+
         // 발신자 상호
-        senderCorpName: "발신자 상호_수정",
+        senderCorpName: "발신자 상호",
 
         // 발신자 주소
-        senderAddr: "발신자 주소_수정",
+        senderAddr: "발신자 주소",
 
         // 발신자 대표자 성명
         senderCEOName: "발신자 대표자 성명",
-
-        // 종사업장 식별번호, 필요시기재, 형식은 숫자 4자리
-        senderTaxRegID: "",
 
         // 발신자 종목
         senderBizClass: "종목",
@@ -553,12 +536,11 @@ router.get("/Update", function (req, res, next) {
         // 발신자 휴대폰번호
         senderHP: "",
 
-        /*************************************************************************
-         *                             수신자 정보
-         **************************************************************************/
-
         // 수신자 사업자번호
         receiverCorpNum: "8888888888",
+
+        // 수신자 종사업장 식별번호, 필요시 기재
+        recieverTaxRegID: "",
 
         // 수신자 상호
         receiverCorpName: "수신자상호",
@@ -568,9 +550,6 @@ router.get("/Update", function (req, res, next) {
 
         // 수신자 주소
         receiverAddr: "수신자 주소",
-
-        // 수신자 종사업장 식별번호, 필요시 기재
-        recieverTaxRegID: "",
 
         // 수신자 종목
         receiverBizClass: "종목",
@@ -592,27 +571,6 @@ router.get("/Update", function (req, res, next) {
         // 수신자 휴대폰 번호
         receiverHP: "",
 
-        /*************************************************************************
-         *                            전자명세서 기재정보
-         **************************************************************************/
-
-        // 공급가액 합계
-        supplyCostTotal: "20000",
-
-        // 세액 합계
-        taxTotal: "2000",
-
-        // 합계금액 (공급가액 합계+ 세액 합계)
-        totalAmount: "22000",
-
-        // 기재 상 "일련번호" 항목
-        serialNum: "1",
-
-        // 기재 상 "비고" 항목
-        remark1: "비고1",
-        remark2: "비고2",
-        remark3: "비고3",
-
         // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
         // └ true = 첨부 , false = 미첨부(기본값)
         // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
@@ -623,34 +581,6 @@ router.get("/Update", function (req, res, next) {
         // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         bankBookYN: false,
 
-        /*************************************************************************
-         *                          상세9항목(품목) 정보
-         **************************************************************************/
-
-        detailList: [
-            {
-                serialNum: 1, // 품목 일련번호 1부터 순차기재
-                itemName: "품명",
-                purchaseDT: "20220629", // 구매일자
-                qty: "1", // 수량
-                unitCost: "10000", // 단가
-                spec: "규격", // 규격
-                supplyCost: "10000", // 공급가액
-                tax: "1000", // 세액
-                remark: "비고",
-            },
-            {
-                serialNum: 2, // 품목 일련번호 1부터 순차기재
-                itemName: "품명2",
-                purchaseDT: "20220629", // 구매일자
-                qty: "1", // 수량
-                unitCost: "10000", // 단가
-                spec: "규격", // 규격
-                supplyCost: "10000", // 공급가액
-                tax: "1000", // 세액
-                remark: "비고",
-            },
-        ],
 
         /*************************************************************************
          *                               전자명세서 추가속성
@@ -662,6 +592,38 @@ router.get("/Update", function (req, res, next) {
             Deposit: "500", // 입금액
             CBalance: "2500", // 현잔액
         },
+
+
+        /*************************************************************************
+         *                          상세9항목(품목) 정보
+         **************************************************************************/
+
+        detailList: [
+            {
+                serialNum: 1, // 품목 일련번호 1부터 순차기재
+                itemName: "품명",
+                purchaseDT: "20250812", // 구매일자
+                qty: "1", // 수량
+                unitCost: "10000", // 단가
+                spec: "규격", // 규격
+                supplyCost: "10000", // 공급가액
+                tax: "1000", // 세액
+                remark: "비고",
+            },
+            {
+                serialNum: 2, // 품목 일련번호 1부터 순차기재
+                itemName: "품명2",
+                purchaseDT: "20250812", // 구매일자
+                qty: "1", // 수량
+                unitCost: "10000", // 단가
+                spec: "규격", // 규격
+                supplyCost: "10000", // 공급가액
+                tax: "1000", // 세액
+                remark: "비고",
+            },
+        ],
+
+
     };
 
     statementService.update(
@@ -693,20 +655,21 @@ router.get("/Update", function (req, res, next) {
  * - https://developers.popbill.com/reference/statement/node/api/issue#Issue
  */
 router.get("/Issue", function (req, res, next) {
+
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
     var mgtKey = "20220629-002";
 
-    // 전자명세서 발행 안내메일 제목
-    var EmailSubject = "";
-
     // 메모
     var memo = "발행메모";
+
+    // 전자명세서 발행 안내메일 제목
+    var EmailSubject = "";
 
     // 팝빌회원 아이디
     var UserID = "testkorea";
@@ -740,10 +703,11 @@ router.get("/Issue", function (req, res, next) {
  * - https://developers.popbill.com/reference/statement/node/api/issue#Cancel
  */
 router.get("/CancelIssue", function (req, res, next) {
+
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -784,7 +748,7 @@ router.get("/Delete", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -820,7 +784,7 @@ router.get("/GetInfo", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -855,7 +819,7 @@ router.get("/GetInfos", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호 배열, 최대 1000건
@@ -890,7 +854,7 @@ router.get("/GetDetailInfo", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -930,16 +894,16 @@ router.get("/Search", function (req, res, next) {
     var DType = "W";
 
     // 시작일자, 작성형식(yyyyMMdd)
-    var SDate = "20240716";
+    var SDate = "20250801";
 
     // 종료일자, 작성형식(yyyyMMdd)
-    var EDate = "20240716";
+    var EDate = "20250831";
 
     // 전자명세서 상태코드 배열 (2,3번째 자리에 와일드카드(*) 사용 가능)
     // - 미입력시 전체조회
     var State = ["200", "3**"];
 
-    // 전자명세서 종류코드 배열, 121-거래명세서, 122-청구서, 123-견적서, 124-발주서, 125-입금표, 126-영수증
+    // 전자명세서 문서 유형 배열, 121-거래명세서, 122-청구서, 123-견적서, 124-발주서, 125-입금표, 126-영수증
     var ItemCode = [121, 122, 123, 124, 125, 126];
 
     // 통합검색어, 거래처 상호명 또는 거래처 사업자번호로 조회
@@ -994,7 +958,7 @@ router.get("/GetLogs", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1064,7 +1028,7 @@ router.get("/GetPopUpURL", function (req, res, next) {
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1103,7 +1067,7 @@ router.get("/GetViewURL", function (req, res, next) {
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1142,7 +1106,7 @@ router.get("/GetPrintURL", function (req, res, next) {
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1181,7 +1145,7 @@ router.get("/GetEPrintURL", function (req, res, next) {
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1220,7 +1184,7 @@ router.get("/GetMassPrintURL", function (req, res, next) {
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호 배열, 최대 100건
@@ -1259,7 +1223,7 @@ router.get("/GetMailURL", function (req, res, next) {
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1362,7 +1326,7 @@ router.get("/AttachFile", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1409,7 +1373,7 @@ router.get("/AttachFileBinary", function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1484,7 +1448,7 @@ router.get("/DeleteFile", function (req, res, next) {
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1524,7 +1488,7 @@ router.get("/GetFiles", function (req, res, next) {
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1558,7 +1522,7 @@ router.get("/SendEmail", function (req, res, next) {
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1601,7 +1565,7 @@ router.get("/SendSMS", function (req, res, next) {
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1649,7 +1613,7 @@ router.get("/SendFAX", function (req, res, next) {
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
@@ -1686,54 +1650,62 @@ router.get("/SendFAX", function (req, res, next) {
 
 /**
  * 전자명세서를 팩스로 전송하는 함수로, 팝빌에 데이터를 저장하는 과정이 없습니다.
- * - 팝빌 사이트 [문자·팩스] > [팩스] > [전송내역] 메뉴에서 전송결과를 확인 할 수 있습니다.
- * - 함수 호출시 포인트가 과금됩니다.
- * - 팩스 발행 요청시 작성한 문서번호는 팩스전송 파일명으로 사용됩니다.
- * - 팩스 전송결과를 확인하기 위해서는 선팩스 전송 요청 시 반환받은 접수번호를 이용하여 팩스 API의 전송결과 확인 (GetFaxResult) API를 이용하면 됩니다.
- * - https://developers.popbill.com/reference/statement/node/api/etc#FAXSend
+  * - https://developers.popbill.com/reference/statement/node/api/etc#FAXSend
  */
 router.get("/FAXSend", function (req, res, next) {
+
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
     // 발신번호
-    var sendNum = "15997709";
+    var sendNum = "";
 
     // 수신팩스번호
-    var receiveNum = "01012341234";
-
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
-    var ItemCode = 121;
-
-    // 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
-    var MgtKey = "20220629-003";
+    var receiveNum = "";
 
     // 전자명세서 정보
     var statement = {
-        // 기재상 작성일자, 날짜형식(yyyyMMdd)
-        writeDate: "20240716",
 
-        // {영수, 청구, 없음} 중 기재
-        purposeType: "영수",
+        // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+        itemCode: 121,
 
-        // 과세형태, {과세, 영세, 면세} 중 기재
-        taxType: "과세",
+        // 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
+        mgtKey: "20220629-001",
 
         // 맞춤양식코드, 기본값을 공백("")으로 처리하면 기본양식으로 처리.
         formCode: "",
 
-        // 명세서 코드
-        itemCode: ItemCode,
+        // 기재상 작성일자, 날짜형식(yyyyMMdd)
+        writeDate: "20250812",
 
-        // 문서번호
-        mgtKey: MgtKey,
+        // 과세형태, {과세, 영세, 면세} 중 기재
+        taxType: "과세",
 
-        /*************************************************************************
-         *                             발신자 정보
-         **************************************************************************/
+        // {영수, 청구, 없음} 중 기재
+        purposeType: "영수",
+
+        // 기재 상 "일련번호" 항목
+        serialNum: "1",
+
+        // 공급가액 합계
+        supplyCostTotal: "20000",
+
+        // 세액 합계
+        taxTotal: "2000",
+
+        // 합계금액 (공급가액 합계+ 세액 합계)
+        totalAmount: "22000",
+
+        // 기재 상 "비고" 항목
+        remark1: "비고1",
+        remark2: "비고2",
+        remark3: "비고3",
 
         // 발신자 사업자번호
         senderCorpNum: CorpNum,
+
+        // 종사업장 식별번호, 필요시기재, 형식은 숫자 4자리
+        senderTaxRegID: "",
 
         // 발신자 상호
         senderCorpName: "발신자 상호",
@@ -1743,9 +1715,6 @@ router.get("/FAXSend", function (req, res, next) {
 
         // 발신자 대표자 성명
         senderCEOName: "발신자 대표자 성명",
-
-        // 종사업장 식별번호, 필요시기재, 형식은 숫자 4자리
-        senderTaxRegID: "",
 
         // 발신자 종목
         senderBizClass: "종목",
@@ -1765,12 +1734,11 @@ router.get("/FAXSend", function (req, res, next) {
         // 발신자 휴대폰번호
         senderHP: "",
 
-        /*************************************************************************
-         *                             수신자 정보
-         **************************************************************************/
-
         // 수신자 사업자번호
         receiverCorpNum: "8888888888",
+
+        // 수신자 종사업장 식별번호, 필요시 기재
+        recieverTaxRegID: "",
 
         // 수신자 상호
         receiverCorpName: "수신자상호",
@@ -1780,9 +1748,6 @@ router.get("/FAXSend", function (req, res, next) {
 
         // 수신자 주소
         receiverAddr: "수신자 주소",
-
-        // 수신자 종사업장 식별번호, 필요시 기재
-        recieverTaxRegID: "",
 
         // 수신자 종목
         receiverBizClass: "종목",
@@ -1804,27 +1769,6 @@ router.get("/FAXSend", function (req, res, next) {
         // 수신자 휴대폰 번호
         receiverHP: "",
 
-        /*************************************************************************
-         *                            전자명세서 기재정보
-         **************************************************************************/
-
-        // 공급가액 합계
-        supplyCostTotal: "20000",
-
-        // 세액 합계
-        taxTotal: "2000",
-
-        // 합계금액 (공급가액 합계+ 세액 합계)
-        totalAmount: "22000",
-
-        // 기재 상 "일련번호" 항목
-        serialNum: "1",
-
-        // 기재 상 "비고" 항목
-        remark1: "비고1",
-        remark2: "비고2",
-        remark3: "비고3",
-
         // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
         // └ true = 첨부 , false = 미첨부(기본값)
         // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
@@ -1835,34 +1779,6 @@ router.get("/FAXSend", function (req, res, next) {
         // - 팝빌 사이트 또는 인감 및 첨부문서 등록 팝업 URL (GetSealURL API) 함수를 이용하여 등록
         bankBookYN: false,
 
-        /*************************************************************************
-         *                          상세9항목(품목) 정보
-         **************************************************************************/
-
-        detailList: [
-            {
-                serialNum: 1, // 품목 일련번호 1부터 순차기재
-                itemName: "품명",
-                purchaseDT: "20220629", // 구매일자
-                qty: "1", // 수량
-                unitCost: "10000", // 단가
-                spec: "규격", // 규격
-                supplyCost: "10000", // 공급가액
-                tax: "1000", // 세액
-                remark: "비고",
-            },
-            {
-                serialNum: 2, // 품목 일련번호 1부터 순차기재
-                itemName: "품명2",
-                purchaseDT: "20220629", // 구매일자
-                qty: "1", // 수량
-                unitCost: "10000", // 단가
-                spec: "규격", // 규격
-                supplyCost: "10000", // 공급가액
-                tax: "1000", // 세액
-                remark: "비고",
-            },
-        ],
 
         /*************************************************************************
          *                               전자명세서 추가속성
@@ -1874,6 +1790,38 @@ router.get("/FAXSend", function (req, res, next) {
             Deposit: "500", // 입금액
             CBalance: "2500", // 현잔액
         },
+
+
+        /*************************************************************************
+         *                          상세9항목(품목) 정보
+         **************************************************************************/
+
+        detailList: [
+            {
+                serialNum: 1, // 품목 일련번호 1부터 순차기재
+                itemName: "품명",
+                purchaseDT: "20250812", // 구매일자
+                qty: "1", // 수량
+                unitCost: "10000", // 단가
+                spec: "규격", // 규격
+                supplyCost: "10000", // 공급가액
+                tax: "1000", // 세액
+                remark: "비고",
+            },
+            {
+                serialNum: 2, // 품목 일련번호 1부터 순차기재
+                itemName: "품명2",
+                purchaseDT: "20250812", // 구매일자
+                qty: "1", // 수량
+                unitCost: "10000", // 단가
+                spec: "규격", // 규격
+                supplyCost: "10000", // 공급가액
+                tax: "1000", // 세액
+                remark: "비고",
+            },
+        ],
+
+
     };
 
     statementService.FAXSend(
@@ -1902,16 +1850,17 @@ router.get("/FAXSend", function (req, res, next) {
  * - https://developers.popbill.com/reference/statement/node/api/etc#AttachStatement
  */
 router.get("/AttachStatement", function (req, res, next) {
+
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 종류코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
     var mgtKey = "20220629-001";
 
-    // 첨부할 명세서 종류코드
+    // 첨부할 명세서 문서 유형
     var subItemCode = 121;
 
     // 첨부할 명세서 문서번호
@@ -1948,13 +1897,13 @@ router.get("/DetachStatement", function (req, res, next) {
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 종류코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     // 문서번호
     var mgtKey = "20220629-001";
 
-    // 첨부해제할 명세서 종류코드
+    // 첨부해제할 명세서 문서 유형
     var subItemCode = 121;
 
     // 첨부해제할 명세서 문서번호
@@ -2013,13 +1962,6 @@ router.get("/ListEmailConfig", function (req, res, next) {
 /**
  * 전자명세서 관련 메일 항목에 대한 발송설정을 수정합니다.
  * - https://developers.popbill.com/reference/statement/node/api/etc#UpdateEmailConfig
- *
- * 메일전송유형
- * SMT_ISSUE : 수신자에게 전자명세서가 발행 되었음을 알려주는 메일입니다.
- * SMT_ACCEPT : 발신자에게 전자명세서가 승인 되었음을 알려주는 메일입니다.
- * SMT_DENY : 발신자에게 전자명세서가 거부 되었음을 알려주는 메일입니다.
- * SMT_CANCEL : 수신자에게 전자명세서가 취소 되었음을 알려주는 메일입니다.
- * SMT_CANCEL_ISSUE : 수신자에게 전자명세서가 발행취소 되었음을 알려주는 메일입니다.
  */
 router.get("/UpdateEmailConfig", function (req, res, next) {
 
@@ -2240,10 +2182,11 @@ router.get("/GetPartnerURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/statement/node/common-api/point#GetUnitCost
  */
 router.get("/GetUnitCost", function (req, res, next) {
+
     // 팝빌회원 사업자번호
     var CorpNum = "1234567890";
 
-    // 명세서 코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 120;
 
     statementService.getUnitCost(
@@ -2274,7 +2217,7 @@ router.get("/GetChargeInfo", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 명세서 종류코드 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
+    // 전자명세서 문서 유형 - 121(거래명세서), 122(청구서), 123(견적서), 124(발주서), 125(입금표), 126(영수증)
     var itemCode = 121;
 
     statementService.getChargeInfo(
@@ -2301,6 +2244,7 @@ router.get("/GetChargeInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/statement/node/common-api/member#CheckIsMember
  */
 router.get("/CheckIsMember", function (req, res, next) {
+
     // 조회할 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2327,6 +2271,7 @@ router.get("/CheckIsMember", function (req, res, next) {
  * - https://developers.popbill.com/reference/statement/node/common-api/member#CheckID
  */
 router.get("/CheckID", function (req, res, next) {
+
     // 중복여부를 확인할 아이디
     var ID = "testkorea";
 
@@ -2354,12 +2299,14 @@ router.get("/CheckID", function (req, res, next) {
  * - https://developers.popbill.com/reference/statement/node/common-api/member#JoinMember
  */
 router.get("/JoinMember", function (req, res, next) {
+
     // 회원정보
     var JoinForm = {
-        // 회원 아이디 (6자 이상 50자 미만)
+
+        // 아이디 (6자 이상 50자 미만)
         ID: "userid",
 
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        // 비밀번호
         Password: "asdf8536!@#",
 
         // 링크아이디
@@ -2386,10 +2333,10 @@ router.get("/JoinMember", function (req, res, next) {
         // 담당자 성명 (최대 100자)
         ContactName: "담당자 성명",
 
-        // 담당자 이메일 (최대 20자)
+        // 담당자 메일 (최대 20자)
         ContactEmail: "",
 
-        // 담당자 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         ContactTEL: "",
     };
 
@@ -2497,22 +2444,23 @@ router.get("/RegistContact", function (req, res, next) {
 
     // 담당자 정보
     var ContactInfo = {
-        // 아이디 (6자 이상 50자 미만)
+
+        // 아이디
         id: "testkorea03033",
 
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        // 비밀번호
         Password: "asdf8536!@#",
 
-        // 담당자명 (최대 100자)
+        // 담당자 성명 (최대 100자)
         personName: "담당자명0309",
 
-        // 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         tel: "010-1234-1234",
 
-        // 이메일 (최대 100자)
+        // 담당자 메일 (최대 100자)
         email: "test@email.com",
 
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        // 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
 
@@ -2550,8 +2498,6 @@ router.get("/DeleteContact", function (req, res, next) {
 
     // 팝빌회원 아이디
     var UserID = "testkorea";
-
-
 
     statementService.deleteContact(
         CorpNum,
@@ -2644,19 +2590,20 @@ router.get("/UpdateContact", function (req, res, next) {
 
     // 담당자 정보 항목
     var ContactInfo = {
-        // 담당자 아이디 (6자 이상 50자 이하)
+
+        // 아이디 (6자 이상 50자 이하)
         id: UserID,
 
-        // 담당자명 (최대 100자)
+        // 담당자 성명 (최대 100자)
         personName: "담당자명0309",
 
-        // 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         tel: "010-1234-1234",
 
-        // 이메일 (최대 100자)
+        // 담당자 메일 (최대 100자)
         email: "test@email.com",
 
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        // 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
 
@@ -2776,10 +2723,10 @@ router.get("/GetPaymentHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20240716";
+    var SDate = "20250801";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20240716";
+    var EDate = "20250831";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
@@ -2823,10 +2770,10 @@ router.get("/GetUseHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20240716";
+    var SDate = "20250801";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20240716";
+    var EDate = "20250831";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
