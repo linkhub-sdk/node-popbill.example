@@ -281,7 +281,7 @@ router.get("/SendATS_one", function (req, res, next) {
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var Sender = "1600-8536";
+    var Sender = "";
 
     // 알림톡 내용 (최대 1000자)
     var content = "배송조회 버튼 테스트";
@@ -314,7 +314,7 @@ router.get("/SendATS_one", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "";
 
     // 알림톡 버튼정보를 템플릿 신청시 기재한 버튼정보와 동일하게 전송하는 경우 btns를 null 처리.
     var btns = null;
@@ -430,7 +430,7 @@ router.get("/SendATS_multi", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "";
 
     // 알림톡 버튼정보를 템플릿 신청시 기재한 버튼정보와 동일하게 전송하는 경우 btns를 null처리.
     // 수신자별 개별 버늩내용 전송하는 경우 btns를 null 처리.
@@ -541,7 +541,7 @@ router.get("/SendATS_same", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "";
 
     // 알림톡 버튼정보를 템플릿 신청시 기재한 버튼정보와 동일하게 전송하는 경우 btns를 null 처리.
     var btns = null;
@@ -602,7 +602,7 @@ router.get("/SendFTS_one", function (req, res, next) {
 
     // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
     // ※ 대체문자를 전송하는 경우에는 사전에 등록된 발신번호 입력 필수
-    var Sender = "1600-8536";
+    var Sender = "";
 
     // 친구톡 내용 (최대 1000자)
     var content = "친구톡 내용.";
@@ -627,7 +627,7 @@ router.get("/SendFTS_one", function (req, res, next) {
     var sndDT = "";
 
     // 수신번호
-    var receiver = "01012341234";
+    var receiver = "";
 
     // 수신자 이름
     var receiverName = "partner";
@@ -762,7 +762,7 @@ router.get("/SendFTS_multi", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "";
 
     kakaoService.sendFTS_multi(
         CorpNum,
@@ -872,7 +872,7 @@ router.get("/SendFTS_same", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "";
 
     kakaoService.sendFTS_same(
         CorpNum,
@@ -981,7 +981,7 @@ router.get("/SendFMS_one", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "";
 
     kakaoService.sendFMS_one(
         CorpNum,
@@ -1103,7 +1103,7 @@ router.get("/SendFMS_multi", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "";
 
     kakaoService.sendFMS_multi(
         CorpNum,
@@ -1225,7 +1225,7 @@ router.get("/SendFMS_same", function (req, res, next) {
     // 전송요청번호
     // 파트너가 전송 건에 대해 관리번호를 생성하여 관리하는 경우 사용.
     // 1~36자리로 구성. 영문, 숫자, 하이픈(-), 언더바(_)를 조합하여 팝빌 회원별로 중복되지 않도록 할당.
-    var requestNum = "20221221123456";
+    var requestNum = "";
 
     kakaoService.sendFMS_same(
         CorpNum,
@@ -1412,10 +1412,10 @@ router.get("/Search", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 시작일자, 표시형식 (yyyyMMdd)
-    var sDate = "20240716";
+    var sDate = "20250801";
 
     // 종료일자, 표시형식 (yyyyMMdd)
-    var eDate = "20240716";
+    var eDate = "20250831";
 
     // 전송상태 배열 ("0" , "1" , "2" , "3" , "4" , "5" 중 선택, 다중 선택 가능)
     // └ 0 = 전송대기 , 1 = 전송중 , 2 = 전송성공 , 3 = 대체문자 전송 , 4 = 전송실패 , 5 = 전송취소
@@ -1816,12 +1816,14 @@ router.get("/CheckID", function (req, res, next) {
  * - https://developers.popbill.com/reference/kakaotalk/node/common-api/member#JoinMember
  */
 router.get("/JoinMember", function (req, res, next) {
+
     // 회원정보
     var JoinForm = {
-        // 회원 아이디 (6자 이상 50자 미만)
+
+        // 아이디
         ID: "userid",
 
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        // 비밀번호
         Password: "asdf8536!@#",
 
         // 링크아이디
@@ -1848,10 +1850,10 @@ router.get("/JoinMember", function (req, res, next) {
         // 담당자 성명 (최대 100자)
         ContactName: "담당자 성명",
 
-        // 담당자 이메일 (최대 20자)
+        // 담당자 메일 (최대 20자)
         ContactEmail: "",
 
-        // 담당자 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         ContactTEL: "",
     };
 
@@ -1991,22 +1993,23 @@ router.get("/RegistContact", function (req, res, next) {
 
     // 담당자 정보
     var ContactInfo = {
-        // 아이디 (6자 이상 50자 미만)
+
+        // 아이디
         id: "testkorea03033",
 
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        // 비밀번호
         Password: "asdf8536!@#",
 
-        // 담당자명 (최대 100자)
+        // 담당자 성명 (최대 100자)
         personName: "담당자명0309",
 
-        // 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         tel: "010-1234-1234",
 
-        // 이메일 (최대 100자)
+        // 메일 (최대 100자)
         email: "test@email.com",
 
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        // 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
 
@@ -2138,19 +2141,20 @@ router.get("/UpdateContact", function (req, res, next) {
 
     // 담당자 정보 항목
     var ContactInfo = {
-        // 담당자 아이디 (6자 이상 50자 이하)
+
+        // 아이디
         id: UserID,
 
-        // 담당자명 (최대 100자)
+        // 담당자 성명 (최대 100자)
         personName: "담당자명0309",
 
-        // 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         tel: "010-1234-1234",
 
-        // 이메일 (최대 100자)
+        // 담당자 메일 (최대 100자)
         email: "test@email.com",
 
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        // 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
 
@@ -2392,10 +2396,10 @@ router.get("/GetUseHistory", function (req, res, next) {
     var CorpNum = "1234567890";
 
     // 조회 기간의 시작일자 (형식 : yyyyMMdd)
-    var SDate = "20240716";
+    var SDate = "20250801";
 
     // 조회 기간의 종료일자 (형식 : yyyyMMdd)
-    var EDate = "20240716";
+    var EDate = "20250831";
 
     // 목록 페이지번호 (기본값 1)
     var Page = 1;
