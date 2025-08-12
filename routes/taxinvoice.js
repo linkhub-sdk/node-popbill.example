@@ -34,7 +34,7 @@ router.get("/CheckMgtKeyInUse", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
@@ -74,37 +74,73 @@ router.get("/RegistIssue", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
-    var mgtKey = "20220629-001";
-
     // 세금계산서 항목
     var Taxinvoice = {
-        // 작성일자, 날짜형식 yyyyMMdd
-        writeDate: "20250812",
+
+        // 발행형태, {정발행, 역발행, 위수탁} 중 기재
+        issueType: "정발행",
+
+        // 과세형태, {과세, 영세, 면세} 중 기재
+        taxType: "과세",
 
         // 과금방향, {정과금, 역과금}중 선택
         // - 정과금(공급자과금), 역과금(공급받는자과금)
         // - 역과금은 역발행 세금계산서를 발행하는 경우만 가능
         chargeDirection: "정과금",
 
-        // 발행형태, {정발행, 역발행, 위수탁} 중 기재
-        issueType: "정발행",
+        // 기재 상 "일련번호"" 항목
+        serialNum: "123",
+
+        // 기재 상 "권" 항목, 최대값 32767
+        kwon: "",
+
+        // 기재 상 "호" 항목, 최대값 32767
+        ho: "",
+
+        // 작성일자, 날짜형식 yyyyMMdd
+        writeDate: "20250812",
 
         // {영수, 청구, 없음} 중 기재
         purposeType: "영수",
 
-        // 과세형태, {과세, 영세, 면세} 중 기재
-        taxType: "과세",
+        // 공급가액 합계
+        supplyCostTotal: "10000",
+
+        // 세액합계
+        taxTotal: "1000",
+
+        // 합계금액 (공급가액 합계 + 세액 합계)
+        totalAmount: "11000",
+
+        // 기재 상 "현금"" 항목
+        cash: "",
+
+        // 기재 상 "수표" 항목
+        chkBill: "",
+
+        // 기재 상 "외상" 항목
+        credit: "",
+
+        // 기재 상 "어음" 항목
+        note: "",
+
+        // 비고
+        // {invoiceeType}이 "외국인" 이면 remark1 필수
+        // - 외국인 등록번호 또는 여권번호 입력
+        remark1: "비고",
+        remark2: "비고2",
+        remark3: "비고3",
+
 
         /************************************************************************
-         *                              공급자 정보
-         **************************************************************************/
+        *                              공급자 정보
+        **************************************************************************/
+
+        // [정발행시 필수] 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
+        invoicerMgtKey: "20220629-001",
 
         // 공급자 사업자번호, "-" 제외 10자리
         invoicerCorpNum: CorpNum,
-
-        // [정발행시 필수] 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
-        invoicerMgtKey: mgtKey,
 
         // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
         invoicerTaxRegID: "",
@@ -118,11 +154,11 @@ router.get("/RegistIssue", function (req, res, next) {
         // 공급자 주소
         invoicerAddr: "공급자 주소",
 
-        // 공급자 종목
-        invoicerBizClass: "공급자 업종",
-
         // 공급자 업태
         invoicerBizType: "공급자 업태",
+
+        // 공급자 종목
+        invoicerBizClass: "공급자 업종",
 
         // 공급자 담당자명
         invoicerContactName: "공급자 담당자명",
@@ -141,6 +177,8 @@ router.get("/RegistIssue", function (req, res, next) {
         // └ 공급받는자 (주)담당자 휴대폰번호 {invoiceeHP1} 값으로 문자 전송
         // - 전송 시 포인트 차감되며, 전송실패시 환불처리
         invoicerSMSSendYN: false,
+
+
 
         /************************************************************************
          *                           공급받는자 정보
@@ -167,11 +205,11 @@ router.get("/RegistIssue", function (req, res, next) {
         // 공급받는자 주소
         invoiceeAddr: "공급받는자 주소",
 
-        // 공급받는자 종목
-        invoiceeBizClass: "공급받는자 종목",
-
         // 공급받는자 업태
         invoiceeBizType: "공급받는자 업태",
+
+        // 공급받는자 종목
+        invoiceeBizClass: "공급받는자 종목",
 
         // 공급받는자 담당자명
         invoiceeContactName1: "공급받는자 담당자명",
@@ -188,45 +226,18 @@ router.get("/RegistIssue", function (req, res, next) {
         invoiceeEmail1: "",
 
         /************************************************************************
-         *                           세금계산서 기재정보
+         *                         수정세금계산서 기재정보
+         * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
+         * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
+         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
          **************************************************************************/
 
-        // 공급가액 합계
-        supplyCostTotal: "10000",
+        // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
+        modifyCode: "",
 
-        // 세액합계
-        taxTotal: "1000",
+        // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
+        orgNTSConfirmNum: "",
 
-        // 합계금액 (공급가액 합계 + 세액 합계)
-        totalAmount: "11000",
-
-        // 기재 상 "일련번호"" 항목
-        serialNum: "123",
-
-        // 기재 상 "현금"" 항목
-        cash: "",
-
-        // 기재 상 "수표" 항목
-        chkBill: "",
-
-        // 기재 상 "어음" 항목
-        note: "",
-
-        // 기재 상 "외상" 항목
-        credit: "",
-
-        // 비고
-        // {invoiceeType}이 "외국인" 이면 remark1 필수
-        // - 외국인 등록번호 또는 여권번호 입력
-        remark1: "비고",
-        remark2: "비고2",
-        remark3: "비고3",
-
-        // 기재 상 "권" 항목, 최대값 32767
-        kwon: "",
-
-        // 기재 상 "호" 항목, 최대값 32767
-        ho: "",
 
         // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
         // └ true = 첨부 , false = 미첨부(기본값)
@@ -267,18 +278,7 @@ router.get("/RegistIssue", function (req, res, next) {
             },
         ],
 
-        /************************************************************************
-         *                         수정세금계산서 기재정보
-         * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
-         * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
-         **************************************************************************/
 
-        // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
-        modifyCode: "",
-
-        // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
-        orgNTSConfirmNum: "",
 
         /************************************************************************
          *                             추가담당자 정보
@@ -356,34 +356,74 @@ router.get("/BulkSubmit", function (req, res, next) {
     var forceIssue = false;
 
     for (var i = 0; i < 100; i++) {
+
         // 세금계산서 항목
         var Taxinvoice = {
-            // 작성일자, 날짜형식 yyyyMMdd
-            writeDate: "20250812",
+
+            // 발행형태, {정발행, 역발행, 위수탁} 중 기재
+            issueType: "정발행",
+
+            // 과세형태, {과세, 영세, 면세} 중 기재
+            taxType: "과세",
 
             // 과금방향, {정과금, 역과금}중 선택
             // - 정과금(공급자과금), 역과금(공급받는자과금)
             // - 역과금은 역발행 세금계산서를 발행하는 경우만 가능
             chargeDirection: "정과금",
 
-            // 발행형태, {정발행, 역발행, 위수탁} 중 기재
-            issueType: "정발행",
+            // 기재 상 "일련번호"" 항목
+            serialNum: "123",
+
+            // 기재 상 "권" 항목, 최대값 32767
+            kwon: "",
+
+            // 기재 상 "호" 항목, 최대값 32767
+            ho: "",
+
+            // 작성일자, 날짜형식 yyyyMMdd
+            writeDate: "20250812",
 
             // {영수, 청구, 없음} 중 기재
             purposeType: "영수",
 
-            // 과세형태, {과세, 영세, 면세} 중 기재
-            taxType: "과세",
+            // 공급가액 합계
+            supplyCostTotal: "10000",
+
+            // 세액합계
+            taxTotal: "1000",
+
+            // 합계금액 (공급가액 합계 + 세액 합계)
+            totalAmount: "11000",
+
+            // 기재 상 "현금"" 항목
+            cash: "",
+
+            // 기재 상 "수표" 항목
+            chkBill: "",
+
+            // 기재 상 "외상" 항목
+            credit: "",
+
+            // 기재 상 "어음" 항목
+            note: "",
+
+            // 비고
+            // {invoiceeType}이 "외국인" 이면 remark1 필수
+            // - 외국인 등록번호 또는 여권번호 입력
+            remark1: "비고",
+            remark2: "비고2",
+            remark3: "비고3",
+
 
             /************************************************************************
-             *                              공급자 정보
-             **************************************************************************/
-
-            // 공급자 사업자번호, "-" 제외 10자리
-            invoicerCorpNum: CorpNum,
+            *                              공급자 정보
+            **************************************************************************/
 
             // [정발행시 필수] 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
             invoicerMgtKey: submitID + i,
+
+            // 공급자 사업자번호, "-" 제외 10자리
+            invoicerCorpNum: CorpNum,
 
             // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
             invoicerTaxRegID: "",
@@ -397,11 +437,11 @@ router.get("/BulkSubmit", function (req, res, next) {
             // 공급자 주소
             invoicerAddr: "공급자 주소",
 
-            // 공급자 종목
-            invoicerBizClass: "공급자 업종",
-
             // 공급자 업태
             invoicerBizType: "공급자 업태",
+
+            // 공급자 종목
+            invoicerBizClass: "공급자 업종",
 
             // 공급자 담당자명
             invoicerContactName: "공급자 담당자명",
@@ -421,6 +461,7 @@ router.get("/BulkSubmit", function (req, res, next) {
             // - 전송 시 포인트 차감되며, 전송실패시 환불처리
             invoicerSMSSendYN: false,
 
+
             /************************************************************************
              *                           공급받는자 정보
              **************************************************************************/
@@ -434,9 +475,6 @@ router.get("/BulkSubmit", function (req, res, next) {
             // - {invoiceeType}이 "외국인" 인 경우, "9999999999999" (하이픈 ("-") 제외 13자리)
             invoiceeCorpNum: "8888888888",
 
-            // [역발행시 필수] 공급받는자 문서번호
-            invoiceeMgtKey: "",
-
             // 공급받는자 종사업장 식별번호, 필요시 기재, 4자리 숫자
             invoiceeTaxRegID: "",
 
@@ -449,11 +487,11 @@ router.get("/BulkSubmit", function (req, res, next) {
             // 공급받는자 주소
             invoiceeAddr: "공급받는자 주소",
 
-            // 공급받는자 종목
-            invoiceeBizClass: "공급받는자 종목",
-
             // 공급받는자 업태
             invoiceeBizType: "공급받는자 업태",
+
+            // 공급받는자 종목
+            invoiceeBizClass: "공급받는자 종목",
 
             // 공급받는자 담당자명
             invoiceeContactName1: "공급받는자 담당자명",
@@ -469,50 +507,19 @@ router.get("/BulkSubmit", function (req, res, next) {
             // 실제 거래처의 메일주소가 기재되지 않도록 주의
             invoiceeEmail1: "",
 
-            // 역발행시 알림문자 전송여부
-            // - 문자전송지 포인트가 차감되며, 전송실패시 포인트 환불처리됩니다.
-            invoiceeSMSSendYN: false,
-
             /************************************************************************
-             *                           세금계산서 기재정보
+             *                         수정세금계산서 기재정보
+             * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
+             * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
+             * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
              **************************************************************************/
 
-            // 공급가액 합계
-            supplyCostTotal: "10000",
+            // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
+            modifyCode: "",
 
-            // 세액합계
-            taxTotal: "1000",
+            // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
+            orgNTSConfirmNum: "",
 
-            // 합계금액 (공급가액 합계 + 세액 합계)
-            totalAmount: "11000",
-
-            // 기재 상 "일련번호"" 항목
-            serialNum: "123",
-
-            // 기재 상 "현금"" 항목
-            cash: "",
-
-            // 기재 상 "수표" 항목
-            chkBill: "",
-
-            // 기재 상 "어음" 항목
-            note: "",
-
-            // 기재 상 "외상" 항목
-            credit: "",
-
-            // 비고
-            // {invoiceeType}이 "외국인" 이면 remark1 필수
-            // - 외국인 등록번호 또는 여권번호 입력
-            remark1: "비고",
-            remark2: "비고2",
-            remark3: "비고3",
-
-            // 기재 상 "권" 항목, 최대값 32767
-            kwon: "",
-
-            // 기재 상 "호" 항목, 최대값 32767
-            ho: "",
 
             // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
             // └ true = 첨부 , false = 미첨부(기본값)
@@ -553,18 +560,7 @@ router.get("/BulkSubmit", function (req, res, next) {
                 },
             ],
 
-            /************************************************************************
-             *                         수정세금계산서 기재정보
-             * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
-             * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-             * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
-             **************************************************************************/
 
-            // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
-            modifyCode: "",
-
-            // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
-            orgNTSConfirmNum: "",
 
             /************************************************************************
              *                             추가담당자 정보
@@ -603,6 +599,7 @@ router.get("/BulkSubmit", function (req, res, next) {
         // 세금계산서 객체 목록에 추가
         taxinvoiceList.push(Taxinvoice);
     }
+
     taxinvoiceService.bulkSubmit(
         CorpNum,
         submitID,
@@ -674,37 +671,73 @@ router.get("/Register", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
-    var mgtKey = "20220629-002";
-
     // 세금계산서 항목
     var Taxinvoice = {
-        // 작성일자, 날짜형식 yyyyMMdd
-        writeDate: "20250812",
+
+        // 발행형태, {정발행, 역발행, 위수탁} 중 기재
+        issueType: "정발행",
+
+        // 과세형태, {과세, 영세, 면세} 중 기재
+        taxType: "과세",
 
         // 과금방향, {정과금, 역과금}중 선택
         // - 정과금(공급자과금), 역과금(공급받는자과금)
         // - 역과금은 역발행 세금계산서를 발행하는 경우만 가능
         chargeDirection: "정과금",
 
-        // 발행형태, {정발행, 역발행, 위수탁} 중 기재
-        issueType: "정발행",
+        // 기재 상 "일련번호"" 항목
+        serialNum: "123",
+
+        // 기재 상 "권" 항목, 최대값 32767
+        kwon: "",
+
+        // 기재 상 "호" 항목, 최대값 32767
+        ho: "",
+
+        // 작성일자, 날짜형식 yyyyMMdd
+        writeDate: "20250812",
 
         // {영수, 청구, 없음} 중 기재
         purposeType: "영수",
 
-        // 과세형태, {과세, 영세, 면세} 중 기재
-        taxType: "과세",
+        // 공급가액 합계
+        supplyCostTotal: "10000",
+
+        // 세액합계
+        taxTotal: "1000",
+
+        // 합계금액 (공급가액 합계 + 세액 합계)
+        totalAmount: "11000",
+
+        // 기재 상 "현금"" 항목
+        cash: "",
+
+        // 기재 상 "수표" 항목
+        chkBill: "",
+
+        // 기재 상 "외상" 항목
+        credit: "",
+
+        // 기재 상 "어음" 항목
+        note: "",
+
+        // 비고
+        // {invoiceeType}이 "외국인" 이면 remark1 필수
+        // - 외국인 등록번호 또는 여권번호 입력
+        remark1: "비고",
+        remark2: "비고2",
+        remark3: "비고3",
+
 
         /************************************************************************
-         *                              공급자 정보
-         **************************************************************************/
+        *                              공급자 정보
+        **************************************************************************/
+
+        // [정발행시 필수] 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
+        invoicerMgtKey: "20220629-001",
 
         // 공급자 사업자번호, "-" 제외 10자리
         invoicerCorpNum: CorpNum,
-
-        // [정발행시 필수] 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
-        invoicerMgtKey: mgtKey,
 
         // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
         invoicerTaxRegID: "",
@@ -718,11 +751,11 @@ router.get("/Register", function (req, res, next) {
         // 공급자 주소
         invoicerAddr: "공급자 주소",
 
-        // 공급자 종목
-        invoicerBizClass: "공급자 업종",
-
         // 공급자 업태
         invoicerBizType: "공급자 업태",
+
+        // 공급자 종목
+        invoicerBizClass: "공급자 업종",
 
         // 공급자 담당자명
         invoicerContactName: "공급자 담당자명",
@@ -742,6 +775,8 @@ router.get("/Register", function (req, res, next) {
         // - 전송 시 포인트 차감되며, 전송실패시 환불처리
         invoicerSMSSendYN: false,
 
+
+
         /************************************************************************
          *                           공급받는자 정보
          **************************************************************************/
@@ -755,9 +790,6 @@ router.get("/Register", function (req, res, next) {
         // - {invoiceeType}이 "외국인" 인 경우, "9999999999999" (하이픈 ("-") 제외 13자리)
         invoiceeCorpNum: "8888888888",
 
-        // [역발행시 필수] 공급받는자 문서번호
-        invoiceeMgtKey: "",
-
         // 공급받는자 종사업장 식별번호, 필요시 기재, 4자리 숫자
         invoiceeTaxRegID: "",
 
@@ -770,11 +802,11 @@ router.get("/Register", function (req, res, next) {
         // 공급받는자 주소
         invoiceeAddr: "공급받는자 주소",
 
-        // 공급받는자 종목
-        invoiceeBizClass: "공급받는자 종목",
-
         // 공급받는자 업태
         invoiceeBizType: "공급받는자 업태",
+
+        // 공급받는자 종목
+        invoiceeBizClass: "공급받는자 종목",
 
         // 공급받는자 담당자명
         invoiceeContactName1: "공급받는자 담당자명",
@@ -790,51 +822,19 @@ router.get("/Register", function (req, res, next) {
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "",
 
-        // 역발행 요청시 알림문자 전송여부 (역발행에서만 사용가능)
-        // - 공급자 담당자 휴대폰번호(invoicerHP)로 전송
-        // - 전송시 포인트가 차감되며 전송실패하는 경우 포인트 환불처리
-        invoiceeSMSSendYN: false,
-
         /************************************************************************
-         *                           세금계산서 기재정보
+         *                         수정세금계산서 기재정보
+         * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
+         * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
+         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
          **************************************************************************/
 
-        // 공급가액 합계
-        supplyCostTotal: "10000",
+        // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
+        modifyCode: "",
 
-        // 세액합계
-        taxTotal: "1000",
+        // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
+        orgNTSConfirmNum: "",
 
-        // 합계금액 (공급가액 합계 + 세액 합계)
-        totalAmount: "11000",
-
-        // 기재 상 "일련번호"" 항목
-        serialNum: "123",
-
-        // 기재 상 "현금"" 항목
-        cash: "",
-
-        // 기재 상 "수표" 항목
-        chkBill: "",
-
-        // 기재 상 "어음" 항목
-        note: "",
-
-        // 기재 상 "외상" 항목
-        credit: "",
-
-        // 비고
-        // {invoiceeType}이 "외국인" 이면 remark1 필수
-        // - 외국인 등록번호 또는 여권번호 입력
-        remark1: "비고",
-        remark2: "비고2",
-        remark3: "비고3",
-
-        // 기재 상 "권" 항목, 최대값 32767
-        kwon: "",
-
-        // 기재 상 "호" 항목, 최대값 32767
-        ho: "",
 
         // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
         // └ true = 첨부 , false = 미첨부(기본값)
@@ -875,18 +875,7 @@ router.get("/Register", function (req, res, next) {
             },
         ],
 
-        /************************************************************************
-         *                         수정세금계산서 기재정보
-         * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
-         * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
-         **************************************************************************/
 
-        // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
-        modifyCode: "",
-
-        // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
-        orgNTSConfirmNum: "",
 
         /************************************************************************
          *                             추가담당자 정보
@@ -955,55 +944,94 @@ router.get("/Update", function (req, res, next) {
     // 세금계산서 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
     var mgtKey = "20220629-002";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 세금계산서 항목
     var Taxinvoice = {
-        // 작성일자, 날짜형식 yyyyMMdd
-        writeDate: "20250812",
+
+        // 발행형태, {정발행, 역발행, 위수탁} 중 기재
+        issueType: "정발행",
+
+        // 과세형태, {과세, 영세, 면세} 중 기재
+        taxType: "과세",
 
         // 과금방향, {정과금, 역과금}중 선택
         // - 정과금(공급자과금), 역과금(공급받는자과금)
         // - 역과금은 역발행 세금계산서를 발행하는 경우만 가능
         chargeDirection: "정과금",
 
-        // 발행형태, {정발행, 역발행, 위수탁} 중 기재
-        issueType: "정발행",
+        // 기재 상 "일련번호"" 항목
+        serialNum: "123",
+
+        // 기재 상 "권" 항목, 최대값 32767
+        kwon: "",
+
+        // 기재 상 "호" 항목, 최대값 32767
+        ho: "",
+
+        // 작성일자, 날짜형식 yyyyMMdd
+        writeDate: "20250812",
 
         // {영수, 청구, 없음} 중 기재
         purposeType: "영수",
 
-        // 과세형태, {과세, 영세, 면세} 중 기재
-        taxType: "과세",
+        // 공급가액 합계
+        supplyCostTotal: "10000",
+
+        // 세액합계
+        taxTotal: "1000",
+
+        // 합계금액 (공급가액 합계 + 세액 합계)
+        totalAmount: "11000",
+
+        // 기재 상 "현금"" 항목
+        cash: "",
+
+        // 기재 상 "수표" 항목
+        chkBill: "",
+
+        // 기재 상 "외상" 항목
+        credit: "",
+
+        // 기재 상 "어음" 항목
+        note: "",
+
+        // 비고
+        // {invoiceeType}이 "외국인" 이면 remark1 필수
+        // - 외국인 등록번호 또는 여권번호 입력
+        remark1: "비고",
+        remark2: "비고2",
+        remark3: "비고3",
+
 
         /************************************************************************
-         *                              공급자 정보
-         **************************************************************************/
-
-        // 공급자 사업자번호, "-" 제외 10자리
-        invoicerCorpNum: CorpNum,
+        *                              공급자 정보
+        **************************************************************************/
 
         // [정발행시 필수] 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
         invoicerMgtKey: mgtKey,
+
+        // 공급자 사업자번호, "-" 제외 10자리
+        invoicerCorpNum: CorpNum,
 
         // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
         invoicerTaxRegID: "",
 
         // 공급자 상호
-        invoicerCorpName: "공급자 상호_수정",
+        invoicerCorpName: "공급자 상호",
 
         // 대표자 성명
-        invoicerCEOName: "대표자 성명_수정",
+        invoicerCEOName: "대표자 성명",
 
         // 공급자 주소
         invoicerAddr: "공급자 주소",
 
-        // 공급자 종목
-        invoicerBizClass: "공급자 업종",
-
         // 공급자 업태
         invoicerBizType: "공급자 업태",
+
+        // 공급자 종목
+        invoicerBizClass: "공급자 업종",
 
         // 공급자 담당자명
         invoicerContactName: "공급자 담당자명",
@@ -1023,6 +1051,8 @@ router.get("/Update", function (req, res, next) {
         // - 전송 시 포인트 차감되며, 전송실패시 환불처리
         invoicerSMSSendYN: false,
 
+
+
         /************************************************************************
          *                           공급받는자 정보
          **************************************************************************/
@@ -1036,9 +1066,6 @@ router.get("/Update", function (req, res, next) {
         // - {invoiceeType}이 "외국인" 인 경우, "9999999999999" (하이픈 ("-") 제외 13자리)
         invoiceeCorpNum: "8888888888",
 
-        // [역발행시 필수] 공급받는자 문서번호
-        invoiceeMgtKey: "",
-
         // 공급받는자 종사업장 식별번호, 필요시 기재, 4자리 숫자
         invoiceeTaxRegID: "",
 
@@ -1051,11 +1078,11 @@ router.get("/Update", function (req, res, next) {
         // 공급받는자 주소
         invoiceeAddr: "공급받는자 주소",
 
-        // 공급받는자 종목
-        invoiceeBizClass: "공급받는자 종목",
-
         // 공급받는자 업태
         invoiceeBizType: "공급받는자 업태",
+
+        // 공급받는자 종목
+        invoiceeBizClass: "공급받는자 종목",
 
         // 공급받는자 담당자명
         invoiceeContactName1: "공급받는자 담당자명",
@@ -1071,51 +1098,19 @@ router.get("/Update", function (req, res, next) {
         // 실제 거래처의 메일주소가 기재되지 않도록 주의
         invoiceeEmail1: "",
 
-        // 역발행 요청시 알림문자 전송여부 (역발행에서만 사용가능)
-        // - 공급자 담당자 휴대폰번호(invoicerHP)로 전송
-        // - 전송시 포인트가 차감되며 전송실패하는 경우 포인트 환불처리
-        invoiceeSMSSendYN: false,
-
         /************************************************************************
-         *                           세금계산서 기재정보
+         *                         수정세금계산서 기재정보
+         * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
+         * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
+         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
          **************************************************************************/
 
-        // 공급가액 합계
-        supplyCostTotal: "10000",
+        // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
+        modifyCode: "",
 
-        // 세액합계
-        taxTotal: "1000",
+        // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
+        orgNTSConfirmNum: "",
 
-        // 합계금액 (공급가액 합계 + 세액 합계)
-        totalAmount: "11000",
-
-        // 기재 상 "일련번호"" 항목
-        serialNum: "123",
-
-        // 기재 상 "현금"" 항목
-        cash: "",
-
-        // 기재 상 "수표" 항목
-        chkBill: "",
-
-        // 기재 상 "어음" 항목
-        note: "",
-
-        // 기재 상 "외상" 항목
-        credit: "",
-
-        // 비고
-        // {invoiceeType}이 "외국인" 이면 remark1 필수
-        // - 외국인 등록번호 또는 여권번호 입력
-        remark1: "비고",
-        remark2: "비고2",
-        remark3: "비고3",
-
-        // 기재 상 "권" 항목, 최대값 32767
-        kwon: "",
-
-        // 기재 상 "호" 항목, 최대값 32767
-        ho: "",
 
         // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
         // └ true = 첨부 , false = 미첨부(기본값)
@@ -1156,18 +1151,7 @@ router.get("/Update", function (req, res, next) {
             },
         ],
 
-        /************************************************************************
-         *                         수정세금계산서 기재정보
-         * - 수정세금계산서를 작성하는 경우에만 값을 기재합니다.
-         * - 수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조
-         * - [참고] 수정세금계산서 작성방법 안내 - https://developers.popbill.com/guide/taxinvoice/node/introduction/modified-taxinvoice
-         **************************************************************************/
 
-        // [수정세금계산서 발행시 필수] 수정사유코드, 수정사유에 따라 1~6 숫자 기재
-        modifyCode: "",
-
-        // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
-        orgNTSConfirmNum: "",
 
         /************************************************************************
          *                             추가담당자 정보
@@ -1243,7 +1227,7 @@ router.get("/Issue", function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -1299,7 +1283,7 @@ router.get("/CancelIssue", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -1345,32 +1329,71 @@ router.get("/RegistRequest", function (req, res, next) {
 
     // 세금계산서 항목
     var Taxinvoice = {
-        // 작성일자, 날짜형식 yyyyMMdd
-        writeDate: "20250812",
+
+        // 발행형태, {정발행, 역발행, 위수탁} 중 기재
+        issueType: "역발행",
+
+        // 과세형태, {과세, 영세, 면세} 중 기재
+        taxType: "과세",
 
         // 과금방향, {정과금, 역과금}중 선택
         // - 정과금(공급자과금), 역과금(공급받는자과금)
         // - 역과금은 역발행 세금계산서를 발행하는 경우만 가능
         chargeDirection: "정과금",
 
-        // 발행형태, {정발행, 역발행, 위수탁} 중 기재
-        issueType: "역발행",
+        // 기재 상 "일련번호"" 항목
+        serialNum: "123",
+
+        // 기재 상 "권" 항목, 최대값 32767
+        kwon: "",
+
+        // 기재 상 "호" 항목, 최대값 32767
+        ho: "",
+
+        // 작성일자, 날짜형식 yyyyMMdd
+        writeDate: "20250812",
 
         // {영수, 청구, 없음} 중 기재
         purposeType: "영수",
 
-        // 과세형태, {과세, 영세, 면세} 중 기재
-        taxType: "과세",
+        // 공급가액 합계
+        supplyCostTotal: "10000",
+
+        // 세액합계
+        taxTotal: "1000",
+
+        // 합계금액 (공급가액 합계 + 세액 합계)
+        totalAmount: "11000",
+
+        // 기재 상 "현금"" 항목
+        cash: "",
+
+        // 기재 상 "수표" 항목
+        chkBill: "",
+
+        // 기재 상 "외상" 항목
+        credit: "",
+
+        // 기재 상 "어음" 항목
+        note: "",
+
+        // 비고
+        // {invoiceeType}이 "외국인" 이면 remark1 필수
+        // - 외국인 등록번호 또는 여권번호 입력
+        remark1: "",
+        remark2: "",
+        remark3: "",
+
 
         /************************************************************************
-         *                              공급자 정보
-         **************************************************************************/
-
-        // 공급자 사업자번호, "-" 제외 10자리
-        invoicerCorpNum: "8888888888",
+        *                              공급자 정보
+        **************************************************************************/
 
         // [정발행시 필수] 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
         invoicerMgtKey: "",
+
+        // 공급자 사업자번호, "-" 제외 10자리
+        invoicerCorpNum: "8888888888",
 
         // 공급자 종사업장 식별번호, 필요시 기재, 4자리 숫자
         invoicerTaxRegID: "",
@@ -1384,11 +1407,11 @@ router.get("/RegistRequest", function (req, res, next) {
         // 공급자 주소
         invoicerAddr: "공급자 주소",
 
-        // 공급자 종목
-        invoicerBizClass: "공급자 업종",
-
         // 공급자 업태
         invoicerBizType: "공급자 업태",
+
+        // 공급자 종목
+        invoicerBizClass: "공급자 업종",
 
         // 공급자 담당자명
         invoicerContactName: "공급자 담당자명",
@@ -1396,21 +1419,24 @@ router.get("/RegistRequest", function (req, res, next) {
         // 공급자 연락처
         invoicerTEL: "",
 
-        // 공급자 휴대폰번호
+        // 공급자 휴대폰
         invoicerHP: "",
 
-        // 공급자 메일주소
+        // 공급자 메일
         invoicerEmail: "",
 
-        // 발행 안내 문자 전송여부 (true / false 중 택 1)
+        // 공급자 알림문자 전송 여부
         // └ true = 전송 , false = 미전송
         // └ 공급받는자 (주)담당자 휴대폰번호 {invoiceeHP1} 값으로 문자 전송
         // - 전송 시 포인트 차감되며, 전송실패시 환불처리
         invoicerSMSSendYN: false,
 
         /************************************************************************
-         *                           공급받는자 정보
-         **************************************************************************/
+        *                           공급받는자 정보
+        **************************************************************************/
+
+        // [역발행시 필수] 공급받는자 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
+        invoiceeMgtKey: "20220629-100",
 
         // 공급받는자 구분, {사업자, 개인, 외국인} 중 기재
         invoiceeType: "사업자",
@@ -1420,9 +1446,6 @@ router.get("/RegistRequest", function (req, res, next) {
         // - {invoiceeType}이 "개인" 인 경우, 주민등록번호 (하이픈 ("-") 제외 13자리)
         // - {invoiceeType}이 "외국인" 인 경우, "9999999999999" (하이픈 ("-") 제외 13자리)
         invoiceeCorpNum: CorpNum,
-
-        // [역발행시 필수] 공급받는자 문서번호, 최대 24자리, 영문, 숫자 "-", "_"를 조합하여 사업자별로 중복되지 않도록 구성
-        invoiceeMgtKey: "20220629-100",
 
         // 공급받는자 종사업장 식별번호, 필요시 기재, 4자리 숫자
         invoiceeTaxRegID: "",
@@ -1436,11 +1459,11 @@ router.get("/RegistRequest", function (req, res, next) {
         // 공급받는자 주소
         invoiceeAddr: "공급받는자 주소",
 
-        // 공급받는자 종목
-        invoiceeBizClass: "공급받는자 종목",
-
         // 공급받는자 업태
         invoiceeBizType: "공급받는자 업태",
+
+        // 공급받는자 종목
+        invoiceeBizClass: "공급받는자 종목",
 
         // 공급받는자 담당자명
         invoiceeContactName1: "공급받는자 담당자명",
@@ -1460,47 +1483,6 @@ router.get("/RegistRequest", function (req, res, next) {
         // - 공급자 담당자 휴대폰번호(invoicerHP)로 전송
         // - 전송시 포인트가 차감되며 전송실패하는 경우 포인트 환불처리
         invoiceeSMSSendYN: false,
-
-        /************************************************************************
-         *                           세금계산서 기재정보
-         **************************************************************************/
-
-        // 공급가액 합계
-        supplyCostTotal: "10000",
-
-        // 세액합계
-        taxTotal: "1000",
-
-        // 합계금액 (공급가액 합계 + 세액 합계)
-        totalAmount: "11000",
-
-        // 기재 상 "일련번호"" 항목
-        serialNum: "123",
-
-        // 기재 상 "현금"" 항목
-        cash: "",
-
-        // 기재 상 "수표" 항목
-        chkBill: "",
-
-        // 기재 상 "어음" 항목
-        note: "",
-
-        // 기재 상 "외상" 항목
-        credit: "",
-
-        // 비고
-        // {invoiceeType}이 "외국인" 이면 remark1 필수
-        // - 외국인 등록번호 또는 여권번호 입력
-        remark1: "비고",
-        remark2: "비고2",
-        remark3: "비고3",
-
-        // 기재 상 "권" 항목, 최대값 32767
-        kwon: "",
-
-        // 기재 상 "호" 항목, 최대값 32767
-        ho: "",
 
         // 사업자등록증 이미지 첨부여부 (true / false 중 택 1)
         // └ true = 첨부 , false = 미첨부(기본값)
@@ -1554,11 +1536,6 @@ router.get("/RegistRequest", function (req, res, next) {
         // [수정세금계산서 발행시 필수] 원본세금계산서 국세청승인번호 기재
         orgNTSConfirmNum: "",
 
-        /************************************************************************
-         *                             추가담당자 정보
-         * - 세금계산서 발행안내 메일을 수신받을 공급받는자 담당자가 다수인 경우
-         * 추가 담당자 정보를 등록하여 발행안내메일을 다수에게 전송할 수 있습니다. (최대 5명)
-         **************************************************************************/
     };
 
     // 메모
@@ -1599,7 +1576,7 @@ router.get("/Request", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.BUY;
 
     // 문서번호
@@ -1641,7 +1618,7 @@ router.get("/CancelRequest", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.BUY;
 
     // 문서번호
@@ -1681,7 +1658,7 @@ router.get("/Refuse", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -1723,7 +1700,7 @@ router.get("/Delete", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -1761,7 +1738,7 @@ router.get("/SendToNTS", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -1799,7 +1776,7 @@ router.get("/GetInfo", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -1836,7 +1813,7 @@ router.get("/GetInfos", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호 배열, 최대 1000건
@@ -1871,7 +1848,7 @@ router.get("/GetDetailInfo", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -1906,7 +1883,7 @@ router.get("/GetXML", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -1944,7 +1921,7 @@ router.get("/Search", function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 일자유형 ("R" , "W" , "I" 중 택 1)
@@ -2073,7 +2050,7 @@ router.get("/GetLogs", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2145,7 +2122,7 @@ router.get("/GetPopUpURL", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2185,7 +2162,7 @@ router.get("/GetViewURL", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2225,7 +2202,7 @@ router.get("/GetPrintURL", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2255,45 +2232,6 @@ router.get("/GetPrintURL", function (req, res, next) {
     );
 });
 
-/**
- * 세금계산서 1건을 구버전 양식으로 인쇄하기 위한 페이지의 팝업 URL을 반환하며, 페이지내에서 인쇄 설정값을 "공급자" / "공급받는자" / "공급자+공급받는자"용 중 하나로 지정할 수 있습니다..
- * - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
- * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetOldPrintURL
- */
-router.get("/GetOldPrintURL", function (req, res, next) {
-
-    // 팝빌회원 사업자번호, "-" 제외 10자리
-    var CorpNum = "1234567890";
-
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
-    var keyType = popbill.MgtKeyType.SELL;
-
-    // 문서번호
-    var mgtKey = "20240508-test-001";
-
-    // 팝빌회원 아이디
-    var UserID = "testkorea";
-
-    taxinvoiceService.getOldPrintURL(
-        CorpNum,
-        keyType,
-        mgtKey,
-        UserID,
-        function (url) {
-            res.render("result", {
-                path: req.path,
-                result: url,
-            });
-        },
-        function (Error) {
-            res.render("response", {
-                path: req.path,
-                code: Error.code,
-                message: Error.message,
-            });
-        }
-    );
-});
 
 /**
  * "공급받는자" 용 세금계산서 1건을 인쇄하기 위한 페이지의 팝업 URL을 반환합니다.
@@ -2305,7 +2243,7 @@ router.get("/GetEPrintURL", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2345,7 +2283,7 @@ router.get("/GetMassPrintURL", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호 배열, 최대 100건
@@ -2385,7 +2323,7 @@ router.get("/GetMailURL", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2425,7 +2363,7 @@ router.get("/GetPDFURL", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2528,7 +2466,7 @@ router.get("/AttachFile", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2575,7 +2513,7 @@ router.get("/AttachFileBinary", function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2652,7 +2590,7 @@ router.get("/DeleteFile", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2692,7 +2630,7 @@ router.get("/GetFiles", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2727,7 +2665,7 @@ router.get("/SendEmail", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2771,7 +2709,7 @@ router.get("/SendSMS", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2821,7 +2759,7 @@ router.get("/SendFAX", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2865,7 +2803,7 @@ router.get("/AttachStatement", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2909,7 +2847,7 @@ router.get("/DetachStatement", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 문서번호
@@ -2953,7 +2891,7 @@ router.get("/AssignMgtKey", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 발행유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
+    // 문서번호 유형, SELL:매출, BUY:매입, TRUSTEE:위수탁
     var keyType = popbill.MgtKeyType.SELL;
 
     // 세금계산서 팝빌번호, 문서 목록조회(Search) API의 반환항목중 ItemKey 참조
@@ -3014,33 +2952,6 @@ router.get("/ListEmailConfig", function (req, res, next) {
 /**
  * 세금계산서 관련 메일 항목에 대한 발송설정을 수정합니다.
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#UpdateEmailConfig
- *
- * 메일전송유형
- *
- * [정발행]
- * TAX_ISSUE_INVOICER : 공급자에게 전자세금계산서 발행 사실을 안내하는 메일
- * TAX_CHECK : 공공급자에게 전자세금계산서 수신확인 사실을 안내하는 메일
- * TAX_CANCEL_ISSUE : 공급받는자에게 전자세금계산서 발행취소 사실을 안내하는 메일
- *
- * [역발행]
- * TAX_REQUEST : 공급자에게 전자세금계산서를 발행을 요청하는 메일
- * TAX_CANCEL_REQUEST : 공급받는자에게 전자세금계산서 취소 사실을 안내하는 메일
- * TAX_REFUSE : 공급받는자에게 전자세금계산서 거부 사실을 안내하는 메일
- * TAX_REVERSE_ISSUE : 공급받는자에게 전자세금계산서 발행 사실을 안내하는 메일
- *
- * [위수탁발행]
- * TAX_TRUST_ISSUE : 공급받는자에게 전자세금계산서 발행 사실을 안내하는 메일
- * TAX_TRUST_ISSUE_TRUSTEE : 수탁자에게 전자세금계산서 발행 사실을 안내하는 메일
- * TAX_TRUST_ISSUE_INVOICER : 공급자에게 전자세금계산서 발행 사실을 안내하는 메일
- * TAX_TRUST_CANCEL_ISSUE : 공급받는자에게 전자세금계산서 발행취소 사실을 안내하는 메일
- * TAX_TRUST_CANCEL_ISSUE_INVOICER : 공급자에게 전자세금계산서 발행취소 사실을 안내하는 메일
- *
- * [처리결과]
- * TAX_CLOSEDOWN : 거래처의 사업자등록상태(휴폐업)를 확인하여 안내하는 메일
- * TAX_NTSFAIL_INVOICER : 전자세금계산서 국세청 전송실패를 안내하는 메일
- *
- * [정기발송]
- * ETC_CERT_EXPIRATION : 팝빌에 등록된 인증서의 만료예정을 안내하는 메일
  */
 router.get("/UpdateEmailConfig", function (req, res, next) {
 
@@ -3513,12 +3424,14 @@ router.get("/CheckID", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#JoinMember
  */
 router.get("/JoinMember", function (req, res, next) {
+
     // 회원정보
     var JoinForm = {
-        // 회원 아이디 (6자 이상 50자 미만)
+
+        // 아이디
         ID: "expres-test-id",
 
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        // 비밀번호
         Password: "popbill!2",
 
         // 링크아이디
@@ -3545,10 +3458,10 @@ router.get("/JoinMember", function (req, res, next) {
         // 담당자 성명 (최대 100자)
         ContactName: "담당자 성명",
 
-        // 담당자 이메일 (최대 20자)
+        // 담당자 메일 (최대 20자)
         ContactEmail: "test@test.com",
 
-        // 담당자 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         ContactTEL: "01012341234",
     };
 
@@ -3609,6 +3522,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
 
     // 회사정보
     var CorpInfo = {
+
         // 대표자명 (최대 100자)
         ceoname: "대표자성명_nodejs",
 
@@ -3656,22 +3570,23 @@ router.get("/RegistContact", function (req, res, next) {
 
     // 담당자 정보
     var ContactInfo = {
-        // 아이디 (6자 이상 50자 미만)
+
+        // 아이디
         id: "testkorea20250811_01",
 
-        // 비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+        // 비밀번호
         Password: "asdf8536!@#",
 
-        // 담당자명 (최대 100자)
+        // 담당자 성명 (최대 100자)
         personName: "담당자명0309",
 
-        // 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         tel: "010-1234-1234",
 
-        // 이메일 (최대 100자)
+        // 담당자 메일 (최대 100자)
         email: "test@email.com",
 
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        // 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
 
@@ -3710,8 +3625,6 @@ router.get("/DeleteContact", function (req, res, next) {
     // 팝빌회원 아이디
     var UserID = "testkorea";
 
-
-
     taxinvoiceService.deleteContact(
         CorpNum,
         TargetUserID,
@@ -3748,19 +3661,20 @@ router.get("/UpdateContact", function (req, res, next) {
 
     // 담당자 정보 항목
     var ContactInfo = {
-        // 담당자 아이디 (6자 이상 50자 이하)
+
+        // 아이디
         id: UserID,
 
-        // 담당자명 (최대 100자)
+        // 담당자 성명 (최대 100자)
         personName: "담당자명0319",
 
-        // 연락처 (최대 20자)
+        // 담당자 휴대폰 (최대 20자)
         tel: "010-1234-1234",
 
-        // 이메일 (최대 100자)
+        // 담당자 메일 (최대 100자)
         email: "test@email.com",
 
-        // 담당자 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
+        // 권한, 1 : 개인권한, 2 : 읽기권한, 3 : 회사권한
         searchRole: 3,
     };
 
