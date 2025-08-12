@@ -18,8 +18,8 @@
         %>
             <fieldset class="fieldset2">
                 <ul>
-                    <li>state (전송상태 코드) : <%= result.state %></li>
-                    <li>result (전송결과 코드) : <%= result.result %></li>
+                    <li>state (상태코드) : <%= result.state %></li>
+                    <li>result (결과코드) : <%= result.result %></li>
                     <li>sendNum (발신번호) : <%= result.sendNum %></li>
                     <li>senderName (발신자명) : <%= result.senderName %></li>
                     <li>receiveNum (수신번호) : <%= result.receiveNum %></li>
@@ -29,10 +29,9 @@
                     <li>sendPageCnt (전체 페이지수) : <%= result.sendPageCnt %></li>
                     <li>successPageCnt (성공 페이지수) : <%= result.successPageCnt %></li>
                     <li>failPageCnt (실패 페이지수) : <%= result.failPageCnt %></li>
-                    <li>refundPageCnt (환불 페이지수) : <%= result.refundPageCnt %></li>
                     <li>cancelPageCnt (취소 페이지수) : <%= result.cancelPageCnt %></li>
-                    <li>receiptDT (접수일시) : <%= result.receiptDT %></li>
                     <li>reserveDT (예약일시) : <%= result.reserveDT %></li>
+                    <li>receiptDT (접수일시) : <%= result.receiptDT %></li>
                     <li>sendDT (전송일시) : <%= result.sendDT %></li>
                     <li>resultDT (전송결과 수신일시) : <%= result.resultDT %></li>
                     <li>fileNames (전송 파일명 리스트) : <%= result.fileNames %></li>
@@ -40,6 +39,7 @@
                     <li>requestNum (요청번호) : <%= result.requestNum %></li>
                     <li> interOPRefKey (파트너 지정키) : <%= result.interOPRefKey %></li>
                     <li>chargePageCnt (과금 페이지수) : <%= result.chargePageCnt %></li>
+                    <li>refundPageCnt (환불 페이지수) : <%= result.refundPageCnt %></li>
                     <li>tiffFileSize (변환파일용량 (단위 : byte)) : <%= result.tiffFileSize %></li>
                 </ul>
             </fieldset>
