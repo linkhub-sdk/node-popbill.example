@@ -21,9 +21,6 @@
                     <% if(emailConfig.emailType === "CSH_ISSUE") { %>
                         <li><%= emailConfig.emailType %> (고객에게 현금영수증이 발행 되었음을 알려주는 메일 전송 여부) : <%= emailConfig.sendYN %></li>
                     <% } %>
-                    <% if(emailConfig.emailType === "CSH_CANCEL") { %>
-                        <li><%= emailConfig.emailType %> (고객에게 현금영수증이 발행취소 되었음을 알려주는 메일 전송 여부) : <%= emailConfig.sendYN %></li>
-                    <% } %>
                 <%
                 });
                 %>
