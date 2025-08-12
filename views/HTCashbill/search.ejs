@@ -16,9 +16,9 @@
             <li>code (응답코드) : <%= result.code %></li>
             <li>message (응답메시지) : <%= result.message %></li>
             <li>total (총 검색결과 건수) : <%= result.total %></li>
-            <li>perPage (페이지당 검색개수) : <%= result.perPage %></li>
-            <li>pageNum (페이지번호) : <%= result.pageNum %></li>
-            <li>pageCount (페이지개수) : <%= result.pageCount %></li>
+            <li>perPage (페이지당 목록 건수) : <%= result.perPage %></li>
+            <li>pageNum (페이지 번호) : <%= result.pageNum %></li>
+            <li>pageCount (페이지 개수) : <%= result.pageCount %></li>
 
             <%
             result.list.forEach(function(info, index){
@@ -35,13 +35,13 @@
                         <li>supplyCost (공급가액) : <%= info.supplyCost %></li>
                         <li>tax (부가세) : <%= info.tax %></li>
                         <li>serviceFee (봉사료) : <%= info.serviceFee %></li>
-                        <li>invoiceType (매입/매출) : <%= info.invoiceType %></li>
-                        <li>franchiseCorpNum (발행자 사업자번호) : <%= info.franchiseCorpNum %></li>
-                        <li>franchiseCorpName (발행자 상호) : <%= info.franchiseCorpName %></li>
-                        <li>franchiseCorpType (발행자 사업자유형) : <%= info.franchiseCorpType %></li>
-                        <li>identityNum (거래처 식별번호) : <%= info.identityNum %></li>
-                        <li>identityNumType (식별번호유형) : <%= info.identityNumType %></li>
-                        <li>customerName (고객명) : <%= info.customerName %></li>
+                        <li>invoiceType (현금영수증 유형) : <%= info.invoiceType %></li>
+                        <li>franchiseCorpNum (가맹점 사업자번호) : <%= info.franchiseCorpNum %></li>
+                        <li>franchiseCorpName (가맹점 상호) : <%= info.franchiseCorpName %></li>
+                        <li>franchiseCorpType (가맹점 사업자유형) : <%= info.franchiseCorpType %></li>
+                        <li>identityNum (식별번호) : <%= info.identityNum %></li>
+                        <li>identityNumType (식별번호 유형) : <%= info.identityNumType %></li>
+                        <li>customerName (구매자 성명) : <%= info.customerName %></li>
                         <li>cardOwnerName (카드소유자명) : <%= info.cardOwnerName %></li>
                         <li>deductionType (공제유형) : <%= info.deductionType %></li>
                     </ul>
