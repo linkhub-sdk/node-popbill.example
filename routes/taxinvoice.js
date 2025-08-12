@@ -30,6 +30,7 @@ router.get("/", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#CheckMgtKeyInUse
  */
 router.get("/CheckMgtKeyInUse", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -69,6 +70,7 @@ router.get("/CheckMgtKeyInUse", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#RegistIssue
  */
 router.get("/RegistIssue", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -339,6 +341,7 @@ router.get("/RegistIssue", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#BulkSubmit
  */
 router.get("/BulkSubmit", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -629,6 +632,7 @@ router.get("/BulkSubmit", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#GetBulkResult
  */
 router.get("/GetBulkResult", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -666,6 +670,7 @@ router.get("/GetBulkResult", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#Register
  */
 router.get("/Register", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -943,6 +948,7 @@ router.get("/Register", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#Update
  */
 router.get("/Update", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1230,6 +1236,7 @@ router.get("/Update", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#Issue
  */
 router.get("/Issue", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1288,6 +1295,7 @@ router.get("/Issue", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#CancelIssue
  */
 router.get("/CancelIssue", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1331,6 +1339,7 @@ router.get("/CancelIssue", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#RegistRequest
  */
 router.get("/RegistRequest", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1586,6 +1595,7 @@ router.get("/RegistRequest", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#Request
  */
 router.get("/Request", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1627,6 +1637,7 @@ router.get("/Request", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#CancelRequest
  */
 router.get("/CancelRequest", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1666,6 +1677,7 @@ router.get("/CancelRequest", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#Refuse
  */
 router.get("/Refuse", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1707,6 +1719,7 @@ router.get("/Refuse", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#Delete
  */
 router.get("/Delete", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1744,6 +1757,7 @@ router.get("/Delete", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/issue#SendToNTS
  */
 router.get("/SendToNTS", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1781,6 +1795,7 @@ router.get("/SendToNTS", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetInfo
  */
 router.get("/GetInfo", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1817,6 +1832,7 @@ router.get("/GetInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetInfos
  */
 router.get("/GetInfos", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1851,6 +1867,7 @@ router.get("/GetInfos", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetDetailInfo
  */
 router.get("/GetDetailInfo", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1885,6 +1902,7 @@ router.get("/GetDetailInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetXML
  */
 router.get("/GetXML", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -1919,6 +1937,7 @@ router.get("/GetXML", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#Search
  */
 router.get("/Search", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2050,6 +2069,7 @@ router.get("/Search", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetLogs
  */
 router.get("/GetLogs", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2085,6 +2105,7 @@ router.get("/GetLogs", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/info#GetURL
  */
 router.get("/GetURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2120,6 +2141,7 @@ router.get("/GetURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetPopUpURL
  */
 router.get("/GetPopUpURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2159,6 +2181,7 @@ router.get("/GetPopUpURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetViewURL
  */
 router.get("/GetViewURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2198,6 +2221,7 @@ router.get("/GetViewURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetPrintURL
  */
 router.get("/GetPrintURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2237,6 +2261,7 @@ router.get("/GetPrintURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetOldPrintURL
  */
 router.get("/GetOldPrintURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2276,6 +2301,7 @@ router.get("/GetOldPrintURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetEPrintURL
  */
 router.get("/GetEPrintURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2315,6 +2341,7 @@ router.get("/GetEPrintURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetMassPrintURL
  */
 router.get("/GetMassPrintURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2354,6 +2381,7 @@ router.get("/GetMassPrintURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/view#GetMailURL
  */
 router.get("/GetMailURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2393,6 +2421,7 @@ router.get("/GetMailURL", function (req, res, next) {
  * -  https://developers.popbill.com/reference/taxinvoice/node/api/view#GetPDFURL
  */
 router.get("/GetPDFURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2432,6 +2461,7 @@ router.get("/GetPDFURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#GetAccessURL
  */
 router.get("/GetAccessURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2463,6 +2493,7 @@ router.get("/GetAccessURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#GetSealURL
  */
 router.get("/GetSealURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2493,6 +2524,7 @@ router.get("/GetSealURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#AttachFile
  */
 router.get("/AttachFile", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2536,6 +2568,7 @@ router.get("/AttachFile", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#AttachFileBinary
  */
 router.get("/AttachFileBinary", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2615,6 +2648,7 @@ router.get("/AttachFileBinary", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#DeleteFile
  */
 router.get("/DeleteFile", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2654,6 +2688,7 @@ router.get("/DeleteFile", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#GetFiles
  */
 router.get("/GetFiles", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2688,6 +2723,7 @@ router.get("/GetFiles", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#SendEmail
  */
 router.get("/SendEmail", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2731,6 +2767,7 @@ router.get("/SendEmail", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#SendSMS
  */
 router.get("/SendSMS", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2780,6 +2817,7 @@ router.get("/SendSMS", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#SendFAX
  */
 router.get("/SendFAX", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2823,6 +2861,7 @@ router.get("/SendFAX", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#AttachStatement
  */
 router.get("/AttachStatement", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2866,6 +2905,7 @@ router.get("/AttachStatement", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#DetachStatement
  */
 router.get("/DetachStatement", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2909,6 +2949,7 @@ router.get("/DetachStatement", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#AssignMgtKey
  */
 router.get("/AssignMgtKey", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -2948,6 +2989,7 @@ router.get("/AssignMgtKey", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#ListEmailConfig
  */
 router.get("/ListEmailConfig", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3001,6 +3043,7 @@ router.get("/ListEmailConfig", function (req, res, next) {
  * ETC_CERT_EXPIRATION : 팝빌에 등록된 인증서의 만료예정을 안내하는 메일
  */
 router.get("/UpdateEmailConfig", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3038,6 +3081,7 @@ router.get("/UpdateEmailConfig", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/etc#GetSendToNTSConfig
  */
 router.get("/GetSendToNTSConfig", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3066,6 +3110,7 @@ router.get("/GetSendToNTSConfig", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/cert#GetTaxCertURL
  */
 router.get("/GetTaxCertURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3096,6 +3141,7 @@ router.get("/GetTaxCertURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/cert#GetCertificateExpireDate
  */
 router.get("/GetCertificateExpireDate", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3122,6 +3168,7 @@ router.get("/GetCertificateExpireDate", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/cert#CheckCertValidation
  */
 router.get("/CheckCertValidation", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3149,6 +3196,7 @@ router.get("/CheckCertValidation", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/api/cert#GetTaxCertInfo
  */
 router.get("/GetTaxCertInfo", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3175,6 +3223,7 @@ router.get("/GetTaxCertInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetBalance
  */
 router.get("/GetBalance", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3202,6 +3251,7 @@ router.get("/GetBalance", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetChargeURL
  */
 router.get("/GetChargeURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3233,6 +3283,7 @@ router.get("/GetChargeURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetPaymentURL
  */
 router.get("/GetPaymentURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3264,6 +3315,7 @@ router.get("/GetPaymentURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetUseHistoryURL
  */
 router.get("/GetUseHistoryURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3294,6 +3346,7 @@ router.get("/GetUseHistoryURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetPartnerBalance
  */
 router.get("/GetPartnerBalance", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3321,6 +3374,7 @@ router.get("/GetPartnerBalance", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetPartnerURL
  */
 router.get("/GetPartnerURL", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3351,6 +3405,7 @@ router.get("/GetPartnerURL", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetUnitCost
  */
 router.get("/GetUnitCost", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3377,6 +3432,7 @@ router.get("/GetUnitCost", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetChargeInfo
  */
 router.get("/GetChargeInfo", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3520,6 +3576,7 @@ router.get("/JoinMember", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#GetCorpInfo
  */
 router.get("/GetCorpInfo", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3546,6 +3603,7 @@ router.get("/GetCorpInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#UpdateCorpInfo
  */
 router.get("/UpdateCorpInfo", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3592,6 +3650,7 @@ router.get("/UpdateCorpInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#RegistContact
  */
 router.get("/RegistContact", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3641,6 +3700,7 @@ router.get("/RegistContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#DeleteContact
  */
 router.get("/DeleteContact", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3679,6 +3739,7 @@ router.get("/DeleteContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#UpdateContact
  */
 router.get("/UpdateContact", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3729,6 +3790,7 @@ router.get("/UpdateContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#GetContactInfo
  */
 router.get("/GetContactInfo", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3759,6 +3821,7 @@ router.get("/GetContactInfo", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#ListContact
  */
 router.get("/ListContact", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3785,6 +3848,7 @@ router.get("/ListContact", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#PaymentRequest
  */
 router.get("/PaymentRequest", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3834,6 +3898,7 @@ router.get("/PaymentRequest", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetSettleResult
  */
 router.get("/GetSettleResult", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3868,6 +3933,7 @@ router.get("/GetSettleResult", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetPaymentHistory
  */
 router.get("/GetPaymentHistory", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3914,6 +3980,7 @@ router.get("/GetPaymentHistory", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetUseHistory
  */
 router.get("/GetUseHistory", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -3964,6 +4031,7 @@ router.get("/GetUseHistory", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#Refund
  */
 router.get("/Refund", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -4021,6 +4089,7 @@ router.get("/Refund", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetRefundHistory
  */
 router.get("/GetRefundHistory", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -4062,6 +4131,7 @@ router.get("/GetRefundHistory", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/member#QuitMember
  */
 router.get("/QuitMember", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "0000008402";
 
@@ -4097,6 +4167,7 @@ router.get("/QuitMember", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetRefundableBalance
  */
 router.get("/GetRefundableBalance", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
@@ -4127,6 +4198,7 @@ router.get("/GetRefundableBalance", function (req, res, next) {
  * - https://developers.popbill.com/reference/taxinvoice/node/common-api/point#GetRefundInfo
  */
 router.get("/GetRefundInfo", function (req, res, next) {
+
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
