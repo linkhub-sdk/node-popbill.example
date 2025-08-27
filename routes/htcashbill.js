@@ -314,7 +314,7 @@ router.get("/CheckCertValidation", function (req, res, next) {
 });
 
 /**
- * 홈택스수집 인증을 위해 팝빌에 현금영수증 자료조회 부서사용자 계정을 등록합니다.
+ * 팝빌에 현금영수증 전용 부서사용자를 등록합니다.
  * - https://developers.popbill.com/reference/htcashbill/node/api/cert#RegistDeptUser
  */
 router.get("/RegistDeptUser", function (req, res, next) {
@@ -322,16 +322,20 @@ router.get("/RegistDeptUser", function (req, res, next) {
     // 팝빌회원 사업자번호, "-" 제외 10자리
     var CorpNum = "1234567890";
 
-    // 홈택스에서 생성한 현금영수증 부서사용자 아이디
+    // 부서사용자 아이디
     var deptUserID = "testkorea";
 
-    // 홈택스에서 생성한 현금영수증 부서사용자 비밀번호
+    // 부서사용자 비밀번호
     var deptUserPWD = "passwd";
+
+    // 부서사용자 대표자 주민번호
+    var identityNum = "";
 
     htCashbillService.registDeptUser(
         CorpNum,
         deptUserID,
         deptUserPWD,
+        identityNum,
         function (result) {
             res.render("response", {
                 path: req.path,
