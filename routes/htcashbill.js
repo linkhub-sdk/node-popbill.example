@@ -331,11 +331,15 @@ router.get("/RegistDeptUser", function (req, res, next) {
     // 부서사용자 대표자 주민번호
     var identityNum = "";
 
+    // 팝빌회원 아이디
+    var userID = "testkorea";
+
     htCashbillService.registDeptUser(
         CorpNum,
         deptUserID,
         deptUserPWD,
         identityNum,
+        userID,
         function (result) {
             res.render("response", {
                 path: req.path,
